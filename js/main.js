@@ -2,7 +2,7 @@ var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 
 var canvas, context, scale = 1;
-var viewport;
+var viewport, sceneManager;
 var shape, body;
 
 // initialize canvas and context
@@ -11,7 +11,9 @@ function init(){
 	canvas.width = SCREEN_WIDTH - 400;
 	canvas.height = SCREEN_HEIGHT - 100;
 
-	viewport = Viewport.getInstance(canvas);
+	sceneManager = SceneManager.getInstance();
+
+	viewport = Viewport.getInstance(canvas, sceneManager);
 	context = viewport.getRenderer().context;
 
 	viewport.canvas.addEventListener("mousewheel", function(e){
@@ -25,6 +27,12 @@ function init(){
 	});
 	viewport.canvas.addEventListener("mouseup", function(e){
 		viewport.onMouseUp(e);
+	});
+	viewport.canvas.addEventListener("click", function(e){
+		viewport.onClick(e);
+	});
+	viewport.canvas.addEventListener("dblclick", function(e){
+		viewport.onDoubleClick(e);
 	});
 
 	var size = 10;
@@ -46,6 +54,9 @@ function init(){
 	body.addShape(shape);
 	body.addShape(s);
 	body.move(200, 200);
+	s.move(100, 100);
+
+	sceneManager.addBody(body);
 }
 
 // update loop 

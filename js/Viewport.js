@@ -1,4 +1,4 @@
-var Viewport = (function(canvas){
+var Viewport = (function(){
 
 	function InputHandler(){
 		// mouse tracking variables
@@ -52,7 +52,7 @@ var Viewport = (function(canvas){
 		// world parametes to screen
 		var width = bounds[2] * this.scale;
 		var height = bounds[3] * this.scale;
-		var position = worldPointToScreen(bounds[0], bounds[1]);
+		var position = this.worldPointToScreen(bounds[0], bounds[1]);
 		// ------------------------- //
 		return ((x >= position[0] - width / 2 && x <= position[0] + width / 2) & (y >= position[1] - height / 2 && y <= position[1] + height / 2));
 	};
@@ -173,12 +173,13 @@ var Viewport = (function(canvas){
 		return this.context;
 	};
 
-	function Viewport(canvas){
+	function Viewport(canvas, sceneManager){
 		this.canvas = canvas;
 		this.context = canvas.getContext("2d");
 		this.navigator = new Navigator();
 		this.inputHandler = new InputHandler();
 		this.renderer = new Renderer(this.context);
+		this.sceneManager = sceneManager;
 
 		// prevent default right click behaviour
 		this.canvas.addEventListener("contextmenu", function(e){
@@ -210,7 +211,7 @@ var Viewport = (function(canvas){
 	};
 
 	Viewport.prototype.onMouseMove = function(e){
-		var inputHandler = this.inputHandler, navigator = this.navigator;
+		var inputHandler = this.inputHandler, navigator = this.navigator, sceneManager = this.sceneManager;
 		if (inputHandler.mouseStatus[0]){
 			inputHandler.selectionArea[2] = (e.offsetX - inputHandler.selectionArea[0]);
 			inputHandler.selectionArea[3] = (e.offsetY - inputHandler.selectionArea[1]);
@@ -222,23 +223,34 @@ var Viewport = (function(canvas){
 			inputHandler.delta[1] = inputHandler.current[1] - inputHandler.start[1];
 			inputHandler.delta[1] *= inputHandler.mouseSensitivity / navigator.scale;
 
-			// if (editBody){
-			// 	selection.move(delta[0], delta[1]);
-			// }
-			// else {
-				if (inputHandler.mouseStatus[1] == InputHandler.IS_RIGHT_MOUSE_BUTTON){
-					navigator.panning[0] += inputHandler.delta[0];
-					navigator.panning[1] += inputHandler.delta[1];
+			// panning
+			if (inputHandler.mouseStatus[1] == InputHandler.IS_RIGHT_MOUSE_BUTTON){
+				navigator.panning[0] += inputHandler.delta[0];
+				navigator.panning[1] += inputHandler.delta[1];
 
-					inputHandler.selectionArea[2] = 0;
-					inputHandler.selectionArea[3] = 0;
+				inputHandler.selectionArea[2] = 0;
+				inputHandler.selectionArea[3] = 0;
+			}
+
+			// edit bodies and shapes
+			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+					sceneManager.selectedBodies[i].move(inputHandler.delta[0], inputHandler.delta[1]);
 				}
-			// }
+			}
+			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+				for (var i = 0; i < sceneManager.selectedShapes.length; i++){
+					sceneManager.selectedShapes[i].move(inputHandler.delta[0], inputHandler.delta[1]);
+				}
+			}
+			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
+				for (var i = 0; i < sceneManager.selectedVertices.length; i++){
+					sceneManager.selectedVertices[i].move(inputHandler.delta[0], inputHandler.delta[1]);
+				}
+			} 
 
 			inputHandler.start[0] = inputHandler.current[0];
 			inputHandler.start[1] = inputHandler.current[1];
-
-			return;
 		}
 
 		// check for bodies and shape
@@ -266,6 +278,78 @@ var Viewport = (function(canvas){
 
 		inputHandler.selectionArea = [0, 0, 0, 0, 0];
 	};
+
+	Viewport.prototype.onClick = function(e){
+		var sceneManager = this.sceneManager,
+			inputHandler = this.inputHandler;
+
+		if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+			sceneManager.selectedShapes = [];
+			for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
+				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
+					sceneManager.selectedBodies[0].shapes[i].isSelected = true;
+					sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
+					break;
+				}
+				else {
+					sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+					sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
+				}
+			}
+			return;
+		}
+
+		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+			for (var i = 0; i < sceneManager.bodies.length; i++){
+				sceneManager.selectedBodies = [];
+				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
+					sceneManager.bodies[i].isSelected = true;
+					sceneManager.selectedBodies[0] = sceneManager.bodies[i];
+					break;
+				}
+				else {
+					sceneManager.bodies[i].isSelected = false;	
+				}
+			}
+		}		
+	}
+
+	Viewport.prototype.onDoubleClick = function(e){
+		var sceneManager = this.sceneManager,
+			inputHandler = this.inputHandler;
+
+		if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+			sceneManager.selectedShapes = [];
+			for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
+				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
+					sceneManager.selectedBodies[0].shapes[i].isSelected = true;
+					sceneManager.selectedBodies[0].shapes[i].inEditMode = true;
+					sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
+					sceneManager.state = sceneManager.STATE_SHAPE_EDIT_MODE;
+					return;
+				}
+				else {
+					sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+					sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
+				}
+			}
+		}
+
+		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+			for (var i = 0; i < sceneManager.bodies.length; i++){
+				sceneManager.selectedBodies = [];
+				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
+					sceneManager.bodies[i].isSelected = true;
+					sceneManager.selectedBodies[0] = sceneManager.bodies[i];
+					sceneManager.state = sceneManager.STATE_BODY_EDIT_MODE;
+					break;
+				}
+				else {
+					sceneManager.bodies[i].isSelected = false;	
+				}
+			}
+		}
+	}
 
 	// viewport scaling
 	Viewport.prototype.onMouseWheel = function(e){
@@ -349,7 +433,7 @@ var Viewport = (function(canvas){
     return {
         getInstance: function(){
             if (instance == null) {
-                instance = new Viewport(canvas);
+                instance = new Viewport(canvas, sceneManager);
                 // Hide the constructor so the returned objected can't be new'd...
                 instance.constructor = null;
             }
@@ -357,4 +441,4 @@ var Viewport = (function(canvas){
         }
    	};
 
-})(canvas);
+})();
