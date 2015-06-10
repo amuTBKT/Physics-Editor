@@ -11,7 +11,7 @@ function init(){
 	canvas.height = SCREEN_HEIGHT - 100;
 
 	viewport = Viewport.getInstance(canvas);
-	context = viewport.getContext();
+	context = viewport.getRenderer().context;
 
 	viewport.canvas.addEventListener("mousewheel", function(e){
 		viewport.onMouseWheel(e);
@@ -29,15 +29,11 @@ function init(){
 
 // update loop 
 function render() {
-	scale = viewport.getNavigator().scale;
 
-	context.fillStyle = "rgba(1, 0, 0, 0)";
-	context.clearRect(viewport.getNavigator().origin[0], viewport.getNavigator().origin[1], SCREEN_WIDTH / scale, SCREEN_WIDTH / scale);
-	context.fillRect(viewport.getNavigator().origin[0], viewport.getNavigator().origin[1], SCREEN_WIDTH / scale, SCREEN_HEIGHT / scale);
+	viewport.draw();
 
-	context.save();
-	context.translate(viewport.getNavigator().panning[0], viewport.getNavigator().panning[1]);
 	context.strokeRect( 10,  10, SCREEN_WIDTH - 400 - 20, SCREEN_HEIGHT - 100 - 20);
+	
 	context.restore();
 
 	setTimeout(render, 1000.0 / 60.0);
