@@ -8,6 +8,7 @@ var Viewport = (function(canvas){
 		this.mouseSensitivity = 1;					// navigation speed, depends on scale of the viewport
 		this.mouseStatus = [0, 0];					// [is_down, is_left = 1 or is_right = 2]
 		this.selectionArea = [0, 0, 0, 0, 0];		// [x, y, width, height, is_active]
+		this.selection = []							// array of selected objects
 	}
 
 	InputHandler.IS_LEFT_MOUSE_BUTTON = 1;
@@ -71,20 +72,40 @@ var Viewport = (function(canvas){
 			this.context.strokeStyle = "#0f0";
 			
 			this.context.lineWidth = 5;
-			this.renderBox(v.x, v.y, v.width, v.height);
-			this.context.lineWidth = 1.0;
+			this.renderBox(v.x, v.y, v.width, v.height, false);
+			this.context.lineWidth = 1;
 			
 			// reset
 			this.context.strokeStyle = "#000";
 		}
+
+		this.renderBox(v.x, v.y, v.width, v.height, true);
 	};
+
+	Renderer.prototype.renderBody = function(body){
+		// update aabb
+		body.calculateBounds();
+
+		for (var i = 0; i < body.shapes.length; i++){
+			this.renderShape(body.shapes[i]);
+		}
+
+		// render aabb 
+		if (body.isSelected){
+			this.context.strokeStyle = "#0f0";
+			this.context.lineWidth = 5;
+		}
+
+		this.renderBox(body.bounds[0], body.bounds[1], body.bounds[2], body.bounds[3], false);
+		this.context.lineWidth = 1;
+	}
 
 	Renderer.prototype.renderShape = function(shape){
 		shape.calculateBounds();
 
 		if (shape.vertices.length > 1){
 			this.context.beginPath();
-			this.context.moveTo(this.vertices[0].x, this.vertices[0].y);
+			this.context.moveTo(shape.vertices[0].x, shape.vertices[0].y);
 			
 			if (shape.inEditMode)
 				this.renderVertex(shape.vertices[0]);
@@ -110,7 +131,8 @@ var Viewport = (function(canvas){
 				this.context.lineWidth = 5;
 			}
 
-			this.renderBox(bounds[0], bounds[1], bounds[2], bounds[3]);
+			this.renderBox(shape.bounds[0], shape.bounds[1], shape.bounds[2], shape.bounds[3], false);
+			this.context.lineWidth = 1;
 		}
 
 		// TODO: create GUI layer for managing pivot and centroid and update their position and draw them here
@@ -124,15 +146,15 @@ var Viewport = (function(canvas){
 		this.context.fillRect(shape.centroid[0] - 5, shape.centroid[1] - 5, 10, 10);
 	};
 
-	Renderer.prototype.renderBox = function(x, y, w, h){
-		this.context.fillRect(x - w / 2, y - h / 2, w, h);
+	Renderer.prototype.renderBox = function(x, y, w, h, fill){
+		if (fill) this.context.fillRect(x - w / 2, y - h / 2, w, h);
 		this.context.strokeRect(x - w / 2, y - h / 2, w, h);
 	};
 
-	Renderer.prototype.renderCircle = function(x, y, r){
+	Renderer.prototype.renderCircle = function(x, y, r, fill){
 		this.context.beginPath();
     	this.context.arc(x + r / 2, y + r / 2, r, 0, 2 * Math.PI, false);
-    	// this.context.fill();
+    	if (fill) this.context.fill();
     	this.context.closePath();
     	this.context.stroke();
 	};
@@ -225,6 +247,23 @@ var Viewport = (function(canvas){
 	Viewport.prototype.onMouseUp = function(e){
 		var inputHandler = this.inputHandler;
 		inputHandler.mouseStatus[0] = 0;
+
+		if (inputHandler.selectionArea[4]){
+			var startPoint = this.screenPointToWorld(inputHandler.selectionArea[0], inputHandler.selectionArea[1]),
+				endPoint = this.screenPointToWorld(e.offsetX, e.offsetY);
+			var lineSegment  = new LineSegment(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
+			// for (var i = 0; i < shape.vertices.length; i++){
+			// 	if (lineSegment.checkInBoundsX(shape.vertices[i].x) && lineSegment.checkInBoundsY(shape.vertices[i].y)){
+			// 		shape.vertices[i].highlight = true;
+			// 	}
+			// 	else {
+			// 		shape.vertices[i].highlight = false;
+			// 	}
+			// }
+			// console.log(lineSegment);
+			// console.log(lineSegment.checkInBoundsAABB([500, 200, 200, 200]));
+		}
+
 		inputHandler.selectionArea = [0, 0, 0, 0, 0];
 	};
 
@@ -279,11 +318,9 @@ var Viewport = (function(canvas){
 				height = inputHandler.selectionArea[3] / navigator.scale;
 
 			this.renderer.setLineDash(5, 5);
-			this.renderer.renderBox(position[0] + width / 2, position[1] + height / 2, width, height);
-			this.renderer.setLineDash(1, 0);
+			this.renderer.renderBox(position[0] + width / 2, position[1] + height / 2, width, height, false);
+			this.renderer.setLineDash(0, 0);
 		}
-
-		renderer.renderCircle(100, 100, 100);
 
 		// renderer.getContext().restore();
 	};

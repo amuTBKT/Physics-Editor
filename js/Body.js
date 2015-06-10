@@ -29,6 +29,17 @@ LineSegment.prototype.checkInBoundsY = function(py){
 	return (this.signY * py < this.signY * this.sY && this.signY * py > this.signY * this.eY);
 }
 
+LineSegment.prototype.checkInBoundsAABB = function(bounds){
+	var lineBounds = [(this.eX + this.sX) / 2, (this.eY + this.sY) / 2, Math.abs(this.eX - this.sX), Math.abs(this.eY - this.sY)];
+	
+	if (lineBounds[0] + lineBounds[2] / 2 < bounds[0] - bounds[2] / 2) return false;
+	if (lineBounds[0] - lineBounds[2] / 2 > bounds[0] + bounds[2] / 2) return false;
+	if (lineBounds[1] + lineBounds[3] / 2 < bounds[1] - bounds[3] / 2) return false;
+	if (lineBounds[1] - lineBounds[3] / 2 > bounds[1] + bounds[3] / 2) return false;
+
+	return true;
+}
+
 function Vertex(x, y, w, h) {
 	this.x = x;
 	this.y = y;
@@ -43,11 +54,12 @@ Vertex.prototype.move = function (dx, dy) {
 };
 
 function Shape(type){
-	this.position = [0, 0];
-	this.scaleXY = [1, 1];
+	this.position = [0, 0];						// position
+	this.scaleXY = [1, 1];						// scale
+	this.rotation = 0;							// only for editor purpose
 	this.vertices = [];
-	this.bounds = [0, 0, 0, 0];
-	this.centroid = [0, 0];
+	this.bounds = [0, 0, 0, 0];					// AABB for selecting
+	this.centroid = [0, 0];						// centroid for shape
 	this.isSelected = false;
 	this.inEditMode = false;
 	this.shapeType = type;
@@ -57,6 +69,11 @@ function Shape(type){
 	this.friction = 1;
 	this.restitution = 0.5;
 	this.isBulllet = 0;
+
+
+	if (type == Shape.SHAPE_CHAIN){
+		this.mass = 0;
+	}
 }
 
 Shape.SHAPE_BOX = 0;
@@ -149,19 +166,48 @@ Shape.prototype.move = function(dx, dy){
 	this.calculateBounds();
 };
 
-Shape.prototype.setScale = function(sx, sy){
-	this.scaleXY[0] = sx;
-	this.scaleXY[1] = sy;
+Shape.prototype.setPosition = function(x, y){
+	this.move(x - this.position[0], y - this.position[1]);
+}
+
+Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
+	this.scaleXY[0] *= sx;
+	this.scaleXY[1] *= sy;
 
 	for (var i = 0; i < this.vertices.length; i++){
-		this.vertices[i].move(-this.position[0], -this.position[0]);
+		this.vertices[i].move(-pivotX, -pivotY);
 
 		this.vertices[i].x *= sx;
 		this.vertices[i].y *= sy;
 
-		this.vertices[i].move(this.position[0], this.position[0]);			
+		this.vertices[i].move(pivotX, pivotY);		
 	}
 };
+
+// just for visualization in editor
+Shape.prototype.rotate = function(angle, pivotX, pivotY){
+	this.rotation += angle;
+
+	for (var i = 0; i < this.vertices.length; i++){
+		
+		var x = this.vertices[i].x - pivotX;
+		var y = this.vertices[i].y - pivotY;
+		var newAngle = angle + Math.atan2(y, x) * 180 / Math.PI;
+		var length = Math.pow(x * x + y * y, 0.5);
+		this.vertices[i].x = pivotX + length * Math.cos(newAngle * Math.PI / 180);
+		this.vertices[i].y = pivotY + length * Math.sin(newAngle * Math.PI / 180);
+
+		// this.vertices[i].move(this.position[0], this.position[1]);			
+	}
+
+	// update position
+	var x = this.position[0] - pivotX;
+	var y = this.position[1] - pivotY;
+	var newAngle = angle + Math.atan2(y, x) * 180 / Math.PI;
+	var length = Math.pow(x * x + y * y, 0.5);
+	this.position[0] = pivotX + length * Math.cos(newAngle * Math.PI / 180);
+	this.position[1] = pivotY + length * Math.sin(newAngle * Math.PI / 180);
+}
 
 Shape.prototype.calculateBounds = function(){
 	var minX = 1000, maxX = -1000, minY = 1000, maxY = -1000;
@@ -191,16 +237,86 @@ Shape.prototype.calculateBounds = function(){
 Shape.prototype.toPhysics = function(){
 	var shapes = [];
 	//this.sortVertices();
-	
+
+	var rot = shape.rotation;
+	// reset rotation for exporting
+	shape.rotate(-rot);
+
+
+	// rotate again for visualization in editor
+	shape.rotate(rot);
+
 	return shapes;
 };
 
+function Body(){
+	this.shapes = [];
+	this.position = [0, 0];
+	this.scaleXY = [1, 1];
+	this.rotation = 0;
+	this.bounds = [0, 0, 0, 0];
+	this.isSelected = false;
+}
 
+Body.prototype.addShape = function(shape){
+	shape.setPosition(this.position[0], this.position[1]);
 
-var Body = (function(){
+	this.shapes.push(shape);
+}
 
-	function Body(){
+Body.prototype.removeShapeGivenIndex = function(index){
+	this.shapes.slice(index, 1);
+}
 
+Body.prototype.removeShapeGivenShape = function(shape){
+	for (var i = 0; i < this.shapes.length; i++){
+		if (this.shapes[i] == shape){
+			this.shapes.slice(i, 1);
+			break;
+		}
 	}
+}
 
-})();
+Body.prototype.calculateBounds = function(){
+	var minX = 100000, maxX = -100000, minY = 100000, maxY = -100000;
+	var v;
+
+	for (var i = 0; i < this.shapes.length; i++){
+		for (var j = 0; j < this.shapes[i].vertices.length; j++){
+			v = this.shapes[i].vertices[j];
+			minX = Math.min(minX, v.x)
+			maxX = Math.max(maxX, v.x);
+			minY = Math.min(minY, v.y);
+			maxY = Math.max(maxY, v.y);
+		}
+	}
+	this.bounds[0] = (maxX + minX) / 2;
+	this.bounds[1] = (maxY + minY) / 2;
+	this.bounds[2] = maxX - minX;
+	this.bounds[3] = maxY - minY;
+}
+
+Body.prototype.move = function(dx, dy){
+	this.position[0] += dx;
+	this.position[1] += dy;
+
+	for (var i = 0; i < this.shapes.length; i++){
+		this.shapes[i].move(dx, dy);
+	}
+}
+
+Body.prototype.scale = function(sx, sy){
+	this.scaleXY[0] *= sx;
+	this.scaleXY[1] *= sy;
+
+	for (var i = 0; i < this.shapes.length; i++){
+		shape.scale(this.position[0], this.position[1]);
+	}
+}
+
+Body.prototype.rotate = function(angle){
+	this.rotation += angle;
+	for (var i = 0; i < this.shapes.length; i++){
+		this.shapes[i].rotate(angle, this.position[0], this.position[1]);
+	}
+}
