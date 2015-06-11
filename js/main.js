@@ -21,18 +21,23 @@ function init(){
 	});
 	viewport.canvas.addEventListener("mousedown", function(e){
 		viewport.onMouseDown(e);
+		// console.log("mousedown");
 	});
 	viewport.canvas.addEventListener("mousemove", function(e){
 		viewport.onMouseMove(e);
+		// console.log("mousemove");
 	});
 	viewport.canvas.addEventListener("mouseup", function(e){
 		viewport.onMouseUp(e);
+		// console.log("mouseup");
 	});
 	viewport.canvas.addEventListener("click", function(e){
 		viewport.onClick(e);
+		// console.log("mouseclick");
 	});
 	viewport.canvas.addEventListener("dblclick", function(e){
 		viewport.onDoubleClick(e);
+		// console.log("mousedblclick");
 	});
 
 	var size = 10;

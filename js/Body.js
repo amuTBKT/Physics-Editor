@@ -210,7 +210,7 @@ Shape.prototype.rotate = function(angle, pivotX, pivotY){
 }
 
 Shape.prototype.calculateBounds = function(){
-	var minX = 1000, maxX = -1000, minY = 1000, maxY = -1000;
+	var minX = 100000, maxX = -100000, minY = 100000, maxY = -100000;
 	var v;
 	for (var i = 0; i < this.vertices.length; i++){
 		v = this.vertices[i];
@@ -310,7 +310,7 @@ Body.prototype.scale = function(sx, sy){
 	this.scaleXY[1] *= sy;
 
 	for (var i = 0; i < this.shapes.length; i++){
-		shape.scale(this.position[0], this.position[1]);
+		this.shapes[i].scale(sx, sy, this.position[0], this.position[1]);
 	}
 }
 

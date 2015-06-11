@@ -71,7 +71,7 @@ var Viewport = (function(){
 		if (v.isSelected){
 			this.context.strokeStyle = "#0f0";
 			
-			this.context.lineWidth = 5;
+			this.context.lineWidth = 2;
 			this.renderBox(v.x, v.y, v.width, v.height, false);
 			this.context.lineWidth = 1;
 			
@@ -93,7 +93,7 @@ var Viewport = (function(){
 		// render aabb 
 		if (body.isSelected){
 			this.context.strokeStyle = "#0f0";
-			this.context.lineWidth = 5;
+			this.context.lineWidth = 2;
 		}
 
 		this.renderBox(body.bounds[0], body.bounds[1], body.bounds[2], body.bounds[3], false);
@@ -128,7 +128,7 @@ var Viewport = (function(){
 			// render aabb for polygon
 			if (shape.isSelected){
 				this.context.strokeStyle = "#0f0";
-				this.context.lineWidth = 5;
+				this.context.lineWidth = 2;
 			}
 
 			this.renderBox(shape.bounds[0], shape.bounds[1], shape.bounds[2], shape.bounds[3], false);
@@ -204,10 +204,11 @@ var Viewport = (function(){
 			return;
 
 		// select bodies
-
-		inputHandler.selectionArea[0] = e.offsetX;
-		inputHandler.selectionArea[1] = e.offsetY;
-		inputHandler.selectionArea[4] = 1;
+		if (!this.sceneManager.onMouseDown(e, this.inputHandler, this.navigator)){
+			inputHandler.selectionArea[0] = e.offsetX;
+			inputHandler.selectionArea[1] = e.offsetY;
+			inputHandler.selectionArea[4] = 1;
+		}
 	};
 
 	Viewport.prototype.onMouseMove = function(e){
@@ -223,6 +224,9 @@ var Viewport = (function(){
 			inputHandler.delta[1] = inputHandler.current[1] - inputHandler.start[1];
 			inputHandler.delta[1] *= inputHandler.mouseSensitivity / navigator.scale;
 
+			inputHandler.start[0] = inputHandler.current[0];
+			inputHandler.start[1] = inputHandler.current[1];
+
 			// panning
 			if (inputHandler.mouseStatus[1] == InputHandler.IS_RIGHT_MOUSE_BUTTON){
 				navigator.panning[0] += inputHandler.delta[0];
@@ -230,6 +234,8 @@ var Viewport = (function(){
 
 				inputHandler.selectionArea[2] = 0;
 				inputHandler.selectionArea[3] = 0;
+
+				return;
 			}
 
 			// edit bodies and shapes
@@ -247,10 +253,7 @@ var Viewport = (function(){
 				for (var i = 0; i < sceneManager.selectedVertices.length; i++){
 					sceneManager.selectedVertices[i].move(inputHandler.delta[0], inputHandler.delta[1]);
 				}
-			} 
-
-			inputHandler.start[0] = inputHandler.current[0];
-			inputHandler.start[1] = inputHandler.current[1];
+			}
 		}
 
 		// check for bodies and shape
@@ -280,75 +283,75 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.onClick = function(e){
-		var sceneManager = this.sceneManager,
-			inputHandler = this.inputHandler;
+		// var sceneManager = this.sceneManager,
+		// 	inputHandler = this.inputHandler;
 
-		if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-			sceneManager.selectedShapes = [];
-			for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
-				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
-					sceneManager.selectedBodies[0].shapes[i].isSelected = true;
-					sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
-					break;
-				}
-				else {
-					sceneManager.selectedBodies[0].shapes[i].isSelected = false;
-					sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
-				}
-			}
-			return;
-		}
+		// if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+		// 	sceneManager.selectedShapes = [];
+		// 	for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
+		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
+		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = true;
+		// 			sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
+		// 			break;
+		// 		}
+		// 		else {
+		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+		// 			sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
+		// 		}
+		// 	}
+		// 	return;
+		// }
 
-		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-			for (var i = 0; i < sceneManager.bodies.length; i++){
-				sceneManager.selectedBodies = [];
-				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
-					sceneManager.bodies[i].isSelected = true;
-					sceneManager.selectedBodies[0] = sceneManager.bodies[i];
-					break;
-				}
-				else {
-					sceneManager.bodies[i].isSelected = false;	
-				}
-			}
-		}		
+		// if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+		// 	for (var i = 0; i < sceneManager.bodies.length; i++){
+		// 		sceneManager.selectedBodies = [];
+		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
+		// 			sceneManager.bodies[i].isSelected = true;
+		// 			sceneManager.selectedBodies[0] = sceneManager.bodies[i];
+		// 			break;
+		// 		}
+		// 		else {
+		// 			sceneManager.bodies[i].isSelected = false;	
+		// 		}
+		// 	}
+		// }		
 	}
 
 	Viewport.prototype.onDoubleClick = function(e){
-		var sceneManager = this.sceneManager,
-			inputHandler = this.inputHandler;
+		// var sceneManager = this.sceneManager,
+		// 	inputHandler = this.inputHandler;
 
-		if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-			sceneManager.selectedShapes = [];
-			for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
-				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
-					sceneManager.selectedBodies[0].shapes[i].isSelected = true;
-					sceneManager.selectedBodies[0].shapes[i].inEditMode = true;
-					sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
-					sceneManager.state = sceneManager.STATE_SHAPE_EDIT_MODE;
-					return;
-				}
-				else {
-					sceneManager.selectedBodies[0].shapes[i].isSelected = false;
-					sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
-				}
-			}
-		}
+		// if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+		// 	sceneManager.selectedShapes = [];
+		// 	for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
+		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
+		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = true;
+		// 			sceneManager.selectedBodies[0].shapes[i].inEditMode = true;
+		// 			sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
+		// 			sceneManager.state = sceneManager.STATE_SHAPE_EDIT_MODE;
+		// 			return;
+		// 		}
+		// 		else {
+		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+		// 			sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
+		// 		}
+		// 	}
+		// }
 
-		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-			for (var i = 0; i < sceneManager.bodies.length; i++){
-				sceneManager.selectedBodies = [];
-				if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
-					sceneManager.bodies[i].isSelected = true;
-					sceneManager.selectedBodies[0] = sceneManager.bodies[i];
-					sceneManager.state = sceneManager.STATE_BODY_EDIT_MODE;
-					break;
-				}
-				else {
-					sceneManager.bodies[i].isSelected = false;	
-				}
-			}
-		}
+		// if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+		// 	for (var i = 0; i < sceneManager.bodies.length; i++){
+		// 		sceneManager.selectedBodies = [];
+		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
+		// 			sceneManager.bodies[i].isSelected = true;
+		// 			sceneManager.selectedBodies[0] = sceneManager.bodies[i];
+		// 			sceneManager.state = sceneManager.STATE_BODY_EDIT_MODE;
+		// 			break;
+		// 		}
+		// 		else {
+		// 			sceneManager.bodies[i].isSelected = false;	
+		// 		}
+		// 	}
+		// }
 	}
 
 	// viewport scaling
