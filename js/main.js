@@ -39,6 +39,14 @@ function init(){
 		viewport.onDoubleClick(e);
 		// console.log("mousedblclick");
 	});
+	window.addEventListener("keydown", function(e){
+		// console.log(e.which);
+		viewport.onKeyDown(e);
+	});
+	window.addEventListener("keyup", function(e){
+		// console.log(e.which);
+		viewport.onKeyUp(e);
+	});
 
 	var size = 10;
 	shape = new Shape(Shape.SHAPE_POLYGON);

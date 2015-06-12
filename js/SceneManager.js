@@ -4,6 +4,7 @@ var SceneManager = (function(){
 		this.STATE_DEFAULT_MODE 	= 0;
 		this.STATE_SHAPE_EDIT_MODE 	= 1;
 		this.STATE_BODY_EDIT_MODE 	= 2;
+		this.STATE_SHAPE_DRAW_MODE  = 3;
 
 		this.state = this.STATE_DEFAULT_MODE;
 		this.bodies = [];
@@ -14,8 +15,18 @@ var SceneManager = (function(){
 	// this.STATE_SHAPE_DRAW_MODE = 4;
 
 	SceneManager.prototype.onMouseDown = function(e, inputHandler, navigator){
-		
 		if (this.state == this.STATE_SHAPE_EDIT_MODE){
+			// for rendering vertices
+			this.selectedShapes[0].inEditMode = true;
+			
+			// for adding vertex to the selected shape
+			if (inputHandler.CTRL_PRESSED){
+				var point = navigator.screenPointToWorld(e.offsetX, e.offsetY);
+				this.selectedShapes[0].addVertex(new Vertex(point[0], point[1], 10, 10));
+				return true;
+			}
+
+			// for handling multiple vertices
 			if (this.selectedVertices.length > 1) {
 				for (var i = 0; i < this.selectedVertices.length; i++){
 					var vertex = this.selectedVertices[i];
@@ -24,8 +35,6 @@ var SceneManager = (function(){
 					}
 				}
 			}
-			
-			this.selectedShapes[0].inEditMode = true;
 
 			this.selectedVertices = [];			
 			for (var i = 0; i < this.selectedShapes[0].vertices.length; i++){
@@ -41,6 +50,7 @@ var SceneManager = (function(){
 		}
 
 		if (this.state == this.STATE_BODY_EDIT_MODE){
+			// for handling multiple shapes
 			if (this.selectedShapes.length > 1) {
 				for (var i = 0; i < this.selectedShapes.length; i++){
 					var shape = this.selectedShapes[i];
@@ -70,6 +80,7 @@ var SceneManager = (function(){
 		}
 
 		if (this.state == this.STATE_DEFAULT_MODE){
+			// for handling multiple bodies
 			if (this.selectedBodies.length > 1){
 				for (var i = 0; i < this.selectedBodies.length; i++){
 					var body = this.selectedBodies[i];

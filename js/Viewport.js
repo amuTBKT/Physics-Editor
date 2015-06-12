@@ -9,6 +9,8 @@ var Viewport = (function(){
 		this.mouseStatus = [0, 0];					// [is_down, is_left = 1 or is_right = 2]
 		this.selectionArea = [0, 0, 0, 0, 0];		// [x, y, width, height, is_active]
 		this.selection = []							// array of selected objects
+		this.CTRL_PRESSED = 0;
+		this.SHIFT_PRESSED = 0;
 	}
 
 	InputHandler.IS_LEFT_MOUSE_BUTTON = 1;
@@ -94,10 +96,10 @@ var Viewport = (function(){
 		if (body.isSelected){
 			this.context.strokeStyle = "#0f0";
 			this.context.lineWidth = 2;
+			this.renderBox(body.bounds[0], body.bounds[1], body.bounds[2], body.bounds[3], false);
+			this.context.lineWidth = 1;
 		}
 
-		this.renderBox(body.bounds[0], body.bounds[1], body.bounds[2], body.bounds[3], false);
-		this.context.lineWidth = 1;
 	}
 
 	Renderer.prototype.renderShape = function(shape){
@@ -129,14 +131,9 @@ var Viewport = (function(){
 			if (shape.isSelected){
 				this.context.strokeStyle = "#0f0";
 				this.context.lineWidth = 2;
+				this.renderBox(shape.bounds[0], shape.bounds[1], shape.bounds[2], shape.bounds[3], false);
+				this.context.lineWidth = 1;
 			}
-			else {
-				this.context.strokeStyle = "#000";
-				this.context.lineWidth = 1;	
-			}
-
-			this.renderBox(shape.bounds[0], shape.bounds[1], shape.bounds[2], shape.bounds[3], false);
-			this.context.lineWidth = 1;
 		}
 
 		// TODO: create GUI layer for managing pivot and centroid and update their position and draw them here
@@ -191,6 +188,23 @@ var Viewport = (function(){
 		});
 	}
 
+	Viewport.prototype.onKeyDown = function(e){
+		if (e.which == 17){
+			this.inputHandler.CTRL_PRESSED = 1;
+		}
+		else if (e.which == 16){
+			this.inputHandler.SHIFT_PRESSED = 1;
+		}
+	};
+
+	Viewport.prototype.onKeyUp = function(e){
+		if (e.which == 17){
+			this.inputHandler.CTRL_PRESSED = 0;
+		}
+		else if (e.which == 16){
+			this.inputHandler.SHIFT_PRESSED = 0;
+		}
+	};
 
 	Viewport.prototype.onMouseDown = function(e){
 		var inputHandler = this.inputHandler;
