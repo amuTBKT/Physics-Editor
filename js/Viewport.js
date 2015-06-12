@@ -130,6 +130,10 @@ var Viewport = (function(){
 				this.context.strokeStyle = "#0f0";
 				this.context.lineWidth = 2;
 			}
+			else {
+				this.context.strokeStyle = "#000";
+				this.context.lineWidth = 1;	
+			}
 
 			this.renderBox(shape.bounds[0], shape.bounds[1], shape.bounds[2], shape.bounds[3], false);
 			this.context.lineWidth = 1;
@@ -260,7 +264,7 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.onMouseUp = function(e){
-		var inputHandler = this.inputHandler;
+		var inputHandler = this.inputHandler, sceneManager = this.sceneManager;
 		inputHandler.mouseStatus[0] = 0;
 
 		if (inputHandler.selectionArea[4]){
@@ -277,6 +281,45 @@ var Viewport = (function(){
 			// }
 			// console.log(lineSegment);
 			// console.log(lineSegment.checkInBoundsAABB([500, 200, 200, 200]));
+
+			// edit bodies and shapes
+			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+				sceneManager.selectedBodies = [];
+				for (var i = 0; i < sceneManager.bodies.length; i++){
+					if (lineSegment.checkInBoundsAABB(sceneManager.bodies[i].bounds)){
+						sceneManager.selectedBodies.push(sceneManager.bodies[i]);
+						sceneManager.bodies[i].isSelected = true;
+					}
+					else {
+						sceneManager.bodies[i].isSelected = false;
+					}
+				}
+			}
+			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+				sceneManager.selectedShapes = [];
+				for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
+					if (lineSegment.checkInBoundsAABB(sceneManager.selectedBodies[0].shapes[i].bounds)){
+						sceneManager.selectedShapes.push(sceneManager.selectedBodies[0].shapes[i]);
+						sceneManager.selectedBodies[0].shapes[i].isSelected = true;
+					}
+					else {
+						sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+					}
+				}
+			}
+			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
+				sceneManager.selectedVertices = [];
+				for (var i = 0; i < sceneManager.selectedShapes[0].vertices.length; i++){
+					var vertex = sceneManager.selectedShapes[0].vertices[i];
+					if (lineSegment.checkInBoundsAABB([vertex.x, vertex.y, vertex.width, vertex.height])){
+						sceneManager.selectedVertices.push(sceneManager.selectedShapes[0].vertices[i]);
+						sceneManager.selectedShapes[0].vertices[i].isSelected = true;
+					}
+					else{
+						sceneManager.selectedShapes[0].vertices[i].isSelected = false;	
+					}
+				}
+			}
 		}
 
 		inputHandler.selectionArea = [0, 0, 0, 0, 0];

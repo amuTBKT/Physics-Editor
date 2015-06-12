@@ -3,7 +3,7 @@ var SCREEN_HEIGHT = window.innerHeight;
 
 var canvas, context, scale = 1;
 var viewport, sceneManager;
-var shape, body;
+var shape, body, body1;
 
 // initialize canvas and context
 function init(){
@@ -49,19 +49,19 @@ function init(){
 
 	//shape.move(200, 200);
 
-	var s = new Shape(Shape.SHAPE_POLYGON);
-	s.addVertex(new Vertex(-100, -100, size, size));
-	s.addVertex(new Vertex(100, -100, size, size));
-	s.addVertex(new Vertex(100, 100, size, size));
-	s.addVertex(new Vertex(-100, 100, size, size));
-
+	var s = new Shape(Shape.SHAPE_CIRCLE, 200, 200);
+	
 	body = new Body();
 	body.addShape(shape);
 	body.addShape(s);
 	body.move(200, 200);
 	s.move(100, 100);
 
+	body1 = new Body();
+	body1.addShape(new Shape(Shape.SHAPE_BOX, 200, 200));
+
 	sceneManager.addBody(body);
+	sceneManager.addBody(body1);
 }
 
 // update loop 
@@ -75,6 +75,7 @@ function render() {
 	
 	
 	viewport.getRenderer().renderBody(body);
+	viewport.getRenderer().renderBody(body1);
 	
 
 	context.restore();

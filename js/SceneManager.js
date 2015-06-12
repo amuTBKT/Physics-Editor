@@ -16,11 +16,18 @@ var SceneManager = (function(){
 	SceneManager.prototype.onMouseDown = function(e, inputHandler, navigator){
 		
 		if (this.state == this.STATE_SHAPE_EDIT_MODE){
-			if (this.selectedVertices.length > 1) return;
-			this.selectedVertices = [];
-
+			if (this.selectedVertices.length > 1) {
+				for (var i = 0; i < this.selectedVertices.length; i++){
+					var vertex = this.selectedVertices[i];
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, [vertex.x, vertex.y, vertex.width, vertex.height])){
+						return true;
+					}
+				}
+			}
+			
 			this.selectedShapes[0].inEditMode = true;
 
+			this.selectedVertices = [];			
 			for (var i = 0; i < this.selectedShapes[0].vertices.length; i++){
 				var vertex = this.selectedShapes[0].vertices[i];
 
@@ -34,7 +41,15 @@ var SceneManager = (function(){
 		}
 
 		if (this.state == this.STATE_BODY_EDIT_MODE){
-			if (this.selectedShapes.length > 1) return;
+			if (this.selectedShapes.length > 1) {
+				for (var i = 0; i < this.selectedShapes.length; i++){
+					var shape = this.selectedShapes[i];
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, shape.bounds)){
+						return true;
+					}
+				}
+			}
+			
 			this.selectedShapes = [];
 			var minDistance = 1000000000, distance;
 			for (var i = 0; i < this.selectedBodies[0].shapes.length; i++){
@@ -55,7 +70,14 @@ var SceneManager = (function(){
 		}
 
 		if (this.state == this.STATE_DEFAULT_MODE){
-			if (this.selectedBodies.length > 1) return;
+			if (this.selectedBodies.length > 1){
+				for (var i = 0; i < this.selectedBodies.length; i++){
+					var body = this.selectedBodies[i];
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, body.bounds)){
+						return true;
+					}
+				}	
+			}
 
 			this.selectedBodies = [];
 			var minDistance = 1000000000, distance;

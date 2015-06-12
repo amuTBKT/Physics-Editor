@@ -53,7 +53,7 @@ Vertex.prototype.move = function (dx, dy) {
 	this.y += dy;
 };
 
-function Shape(type){
+function Shape(type, width, height){
 	this.position = [0, 0];						// position
 	this.scaleXY = [1, 1];						// scale
 	this.rotation = 0;							// only for editor purpose
@@ -74,6 +74,26 @@ function Shape(type){
 	if (type == Shape.SHAPE_CHAIN){
 		this.mass = 0;
 	}
+
+	else if (type == Shape.SHAPE_BOX){
+		var size = 10;
+		this.vertices.push(new Vertex(-width / 2, -height / 2, size, size));
+		this.vertices.push(new Vertex( width / 2, -height / 2, size, size));
+		this.vertices.push(new Vertex( width / 2,  height / 2, size, size));
+		this.vertices.push(new Vertex(-width / 2,  height / 2, size, size));
+	}
+
+	else if (type == Shape.SHAPE_CIRCLE){
+		var radius = width / 2;
+		var angle = 0;
+		var resolution = 10;
+		var size = 10;
+		for (var i = 0; i < resolution; i++){
+			angle = 2 * Math.PI * i / resolution;
+			var vertex = new Vertex(radius * Math.cos(angle), radius * Math.sin(angle), size, size);
+			this.vertices.push(vertex);
+		}
+	}
 }
 
 Shape.SHAPE_BOX = 0;
@@ -82,8 +102,8 @@ Shape.SHAPE_POLYGON = 2;
 Shape.SHAPE_CHAIN = 3;
 
 Shape.prototype.addVertex = function(v){
-	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
-		return;
+	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
+	// 	return;
 
 	if (this.vertices.length > 3){
 		var lineSegment, distance = 10000, index = 0;
@@ -120,8 +140,8 @@ Shape.prototype.addVertex = function(v){
 };
 
 Shape.prototype.removeVertexGivenVertex = function(v){
-	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
-		return;
+	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
+	// 	return;
 
 	for (var i = 0; i < this.vertices.length; i++){
 		if (this.vertices[i].x == v.x && this.vertices[i].y == v.y){ 
@@ -133,8 +153,8 @@ Shape.prototype.removeVertexGivenVertex = function(v){
 };
 
 Shape.prototype.removeVertexGivenIndex = function(index){
-	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
-		return;
+	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
+	// 	return;
 
 	this.vertices.splice(index, 1);
 	this.calculateBounds();
