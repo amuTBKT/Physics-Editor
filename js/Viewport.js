@@ -12,10 +12,17 @@ var Viewport = (function(){
 		this.CTRL_PRESSED = 0;
 		this.SHIFT_PRESSED = 0;
 		this.ALT_PRESSED = 0;
+		this.transformTool = InputHandler.TRANSFORM_TOOL_TRANSLATION;
+		this.pivotMode = InputHandler.PIVOT_LOCAL_MODE;
 	}
 
 	InputHandler.IS_LEFT_MOUSE_BUTTON = 1;
 	InputHandler.IS_RIGHT_MOUSE_BUTTON = 2;
+	InputHandler.PIVOT_LOCAL_MODE = 3;
+	InputHandler.PIVOT_SELECTION_MIDDLE = 4;
+	InputHandler.TRANSFORM_TOOL_SCALE = 5;
+	InputHandler.TRANSFORM_TOOL_ROTATION = 6;
+	InputHandler.TRANSFORM_TOOL_TRANSLATION = 7;
 
 	InputHandler.prototype.isMouseDown = function(){
 		return this.mouseStatus[0] == 1;
@@ -279,7 +286,7 @@ var Viewport = (function(){
 			}
 
 			// edit bodies and shapes
-			sceneManager.moveSelection(inputHandler.delta);
+			sceneManager.transformSelection(inputHandler.delta, inputHandler);
 		}
 	};
 
@@ -308,6 +315,7 @@ var Viewport = (function(){
 			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
 				sceneManager.selectedShapes = [];
 				for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
+					
 					if (lineSegment.checkInBoundsAABB(sceneManager.selectedBodies[0].shapes[i].bounds)){
 						sceneManager.selectedShapes.push(sceneManager.selectedBodies[0].shapes[i]);
 						sceneManager.selectedBodies[0].shapes[i].isSelected = true;

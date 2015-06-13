@@ -73,6 +73,11 @@ function Shape(type, width, height){
 
 	if (type == Shape.SHAPE_CHAIN){
 		this.mass = 0;
+		var size = 10, width = 100, height = 100;
+		this.vertices.push(new Vertex(-width / 2, -height / 2, size, size));
+		this.vertices.push(new Vertex( width / 2, -height / 2, size, size));
+		this.vertices.push(new Vertex( width / 2,  height / 2, size, size));
+		this.vertices.push(new Vertex(-width / 2,  height / 2, size, size));
 	}
 
 	else if (type == Shape.SHAPE_BOX){
@@ -223,8 +228,17 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.move(pivotX, pivotY);		
 };
 
+Shape.prototype.setScale = function(sx, sy){
+	this.scale(sx / this.scaleXY[0], sy / this.scaleXY[1]);
+};
+
 // just for visualization in editor
 Shape.prototype.rotate = function(angle, pivotX, pivotY){
+	if (!pivotX || !pivotY){
+		pivotX = this.position[0];
+		pivotY = this.position[1];
+	}
+
 	this.rotation += angle;
 
 	for (var i = 0; i < this.vertices.length; i++){
@@ -371,9 +385,22 @@ Body.prototype.scale = function(sx, sy, pivotX, pivotY){
 	
 };
 
-Body.prototype.rotate = function(angle){
+Body.prototype.rotate = function(angle, pivotX, pivotY){
+	if (!pivotX || !pivotY){
+		pivotX = this.position[0];
+		pivotY = this.position[1];
+	}
+
 	this.rotation += angle;
 	for (var i = 0; i < this.shapes.length; i++){
-		this.shapes[i].rotate(angle, this.position[0], this.position[1]);
+		this.shapes[i].rotate(angle, pivotX, pivotY);
 	}
+
+	// update position
+	var x = this.position[0] - pivotX;
+	var y = this.position[1] - pivotY;
+	var newAngle = angle + Math.atan2(y, x) * 180 / Math.PI;
+	var length = Math.pow(x * x + y * y, 0.5);
+	this.position[0] = pivotX + length * Math.cos(newAngle * Math.PI / 180);
+	this.position[1] = pivotY + length * Math.sin(newAngle * Math.PI / 180);
 };

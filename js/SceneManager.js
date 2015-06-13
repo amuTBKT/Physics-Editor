@@ -32,6 +32,43 @@ var SceneManager = (function(){
 		}
 	};
 
+	// SceneManager.prototype.checkPointInShape = function(px, py, polyVerts){
+	// 	var i, len, v1, v2, edge, c;
+	// 	for (i = 0, len = polyVerts.length; i < len; i++) {
+
+	// 	    v1 = [polyVerts[i][0] - px, polyVerts[i][1] - py];
+		    
+	// 	    v2 = (polyVerts[i+1 > len-1 ? 0 : i+1][0] - px, polyVerts[i+1 > len-1 ? 0 : i+1][1] - py)
+	    	
+	//     	edge = [v1[0] - v2[0], v1[1] - v2[1]];
+
+	//     	c = edge[0] * v1[1] - edge[1] * v1[0];
+	//     	if (c < 0) { 
+	//     		return false; 
+	//     	}
+	//   	}
+	// 	return true
+	// };
+
+	SceneManager.prototype.checkCollisionWithChainShape = function(pointx, pointy, shape){
+		var lineSegment, index = 0;
+		for (var i = 0; i < shape.vertices.length; i++){
+			if (i == shape.vertices.length - 1){
+				lineSegment = new LineSegment(shape.vertices[i].x, shape.vertices[i].y, shape.vertices[0].x, shape.vertices[0].y);
+			}
+			else{
+				lineSegment = new LineSegment(shape.vertices[i].x, shape.vertices[i].y, shape.vertices[i + 1].x, shape.vertices[i + 1].y);
+			}
+
+			if (lineSegment.distanceFromPoint(pointx, pointy) < 25){
+				if (lineSegment.checkInBoundsX(pointx) || lineSegment.checkInBoundsY(pointy)){
+					return true;		
+				}
+			}
+		}
+		return false;
+	}
+
 	SceneManager.prototype.onMouseDown = function(e, inputHandler, navigator){
 		if (this.state == this.STATE_SHAPE_EDIT_MODE){
 			// for rendering vertices
@@ -90,6 +127,14 @@ var SceneManager = (function(){
 				for (var i = 0; i < this.selectedShapes.length; i++){
 					var shape = this.selectedShapes[i];
 					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, shape.bounds)){
+						// check for chain shapes
+						if (shape.shapeType == Shape.SHAPE_CHAIN){
+							var screenPointToWorld = navigator.screenPointToWorld(e.offsetX, e.offsetY);
+							if (!this.checkCollisionWithChainShape(screenPointToWorld[0], screenPointToWorld[1], shape)){
+								continue;
+							}
+						}
+						
 						if (inputHandler.SHIFT_PRESSED){
 							break;
 						}
@@ -109,10 +154,23 @@ var SceneManager = (function(){
 					shape.isSelected = false;
 				}
 
+				// var screenCoords = [], check = false;
+				// for (var i = 0; i < shape.vertices.length; i++){
+				// 	screenCoords[i] = navigator.worldPointToScreen(shape.vertices[i].x, shape.vertices[i].y);
+				// }
+				
+				// check =	this.checkPointInShape(e.offsetX, e.offsetY, screenCoords);
+
 				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, shape.bounds)){
 					var point = navigator.worldPointToScreen(shape.position[0], shape.position[1]);
 					distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
 					if (minDistance > distance){
+						if (shape.shapeType == Shape.SHAPE_CHAIN){
+							var screenPointToWorld = navigator.screenPointToWorld(e.offsetX, e.offsetY);
+							if (!this.checkCollisionWithChainShape(screenPointToWorld[0], screenPointToWorld[1], shape)){
+								continue;
+							}
+						}
 						if (!inputHandler.SHIFT_PRESSED){
 							this.selectedShapes[0] = shape;
 							shape.isSelected = true;
@@ -180,8 +238,27 @@ var SceneManager = (function(){
 		return false;
 	};
 
-	SceneManager.prototype.scaleSelection = function(delta){
+	SceneManager.prototype.transformSelection = function(delta, inputHandler){
 		if (this.state == this.STATE_DEFAULT_MODE){
+			if (inputHandler.transformTool == 7){
+				for (var i = 0; i < this.selectedBodies.length; i++){
+					this.selectedBodies[i].move(delta[0], delta[1]);
+				}
+				return;	
+			}
+
+			if (inputHandler.pivotMode == 3){			// InputHandler.PIVOT_LOCAL_MODE
+				for (var i = 0; i < this.selectedBodies.length; i++){
+					if (inputHandler.transformTool == 5){
+						this.selectedBodies[i].scale(delta[0], delta[1]);
+					}
+					else if (inputHandler.transformTool == 6){
+						this.selectedBodies[i].rotate(delta[0]);
+					}
+				}
+				return;
+			}
+
 			var pivot = [0, 0];
 			for (var i = 0; i < this.selectedBodies.length; i++){
 				pivot[0] += this.selectedBodies[i].position[0];
@@ -191,10 +268,35 @@ var SceneManager = (function(){
 			pivot[1] /= this.selectedBodies.length;
 
 			for (var i = 0; i < this.selectedBodies.length; i++){
-				this.selectedBodies[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
+				if (inputHandler.transformTool == 5){
+					this.selectedBodies[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
+				}
+				else if (inputHandler.transformTool == 6){
+					this.selectedBodies[i].rotate(delta[0], pivot[0], pivot[1]);
+				} 
 			}
 		}
+
 		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			if (inputHandler.transformTool == 7){
+				for (var i = 0; i < this.selectedShapes.length; i++){
+					this.selectedShapes[i].move(delta[0], delta[1]);
+				}
+				return;	
+			}
+
+			if (inputHandler.pivotMode == 3){
+				for (var i = 0; i < this.selectedShapes.length; i++){
+					if (inputHandler.transformTool == 5){
+						this.selectedShapes[i].scale(delta[0], delta[1]);
+					}
+					else if (inputHandler.transformTool == 6){
+						this.selectedShapes[i].rotate(delta[0]);	
+					}
+				}
+				return;
+			}
+
 			var pivot = [0, 0];
 			for (var i = 0; i < this.selectedShapes.length; i++){
 				pivot[0] += this.selectedShapes[i].position[0];
@@ -204,10 +306,26 @@ var SceneManager = (function(){
 			pivot[1] /= this.selectedShapes.length;
 
 			for (var i = 0; i < this.selectedShapes.length; i++){
-				this.selectedShapes[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
+				if (inputHandler.transformTool == 5){
+					this.selectedShapes[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
+				}
+				else if (inputHandler.transformTool == 6){
+					this.selectedShapes[i].rotate(delta[0], pivot[0], pivot[1]);
+				}
 			}
 		}
-		else if (this.state == this.STATE_SHAPE_EDIT_MODE && this.selectedVertices.length > 1){
+
+		else if (this.state == this.STATE_SHAPE_EDIT_MODE){
+			if (inputHandler.transformTool == 7){
+				for (var i = 0; i < this.selectedVertices.length; i++){
+					this.selectedVertices[i].move(delta[0], delta[1]);
+				}
+				return;	
+			}
+
+			if (this.selectedVertices.length < 1)
+				return;
+
 			var pivot = [0, 0];
 			for (var i = 0; i < this.selectedVertices.length; i++){
 				pivot[0] += this.selectedVertices[i].x;
@@ -218,31 +336,23 @@ var SceneManager = (function(){
 
 			for (var i = 0; i < this.selectedVertices.length; i++){
 				var vertex = this.selectedVertices[i];
-				vertex.move(-pivot[0], -pivot[1]);
-				vertex.x *= delta[0];
-				vertex.y *= delta[1];
-				vertex.move(pivot[0], pivot[1]);		
+				if (inputHandler.transformTool == 5){
+					vertex.move(-pivot[0], -pivot[1]);
+					vertex.x *= delta[0];
+					vertex.y *= delta[1];
+					vertex.move(pivot[0], pivot[1]);
+				}
+				else if (inputHandler.transformTool == 6){
+					var x = vertex.x - pivot[0];
+					var y = vertex.y - pivot[1];
+					var newAngle = delta[0] + Math.atan2(y, x) * 180 / Math.PI;
+					var length = Math.pow(x * x + y * y, 0.5);
+					vertex.x = pivot[0] + length * Math.cos(newAngle * Math.PI / 180);
+					vertex.y = pivot[1] + length * Math.sin(newAngle * Math.PI / 180);
+				}
 			}
 		}
 	};
-
-	SceneManager.prototype.moveSelection = function(delta){
-		if (this.state == this.STATE_DEFAULT_MODE){
-			for (var i = 0; i < this.selectedBodies.length; i++){
-				this.selectedBodies[i].move(delta[0], delta[1]);
-			}
-		}
-		else if (this.state == this.STATE_BODY_EDIT_MODE){
-			for (var i = 0; i < this.selectedShapes.length; i++){
-				this.selectedShapes[i].move(delta[0], delta[1]);
-			}
-		}
-		else if (this.state == this.STATE_SHAPE_EDIT_MODE){
-			for (var i = 0; i < this.selectedVertices.length; i++){
-				this.selectedVertices[i].move(delta[0], delta[1]);
-			}
-		}
-	}
 
 	SceneManager.prototype.addBody = function(body){
 		this.bodies.push(body);
