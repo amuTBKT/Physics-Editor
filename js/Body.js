@@ -201,14 +201,26 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.scaleXY[0] *= sx;
 	this.scaleXY[1] *= sy;
 
-	for (var i = 0; i < this.vertices.length; i++){
-		this.vertices[i].move(-pivotX, -pivotY);
+	if (!pivotX || !pivotY){
+		pivotX = this.position[0];
+		pivotY = this.position[1];
+	}
 
+	// move the shape to new origin
+	this.move(-pivotX, -pivotY);
+	
+	// update position
+	this.position[0] *= sx;
+	this.position[1] *= sy
+	
+	// scale vertices
+	for (var i = 0; i < this.vertices.length; i++){
 		this.vertices[i].x *= sx;
 		this.vertices[i].y *= sy;
-
-		this.vertices[i].move(pivotX, pivotY);		
 	}
+
+	// revert origin
+	this.move(pivotX, pivotY);		
 };
 
 // just for visualization in editor
@@ -216,15 +228,12 @@ Shape.prototype.rotate = function(angle, pivotX, pivotY){
 	this.rotation += angle;
 
 	for (var i = 0; i < this.vertices.length; i++){
-		
 		var x = this.vertices[i].x - pivotX;
 		var y = this.vertices[i].y - pivotY;
 		var newAngle = angle + Math.atan2(y, x) * 180 / Math.PI;
 		var length = Math.pow(x * x + y * y, 0.5);
 		this.vertices[i].x = pivotX + length * Math.cos(newAngle * Math.PI / 180);
-		this.vertices[i].y = pivotY + length * Math.sin(newAngle * Math.PI / 180);
-
-		// this.vertices[i].move(this.position[0], this.position[1]);			
+		this.vertices[i].y = pivotY + length * Math.sin(newAngle * Math.PI / 180);		
 	}
 
 	// update position
@@ -340,13 +349,26 @@ Body.prototype.move = function(dx, dy){
 	}
 };
 
-Body.prototype.scale = function(sx, s){
+Body.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.scaleXY[0] *= sx;
 	this.scaleXY[1] *= sy;
 
-	for (var i = 0; i < this.shapes.length; i++){
-		this.shapes[i].scale(sx, sy, this.position[0], this.position[1]);
+	if (!pivotX || !pivotY){
+		pivotX = this.position[0];
+		pivotY = this.position[1];
 	}
+
+	this.move(-pivotX, -pivotY);
+
+	this.position[0] *= sx;
+	this.position[1] *= sy;
+
+	this.move(pivotX, pivotY);
+
+	for (var i = 0; i < this.shapes.length; i++){
+		this.shapes[i].scale(sx, sy, pivotX, pivotY);
+	}
+	
 };
 
 Body.prototype.rotate = function(angle){

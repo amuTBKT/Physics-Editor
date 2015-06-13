@@ -135,11 +135,13 @@ var Viewport = (function(){
 
 			// render aabb for polygon
 			if (shape.isSelected){
-				this.context.strokeStyle = "#0f0";
+				this.context.strokeStyle = "#ff0";
 				this.context.lineWidth = 2;
 				this.renderBox(shape.bounds[0], shape.bounds[1], shape.bounds[2], shape.bounds[3], false);
 				this.context.lineWidth = 1;
 			}
+
+			this.context.strokeStyle = "#000";
 		}
 
 		// TODO: create GUI layer for managing pivot and centroid and update their position and draw them here
@@ -218,22 +220,7 @@ var Viewport = (function(){
 		}
 
 		else if (e.which == 46){		// delete
-			var sceneManager = this.sceneManager;
-			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
-					sceneManager.removeBody(sceneManager.selectedBodies[i]);
-				}
-			}
-			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-				for (var i = 0; i < sceneManager.selectedShapes.length; i++){
-					sceneManager.selectedBodies[0].removeShapeGivenShape(sceneManager.selectedShapes[i]);
-				}
-			}
-			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
-				for (var i = 0; i < sceneManager.selectedVertices.length; i++){
-					sceneManager.selectedShapes[0].removeVertexGivenVertex(sceneManager.selectedVertices[i]);
-				}
-			}
+			this.sceneManager.deleteSelectedObjects();
 		}
 	};
 
@@ -292,21 +279,7 @@ var Viewport = (function(){
 			}
 
 			// edit bodies and shapes
-			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
-					sceneManager.selectedBodies[i].move(inputHandler.delta[0], inputHandler.delta[1]);
-				}
-			}
-			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-				for (var i = 0; i < sceneManager.selectedShapes.length; i++){
-					sceneManager.selectedShapes[i].move(inputHandler.delta[0], inputHandler.delta[1]);
-				}
-			}
-			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
-				for (var i = 0; i < sceneManager.selectedVertices.length; i++){
-					sceneManager.selectedVertices[i].move(inputHandler.delta[0], inputHandler.delta[1]);
-				}
-			}
+			sceneManager.moveSelection(inputHandler.delta);
 		}
 	};
 

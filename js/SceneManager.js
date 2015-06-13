@@ -14,6 +14,24 @@ var SceneManager = (function(){
 	}
 	// this.STATE_SHAPE_DRAW_MODE = 4;
 
+	SceneManager.prototype.deleteSelectedObjects = function(){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				this.removeBody(this.selectedBodies[i]);
+			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedBodies[0].removeShapeGivenShape(this.selectedShapes[i]);
+			}
+		}
+		else if (this.state == this.STATE_SHAPE_EDIT_MODE){
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				this.selectedShapes[0].removeVertexGivenVertex(this.selectedVertices[i]);
+			}
+		}
+	};
+
 	SceneManager.prototype.onMouseDown = function(e, inputHandler, navigator){
 		if (this.state == this.STATE_SHAPE_EDIT_MODE){
 			// for rendering vertices
@@ -161,6 +179,70 @@ var SceneManager = (function(){
 		}
 		return false;
 	};
+
+	SceneManager.prototype.scaleSelection = function(delta){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				pivot[0] += this.selectedBodies[i].position[0];
+				pivot[1] += this.selectedBodies[i].position[1];
+			}
+			pivot[0] /= this.selectedBodies.length;
+			pivot[1] /= this.selectedBodies.length;
+
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				this.selectedBodies[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
+			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				pivot[0] += this.selectedShapes[i].position[0];
+				pivot[1] += this.selectedShapes[i].position[1];
+			}
+			pivot[0] /= this.selectedShapes.length;
+			pivot[1] /= this.selectedShapes.length;
+
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedShapes[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
+			}
+		}
+		else if (this.state == this.STATE_SHAPE_EDIT_MODE && this.selectedVertices.length > 1){
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				pivot[0] += this.selectedVertices[i].x;
+				pivot[1] += this.selectedVertices[i].y;
+			}
+			pivot[0] /= this.selectedVertices.length;
+			pivot[1] /= this.selectedVertices.length;
+
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				var vertex = this.selectedVertices[i];
+				vertex.move(-pivot[0], -pivot[1]);
+				vertex.x *= delta[0];
+				vertex.y *= delta[1];
+				vertex.move(pivot[0], pivot[1]);		
+			}
+		}
+	};
+
+	SceneManager.prototype.moveSelection = function(delta){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				this.selectedBodies[i].move(delta[0], delta[1]);
+			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedShapes[i].move(delta[0], delta[1]);
+			}
+		}
+		else if (this.state == this.STATE_SHAPE_EDIT_MODE){
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				this.selectedVertices[i].move(delta[0], delta[1]);
+			}
+		}
+	}
 
 	SceneManager.prototype.addBody = function(body){
 		this.bodies.push(body);
