@@ -11,6 +11,7 @@ var Viewport = (function(){
 		this.selection = []							// array of selected objects
 		this.CTRL_PRESSED = 0;
 		this.SHIFT_PRESSED = 0;
+		this.ALT_PRESSED = 0;
 	}
 
 	InputHandler.IS_LEFT_MOUSE_BUTTON = 1;
@@ -100,7 +101,12 @@ var Viewport = (function(){
 			this.context.lineWidth = 1;
 		}
 
-	}
+		// draw position of body
+		this.context.fillStyle = "#000";
+		this.context.fillRect(body.position[0] - 5, body.position[1] - 5, 10, 10);
+
+
+	};
 
 	Renderer.prototype.renderShape = function(shape){
 		shape.calculateBounds();
@@ -195,6 +201,9 @@ var Viewport = (function(){
 		else if (e.which == 16){
 			this.inputHandler.SHIFT_PRESSED = 1;
 		}
+		else if (e.which == 18){
+			this.inputHandler.ALT_PRESSED = 0;
+		}
 	};
 
 	Viewport.prototype.onKeyUp = function(e){
@@ -203,6 +212,28 @@ var Viewport = (function(){
 		}
 		else if (e.which == 16){
 			this.inputHandler.SHIFT_PRESSED = 0;
+		}
+		else if (e.which == 18){
+			this.inputHandler.ALT_PRESSED = 0;
+		}
+
+		else if (e.which == 46){		// delete
+			var sceneManager = this.sceneManager;
+			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+					sceneManager.removeBody(sceneManager.selectedBodies[i]);
+				}
+			}
+			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+				for (var i = 0; i < sceneManager.selectedShapes.length; i++){
+					sceneManager.selectedBodies[0].removeShapeGivenShape(sceneManager.selectedShapes[i]);
+				}
+			}
+			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
+				for (var i = 0; i < sceneManager.selectedVertices.length; i++){
+					sceneManager.selectedShapes[0].removeVertexGivenVertex(sceneManager.selectedVertices[i]);
+				}
+			}
 		}
 	};
 
@@ -256,6 +287,10 @@ var Viewport = (function(){
 				return;
 			}
 
+			if (inputHandler.selectionArea[4]){
+				return;
+			}
+
 			// edit bodies and shapes
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
 				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
@@ -273,8 +308,6 @@ var Viewport = (function(){
 				}
 			}
 		}
-
-		// check for bodies and shape
 	};
 
 	Viewport.prototype.onMouseUp = function(e){
@@ -285,16 +318,6 @@ var Viewport = (function(){
 			var startPoint = this.screenPointToWorld(inputHandler.selectionArea[0], inputHandler.selectionArea[1]),
 				endPoint = this.screenPointToWorld(e.offsetX, e.offsetY);
 			var lineSegment  = new LineSegment(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
-			// for (var i = 0; i < shape.vertices.length; i++){
-			// 	if (lineSegment.checkInBoundsX(shape.vertices[i].x) && lineSegment.checkInBoundsY(shape.vertices[i].y)){
-			// 		shape.vertices[i].highlight = true;
-			// 	}
-			// 	else {
-			// 		shape.vertices[i].highlight = false;
-			// 	}
-			// }
-			// console.log(lineSegment);
-			// console.log(lineSegment.checkInBoundsAABB([500, 200, 200, 200]));
 
 			// edit bodies and shapes
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
@@ -342,74 +365,12 @@ var Viewport = (function(){
 	Viewport.prototype.onClick = function(e){
 		// var sceneManager = this.sceneManager,
 		// 	inputHandler = this.inputHandler;
-
-		// if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-		// 	sceneManager.selectedShapes = [];
-		// 	for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
-		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
-		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = true;
-		// 			sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
-		// 			break;
-		// 		}
-		// 		else {
-		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = false;
-		// 			sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
-		// 		}
-		// 	}
-		// 	return;
-		// }
-
-		// if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-		// 	for (var i = 0; i < sceneManager.bodies.length; i++){
-		// 		sceneManager.selectedBodies = [];
-		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
-		// 			sceneManager.bodies[i].isSelected = true;
-		// 			sceneManager.selectedBodies[0] = sceneManager.bodies[i];
-		// 			break;
-		// 		}
-		// 		else {
-		// 			sceneManager.bodies[i].isSelected = false;	
-		// 		}
-		// 	}
-		// }		
-	}
+	};
 
 	Viewport.prototype.onDoubleClick = function(e){
 		// var sceneManager = this.sceneManager,
 		// 	inputHandler = this.inputHandler;
-
-		// if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-		// 	sceneManager.selectedShapes = [];
-		// 	for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
-		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.selectedBodies[0].shapes[i].bounds)){
-		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = true;
-		// 			sceneManager.selectedBodies[0].shapes[i].inEditMode = true;
-		// 			sceneManager.selectedShapes[0] = sceneManager.selectedBodies[0].shapes[i];
-		// 			sceneManager.state = sceneManager.STATE_SHAPE_EDIT_MODE;
-		// 			return;
-		// 		}
-		// 		else {
-		// 			sceneManager.selectedBodies[0].shapes[i].isSelected = false;
-		// 			sceneManager.selectedBodies[0].shapes[i].inEditMode = false;
-		// 		}
-		// 	}
-		// }
-
-		// if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-		// 	for (var i = 0; i < sceneManager.bodies.length; i++){
-		// 		sceneManager.selectedBodies = [];
-		// 		if (this.navigator.checkPointInAABB(e.offsetX, e.offsetY, sceneManager.bodies[i].bounds)){
-		// 			sceneManager.bodies[i].isSelected = true;
-		// 			sceneManager.selectedBodies[0] = sceneManager.bodies[i];
-		// 			sceneManager.state = sceneManager.STATE_BODY_EDIT_MODE;
-		// 			break;
-		// 		}
-		// 		else {
-		// 			sceneManager.bodies[i].isSelected = false;	
-		// 		}
-		// 	}
-		// }
-	}
+	};
 
 	// viewport scaling
 	Viewport.prototype.onMouseWheel = function(e){
@@ -446,7 +407,7 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.draw = function(){
-		var inputHandler = this.inputHandler, navigator = this.navigator, renderer = this.renderer;
+		var inputHandler = this.inputHandler, navigator = this.navigator, renderer = this.renderer, sceneManager = this.sceneManager;
 		
 		// clear screen
 		renderer.clear(navigator.origin[0], navigator.origin[1], 1520 / navigator.scale, 561 / navigator.scale);
@@ -454,6 +415,10 @@ var Viewport = (function(){
 		// applying panning to canvas
 		renderer.getContext().save();
 		renderer.getContext().translate(navigator.panning[0], navigator.panning[1]);
+
+		for (var i = 0; i < sceneManager.bodies.length; i++){
+			renderer.renderBody(sceneManager.bodies[i]);
+		}
 
 		// draw selection area if active
 		if (inputHandler.selectionArea[4]){
@@ -466,7 +431,7 @@ var Viewport = (function(){
 			this.renderer.setLineDash(0, 0);
 		}
 
-		// renderer.getContext().restore();
+		renderer.getContext().restore();
 	};
 
 	Viewport.prototype.screenPointToWorld = function(x, y){
@@ -487,6 +452,10 @@ var Viewport = (function(){
 
 	Viewport.prototype.getRenderer = function(){
 		return this.renderer;
+	};
+
+	Viewport.prototype.getSceneManager = function(){
+		return this.sceneManager;
 	};
 
 	var instance;

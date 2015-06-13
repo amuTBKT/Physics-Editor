@@ -81,12 +81,6 @@ function render() {
 
 	context.strokeRect( 10,  10, SCREEN_WIDTH - 400 - 20, SCREEN_HEIGHT - 100 - 20);
 	
-	
-	viewport.getRenderer().renderBody(body);
-	viewport.getRenderer().renderBody(body1);
-	
-
-	context.restore();
 
 	setTimeout(render, 1000.0 / 60.0);
 }

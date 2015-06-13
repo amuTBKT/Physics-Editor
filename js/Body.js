@@ -144,19 +144,26 @@ Shape.prototype.removeVertexGivenVertex = function(v){
 	// 	return;
 
 	for (var i = 0; i < this.vertices.length; i++){
-		if (this.vertices[i].x == v.x && this.vertices[i].y == v.y){ 
-			this.vertices.splice(i, 1);
+		if (this.vertices[i] == v){ 
+			this.removeVertexGivenIndex(i);
 			break;
 		}
 	}
-	this.calculateBounds();
 };
 
 Shape.prototype.removeVertexGivenIndex = function(index){
 	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
 	// 	return;
+	if (index == 0){
+		this.vertices.shift();
+	}
+	else if (index == this.vertices.length - 1){
+		this.vertices.pop();
+	}
+	else {
+		this.vertices.splice(index, 1);
+	}
 
-	this.vertices.splice(index, 1);
 	this.calculateBounds();
 };
 
@@ -282,20 +289,28 @@ Body.prototype.addShape = function(shape){
 	shape.setPosition(this.position[0], this.position[1]);
 
 	this.shapes.push(shape);
-}
+};
 
 Body.prototype.removeShapeGivenIndex = function(index){
-	this.shapes.slice(index, 1);
-}
+	if (index == 0){
+		this.shapes.shift();
+	}
+	else if (index == this.shapes.length - 1){
+		this.shapes.pop();
+	}
+	else {
+		this.shapes.splice(index, 1);
+	}
+};
 
 Body.prototype.removeShapeGivenShape = function(shape){
 	for (var i = 0; i < this.shapes.length; i++){
 		if (this.shapes[i] == shape){
-			this.shapes.slice(i, 1);
+			this.removeShapeGivenIndex(i);
 			break;
 		}
 	}
-}
+};
 
 Body.prototype.calculateBounds = function(){
 	var minX = 100000, maxX = -100000, minY = 100000, maxY = -100000;
@@ -314,7 +329,7 @@ Body.prototype.calculateBounds = function(){
 	this.bounds[1] = (maxY + minY) / 2;
 	this.bounds[2] = maxX - minX;
 	this.bounds[3] = maxY - minY;
-}
+};
 
 Body.prototype.move = function(dx, dy){
 	this.position[0] += dx;
@@ -323,20 +338,20 @@ Body.prototype.move = function(dx, dy){
 	for (var i = 0; i < this.shapes.length; i++){
 		this.shapes[i].move(dx, dy);
 	}
-}
+};
 
-Body.prototype.scale = function(sx, sy){
+Body.prototype.scale = function(sx, s){
 	this.scaleXY[0] *= sx;
 	this.scaleXY[1] *= sy;
 
 	for (var i = 0; i < this.shapes.length; i++){
 		this.shapes[i].scale(sx, sy, this.position[0], this.position[1]);
 	}
-}
+};
 
 Body.prototype.rotate = function(angle){
 	this.rotation += angle;
 	for (var i = 0; i < this.shapes.length; i++){
 		this.shapes[i].rotate(angle, this.position[0], this.position[1]);
 	}
-}
+};
