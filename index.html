@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Physics-Editor</title>
+<link rel="icon" type="image/png" href="resources/title_icon.png">
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/hint.css">
+<style type="text/css">
+	#canvas {
+		position: absolute;
+		left: 5%;
+		top: 10%;
+		border: solid 1px #000;
+	}
+	#toolbar{
+		position: absolute;
+		top: 10%;
+		width: 5%;
+		margin: 0 0;
+	}
+	ul{
+		margin: 0 0;
+		padding: 0 0;
+	}
+	li{
+		background: #000;
+		width: 100%;
+		margin: 0 0;
+		padding: 0 0;
+		display: block;
+		list-style: none;
+	}
+	a{
+		color: #fff;
+	}
+</style>
 </head>
 <body>
 
-<canvas id="canvas" style="border: solid 1px #000;"></canvas>
+<canvas id="canvas"></canvas>
+
+<div id="toolbar">
+<ul id="transformTools">
+	<li class="hint--right" data-hint="Translate" ><a href="#" data-event="activateTranslationTool" id="tool_translation">Translation Tool</a></li>
+	<li class="hint--right" data-hint="Scale" ><a href="#" data-event="activateScaleTool" id="tool_scale">Scale Tool</a></li>
+	<li class="hint--right" data-hint="Rotate" ><a href="#" data-event="activateRotationTool" id="tool_rotation">Rotation Tool</a></li>
+</ul>
+
+<ul id="pivotTools">
+	<li class="hint--right" data-hint="Local" ><a href="#" data-event="activateLocalPivotMode" id="pivot_local_select">Local Mode</a></li>
+	<li class="hint--right" data-hint="Selection"><a href="#" data-event="activateSelectionPivotMode" id="pivot_selection_select">Selection Mode</a></li>
+</ul>
+
+<ul id="sceneMode">
+	<li><a href="#" data-event="enterDefaultMode">Exit Edit Mode</a></li>
+	<li><a href="#" data-event="enterBodyEditMode">Edit Body</a></li>
+	<li><a href="#" data-event="enterShapeEditMode">Edit Shape</a></li>
+</ul>
+
+</div>
 
 <!-- js-scripts -->
 <script type="text/javascript" src="js/jquery.js"></script>

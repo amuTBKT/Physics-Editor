@@ -8,8 +8,8 @@ var shape, body, body1;
 // initialize canvas and context
 function init(){
 	canvas = document.getElementById("canvas");
-	canvas.width = SCREEN_WIDTH - 400;
-	canvas.height = SCREEN_HEIGHT - 100;
+	canvas.width = SCREEN_WIDTH * 0.8;
+	canvas.height = SCREEN_HEIGHT * 0.8;
 
 	sceneManager = SceneManager.getInstance();
 
@@ -48,12 +48,38 @@ function init(){
 		viewport.onKeyUp(e);
 	});
 
+	$("#transformTools").find("a").each(function(index){
+		var action = $(this).data("event");
+		mixin(this, viewport.getInputHandler(), action);
+		
+		this.addEventListener("click", function(e){
+			e.preventDefault();
+			e.target[action]();
+		});
+	});
+
+	$("#pivotTools").find("a").each(function(index){
+		var action = $(this).data("event");
+		mixin(this, viewport.getInputHandler(), action);
+		
+		this.addEventListener("click", function(e){
+			e.preventDefault();
+			e.target[action]();
+		});
+	});
+
+	$("#sceneMode").find("a").each(function(index){
+		var action = $(this).data("event");
+		mixin(this, viewport.getSceneManager(), action);
+		
+		this.addEventListener("click", function(e){
+			e.preventDefault();
+			e.target[action]();
+		});
+	});
+
 	var size = 10;
 	shape = new Shape(Shape.SHAPE_POLYGON);
-	shape.addVertex(new Vertex(-100, -100, size, size));
-	shape.addVertex(new Vertex(100, -100, size, size));
-	shape.addVertex(new Vertex(100, 100, size, size));
-	shape.addVertex(new Vertex(-100, 100, size, size));
 
 	//shape.move(200, 200);
 
@@ -68,20 +94,22 @@ function init(){
 	body1 = new Body();
 	body1.addShape(new Shape(Shape.SHAPE_BOX, 200, 200));
 
-	sceneManager.addBody(body);
-	sceneManager.addBody(body1);
+	sceneManager.createBody(Shape.SHAPE_BOX);
+	sceneManager.createBody(Shape.SHAPE_CIRCLE);
+	sceneManager.createBody(Shape.SHAPE_POLYGON);
+}
+
+function mixin(target, source, methods){
+	for (var ii = 2, ll = arguments.length; ii < ll; ii++){
+		var method = arguments[ii];
+
+		target[method] = source[method].bind(source);
+	}
 }
 
 // update loop 
 function render() {	
 	viewport.draw();
-
-	// shape.rotate(0.5, 300, 200);
-	// context.strokeRect(300 - 5, 200 - 5, 10, 10);
-
-	context.strokeRect( 10,  10, SCREEN_WIDTH - 400 - 20, SCREEN_HEIGHT - 100 - 20);
-	
-
 	setTimeout(render, 1000.0 / 60.0);
 }
 //-------------------------------------------//

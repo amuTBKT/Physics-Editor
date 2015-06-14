@@ -64,15 +64,23 @@ function Shape(type, width, height){
 	this.inEditMode = false;
 	this.shapeType = type;
 
+	// for box shape
+	this.width = 0;
+	this.height = 0;
+
+	// for circle shape
+	this.radius = 0;
+
 	// fixture properties
 	this.mass = 1;
 	this.friction = 1;
 	this.restitution = 0.5;
+	this.density = 1;
 	this.isBulllet = 0;
 
 
-	if (type == Shape.SHAPE_CHAIN){
-		this.mass = 0;
+	if (type == Shape.SHAPE_CHAIN || type == Shape.SHAPE_POLYGON){
+		this.mass = type == Shape.SHAPE_CHAIN ? 0 : 1;
 		var size = 10, width = 100, height = 100;
 		this.vertices.push(new Vertex(-width / 2, -height / 2, size, size));
 		this.vertices.push(new Vertex( width / 2, -height / 2, size, size));
@@ -82,15 +90,20 @@ function Shape(type, width, height){
 
 	else if (type == Shape.SHAPE_BOX){
 		var size = 10;
+		width = width || 100;
+		height = height || 100;
 		this.vertices.push(new Vertex(-width / 2, -height / 2, size, size));
 		this.vertices.push(new Vertex( width / 2, -height / 2, size, size));
 		this.vertices.push(new Vertex( width / 2,  height / 2, size, size));
 		this.vertices.push(new Vertex(-width / 2,  height / 2, size, size));
+		this.width = width;
+		this.height = height;
 	}
 
 	else if (type == Shape.SHAPE_CIRCLE){
-		var radius = width / 2;
-		var angle = 0;
+		this.radius = (width || 100) / 2;
+		var radius = this.radius;
+		var angle = 0
 		var resolution = 10;
 		var size = 10;
 		for (var i = 0; i < resolution; i++){
@@ -107,11 +120,11 @@ Shape.SHAPE_POLYGON = 2;
 Shape.SHAPE_CHAIN = 3;
 
 Shape.prototype.addVertex = function(v){
-	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
-	// 	return;
+	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
+		return;
 
 	if (this.vertices.length > 3){
-		var lineSegment, distance = 10000, index = 0;
+		var lineSegment, distance = 10000, index=  0;
 		for (var i = 0; i < this.vertices.length; i++){
 			if (i == this.vertices.length - 1){
 				lineSegment = new LineSegment(this.vertices[i].x, this.vertices[i].y, this.vertices[0].x, this.vertices[0].y);
@@ -145,8 +158,8 @@ Shape.prototype.addVertex = function(v){
 };
 
 Shape.prototype.removeVertexGivenVertex = function(v){
-	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
-	// 	return;
+	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
+		return;
 
 	for (var i = 0; i < this.vertices.length; i++){
 		if (this.vertices[i] == v){ 
@@ -157,8 +170,8 @@ Shape.prototype.removeVertexGivenVertex = function(v){
 };
 
 Shape.prototype.removeVertexGivenIndex = function(index){
-	// if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
-	// 	return;
+	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
+		return;
 	if (index == 0){
 		this.vertices.shift();
 	}
@@ -206,6 +219,15 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.scaleXY[0] *= sx;
 	this.scaleXY[1] *= sy;
 
+	if (this.shapeType == Shape.SHAPE_BOX){
+		this.width *= sx;
+		this.height *= sy;
+	}
+	else if (this.shapeType == Shape.SHAPE_CIRCLE){
+		this.radius *= sx;
+		sy = sx;
+	}
+
 	if (!pivotX || !pivotY){
 		pivotX = this.position[0];
 		pivotY = this.position[1];
@@ -228,8 +250,8 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.move(pivotX, pivotY);		
 };
 
-Shape.prototype.setScale = function(sx, sy){
-	this.scale(sx / this.scaleXY[0], sy / this.scaleXY[1]);
+Shape.prototype.setScale = function(sx, sy, pivotX, pivotY){
+	this.scale(sx / this.scaleXY[0], sy / this.scaleXY[1], pivotX, pivotY);
 };
 
 // just for visualization in editor
@@ -259,6 +281,10 @@ Shape.prototype.rotate = function(angle, pivotX, pivotY){
 	this.position[1] = pivotY + length * Math.sin(newAngle * Math.PI / 180);
 }
 
+Shape.prototype.setRotation = function(angle, pivotX, pivotY){
+	this.rotate(angle - this.rotation, pivotX, pivotY);
+};
+
 Shape.prototype.calculateBounds = function(){
 	var minX = 100000, maxX = -100000, minY = 100000, maxY = -100000;
 	var v;
@@ -284,18 +310,30 @@ Shape.prototype.calculateBounds = function(){
 	this.centroid[1] /= this.vertices.length;
 };
 
-Shape.prototype.toPhysics = function(){
+Shape.prototype.toPhysics = function(x, y){
 	var shapes = [];
-	//this.sortVertices();
 
-	var rot = shape.rotation;
-	// reset rotation for exporting
-	shape.rotate(-rot);
+	if (this.shapeType == Shape.SHAPE_BOX && this.rotation == 0){
+		var pShape = new PhysicsShape(Shape.SHAPE_BOX);
+		pShape.width = this.width;
+		pShape.height = this.height;
+		pShape.position = [this.position[0] - x, this.position[1] - y];
+		shapes.push(pShape);
+		return shapes;
+	}
+	else if (this.shapeType == Shape.SHAPE_CIRCLE){
+		var pShape = new PhysicsShape(Shape.SHAPE_CIRCLE);
+		pShape.radius = this.bounds[2] / 2;
+		pShape.position = [this.position[0] - x, this.position[1] - y];
+		shapes.push(pShape);
+		return shapes;
+	}
 
-
-	// rotate again for visualization in editor
-	shape.rotate(rot);
-
+	var pShape = new PhysicsShape(this.shapeType)
+	for (var i = 0; i < this.vertices.length; i++){
+		pShape.vertices.push([this.vertices[i].x - this.position[0], this.vertices[i].y - this.position[1]]);
+	}
+	shapes.push(pShape);
 	return shapes;
 };
 
@@ -306,7 +344,12 @@ function Body(){
 	this.rotation = 0;
 	this.bounds = [0, 0, 0, 0];
 	this.isSelected = false;
+	this.bodyType = Body.BODY_TYPE_DYNAMIC;
 }
+
+Body.BODY_TYPE_DYNAMIC = 0;
+Body.BODY_TYPE_KINEMATIC = 1;
+Body.BODY_TYPE_STATIC = 2;
 
 Body.prototype.addShape = function(shape){
 	shape.setPosition(this.position[0], this.position[1]);
@@ -363,6 +406,10 @@ Body.prototype.move = function(dx, dy){
 	}
 };
 
+Body.prototype.setPosition = function(x, y){
+	this.move(x - this.position[0], y - this.position[1]);
+};
+
 Body.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.scaleXY[0] *= sx;
 	this.scaleXY[1] *= sy;
@@ -385,6 +432,10 @@ Body.prototype.scale = function(sx, sy, pivotX, pivotY){
 	
 };
 
+Body.prototype.setScale = function(sx, sy, pivotX, pivotY){
+	this.scale(sx / this.scaleXY[0], sy / this.scaleXY[1], pivotX, pivotY);
+};
+
 Body.prototype.rotate = function(angle, pivotX, pivotY){
 	if (!pivotX || !pivotY){
 		pivotX = this.position[0];
@@ -404,3 +455,63 @@ Body.prototype.rotate = function(angle, pivotX, pivotY){
 	this.position[0] = pivotX + length * Math.cos(newAngle * Math.PI / 180);
 	this.position[1] = pivotY + length * Math.sin(newAngle * Math.PI / 180);
 };
+
+Body.prototype.setRotation = function(angle, pivotX, pivotY){
+	this.rotate(angle - this.rotation, pivotX, pivotY);
+};
+
+Body.prototype.toPhysics = function(){
+	var rot = this.rotation;
+
+	this.rotate(-rot);
+
+	var pBody = new PhysicsBody(this.bodyType);
+	pBody.position = this.position;
+	pBody.rotation = rot;
+
+	for (var i = 0; i < this.shapes.length; i++){
+		var shape = this.shapes[i];
+		
+		var fixture = new Fixture();
+		fixture.mass = shape.mass;
+		fixture.restitution = shape.restitution;
+		fixture.friction = shape.friction;
+		fixture.density = shape.density;
+		fixture.shapes = this.shapes[i].toPhysics(this.position[0], this.position[1]);
+		pBody.fixtures.push(fixture);
+	}
+
+	this.rotate(rot);
+
+	return pBody;
+}
+
+// exporting objects //
+function Fixture(){
+	this.shapes;
+	this.restitution;
+	this.mass;
+	this.friction;
+	this.density;
+	this.isBullet;
+}
+
+function PhysicsShape(type){
+	this.type = type;
+	this.position = [0, 0];				// position relative to body				
+	this.vertices = [];
+	
+	// for box shape
+	this.width;
+	this.height;
+
+	// for circle shape
+	this.radius;
+}
+
+function PhysicsBody(type){
+	this.type = type;
+	this.fixtures = [];
+	this.position = [0, 0];
+	this.rotation = 0;
+}

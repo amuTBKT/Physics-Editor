@@ -12,7 +12,36 @@ var SceneManager = (function(){
 		this.selectedShapes = [];
 		this.selectedVertices = [];
 	}
-	// this.STATE_SHAPE_DRAW_MODE = 4;
+
+	SceneManager.prototype.enterDefaultMode = function(){
+		this.state = this.STATE_DEFAULT_MODE;
+
+		if (this.selectedShapes.length > 0){
+			this.selectedShapes[0].inEditMode = false;
+			this.selectedShapes[0].isSelected = false;
+		}
+	};
+
+	SceneManager.prototype.enterBodyEditMode = function(){
+		if (this.selectedBodies.length > 1)
+			return;
+
+		if (this.selectedShapes.length > 0)
+			this.selectedShapes[0].inEditMode = false;
+		
+		this.state = this.STATE_BODY_EDIT_MODE;
+	};
+
+	SceneManager.prototype.enterShapeEditMode = function(){
+		if (this.state != this.STATE_BODY_EDIT_MODE)
+			return;
+
+		if (this.selectedShapes.length > 1)
+			return;
+
+		this.state = this.STATE_SHAPE_EDIT_MODE;
+		this.selectedShapes[0].inEditMode = true;
+	};
 
 	SceneManager.prototype.deleteSelectedObjects = function(){
 		if (this.state == this.STATE_DEFAULT_MODE){
@@ -32,24 +61,6 @@ var SceneManager = (function(){
 		}
 	};
 
-	// SceneManager.prototype.checkPointInShape = function(px, py, polyVerts){
-	// 	var i, len, v1, v2, edge, c;
-	// 	for (i = 0, len = polyVerts.length; i < len; i++) {
-
-	// 	    v1 = [polyVerts[i][0] - px, polyVerts[i][1] - py];
-		    
-	// 	    v2 = (polyVerts[i+1 > len-1 ? 0 : i+1][0] - px, polyVerts[i+1 > len-1 ? 0 : i+1][1] - py)
-	    	
-	//     	edge = [v1[0] - v2[0], v1[1] - v2[1]];
-
-	//     	c = edge[0] * v1[1] - edge[1] * v1[0];
-	//     	if (c < 0) { 
-	//     		return false; 
-	//     	}
-	//   	}
-	// 	return true
-	// };
-
 	SceneManager.prototype.checkCollisionWithChainShape = function(pointx, pointy, shape){
 		var lineSegment, index = 0;
 		for (var i = 0; i < shape.vertices.length; i++){
@@ -60,7 +71,7 @@ var SceneManager = (function(){
 				lineSegment = new LineSegment(shape.vertices[i].x, shape.vertices[i].y, shape.vertices[i + 1].x, shape.vertices[i + 1].y);
 			}
 
-			if (lineSegment.distanceFromPoint(pointx, pointy) < 25){
+			if (lineSegment.distanceFromPoint(pointx, pointy) < 10){
 				if (lineSegment.checkInBoundsX(pointx) || lineSegment.checkInBoundsY(pointy)){
 					return true;		
 				}
@@ -143,6 +154,7 @@ var SceneManager = (function(){
 				}
 			}
 			
+			// don't reset selecteShapes array if shift is pressed (multiple selection)			
 			if (!inputHandler.SHIFT_PRESSED){
 				this.selectedShapes = [];
 			}
@@ -154,33 +166,37 @@ var SceneManager = (function(){
 					shape.isSelected = false;
 				}
 
-				// var screenCoords = [], check = false;
-				// for (var i = 0; i < shape.vertices.length; i++){
-				// 	screenCoords[i] = navigator.worldPointToScreen(shape.vertices[i].x, shape.vertices[i].y);
-				// }
-				
-				// check =	this.checkPointInShape(e.offsetX, e.offsetY, screenCoords);
-
+				// check if test point is in the shape
 				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, shape.bounds)){
+					
 					var point = navigator.worldPointToScreen(shape.position[0], shape.position[1]);
 					distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+					// check for minimum distance in case the test point is in multiple shapes 
 					if (minDistance > distance){
+
+						// if shape is chain_shape the check for intersection between test point and its edges with some threshold 
 						if (shape.shapeType == Shape.SHAPE_CHAIN){
 							var screenPointToWorld = navigator.screenPointToWorld(e.offsetX, e.offsetY);
 							if (!this.checkCollisionWithChainShape(screenPointToWorld[0], screenPointToWorld[1], shape)){
 								continue;
 							}
 						}
+
+						// multiple selection is disabled
 						if (!inputHandler.SHIFT_PRESSED){
 							this.selectedShapes[0] = shape;
 							shape.isSelected = true;
 						}
+						// user is holding shift, so multiple selection is active
 						else {
+							// check if the shape is already selected
 							if (this.selectedShapes.indexOf(shape) < 0){
 								this.selectedShapes.push(shape);
 								shape.isSelected = true;
 							}
 						}
+
+						// shape selected so return true
 						shapeInBounds = true;
 						minDistance = distance;
 					}
@@ -238,27 +254,37 @@ var SceneManager = (function(){
 		return false;
 	};
 
-	SceneManager.prototype.transformSelection = function(delta, inputHandler){
+	SceneManager.prototype.setPositionOfSelectedObjects = function(x, y){
 		if (this.state == this.STATE_DEFAULT_MODE){
-			if (inputHandler.transformTool == 7){
-				for (var i = 0; i < this.selectedBodies.length; i++){
-					this.selectedBodies[i].move(delta[0], delta[1]);
-				}
-				return;	
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				this.selectedBodies[i].setPosition(x, y);
 			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedShapes[i].setPosition(x, y);
+			}
+		}
+		else if (	this.state == this.STATE_SHAPE_EDIT_MODE && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_BOX && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_CIRCLE){
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				this.selectedVertices[i].x = x;
+				this.selectedVertices[i].y = y;
+			}
+		}
+	};
 
-			if (inputHandler.pivotMode == 3){			// InputHandler.PIVOT_LOCAL_MODE
+	SceneManager.prototype.setScaleOfSelectedObjects = function(sx, sy, inputHandler){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			if (inputHandler.pivotMode == 3){								// InputHandler.PIVOT_LOCAL_MODE
 				for (var i = 0; i < this.selectedBodies.length; i++){
-					if (inputHandler.transformTool == 5){
-						this.selectedBodies[i].scale(delta[0], delta[1]);
-					}
-					else if (inputHandler.transformTool == 6){
-						this.selectedBodies[i].rotate(delta[0]);
-					}
+					this.selectedBodies[i].setScale(sx, sy);
 				}
 				return;
 			}
 
+			// if selection center is used as pivot (selection center)
 			var pivot = [0, 0];
 			for (var i = 0; i < this.selectedBodies.length; i++){
 				pivot[0] += this.selectedBodies[i].position[0];
@@ -268,10 +294,159 @@ var SceneManager = (function(){
 			pivot[1] /= this.selectedBodies.length;
 
 			for (var i = 0; i < this.selectedBodies.length; i++){
-				if (inputHandler.transformTool == 5){
+				this.selectedBodies[i].setScale(sx, sy, pivot[0], pivot[1]);
+			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			if (inputHandler.pivotMode == 3){
+				for (var i = 0; i < this.selectedShapes.length; i++){
+					this.selectedShapes[i].setScale(sx, sy);
+				}
+				return;
+			}
+
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				pivot[0] += this.selectedShapes[i].position[0];
+				pivot[1] += this.selectedShapes[i].position[1];
+			}
+			pivot[0] /= this.selectedShapes.length;
+			pivot[1] /= this.selectedShapes.length;
+
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedShapes[i].setScale(sx, sy, pivot[0], pivot[1]);
+			}
+		}
+		else if (	this.state == this.STATE_SHAPE_EDIT_MODE && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_BOX && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_CIRCLE){
+			if (this.selectedVertices.length < 1)
+				return;
+
+			// here we always use selection center pivot mode
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				pivot[0] += this.selectedVertices[i].x;
+				pivot[1] += this.selectedVertices[i].y;
+			}
+			pivot[0] /= this.selectedVertices.length;
+			pivot[1] /= this.selectedVertices.length;
+
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				var vertex = this.selectedVertices[i];	
+				vertex.move(-pivot[0], -pivot[1]);
+				vertex.x *= sx;
+				vertex.y *= sy;
+				vertex.move(pivot[0], pivot[1]);
+			}
+		}
+	};
+
+	SceneManager.prototype.setRotationOfSelectedObject = function(angle, inputHandler){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			if (inputHandler.pivotMode == 3){								// InputHandler.PIVOT_LOCAL_MODE
+				for (var i = 0; i < this.selectedBodies.length; i++){
+					this.selectedBodies[i].setRotation(angle);
+				}
+				return;
+			}
+
+			// if selection center is used as pivot (selection center)
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				pivot[0] += this.selectedBodies[i].position[0];
+				pivot[1] += this.selectedBodies[i].position[1];
+			}
+			pivot[0] /= this.selectedBodies.length;
+			pivot[1] /= this.selectedBodies.length;
+
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				this.selectedBodies[i].setRotation(angle, pivot[0], pivot[1]);
+			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			if (inputHandler.pivotMode == 3){
+				for (var i = 0; i < this.selectedShapes.length; i++){
+					this.selectedShapes[i].setRotation(angle);
+				}
+				return;
+			}
+
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				pivot[0] += this.selectedShapes[i].position[0];
+				pivot[1] += this.selectedShapes[i].position[1];
+			}
+			pivot[0] /= this.selectedShapes.length;
+			pivot[1] /= this.selectedShapes.length;
+
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedShapes[i].setRotation(angle, pivot[0], pivot[1]);
+			}
+		}
+		else if (	this.state == this.STATE_SHAPE_EDIT_MODE && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_BOX && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_CIRCLE){
+			if (this.selectedVertices.length < 1)
+				return;
+
+			// here we always use selection center pivot mode
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				pivot[0] += this.selectedVertices[i].x;
+				pivot[1] += this.selectedVertices[i].y;
+			}
+			pivot[0] /= this.selectedVertices.length;
+			pivot[1] /= this.selectedVertices.length;
+
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				var x = vertex.x - pivot[0];
+				var y = vertex.y - pivot[1];
+				var newAngle = angle;
+				var length = Math.pow(x * x + y * y, 0.5);
+				vertex.x = pivot[0] + length * Math.cos(newAngle * Math.PI / 180);
+				vertex.y = pivot[1] + length * Math.sin(newAngle * Math.PI / 180);
+			}
+		}
+	};
+
+	SceneManager.prototype.transformSelection = function(delta, inputHandler){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			// if translation tool is active then we don't have to calculate pivot 
+			if (inputHandler.transformTool == 7){
+				for (var i = 0; i < this.selectedBodies.length; i++){
+					this.selectedBodies[i].move(delta[0], delta[1]);
+				}
+				return;	
+			}
+
+			// if objects position is used as pivot (local space)
+			if (inputHandler.pivotMode == 3){								// InputHandler.PIVOT_LOCAL_MODE
+				for (var i = 0; i < this.selectedBodies.length; i++){
+					if (inputHandler.transformTool == 5){					// InputHandler.TRANSFORM_TOOL_SCALE
+						this.selectedBodies[i].scale(delta[0], delta[1]);
+					}
+					else if (inputHandler.transformTool == 6){				// InputHandler.TRANSFORM_TOOL_ROTATION
+						this.selectedBodies[i].rotate(delta[0]);
+					}
+				}
+				return;
+			}
+
+			// if selection center is used as pivot (selection center)
+			var pivot = [0, 0];
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				pivot[0] += this.selectedBodies[i].position[0];
+				pivot[1] += this.selectedBodies[i].position[1];
+			}
+			pivot[0] /= this.selectedBodies.length;
+			pivot[1] /= this.selectedBodies.length;
+
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				if (inputHandler.transformTool == 5){						// InputHandler.TRANSFORM_TOOL_SCALE
 					this.selectedBodies[i].scale(delta[0], delta[1], pivot[0], pivot[1]);
 				}
-				else if (inputHandler.transformTool == 6){
+				else if (inputHandler.transformTool == 6){					// InputHandler.TRANSFORM_TOOL_ROTATION
 					this.selectedBodies[i].rotate(delta[0], pivot[0], pivot[1]);
 				} 
 			}
@@ -315,7 +490,9 @@ var SceneManager = (function(){
 			}
 		}
 
-		else if (this.state == this.STATE_SHAPE_EDIT_MODE){
+		else if (	this.state == this.STATE_SHAPE_EDIT_MODE && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_BOX && 
+					this.selectedShapes[0].shapeType != Shape.SHAPE_CIRCLE){
 			if (inputHandler.transformTool == 7){
 				for (var i = 0; i < this.selectedVertices.length; i++){
 					this.selectedVertices[i].move(delta[0], delta[1]);
@@ -326,6 +503,7 @@ var SceneManager = (function(){
 			if (this.selectedVertices.length < 1)
 				return;
 
+			// here we always use selection center pivot mode
 			var pivot = [0, 0];
 			for (var i = 0; i < this.selectedVertices.length; i++){
 				pivot[0] += this.selectedVertices[i].x;
@@ -356,6 +534,21 @@ var SceneManager = (function(){
 
 	SceneManager.prototype.addBody = function(body){
 		this.bodies.push(body);
+	};
+
+	SceneManager.prototype.createBody = function(shapeType){
+		var body = new Body();
+		var shape = new Shape(shapeType);
+		body.addShape(shape);
+		this.addBody(body);
+	};
+
+	SceneManager.prototype.createShape = function(shapeType){
+		if (this.state != this.STATE_BODY_EDIT_MODE)
+			return;
+
+		var shape = new Shape(shapeType);
+		this.selectedBodies[0].addShape(shape);
 	};
 
 	SceneManager.prototype.removeBody = function(body){

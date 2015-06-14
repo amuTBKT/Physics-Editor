@@ -36,12 +36,32 @@ var Viewport = (function(){
 		return this.mouseStatus[1] == InputHandler.IS_LEFT_MOUSE_BUTTON;
 	};
 
+	InputHandler.prototype.activateTranslationTool = function(){
+		this.transformTool = InputHandler.TRANSFORM_TOOL_TRANSLATION;
+	};
+
+	InputHandler.prototype.activateScaleTool = function(){
+		this.transformTool = InputHandler.TRANSFORM_TOOL_SCALE;
+	};
+
+	InputHandler.prototype.activateRotationTool = function(){
+		this.transformTool = InputHandler.TRANSFORM_TOOL_ROTATION;
+	};
+
+	InputHandler.prototype.activateLocalPivotMode = function(){
+		this.pivotMode = InputHandler.PIVOT_LOCAL_MODE;
+	};
+
+	InputHandler.prototype.activateSelectionPivotMode = function(){
+		this.pivotMode = InputHandler.PIVOT_SELECTION_MIDDLE;
+	};
+
 	function Navigator(){
 		// canvas manipulating parameters
 		this.panning = [0, 0];						// canvas translation.[x, y]
 		this.origin = [0, 0];						// canvas origin.[x, y]
 		this.scale = 1;								// canvas scale (scaleX = scaleY)
-		this.scaleLimits = [0.5, 3]					// [min scale, max scale]
+		this.scaleLimits = [1, 3];					// [min scale, max scale]
 	}
 
 	Navigator.prototype.screenPointToWorld = function(x, y){
@@ -69,6 +89,8 @@ var Viewport = (function(){
 
 	function Renderer(context){
 		this.context = context;
+		this.width = 0;
+		this.height = 0;
 		this.clearColor = "rgba(255, 255, 255, 0)";
 		this.shapeColor = "rgba(0, 0, 255, 0.75)";
 		this.vertexColor = "rgba(255, 0, 0, 1)";
@@ -92,6 +114,11 @@ var Viewport = (function(){
 		this.renderBox(v.x, v.y, v.width, v.height, true);
 	};
 
+	Renderer.prototype.setStageWidthHeight = function(w, h){
+		this.width = w;
+		this.height = h;
+	};
+
 	Renderer.prototype.renderBody = function(body){
 		// update aabb
 		body.calculateBounds();
@@ -111,8 +138,6 @@ var Viewport = (function(){
 		// draw position of body
 		this.context.fillStyle = "#000";
 		this.context.fillRect(body.position[0] - 5, body.position[1] - 5, 10, 10);
-
-
 	};
 
 	Renderer.prototype.renderShape = function(shape){
@@ -195,6 +220,8 @@ var Viewport = (function(){
 		this.navigator = new Navigator();
 		this.inputHandler = new InputHandler();
 		this.renderer = new Renderer(this.context);
+		this.renderer.setStageWidthHeight(canvas.width, canvas.height);
+
 		this.sceneManager = sceneManager;
 
 		// prevent default right click behaviour
@@ -364,7 +391,7 @@ var Viewport = (function(){
 	    var zoom = 1 + wheel / 2;
 
 	    if (zoom > 1){
-	    	if (navigator.scale > navigator.scaleLimits[1]) 
+	    	if (navigator.scale > navigator.scaleLimits[1])
 	    		return;
 	    }
 		else{
@@ -391,7 +418,7 @@ var Viewport = (function(){
 		var inputHandler = this.inputHandler, navigator = this.navigator, renderer = this.renderer, sceneManager = this.sceneManager;
 		
 		// clear screen
-		renderer.clear(navigator.origin[0], navigator.origin[1], 1520 / navigator.scale, 561 / navigator.scale);
+		renderer.clear(navigator.origin[0], navigator.origin[1], renderer.width / navigator.scale, renderer.height / navigator.scale);
 
 		// applying panning to canvas
 		renderer.getContext().save();
