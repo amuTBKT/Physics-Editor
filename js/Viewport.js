@@ -256,6 +256,16 @@ var Viewport = (function(){
 		else if (e.which == 46){		// delete
 			this.sceneManager.deleteSelectedObjects();
 		}
+		
+		else if (e.which == 87){		// w - key pressed => enable translation tool
+			this.inputHandler.activateTranslationTool();
+		}
+		else if (e.which == 69){		// e - key pressed => enable rotationtool
+			this.inputHandler.activateRotationTool();
+		}
+		else if (e.which == 82){		// r - key pressed => enable scale tool
+			this.inputHandler.activateScaleTool();
+		}
 	};
 
 	Viewport.prototype.onMouseDown = function(e){
@@ -328,19 +338,25 @@ var Viewport = (function(){
 
 			// edit bodies and shapes
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-				sceneManager.selectedBodies = [];
+				if (!inputHandler.SHIFT_PRESSED){
+					sceneManager.selectedBodies = [];
+				}
 				for (var i = 0; i < sceneManager.bodies.length; i++){
 					if (lineSegment.checkInBoundsAABB(sceneManager.bodies[i].bounds)){
 						sceneManager.selectedBodies.push(sceneManager.bodies[i]);
 						sceneManager.bodies[i].isSelected = true;
 					}
 					else {
-						sceneManager.bodies[i].isSelected = false;
+						if (!inputHandler.SHIFT_PRESSED){
+							sceneManager.bodies[i].isSelected = false;
+						}
 					}
 				}
 			}
 			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
-				sceneManager.selectedShapes = [];
+				if (!inputHandler.SHIFT_PRESSED){
+					sceneManager.selectedShapes = [];
+				}
 				for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
 					
 					if (lineSegment.checkInBoundsAABB(sceneManager.selectedBodies[0].shapes[i].bounds)){
@@ -348,12 +364,16 @@ var Viewport = (function(){
 						sceneManager.selectedBodies[0].shapes[i].isSelected = true;
 					}
 					else {
-						sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+						if (!inputHandler.SHIFT_PRESSED){
+							sceneManager.selectedBodies[0].shapes[i].isSelected = false;
+						}
 					}
 				}
 			}
 			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
-				sceneManager.selectedVertices = [];
+				if (!inputHandler.SHIFT_PRESSED){
+					sceneManager.selectedVertices = [];
+				}
 				for (var i = 0; i < sceneManager.selectedShapes[0].vertices.length; i++){
 					var vertex = sceneManager.selectedShapes[0].vertices[i];
 					if (lineSegment.checkInBoundsAABB([vertex.x, vertex.y, vertex.width, vertex.height])){
@@ -361,7 +381,9 @@ var Viewport = (function(){
 						sceneManager.selectedShapes[0].vertices[i].isSelected = true;
 					}
 					else{
-						sceneManager.selectedShapes[0].vertices[i].isSelected = false;	
+						if (!inputHandler.SHIFT_PRESSED){
+							sceneManager.selectedShapes[0].vertices[i].isSelected = false;	
+						}
 					}
 				}
 			}

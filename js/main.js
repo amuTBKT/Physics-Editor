@@ -3,7 +3,6 @@ var SCREEN_HEIGHT = window.innerHeight;
 
 var canvas, context, scale = 1;
 var viewport, sceneManager;
-var shape, body, body1;
 
 // initialize canvas and context
 function init(){
@@ -77,22 +76,6 @@ function init(){
 			e.target[action]();
 		});
 	});
-
-	var size = 10;
-	shape = new Shape(Shape.SHAPE_POLYGON);
-
-	//shape.move(200, 200);
-
-	var s = new Shape(Shape.SHAPE_CIRCLE, 200, 200);
-	
-	body = new Body();
-	body.addShape(shape);
-	body.addShape(s);
-	body.move(200, 200);
-	s.move(100, 100);
-
-	body1 = new Body();
-	body1.addShape(new Shape(Shape.SHAPE_BOX, 200, 200));
 
 	sceneManager.createBody(Shape.SHAPE_BOX);
 	sceneManager.createBody(Shape.SHAPE_CIRCLE);
