@@ -61,6 +61,7 @@ var SceneManager = (function(){
 		}
 	};
 
+	// don't use only aabb collision detection for chain shapes, instead use its edges
 	SceneManager.prototype.checkCollisionWithChainShape = function(pointx, pointy, shape){
 		var lineSegment, index = 0;
 		for (var i = 0; i < shape.vertices.length; i++){
@@ -71,6 +72,7 @@ var SceneManager = (function(){
 				lineSegment = new LineSegment(shape.vertices[i].x, shape.vertices[i].y, shape.vertices[i + 1].x, shape.vertices[i + 1].y);
 			}
 
+			// use some threshold to determine collision
 			if (lineSegment.distanceFromPoint(pointx, pointy) < 10){
 				if (lineSegment.checkInBoundsX(pointx) || lineSegment.checkInBoundsY(pointy)){
 					return true;		
@@ -254,14 +256,27 @@ var SceneManager = (function(){
 		return false;
 	};
 
-	SceneManager.prototype.setPositionOfSelectedObjects = function(x, y, move){
+	/**
+	*
+	* params x,	 			position on x - axis, null if only y pos is to be set (use null only when move = 0)
+	* params y,    			position on y - axis, null if only x pos is to be set (use null only when move = 0)
+	* params move, 			1 for moving, 0 for setting position
+	* params inputHandler, 	information about pivot mode and snapping data
+	*/
+	SceneManager.prototype.setPositionOfSelectedObjects = function(x, y, move, inputHandler){
 		if (this.state == this.STATE_DEFAULT_MODE){
 			for (var i = 0; i < this.selectedBodies.length; i++){
 				if (move){
 					this.selectedBodies[i].move(x, y);
+					if (inputHandler.SNAPPING_ENABLED){
+						this.selectedBodies[i].setPosition(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
+								 parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0]);
+					}
 				}
 				else{
-					this.selectedBodies[i].setPosition(x, y);
+					var px = x == null ? this.selectedBodies[i].position[0] : x;
+					var py = y == null ? this.selectedBodies[i].position[1] : y;
+					this.selectedBodies[i].setPosition(px, py);
 				}
 			}
 		}
@@ -269,9 +284,15 @@ var SceneManager = (function(){
 			for (var i = 0; i < this.selectedShapes.length; i++){
 				if (move){
 					this.selectedShapes[i].move(x, y);
+					if (inputHandler.SNAPPING_ENABLED){
+						this.selectedShapes[i].setPosition(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
+								 parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0]);
+					}
 				}
 				else {
-					this.selectedShapes[i].setPosition(x, y);
+					var px = x == null ? this.selectedShapes[i].position[0] : x;
+					var py = y == null ? this.selectedShapes[i].position[1] : y;
+					this.selectedShapes[i].setPosition(px, py);
 				}
 			}
 		}
@@ -279,12 +300,32 @@ var SceneManager = (function(){
 					this.selectedShapes[0].shapeType != Shape.SHAPE_BOX && 
 					this.selectedShapes[0].shapeType != Shape.SHAPE_CIRCLE){
 			for (var i = 0; i < this.selectedVertices.length; i++){
-				this.selectedVertices[i].x = x + this.selectedVertices[i].x * move;
-				this.selectedVertices[i].y = y + this.selectedVertices[i].y * move;
+				if (move){
+					this.selectedVertices[i].x = x + this.selectedVertices[i].x * move;
+					this.selectedVertices[i].y = y + this.selectedVertices[i].y * move;
+
+					if (inputHandler.SNAPPING_ENABLED){
+						this.selectedVertices[i].x = parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0];
+						this.selectedVertices[i].y = parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0];
+					}	
+				}
+				else {
+					var px = x == null ? this.selectedVertices[i].x : x;
+					var py = y == null ? this.selectedVertices[i].y : y;
+					this.selectedVertices[i].x = px;
+					this.selectedVertices[i].y = py;	
+				}
 			}
 		}
 	};
 
+	/**
+	*
+	* params sx,	 			x scale, null if only y scale is to be set (use null only when scale = 0)
+	* params sy,    			y scale, null if only x scale is to be set (use null only when scale = 0)
+	* params scale, 			1 for scaling, 0 for setting scale
+	* params inputHandler, 	information about pivot mode and snapping data
+	*/
 	SceneManager.prototype.setScaleOfSelectedObjects = function(sx, sy, scale, inputHandler){
 		if (this.state == this.STATE_DEFAULT_MODE){
 			if (inputHandler.pivotMode == 3){								// InputHandler.PIVOT_LOCAL_MODE
@@ -293,7 +334,9 @@ var SceneManager = (function(){
 						this.selectedBodies[i].scale(sx, sy);
 					}
 					else {
-						this.selectedBodies[i].setScale(sx, sy);	
+						var sclx = sx == null ? this.selectedBodies[i].scaleXY[0] : sx;
+						var scly = sy == null ? this.selectedBodies[i].scaleXY[1] : sy;
+						this.selectedBodies[i].setScale(sclx, scly);	
 					}
 				}
 				return;
@@ -313,7 +356,9 @@ var SceneManager = (function(){
 					this.selectedBodies[i].scale(sx, sy, pivot[0], pivot[1]);
 				}
 				else {
-					this.selectedBodies[i].setScale(sx, sy, pivot[0], pivot[1]);	
+					var sclx = sx == null ? this.selectedBodies[i].scaleXY[0] : sx;
+					var scly = sy == null ? this.selectedBodies[i].scaleXY[1] : sy;
+					this.selectedBodies[i].setScale(sclx, scly, pivot[0], pivot[1]);	
 				}
 			}
 		}
@@ -324,7 +369,9 @@ var SceneManager = (function(){
 						this.selectedShapes[i].scale(sx, sy);	
 					}
 					else {
-						this.selectedShapes[i].setScale(sx, sy);
+						var sclx = sx == null ? this.selectedShapes[i].scaleXY[0] : sx;
+						var scly = sy == null ? this.selectedShapes[i].scaleXY[1] : sy;
+						this.selectedShapes[i].setScale(sclx, scly);
 					}
 				}
 				return;
@@ -343,7 +390,9 @@ var SceneManager = (function(){
 					this.selectedShapes[i].scale(sx, sy, pivot[0], pivot[1]);
 				}
 				else {
-					this.selectedShapes[i].setScale(sx, sy, pivot[0], pivot[1]);
+					var sclx = sx == null ? this.selectedShapes[i].scaleXY[0] : sx;
+					var scly = sy == null ? this.selectedShapes[i].scaleXY[1] : sy;
+					this.selectedShapes[i].setScale(sclx, scly, pivot[0], pivot[1]);
 				}
 			}
 		}
@@ -365,14 +414,22 @@ var SceneManager = (function(){
 			for (var i = 0; i < this.selectedVertices.length; i++){
 				var vertex = this.selectedVertices[i];	
 				vertex.move(-pivot[0], -pivot[1]);
-				vertex.x *= sx;
-				vertex.y *= sy;
+				var sclx = sx == null ? 1 : sx;
+				var scly = sy == null ? 1 : sy;
+				vertex.x *= sclx;
+				vertex.y *= scly;
 				vertex.move(pivot[0], pivot[1]);
 			}
 		}
 	};
 
-	SceneManager.prototype.setRotationOfSelectedObject = function(angle, rotate, inputHandler){
+	/**
+	*
+	* params angle,	 		rotation
+	* params rotate,    	1 for rotating, 0 for setting rotation (do not use rotate = 0 when editing vertices)
+	* params inputHandler, 	information about pivot mode and snapping data
+	*/
+	SceneManager.prototype.setRotationOfSelectedObjects = function(angle, rotate, inputHandler){
 		if (this.state == this.STATE_DEFAULT_MODE){
 			if (inputHandler.pivotMode == 3){								// InputHandler.PIVOT_LOCAL_MODE
 				for (var i = 0; i < this.selectedBodies.length; i++){
@@ -464,10 +521,11 @@ var SceneManager = (function(){
 
 	SceneManager.prototype.transformSelection = function(delta, inputHandler){
 		if (inputHandler.transformTool == 5){					// scale
-			this.setScaleOfSelectedObjects(1 + delta[0] / 10, 1 + delta[1] / 10, 1, inputHandler);
+			this.setScaleOfSelectedObjects(1 + delta[0] / 10, 1 - delta[1] / 10, 1, inputHandler);
 		}
 		else if (inputHandler.transformTool == 6){				// rotate
-			this.setRotationOfSelectedObject(delta[0], 1, inputHandler);
+			this.setRotationOfSelectedObjects(delta[0], 1, inputHandler);
+			
 		}
 		else if (inputHandler.transformTool == 7){				// translate
 			this.setPositionOfSelectedObjects(delta[0], delta[1], 1, inputHandler);
@@ -478,18 +536,33 @@ var SceneManager = (function(){
 		this.bodies.push(body);
 	};
 
-	SceneManager.prototype.createBody = function(shapeType){
+	SceneManager.prototype.createBody = function(shapeType, asCircle){
 		var body = new Body();
-		var shape = new Shape(shapeType);
+
+		if (shapeType == Shape.SHAPE_POLYGON || shapeType == Shape.SHAPE_CHAIN){
+			asCircle = asCircle || 0;
+			var shape = new Shape(shapeType, asCircle);
+		}
+		else {
+			var shape = new Shape(shapeType);
+		}
+
 		body.addShape(shape);
 		this.addBody(body);
 	};
 
-	SceneManager.prototype.createShape = function(shapeType){
+	SceneManager.prototype.createShape = function(shapeType, asCircle){
 		if (this.state != this.STATE_BODY_EDIT_MODE)
 			return;
 
-		var shape = new Shape(shapeType);
+		if (shapeType == Shape.SHAPE_POLYGON || shapeType == Shape.SHAPE_CHAIN){
+			asCircle = asCircle || 0;
+			var shape = new Shape(shapeType, asCircle);
+		}
+		else {
+			var shape = new Shape(shapeType);
+		}
+
 		this.selectedBodies[0].addShape(shape);
 	};
 

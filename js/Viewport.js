@@ -2,6 +2,7 @@ var Viewport = (function(){
 
 	function InputHandler(){
 		// mouse tracking variables
+		this.pointerWorldPos = [0, 0, 0, 0];		// mouse_down and current position of cursor in world coordinate
 		this.start = [0, 0];						// [mouse_on_down.x  , mouse_on_down.y  ]
 		this.current = [0, 0];						// [mouse_on_up.x    , mouse_on_up.y    ]
 		this.delta = [0, 0];						// [mouse_delta_pos.x, mouse_delta_pos.y]
@@ -12,6 +13,8 @@ var Viewport = (function(){
 		this.CTRL_PRESSED = 0;
 		this.SHIFT_PRESSED = 0;
 		this.ALT_PRESSED = 0;
+		this.SNAPPING_ENABLED = 0;
+		this.snappingData = [0, 0.1, 10];			// [snap_pos, delta_scale, delta_angle]
 		this.transformTool = InputHandler.TRANSFORM_TOOL_TRANSLATION;
 		this.pivotMode = InputHandler.PIVOT_LOCAL_MODE;
 	}
@@ -62,6 +65,7 @@ var Viewport = (function(){
 		this.origin = [0, 0];						// canvas origin.[x, y]
 		this.scale = 1;								// canvas scale (scaleX = scaleY)
 		this.scaleLimits = [1, 3];					// [min scale, max scale]
+		this.grid = [0, 0];							// [range, cell_size]
 	}
 
 	Navigator.prototype.screenPointToWorld = function(x, y){
@@ -91,7 +95,7 @@ var Viewport = (function(){
 		this.context = context;
 		this.width = 0;
 		this.height = 0;
-		this.clearColor = "rgba(255, 255, 255, 0)";
+		this.clearColor = "#000";
 		this.shapeColor = "rgba(0, 0, 255, 0.75)";
 		this.vertexColor = "rgba(255, 0, 0, 1)";
 		this.boundsColor = "rgba(0, 0, 0, 1)";
@@ -157,6 +161,7 @@ var Viewport = (function(){
 			}
 			
 			if (shape.shapeType == Shape.SHAPE_CHAIN){
+				this.context.strokeStyle = "#f00"
 				this.context.stroke();
 			}
 			else {
@@ -185,6 +190,68 @@ var Viewport = (function(){
 		// draw centroid of shape
 		this.context.fillStyle = "#ff0";
 		this.context.fillRect(shape.centroid[0] - 5, shape.centroid[1] - 5, 10, 10);
+	};
+
+	Renderer.prototype.renderGrid = function(range, cell_size_unused){
+		var cell_size = 10;
+		for (var x = -range; x <= range; x += cell_size){
+			this.context.moveTo(x * cell_size, -range * cell_size);
+			this.context.lineTo(x * cell_size,  range * cell_size);
+		}
+		for (var y = -range; y <= range; y += cell_size){
+			this.context.moveTo(-range * cell_size, y * cell_size);
+			this.context.lineTo( range * cell_size, y * cell_size);	
+		}
+		this.context.strokeStyle = "#f00";
+		this.context.lineWidth = 0.15 + 0.05 / cell_size;
+		this.context.stroke();
+
+		cell_size = 5;
+		for (var x = -range; x <= range; x += cell_size){
+			if (x == 0){									// to darken y - axis
+				this.context.moveTo(-0.05 * cell_size, -range * cell_size);
+				this.context.lineTo(-0.05 * cell_size,  range * cell_size);
+
+				this.context.moveTo(-0.025 * cell_size, -range * cell_size);
+				this.context.lineTo(-0.025 * cell_size,  range * cell_size);
+
+				this.context.moveTo(x * cell_size, -range * cell_size);
+				this.context.lineTo(x * cell_size,  range * cell_size);
+
+				this.context.moveTo(0.025 * cell_size, -range * cell_size);
+				this.context.lineTo(0.025 * cell_size,  range * cell_size);
+
+				this.context.moveTo(0.05 * cell_size, -range * cell_size);
+				this.context.lineTo(0.05 * cell_size,  range * cell_size);
+			}
+			this.context.moveTo(x * cell_size, -range * cell_size);
+			this.context.lineTo(x * cell_size,  range * cell_size);
+		}
+		for (var y = -range; y <= range; y += cell_size){
+			if (y == 0){									// to darken x - axis
+				this.context.moveTo(-range * cell_size, -0.05 * cell_size);
+				this.context.lineTo( range * cell_size, -0.05 * cell_size);
+
+				this.context.moveTo(-range * cell_size, -0.025 * cell_size);
+				this.context.lineTo( range * cell_size, -0.025 * cell_size);	
+
+				this.context.moveTo(-range * cell_size, y * cell_size);
+				this.context.lineTo( range * cell_size, y * cell_size);
+
+				this.context.moveTo(-range * cell_size, 0.025 * cell_size);
+				this.context.lineTo( range * cell_size, 0.025 * cell_size);	
+
+				this.context.moveTo(-range * cell_size, 0.05 * cell_size);
+				this.context.lineTo( range * cell_size, 0.05 * cell_size);	
+			}
+			this.context.moveTo(-range * cell_size, y * cell_size);
+			this.context.lineTo( range * cell_size, y * cell_size);	
+		}
+		this.context.strokeStyle = "#0f0";
+		this.context.lineWidth = 0.1 + 0.05 / cell_size;
+		this.context.stroke();
+		this.context.lineWidth = 1;
+		this.context.strokeStyle = "#000";		
 	};
 
 	Renderer.prototype.renderBox = function(x, y, w, h, fill){
@@ -218,6 +285,8 @@ var Viewport = (function(){
 		this.canvas = canvas;
 		this.context = canvas.getContext("2d");
 		this.navigator = new Navigator();
+		this.navigator.panning[0] += canvas.width / 2;			// move origin-x to center of viewport (canvas)
+		this.navigator.panning[1] += canvas.height / 2;			// move origin-y to center of viewport (canvas)
 		this.inputHandler = new InputHandler();
 		this.renderer = new Renderer(this.context);
 		this.renderer.setStageWidthHeight(canvas.width, canvas.height);
@@ -240,6 +309,9 @@ var Viewport = (function(){
 		else if (e.which == 18){
 			this.inputHandler.ALT_PRESSED = 0;
 		}
+		else if (e.which == 83){
+			this.inputHandler.SNAPPING_ENABLED = !this.inputHandler.SNAPPING_ENABLED;
+		}
 	};
 
 	Viewport.prototype.onKeyUp = function(e){
@@ -253,7 +325,7 @@ var Viewport = (function(){
 			this.inputHandler.ALT_PRESSED = 0;
 		}
 
-		else if (e.which == 46){		// delete
+		else if (e.which == 46){		// delete selected object
 			this.sceneManager.deleteSelectedObjects();
 		}
 		
@@ -272,6 +344,9 @@ var Viewport = (function(){
 		var inputHandler = this.inputHandler;
 		inputHandler.mouseStatus[0] = 1;
 
+		inputHandler.pointerWorldPos[0] = this.navigator.screenPointToWorld(e.offsetX, e.offsetY)[0];
+		inputHandler.pointerWorldPos[1] = this.navigator.screenPointToWorld(e.offsetX, e.offsetY)[1];
+
 		// check whether right button is pressd or not
 		if (e.which)
 			inputHandler.mouseStatus[1] = (e.which == 3) + 1;
@@ -289,10 +364,27 @@ var Viewport = (function(){
 			inputHandler.selectionArea[1] = e.offsetY;
 			inputHandler.selectionArea[4] = 1;
 		}
+
+		// selected object goes to inputHandler.selection[]
+		else {
+			if (this.sceneManager.state == this.sceneManager.STATE_DEFAULT_MODE){
+				inputHandler.selection = this.sceneManager.selectedBodies;
+			}
+			else if (this.sceneManager.state == this.sceneManager.STATE_BODY_EDIT_MODE){
+				inputHandler.selection = this.sceneManager.selectedShapes;
+			}
+			else if (this.sceneManager.state == this.sceneManager.STATE_SHAPE_EDIT_MODE){
+				inputHandler.selection = this.sceneManager.selectedVertices;
+			}
+		}
 	};
 
 	Viewport.prototype.onMouseMove = function(e){
 		var inputHandler = this.inputHandler, navigator = this.navigator, sceneManager = this.sceneManager;
+
+		inputHandler.pointerWorldPos[2] = navigator.screenPointToWorld(e.offsetX, e.offsetY)[0];
+		inputHandler.pointerWorldPos[3] = navigator.screenPointToWorld(e.offsetX, e.offsetY)[1];
+
 		if (inputHandler.mouseStatus[0]){
 			inputHandler.selectionArea[2] = (e.offsetX - inputHandler.selectionArea[0]);
 			inputHandler.selectionArea[3] = (e.offsetY - inputHandler.selectionArea[1]);
@@ -323,6 +415,7 @@ var Viewport = (function(){
 			}
 
 			// edit bodies and shapes
+			inputHandler.snappingData[0] = navigator.cell_size * 5;
 			sceneManager.transformSelection(inputHandler.delta, inputHandler);
 		}
 	};
@@ -387,6 +480,17 @@ var Viewport = (function(){
 					}
 				}
 			}
+
+			// selected objects goes to inputHandler.selection[]
+			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+				inputHandler.selection = sceneManager.selectedBodies;
+			}
+			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
+				inputHandler.selection = sceneManager.selectedShapes;
+			}
+			else if (this.sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
+				inputHandler.selection = sceneManager.selectedVertices;
+			}
 		}
 
 		inputHandler.selectionArea = [0, 0, 0, 0, 0];
@@ -442,10 +546,17 @@ var Viewport = (function(){
 		// clear screen
 		renderer.clear(navigator.origin[0], navigator.origin[1], renderer.width / navigator.scale, renderer.height / navigator.scale);
 
-		// applying panning to canvas
+		// saving the current state of the canvas
 		renderer.getContext().save();
+		// applying panning to canvas
 		renderer.getContext().translate(navigator.panning[0], navigator.panning[1]);
+		
+		// rendering the grid
+		navigator.range = 1000;
+		navigator.cell_size = 10 / Math.max(1, Math.min(parseInt(navigator.scale), 2));
+		renderer.renderGrid(navigator.range, navigator.cell_size);
 
+		// rendering the bodies
 		for (var i = 0; i < sceneManager.bodies.length; i++){
 			renderer.renderBody(sceneManager.bodies[i]);
 		}
@@ -457,10 +568,13 @@ var Viewport = (function(){
 				height = inputHandler.selectionArea[3] / navigator.scale;
 
 			this.renderer.setLineDash(5, 5);
+			renderer.getContext().strokeStyle = "#fff";
 			this.renderer.renderBox(position[0] + width / 2, position[1] + height / 2, width, height, false);
+			renderer.getContext().strokeStyle = "#000";
 			this.renderer.setLineDash(0, 0);
 		}
-
+		
+		// restoring the saved canvas state
 		renderer.getContext().restore();
 	};
 

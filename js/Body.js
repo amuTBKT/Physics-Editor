@@ -94,6 +94,11 @@ Vertex.prototype.move = function (dx, dy) {
 	this.y += dy;
 };
 
+Vertex.prototype.clone = function(){
+	var v = clone(this);
+	return v;
+};
+
 /**
 *
 * params type of shape
@@ -121,12 +126,25 @@ function Shape(type, width, height){
 	if (type == Shape.SHAPE_CHAIN || type == Shape.SHAPE_POLYGON){
 		this.mass = type == Shape.SHAPE_CHAIN ? 0 : 1;
 		var size = 10;
-		width = width || 100;
-		height = height || 100;
-		this.vertices.push(new Vertex(-width / 2, -height / 2, size, size));
-		this.vertices.push(new Vertex( width / 2, -height / 2, size, size));
-		this.vertices.push(new Vertex( width / 2,  height / 2, size, size));
-		this.vertices.push(new Vertex(-width / 2,  height / 2, size, size));
+		if ((width && !height) || (!width && height)){
+			width = 50;
+			var angle = 0
+			var resolution = 10;
+			var size = 10;
+			for (var i = 0; i < resolution; i++){
+				angle = 2 * Math.PI * i / resolution;
+				var vertex = new Vertex(width * Math.cos(angle), width * Math.sin(angle), size, size);
+				this.vertices.push(vertex);
+			}
+		}
+		else {
+			width = width || 100;
+			height = height || 100;
+			this.vertices.push(new Vertex(-width / 2, -height / 2, size, size));
+			this.vertices.push(new Vertex( width / 2, -height / 2, size, size));
+			this.vertices.push(new Vertex( width / 2,  height / 2, size, size));
+			this.vertices.push(new Vertex(-width / 2,  height / 2, size, size));
+		}
 	}
 
 	else if (type == Shape.SHAPE_BOX){
@@ -364,6 +382,11 @@ Shape.prototype.calculateBounds = function(){
 	this.centroid[1] /= this.vertices.length;
 };
 
+Shape.prototype.clone = function(){
+	var s = clone(this);
+	return s;
+};
+
 // returns PhysicsShape for exporting
 // use (x, y) as the origin for physics shape
 Shape.prototype.toPhysics = function(x, y){
@@ -384,7 +407,7 @@ Shape.prototype.toPhysics = function(x, y){
 		return shapes;
 	}
 
-	var pShape = new PhysicsShape(this.shapeType)
+	var pShape = new PhysicsShape(this.shapeType == Shape.SHAPE_BOX ? Shape.SHAPE_POLYGON : this.shapeType);
 	for (var i = 0; i < this.vertices.length; i++){
 		pShape.vertices.push([this.vertices[i].x - this.position[0], this.vertices[i].y - this.position[1]]);
 	}
@@ -516,6 +539,51 @@ Body.prototype.setRotation = function(angle, pivotX, pivotY){
 	this.rotate(angle - this.rotation, pivotX, pivotY);
 };
 
+Body.prototype.clone = function(){
+	var b = clone(this);
+	return b;
+};
+
+function clone(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || "object" != typeof obj) return obj;
+
+    if (obj instanceof Array) {
+        copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = clone(obj[i]);
+        }
+        return copy;
+    }
+
+    if (obj instanceof Vertex) {
+        copy = new Vertex();
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+
+    if (obj instanceof Shape) {
+        copy = new Shape();
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Body) {
+        copy = new Body();
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+}
+
 Body.prototype.toPhysics = function(){
 	var rot = this.rotation;
 
@@ -540,7 +608,7 @@ Body.prototype.toPhysics = function(){
 	this.rotate(rot);
 
 	return pBody;
-}
+};
 
 // exporting objects //
 function Fixture(){

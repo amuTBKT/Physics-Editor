@@ -77,6 +77,10 @@ function init(){
 		});
 	});
 
+	$("#pos_x")[0].addEventListener("blur", function(){
+		console.log($(this).text());
+	});
+
 	sceneManager.createBody(Shape.SHAPE_BOX);
 	sceneManager.createBody(Shape.SHAPE_CIRCLE);
 	sceneManager.createBody(Shape.SHAPE_POLYGON);
