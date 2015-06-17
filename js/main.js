@@ -20,10 +20,40 @@ function init(){
 	});
 	viewport.canvas.addEventListener("mousedown", function(e){
 		viewport.onMouseDown(e);
+
+		if (viewport.getInputHandler().selection.length != 1){
+			$("#pos_x")[0].value = 0;
+			$("#pos_y")[0].value = 0;
+			return;
+		}
+
+		if (viewport.getInputHandler().selection[0] instanceof Vertex){
+			$("#pos_x")[0].value = viewport.getInputHandler().selection[0].x;
+			$("#pos_y")[0].value = viewport.getInputHandler().selection[0].y;
+			return;
+		}
+
+		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0];
+		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1];
 		// console.log("mousedown");
 	});
 	viewport.canvas.addEventListener("mousemove", function(e){
 		viewport.onMouseMove(e);
+
+		if (viewport.getInputHandler().selection.length != 1){
+			$("#pos_x")[0].value = "";
+			$("#pos_y")[0].value = "";
+			return;
+		}
+		
+		if (viewport.getInputHandler().selection[0] instanceof Vertex){
+			$("#pos_x")[0].value = viewport.getInputHandler().selection[0].x;
+			$("#pos_y")[0].value = viewport.getInputHandler().selection[0].y;
+			return;
+		}
+		
+		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0];
+		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1];
 		// console.log("mousemove");
 	});
 	viewport.canvas.addEventListener("mouseup", function(e){
@@ -77,8 +107,35 @@ function init(){
 		});
 	});
 
-	$("#pos_x")[0].addEventListener("blur", function(){
-		console.log($(this).text());
+	$("#pos_x")[0].addEventListener("keyup", function(e){
+		if (e.which == 13){
+			if (parseFloat(this.value)){
+				//console.log(parseFloat(this.value));
+				if (viewport.getInputHandler().transformTool == 5){
+					viewport.sceneManager.setScaleOfSelectedObjects(parseFloat(this.value), null, 0, viewport.getInputHandler());	
+				}
+				else if (viewport.getInputHandler().transformTool == 7){
+					viewport.sceneManager.setPositionOfSelectedObjects(parseFloat(this.value), null, 0, viewport.getInputHandler());	
+				}
+				else if (viewport.getInputHandler().transformTool == 6){
+					viewport.sceneManager.setRotationOfSelectedObjects(parseFloat(this.value), 0, viewport.getInputHandler());	
+				}
+			}
+		}
+	});
+
+	$("#pos_y")[0].addEventListener("keyup", function(e){
+		if (e.which == 13){
+			if (parseFloat(this.value)){
+				// console.log(parseFloat(this.value));
+				if (viewport.getInputHandler().transformTool == 5){
+					viewport.sceneManager.setScaleOfSelectedObjects(null, parseFloat(this.value), 0, viewport.getInputHandler());
+				}
+				else if (viewport.getInputHandler().transformTool == 7){
+					viewport.sceneManager.setPositionOfSelectedObjects(null, parseFloat(this.value), 0, viewport.getInputHandler());	
+				}
+			}
+		}
 	});
 
 	sceneManager.createBody(Shape.SHAPE_BOX);

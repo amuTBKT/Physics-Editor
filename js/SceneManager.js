@@ -82,6 +82,7 @@ var SceneManager = (function(){
 		return false;
 	}
 
+	// for selecting objects
 	SceneManager.prototype.onMouseDown = function(e, inputHandler, navigator){
 		if (this.state == this.STATE_SHAPE_EDIT_MODE){
 			// for rendering vertices
@@ -519,6 +520,11 @@ var SceneManager = (function(){
 		}
 	};
 
+	/* 
+	*
+	* params delta, 		array for x and y axis manipulation
+	* params inputHandler, 	info about pivot mode and snapping data
+	*/
 	SceneManager.prototype.transformSelection = function(delta, inputHandler){
 		if (inputHandler.transformTool == 5){					// scale
 			this.setScaleOfSelectedObjects(1 + delta[0] / 10, 1 - delta[1] / 10, 1, inputHandler);
@@ -536,6 +542,12 @@ var SceneManager = (function(){
 		this.bodies.push(body);
 	};
 
+	/**
+	*
+	* params shapeType, shape to start with (use polygon or chain for editing it)
+	* params asCircle,  1 if circle shape is to be generated, otherwise defaults to box (use only when polygon or chain shape is created)
+	* creates new body and adds it to the scene
+	*/
 	SceneManager.prototype.createBody = function(shapeType, asCircle){
 		var body = new Body();
 
@@ -551,6 +563,12 @@ var SceneManager = (function(){
 		this.addBody(body);
 	};
 
+	/**
+	*
+	* params shapeType, shape to be created (use polygon or chain for editing it)
+	* params asCircle,  1 if circle shape is to be generated, otherwise defaults to box (use only when polygon or chain shape is created)
+	* creates new shape and adds it to the selected body
+	*/
 	SceneManager.prototype.createShape = function(shapeType, asCircle){
 		if (this.state != this.STATE_BODY_EDIT_MODE)
 			return;
@@ -566,6 +584,7 @@ var SceneManager = (function(){
 		this.selectedBodies[0].addShape(shape);
 	};
 
+	// removes body from the scene
 	SceneManager.prototype.removeBody = function(body){
 		for (var i = 0; i < this.bodies.length; i++){
 			if (this.bodies[i] == body){

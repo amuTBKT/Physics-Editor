@@ -121,7 +121,12 @@ function Shape(type, width, height){
 	this.friction = 1;
 	this.restitution = 0.5;
 	this.density = 1;
-	this.isBulllet = 0;
+	this.isSensor = 0;
+
+	if (type == Shape.SHAPE_NONE){
+		this.shapeType = Shape.SHAPE_POLYGON;
+		return;
+	}
 
 	if (type == Shape.SHAPE_CHAIN || type == Shape.SHAPE_POLYGON){
 		this.mass = type == Shape.SHAPE_CHAIN ? 0 : 1;
@@ -176,6 +181,7 @@ Shape.SHAPE_BOX = 0;
 Shape.SHAPE_CIRCLE = 1;
 Shape.SHAPE_POLYGON = 2;
 Shape.SHAPE_CHAIN = 3;
+Shape.SHAPE_NONE = 4;
 
 Shape.prototype.addVertex = function(v){
 	// do not edit BOX and CIRCLE shape
@@ -387,6 +393,59 @@ Shape.prototype.clone = function(){
 	return s;
 };
 
+Shape.prototype.isConvex = function(){
+	var sumOfAngles = 0,											// sum of interior angles
+		angleForConvexity = (this.vertices.length - 2) * 180,		// angle => (n - 2) * 180 for convexity
+		edges = [];													// array of edges
+
+	// calculate edges
+	for (var i = 0; i < this.vertices.length; i++){
+		if (i == this.vertices.length - 1){
+			edges[i] = [this.vertices[0].x - this.vertices[i].x, this.vertices[0].y - this.vertices[i].y];
+		}
+		else {
+			edges[i] = [this.vertices[i + 1].x - this.vertices[i].x, this.vertices[i + 1].y - this.vertices[i].y];
+		}
+	}
+
+	// calculate angle b/w each edge
+	for (var i = 0; i < edges.length; i++){
+		if (i == edges.length - 1){
+			var vec1 = edges[i],
+				vec2 = edges[0],
+				dot = vec1[0] * vec2[0] + vec1[1] * vec2[1],
+				mag1 = Math.pow(vec1[0] * vec1[0] + vec1[1] * vec1[1], 0.5),
+				mag2 = Math.pow(vec2[0] * vec2[0] + vec2[1] * vec2[1], 0.5),
+				angle = Math.acos(dot / (mag1 * mag2));
+			
+			angle = Math.PI - angle;
+			sumOfAngles += angle;
+		}
+		else {
+			var vec1 = edges[i],
+				vec2 = edges[i + 1],
+				dot = vec1[0] * vec2[0] + vec1[1] * vec2[1],
+				mag1 = Math.pow(vec1[0] * vec1[0] + vec1[1] * vec1[1], 0.5),
+				mag2 = Math.pow(vec2[0] * vec2[0] + vec2[1] * vec2[1], 0.5),
+				angle = Math.acos(dot / (mag1 * mag2)),
+			
+			angle = Math.PI - angle;
+			sumOfAngles += angle;
+		}
+	}
+	// convert radian to degrees (in radians gives unexpected results because of approximations)
+	sumOfAngles = sumOfAngles * 180 / Math.PI;
+	return sumOfAngles == angleForConvexity;
+};
+
+Shape.prototype.decomposeToConvex = function(vertices){
+	// var edgeFlow = 0;					// if 1 then angle increases along the shape, if -1 then angle decreases along the shape
+
+ 	vertices = vertices.length == 0 ? this.vertices : vertices;
+
+
+};
+
 // returns PhysicsShape for exporting
 // use (x, y) as the origin for physics shape
 Shape.prototype.toPhysics = function(x, y){
@@ -401,23 +460,46 @@ Shape.prototype.toPhysics = function(x, y){
 	}
 	else if (this.shapeType == Shape.SHAPE_CIRCLE){
 		var pShape = new PhysicsShape(Shape.SHAPE_CIRCLE);
-		pShape.radius = this.width / 2;
+		pShape.radius = this.radius / 2;
 		pShape.position = [this.position[0] - x, this.position[1] - y];
 		shapes.push(pShape);
 		return shapes;
 	}
 
 	var pShape = new PhysicsShape(this.shapeType == Shape.SHAPE_BOX ? Shape.SHAPE_POLYGON : this.shapeType);
-	for (var i = 0; i < this.vertices.length; i++){
-		pShape.vertices.push([this.vertices[i].x - this.position[0], this.vertices[i].y - this.position[1]]);
+	
+	// need to check for convexity if shape is polygon
+	if (this.shapeType == Shape.SHAPE_POLYGON){
+		// is shape convex
+		if(this.isConvex()){
+			// just export it
+			for (var i = 0; i < this.vertices.length; i++){
+				pShape.vertices.push([this.vertices[i].x - this.position[0], this.vertices[i].y - this.position[1]]);	// vertex position relative to shape
+			}
+			shapes.push(pShape);
+			return shapes;
+		}
+		// decompose concave shape to convex shapes
+		else {
+			// decompose shape
+			shapes = this.decomposeToConvex(this.vertices);
+			return shapes;
+		}
 	}
-	shapes.push(pShape);
-	return shapes;
-
+	else {
+		for (var i = 0; i < this.vertices.length; i++){
+			pShape.vertices.push([this.vertices[i].x - this.position[0], this.vertices[i].y - this.position[1]]);		// vertex position relative to shape
+		}
+		shapes.push(pShape);
+		return shapes;
+	}
 	// TODO : concave shape generation
 };
 
 function Body(){
+	this.name = "body" + Body.counter++;
+	this.sprite;
+	this.spriteData = [];					// [source-x, source-y, width, height, image-w, image-h]
 	this.shapes = [];
 	this.position = [0, 0];
 	this.scaleXY = [1, 1];
@@ -425,11 +507,42 @@ function Body(){
 	this.bounds = [0, 0, 0, 0];
 	this.isSelected = false;
 	this.bodyType = Body.BODY_TYPE_DYNAMIC;	// default to dynmic body
+	this.isBulllet = 0;
 }
+
+Body.counter = 0;
 
 Body.BODY_TYPE_DYNAMIC = 0;
 Body.BODY_TYPE_KINEMATIC = 1;
 Body.BODY_TYPE_STATIC = 2;
+
+Body.prototype.addSprite = function(file, x, y, w, h){
+	if (x != null && y != null && w != null && h != null){	// image is sprite sheet
+		this.sprite = new Image();
+		this.sprite.src = file;
+		this.spriteData = [x, y, w, h, w, h];
+	}
+	else {
+		this.sprite = new Image();
+		this.sprite.src = file;
+	}
+};
+
+Body.prototype.setSpriteWidth = function(width){
+	if (this.spriteData.length > 0){
+		this.spriteData[4] = width;
+		return;
+	}
+	this.sprite.width = width;
+};
+
+Body.prototype.setSpriteHeight = function(height){
+	if (this.spriteData.length > 0){
+		this.spriteData[5] = height;
+		return;
+	}
+	this.sprite.height = height;
+};
 
 Body.prototype.addShape = function(shape){
 	shape.setPosition(this.position[0], this.position[1]);
@@ -592,6 +705,7 @@ Body.prototype.toPhysics = function(){
 	var pBody = new PhysicsBody(this.bodyType);
 	pBody.position = this.position;
 	pBody.rotation = rot;
+	pBody.isBulllet = this.isBulllet;
 
 	for (var i = 0; i < this.shapes.length; i++){
 		var shape = this.shapes[i];
@@ -601,6 +715,7 @@ Body.prototype.toPhysics = function(){
 		fixture.restitution = shape.restitution;
 		fixture.friction = shape.friction;
 		fixture.density = shape.density;
+		fixture.isSensor = shape.isSensor;
 		fixture.shapes = this.shapes[i].toPhysics(this.position[0], this.position[1]);
 		pBody.fixtures.push(fixture);
 	}
@@ -617,7 +732,7 @@ function Fixture(){
 	this.mass;
 	this.friction;
 	this.density;
-	this.isBullet;
+	this.isSensor = 0;
 }
 
 function PhysicsShape(type){
@@ -638,4 +753,5 @@ function PhysicsBody(type){
 	this.fixtures = [];
 	this.position = [0, 0];
 	this.rotation = 0;
+	this.isBulllet = 0;
 }

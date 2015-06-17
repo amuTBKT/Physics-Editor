@@ -131,6 +131,42 @@ var Viewport = (function(){
 			this.renderShape(body.shapes[i]);
 		}
 
+		// render sprite
+		if (body.sprite){
+			this.context.save();
+			
+			// if sprite is contained in a spritesheet	
+			if (body.spriteData.length > 0){
+				var sourceX = body.spriteData[0],
+					sourceY = body.spriteData[1],
+					sourceW = body.spriteData[2],
+					sourceH = body.spriteData[3],
+					imageW 	= body.spriteData[4] * body.scaleXY[0],
+					imageH	= body.spriteData[5] * body.scaleXY[1];
+
+				// handle sprite rotation and translation
+				this.context.translate(body.position[0], body.position[1]);
+				this.context.rotate(body.rotation * Math.PI / 180);
+
+				// draw sprite
+				this.context.drawImage(body.sprite, sourceX, sourceY, sourceW, sourceH, -imageW / 2, -imageH / 2, imageW, imageH);
+			}
+			// sprite is a separate image
+			else {
+				var imageW 	= body.sprite.width * body.scaleXY[0],
+					imageH	= body.sprite.height * body.scaleXY[1];
+				
+				// handle sprite rotation and translation
+				this.context.translate(body.position[0], body.position[1]);
+				this.context.rotate(body.rotation * Math.PI / 180);
+				
+				// draw sprite
+				this.context.drawImage(body.sprite, -imageW / 2, -imageH / 2, imageW, imageH);
+			}
+			
+			this.context.restore();
+		}
+
 		// render aabb 
 		if (body.isSelected){
 			this.context.strokeStyle = "#0f0";
