@@ -96,9 +96,11 @@ var Viewport = (function(){
 		this.width = 0;
 		this.height = 0;
 		this.clearColor = "#000";
-		this.shapeColor = "rgba(0, 0, 255, 0.75)";
+		this.shapeColor = "rgba(228, 177, 177, 0.6)";
+		this.shapeSelectedColor = "rgba(228, 228, 177, 0.6)";
+		this.bodySelectedColor = "rgba(0, 177, 177, 0.6)";
 		this.vertexColor = "rgba(255, 0, 0, 1)";
-		this.boundsColor = "rgba(0, 0, 0, 1)";
+		this.boundsColor = "rgba(228, 177, 177, 1)";
 	}
 
 	Renderer.prototype.renderVertex = function(v){
@@ -127,10 +129,6 @@ var Viewport = (function(){
 		// update aabb
 		body.calculateBounds();
 
-		for (var i = 0; i < body.shapes.length; i++){
-			this.renderShape(body.shapes[i]);
-		}
-
 		// render sprite
 		if (body.sprite){
 			this.context.save();
@@ -141,8 +139,8 @@ var Viewport = (function(){
 					sourceY = body.spriteData[1],
 					sourceW = body.spriteData[2],
 					sourceH = body.spriteData[3],
-					imageW 	= body.spriteData[4] * body.scaleXY[0],
-					imageH	= body.spriteData[5] * body.scaleXY[1];
+					imageW 	= body.spriteData[4];// * body.scaleXY[0],
+					imageH	= body.spriteData[5];// * body.scaleXY[1];
 
 				// handle sprite rotation and translation
 				this.context.translate(body.position[0], body.position[1]);
@@ -153,8 +151,8 @@ var Viewport = (function(){
 			}
 			// sprite is a separate image
 			else {
-				var imageW 	= body.sprite.width * body.scaleXY[0],
-					imageH	= body.sprite.height * body.scaleXY[1];
+				var imageW 	= body.sprite.width;// * body.scaleXY[0],
+					imageH	= body.sprite.height;// * body.scaleXY[1];
 				
 				// handle sprite rotation and translation
 				this.context.translate(body.position[0], body.position[1]);
@@ -167,9 +165,13 @@ var Viewport = (function(){
 			this.context.restore();
 		}
 
+		for (var i = 0; i < body.shapes.length; i++){
+			this.renderShape(body.shapes[i]);
+		}
+
 		// render aabb 
 		if (body.isSelected){
-			this.context.strokeStyle = "#0f0";
+			this.context.strokeStyle = this.bodySelectedColor;
 			this.context.lineWidth = 2;
 			this.renderBox(body.bounds[0], body.bounds[1], body.bounds[2], body.bounds[3], false);
 			this.context.lineWidth = 1;
@@ -192,8 +194,9 @@ var Viewport = (function(){
 			
 			for (var i = 1; i < shape.vertices.length; i++){
 				context.lineTo(shape.vertices[i].x, shape.vertices[i].y);
-				if (shape.inEditMode)	
+				if (shape.inEditMode){
 					this.renderVertex(shape.vertices[i]);
+				}
 			}
 			
 			if (shape.shapeType == Shape.SHAPE_CHAIN){
@@ -203,6 +206,9 @@ var Viewport = (function(){
 			else {
 				this.context.closePath();
 				this.context.fillStyle = this.shapeColor;
+				if (shape.isSelected){
+					this.context.fillStyle = this.shapeSelectedColor;
+				}
 				this.context.fill();
 			}
 

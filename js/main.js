@@ -28,13 +28,13 @@ function init(){
 		}
 
 		if (viewport.getInputHandler().selection[0] instanceof Vertex){
-			$("#pos_x")[0].value = viewport.getInputHandler().selection[0].x;
-			$("#pos_y")[0].value = viewport.getInputHandler().selection[0].y;
+			$("#pos_x")[0].value = viewport.getInputHandler().selection[0].x.toFixed(2);
+			$("#pos_y")[0].value = viewport.getInputHandler().selection[0].y.toFixed(2);
 			return;
 		}
 
-		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0];
-		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1];
+		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0].toFixed(2);
+		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1].toFixed(2);
 		// console.log("mousedown");
 	});
 	viewport.canvas.addEventListener("mousemove", function(e){
@@ -47,13 +47,13 @@ function init(){
 		}
 		
 		if (viewport.getInputHandler().selection[0] instanceof Vertex){
-			$("#pos_x")[0].value = viewport.getInputHandler().selection[0].x;
-			$("#pos_y")[0].value = viewport.getInputHandler().selection[0].y;
+			$("#pos_x")[0].value = viewport.getInputHandler().selection[0].x.toFixed(2);
+			$("#pos_y")[0].value = viewport.getInputHandler().selection[0].y.toFixed(2);
 			return;
 		}
 		
-		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0];
-		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1];
+		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0].toFixed(2);
+		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1].toFixed(2);
 		// console.log("mousemove");
 	});
 	viewport.canvas.addEventListener("mouseup", function(e){
@@ -109,7 +109,7 @@ function init(){
 
 	$("#pos_x")[0].addEventListener("keyup", function(e){
 		if (e.which == 13){
-			if (parseFloat(this.value)){
+			if (!isNaN(parseFloat(this.value))){
 				//console.log(parseFloat(this.value));
 				if (viewport.getInputHandler().transformTool == 5){
 					viewport.sceneManager.setScaleOfSelectedObjects(parseFloat(this.value), null, 0, viewport.getInputHandler());	
@@ -126,7 +126,7 @@ function init(){
 
 	$("#pos_y")[0].addEventListener("keyup", function(e){
 		if (e.which == 13){
-			if (parseFloat(this.value)){
+			if (!isNaN(parseFloat(this.value))){
 				// console.log(parseFloat(this.value));
 				if (viewport.getInputHandler().transformTool == 5){
 					viewport.sceneManager.setScaleOfSelectedObjects(null, parseFloat(this.value), 0, viewport.getInputHandler());

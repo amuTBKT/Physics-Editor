@@ -332,7 +332,7 @@ Shape.prototype.setScale = function(sx, sy, pivotX, pivotY){
 
 // just for visualization in editor
 Shape.prototype.rotate = function(angle, pivotX, pivotY){
-	if (!pivotX || !pivotY){
+	if (pivotX == null || pivotY == null){
 		pivotX = this.position[0];
 		pivotY = this.position[1];
 	}
@@ -603,7 +603,7 @@ Body.prototype.setPosition = function(x, y){
 };
 
 Body.prototype.scale = function(sx, sy, pivotX, pivotY){
-	if (!pivotX || !pivotY){
+	if (pivotX == null || pivotY == null){
 		pivotX = this.position[0];
 		pivotY = this.position[1];
 	}
@@ -629,7 +629,7 @@ Body.prototype.setScale = function(sx, sy, pivotX, pivotY){
 };
 
 Body.prototype.rotate = function(angle, pivotX, pivotY){
-	if (!pivotX || !pivotY){
+	if (pivotX == null || pivotY == null){
 		pivotX = this.position[0];
 		pivotY = this.position[1];
 	}
