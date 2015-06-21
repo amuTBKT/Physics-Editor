@@ -305,15 +305,19 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.scaleXY[1] *= sy;
 
 	if (this.shapeType == Shape.SHAPE_BOX){
-		if (this.rotation == 0){
+		if (this.rotation == 0 || this.rotation % 180 == 0){
 			this.width *= sx;// * Math.cos(this.rotation);
 			this.height *= sy;// * Math.sin(this.rotation);
 		}
+		else if (this.rotation % 90 == 0){
+			this.width *= sy;
+			this.height *= sx;
+		}
 		else {
-			this.width *= sx;// * Math.cos(this.rotation);
-			this.height *= sx;// * Math.cos(this.rotation);
-			// return;
+			//sx = Math.max(sx, sy);
 			sy = sx;
+			this.width *= sx;
+			this.height *= sx;
 		}
 	}
 	else if (this.shapeType == Shape.SHAPE_CIRCLE){

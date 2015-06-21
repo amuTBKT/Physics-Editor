@@ -636,7 +636,7 @@ var SceneManager = (function(){
 		}
 	};
 
-	// export the scene for loading
+	// export the scene
 	SceneManager.prototype.exportWorld = function(){
 		var world = {
 			bodies : [],

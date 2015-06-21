@@ -3,7 +3,7 @@ var SCREEN_HEIGHT = window.innerHeight;
 
 var canvas, context, scale = 1, game_canvas;
 var viewport, sceneManager, gameView;
-var pShape;
+var pShape, polygon, diagonals;
 
 // initialize canvas and context
 function init(){
@@ -67,6 +67,7 @@ function init(){
 	});
 	viewport.canvas.addEventListener("click", function(e){
 		viewport.onClick(e);
+		polygon.addPoint(e.offsetX, e.offsetY);
 		// console.log("mouseclick");
 	});
 	viewport.canvas.addEventListener("dblclick", function(e){
@@ -165,6 +166,17 @@ function init(){
 	sceneManager.createBody(Shape.SHAPE_BOX);
 	sceneManager.createBody(Shape.SHAPE_CIRCLE);
 	sceneManager.createBody(Shape.SHAPE_POLYGON);
+
+	polygon = new Polygon();
+	// polygon.addPoint(100, 100);
+	// polygon.addPoint(150, 100);
+	// polygon.addPoint(150, 150);
+	// polygon.addPoint(200, 100);
+	// polygon.addPoint(200, 0);
+	// polygon.addPoint(300, 200);
+	// polygon.addPoint(200, 300);
+	// polygon.addPoint(100, 300);
+	// polygon.addPoint(100, 100);
 }
 
 function mixin(target, source, methods){
@@ -182,6 +194,19 @@ function render() {
 	if (gameView){
 		if (gameView.hasLoaded)
 			gameView.updateGameLogic();
+	}
+
+	if (polygon && polygon.size() > 0){
+		polygon.draw(context);
+	}
+
+	if (diagonals && diagonals.length > 0){
+		context.strokeStyle = "#fff";
+		for (var i = 0; i < diagonals.length; i++){
+			context.moveTo(diagonals[i].first.x, diagonals[i].first.y);
+			context.lineTo(diagonals[i].second.x, diagonals[i].second.y);
+		}
+		context.stroke();
 	}
 
 	// if (pShape){
