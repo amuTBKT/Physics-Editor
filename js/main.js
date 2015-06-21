@@ -1,14 +1,19 @@
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 
-var canvas, context, scale = 1;
-var viewport, sceneManager;
+var canvas, context, scale = 1, game_canvas;
+var viewport, sceneManager, gameView;
+var pShape;
 
 // initialize canvas and context
 function init(){
 	canvas = document.getElementById("canvas");
 	canvas.width = SCREEN_WIDTH * 0.8;
 	canvas.height = SCREEN_HEIGHT * 0.8;
+
+	game_canvas = document.getElementById("game_viewport");
+	game_canvas.width = SCREEN_WIDTH * 0.8;
+	game_canvas.height = SCREEN_HEIGHT * 0.8;
 
 	sceneManager = SceneManager.getInstance();
 
@@ -75,6 +80,22 @@ function init(){
 	window.addEventListener("keyup", function(e){
 		// console.log(e.which);
 		viewport.onKeyUp(e);
+
+		if (e.which == 13){
+			pShape = sceneManager.bodies[2].shapes[0].toPhysics();
+		}
+
+		else if (e.which == 32){
+			if (gameView){
+				gameView = null;
+				game_canvas.style.zIndex = 1;
+			}
+			else {
+				gameView = new GameView(game_canvas);
+				gameView.setup(sceneManager);
+				game_canvas.style.zIndex = 3;
+			}
+		}
 	});
 
 	$("#transformTools").find("a").each(function(index){
@@ -154,10 +175,38 @@ function mixin(target, source, methods){
 // update loop 
 function render() {	
 	viewport.draw();
+
+	if (gameView){
+		gameView.updateGameLogic();
+	}
+
+	if (pShape){
+		var relPosX = 200, relPosY = 200;
+		context.strokeStyle = "#fff";
+		context.lineWidth = 2;
+		for (var i = 0; i < pShape.length; i++){
+			for (var j = 0; j < pShape[i].vertices.length; j++){
+				if (j == 0){
+					context.moveTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
+				}
+				else {
+					context.lineTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
+				}
+			}
+		}
+		context.closePath();
+		context.stroke();
+		context.lineWidth = 1;
+	}
+	
 	setTimeout(render, 1000.0 / 60.0);
 }
 //-------------------------------------------//
 
+// function UpdateLoop(){
+// 	app.updateGameLogic();
+// 	requestAnimationFrame(UpdateLoop);
+// }
 
 init();
 

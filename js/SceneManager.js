@@ -61,6 +61,24 @@ var SceneManager = (function(){
 		}
 	};
 
+	SceneManager.prototype.duplicateSelection = function(){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				this.addBody(this.selectedBodies[i].clone());
+			}
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				this.selectedBodies[0].addShape(this.selectedShapes[i].clone());
+			}
+		}
+		else if (this.state == this.STATE_SHAPE_EDIT_MODE){
+			for (var i = 0; i < this.selectedVertices.length; i++){
+				this.selectedShapes[0].vertices.splice(this.selectedShapes[0].indexOfVertex(this.selectedVertices[i]) + 1, 0, this.selectedVertices[i].clone());
+			}
+		}
+	};
+
 	// don't use only aabb collision detection for chain shapes, instead use its edges
 	SceneManager.prototype.checkCollisionWithChainShape = function(pointx, pointy, shape){
 		var lineSegment, index = 0;
@@ -91,7 +109,7 @@ var SceneManager = (function(){
 			// for adding vertex to the selected shape
 			if (inputHandler.CTRL_PRESSED){
 				var point = navigator.screenPointToWorld(e.offsetX, e.offsetY);
-				this.selectedShapes[0].addVertex(new Vertex(point[0], point[1], 10, 10));
+				this.selectedShapes[0].addVertex(point[0], point[1]);
 				return true;
 			}
 
@@ -553,7 +571,12 @@ var SceneManager = (function(){
 
 		if (shapeType == Shape.SHAPE_POLYGON || shapeType == Shape.SHAPE_CHAIN){
 			asCircle = asCircle || 0;
-			var shape = new Shape(shapeType, asCircle);
+			if (asCircle){
+				var shape = new Shape(shapeType, asCircle);
+			}
+			else {
+				var shape = new Shape(shapeType);
+			}
 		}
 		else {
 			var shape = new Shape(shapeType);

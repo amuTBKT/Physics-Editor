@@ -17,6 +17,8 @@ var Viewport = (function(){
 		this.snappingData = [0, 0.1, 10];			// [snap_pos, delta_scale, delta_angle]
 		this.transformTool = InputHandler.TRANSFORM_TOOL_TRANSLATION;
 		this.pivotMode = InputHandler.PIVOT_LOCAL_MODE;
+
+		this.inGameMode = 0;
 	}
 
 	InputHandler.IS_LEFT_MOUSE_BUTTON = 1;
@@ -59,6 +61,7 @@ var Viewport = (function(){
 		this.pivotMode = InputHandler.PIVOT_SELECTION_MIDDLE;
 	};
 
+	// to handle canvas panning and zooming
 	function Navigator(){
 		// canvas manipulating parameters
 		this.panning = [0, 0];						// canvas translation.[x, y]
@@ -91,6 +94,7 @@ var Viewport = (function(){
 		return ((x >= position[0] - width / 2 && x <= position[0] + width / 2) & (y >= position[1] - height / 2 && y <= position[1] + height / 2));
 	};
 
+	// to render viewport
 	function Renderer(context){
 		this.context = context;
 		this.width = 0;
@@ -165,6 +169,7 @@ var Viewport = (function(){
 			this.context.restore();
 		}
 
+		// render shapes
 		for (var i = 0; i < body.shapes.length; i++){
 			this.renderShape(body.shapes[i]);
 		}
@@ -222,8 +227,6 @@ var Viewport = (function(){
 
 			this.context.strokeStyle = "#000";
 		}
-
-		// TODO: create GUI layer for managing pivot and centroid and update their position and draw them here
 
 		// draw position of shape
 		this.context.fillStyle = "#000";
@@ -335,6 +338,8 @@ var Viewport = (function(){
 
 		this.sceneManager = sceneManager;
 
+		this.gameView;
+
 		// prevent default right click behaviour
 		this.canvas.addEventListener("contextmenu", function(e){
 			e.preventDefault();
@@ -379,6 +384,10 @@ var Viewport = (function(){
 		}
 		else if (e.which == 82){		// r - key pressed => enable scale tool
 			this.inputHandler.activateScaleTool();
+		}
+
+		else if (e.which == 68 && this.inputHandler.SHIFT_PRESSED){
+			this.sceneManager.duplicateSelection();
 		}
 	};
 
@@ -478,7 +487,9 @@ var Viewport = (function(){
 				}
 				for (var i = 0; i < sceneManager.bodies.length; i++){
 					if (lineSegment.checkInBoundsAABB(sceneManager.bodies[i].bounds)){
-						sceneManager.selectedBodies.push(sceneManager.bodies[i]);
+						if (sceneManager.selectedBodies.indexOf(sceneManager.bodies[i]) < 0){
+							sceneManager.selectedBodies.push(sceneManager.bodies[i]);
+						}
 						sceneManager.bodies[i].isSelected = true;
 					}
 					else {
@@ -495,7 +506,9 @@ var Viewport = (function(){
 				for (var i = 0; i < sceneManager.selectedBodies[0].shapes.length; i++){
 					
 					if (lineSegment.checkInBoundsAABB(sceneManager.selectedBodies[0].shapes[i].bounds)){
-						sceneManager.selectedShapes.push(sceneManager.selectedBodies[0].shapes[i]);
+						if (sceneManager.selectedShapes.indexOf(sceneManager.selectedBodies[0].shapes[i]) < 0){
+							sceneManager.selectedShapes.push(sceneManager.selectedBodies[0].shapes[i]);
+						}
 						sceneManager.selectedBodies[0].shapes[i].isSelected = true;
 					}
 					else {
@@ -512,7 +525,9 @@ var Viewport = (function(){
 				for (var i = 0; i < sceneManager.selectedShapes[0].vertices.length; i++){
 					var vertex = sceneManager.selectedShapes[0].vertices[i];
 					if (lineSegment.checkInBoundsAABB([vertex.x, vertex.y, vertex.width, vertex.height])){
-						sceneManager.selectedVertices.push(sceneManager.selectedShapes[0].vertices[i]);
+						if (sceneManager.selectedVertices.indexOf(sceneManager.selectedShapes[0].vertices[i]) < 0){
+							sceneManager.selectedVertices.push(sceneManager.selectedShapes[0].vertices[i]);
+						}
 						sceneManager.selectedShapes[0].vertices[i].isSelected = true;
 					}
 					else{
@@ -593,27 +608,29 @@ var Viewport = (function(){
 		// applying panning to canvas
 		renderer.getContext().translate(navigator.panning[0], navigator.panning[1]);
 		
-		// rendering the grid
-		navigator.range = 1000;
-		navigator.cell_size = 10 / Math.max(1, Math.min(parseInt(navigator.scale), 2));
-		renderer.renderGrid(navigator.range, navigator.cell_size);
+		if (!inputHandler.inGameMode){
+			// rendering the grid
+			navigator.range = 1000;
+			navigator.cell_size = 10 / Math.max(1, Math.min(parseInt(navigator.scale), 2));
+			renderer.renderGrid(navigator.range, navigator.cell_size);
 
-		// rendering the bodies
-		for (var i = 0; i < sceneManager.bodies.length; i++){
-			renderer.renderBody(sceneManager.bodies[i]);
-		}
+			// rendering the bodies
+			for (var i = 0; i < sceneManager.bodies.length; i++){
+				renderer.renderBody(sceneManager.bodies[i]);
+			}
 
-		// draw selection area if active
-		if (inputHandler.selectionArea[4]){
-			var position = this.screenPointToWorld(inputHandler.selectionArea[0], inputHandler.selectionArea[1]),
-				width = inputHandler.selectionArea[2] / navigator.scale,
-				height = inputHandler.selectionArea[3] / navigator.scale;
+			// draw selection area if active
+			if (inputHandler.selectionArea[4]){
+				var position = this.screenPointToWorld(inputHandler.selectionArea[0], inputHandler.selectionArea[1]),
+					width = inputHandler.selectionArea[2] / navigator.scale,
+					height = inputHandler.selectionArea[3] / navigator.scale;
 
-			this.renderer.setLineDash(5, 5);
-			renderer.getContext().strokeStyle = "#fff";
-			this.renderer.renderBox(position[0] + width / 2, position[1] + height / 2, width, height, false);
-			renderer.getContext().strokeStyle = "#000";
-			this.renderer.setLineDash(0, 0);
+				this.renderer.setLineDash(5, 5);
+				renderer.getContext().strokeStyle = "#fff";
+				this.renderer.renderBox(position[0] + width / 2, position[1] + height / 2, width, height, false);
+				renderer.getContext().strokeStyle = "#000";
+				this.renderer.setLineDash(0, 0);
+			}
 		}
 		
 		// restoring the saved canvas state

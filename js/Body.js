@@ -117,9 +117,8 @@ function Shape(type, width, height){
 	this.inEditMode = false;
 
 	// fixture properties
-	this.mass = 1;
 	this.friction = 1;
-	this.restitution = 0.5;
+	this.restitution = 0.25;
 	this.density = 1;
 	this.isSensor = 0;
 
@@ -129,9 +128,9 @@ function Shape(type, width, height){
 	}
 
 	if (type == Shape.SHAPE_CHAIN || type == Shape.SHAPE_POLYGON){
-		this.mass = type == Shape.SHAPE_CHAIN ? 0 : 1;
+		this.density = type == Shape.SHAPE_CHAIN ? 0 : 1;
 		var size = 10;
-		if ((width && !height) || (!width && height)){
+		if ((width != null && height == null) || (width == null && height != null)){
 			width = 50;
 			var angle = 0
 			var resolution = 10;
@@ -183,7 +182,9 @@ Shape.SHAPE_POLYGON = 2;
 Shape.SHAPE_CHAIN = 3;
 Shape.SHAPE_NONE = 4;
 
-Shape.prototype.addVertex = function(v){
+Shape.prototype.addVertex = function(x, y){
+	var v = new Vertex(x, y, 10, 10);
+
 	// do not edit BOX and CIRCLE shape
 	if (this.shapeType == Shape.SHAPE_BOX || this.shapeType == Shape.SHAPE_CIRCLE)
 		return;
@@ -261,6 +262,14 @@ Shape.prototype.removeVertexGivenIndex = function(index){
 	this.calculateBounds();
 };
 
+Shape.prototype.indexOfVertex = function(v){
+	for (var i = 0; i < this.vertices.length; i++){
+		if (this.vertices[i] == v){ 
+			return i;
+		}
+	}
+};
+
 Shape.prototype.sortVertices = function(){
 	for (var i = 0; i < this.vertices.length; i++){
 		var v = this.vertices[i];
@@ -304,7 +313,7 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 		sy = sx;
 	}
 
-	if (!pivotX || !pivotY){
+	if (pivotX == null || pivotY == null){
 		pivotX = this.position[0];
 		pivotY = this.position[1];
 	}
@@ -435,21 +444,24 @@ Shape.prototype.isConvex = function(){
 	}
 	// convert radian to degrees (in radians gives unexpected results because of approximations)
 	sumOfAngles = sumOfAngles * 180 / Math.PI;
-	return sumOfAngles == angleForConvexity;
+	return Math.abs(sumOfAngles - angleForConvexity) < 0.1;
 };
 
-Shape.prototype.decomposeToConvex = function(vertices){
-	// var edgeFlow = 0;					// if 1 then angle increases along the shape, if -1 then angle decreases along the shape
-
- 	vertices = vertices.length == 0 ? this.vertices : vertices;
-
-
+Shape.prototype.decomposeToConvex = function(){
+	var shapes = [];
+	decomposeToConvex(this.vertices, shapes, this.position);
+	return shapes;
 };
+
+function decomposeToConvex(vertices, shapes, relPos){
+	
+}
 
 // returns PhysicsShape for exporting
 // use (x, y) as the origin for physics shape
 Shape.prototype.toPhysics = function(x, y){
-	var shapes = [];
+	var shapes = []; // an array of physics shape (shapes if the shape is concave)
+	
 	if (this.shapeType == Shape.SHAPE_BOX && this.rotation == 0){
 		var pShape = new PhysicsShape(Shape.SHAPE_BOX);
 		pShape.width = this.width;
@@ -467,7 +479,7 @@ Shape.prototype.toPhysics = function(x, y){
 	}
 
 	var pShape = new PhysicsShape(this.shapeType == Shape.SHAPE_BOX ? Shape.SHAPE_POLYGON : this.shapeType);
-	
+	pShape.position = [this.position[0] - x, this.position[1] - y];
 	// need to check for convexity if shape is polygon
 	if (this.shapeType == Shape.SHAPE_POLYGON){
 		// is shape convex
@@ -493,7 +505,6 @@ Shape.prototype.toPhysics = function(x, y){
 		shapes.push(pShape);
 		return shapes;
 	}
-	// TODO : concave shape generation
 };
 
 function Body(){
@@ -511,10 +522,9 @@ function Body(){
 }
 
 Body.counter = 0;
-
-Body.BODY_TYPE_DYNAMIC = 0;
+Body.BODY_TYPE_STATIC = 0;
 Body.BODY_TYPE_KINEMATIC = 1;
-Body.BODY_TYPE_STATIC = 2;
+Body.BODY_TYPE_DYNAMIC = 2;
 
 Body.prototype.addSprite = function(file, x, y, w, h){
 	if (x != null && y != null && w != null && h != null){	// image is sprite sheet
@@ -544,8 +554,10 @@ Body.prototype.setSpriteHeight = function(height){
 	this.sprite.height = height;
 };
 
-Body.prototype.addShape = function(shape){
-	shape.setPosition(this.position[0], this.position[1]);
+Body.prototype.addShape = function(shape, setPos){
+	if (setPos){
+		shape.setPosition(this.position[0], this.position[1]);
+	}
 	this.shapes.push(shape);
 };
 
@@ -691,7 +703,7 @@ function clone(obj) {
     if (obj instanceof Body) {
         copy = new Body();
         for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+            if (obj.hasOwnProperty(attr) && attr != "name") copy[attr] = clone(obj[attr]);
         }
         return copy;
     }
@@ -711,7 +723,6 @@ Body.prototype.toPhysics = function(){
 		var shape = this.shapes[i];
 		
 		var fixture = new Fixture();
-		fixture.mass = shape.mass;
 		fixture.restitution = shape.restitution;
 		fixture.friction = shape.friction;
 		fixture.density = shape.density;
@@ -729,7 +740,6 @@ Body.prototype.toPhysics = function(){
 function Fixture(){
 	this.shapes;
 	this.restitution;
-	this.mass;
 	this.friction;
 	this.density;
 	this.isSensor = 0;

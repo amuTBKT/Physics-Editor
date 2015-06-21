@@ -6,12 +6,18 @@
 <link rel="stylesheet" type="text/css" href="css/reset.css">
 <link rel="stylesheet" type="text/css" href="css/hint.css">
 <style type="text/css">
-	#canvas {
+	#canvas, #game_viewport {
 		position: absolute;
 		left: 5%;
 		top: 10%;
 		border: solid 1px #000;
 		/*cursor: none;*/
+	}
+	#canvas{
+		z-index: 2;
+	}
+	#game_viewport{
+		z-index: 1;
 	}
 	#toolbar{
 		position: absolute;
@@ -39,6 +45,7 @@
 <body>
 
 <canvas id="canvas"></canvas>
+<canvas id="game_viewport"></canvas>
 
 <div id="toolbar">
 <ul id="transformTools">
@@ -76,12 +83,19 @@ x: <input type="text" id="pos_x" size="4">
 y: <input type="text" id="pos_y" size="4">
 </div>
 
+<div id="selection_properties">
+
+</div>
+
 
 <!-- js-scripts -->
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/handlebars.js"></script>
+<script type="text/javascript" src="js/box2d.js"></script>
 <script type="text/javascript" src="js/Body.js"></script>
 <script type="text/javascript" src="js/SceneManager.js"></script>
 <script type="text/javascript" src="js/Viewport.js"></script>
+<script type="text/javascript" src="js/GameView.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
 </body>
