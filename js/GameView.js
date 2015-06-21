@@ -18,12 +18,22 @@ function GameView(canvas) {
   this.canvas = canvas;
   this.context = canvas.getContext('2d');
   this.world;
+
+  this.hasLoaded = false;
 }
 
 /* SETUP */
-GameView.prototype.setup = function(scene){
+GameView.prototype.setup = function(scene, fromFile){
   if (this.context){
-    this.init(scene);
+    if (fromFile){
+      var ref = this;
+      $.getJSON(scene, function(data){
+        ref.init(data);
+      });
+    }
+    else {
+      this.init(scene);
+    }  
   }
 };
 
@@ -64,15 +74,21 @@ GameView.prototype.init = function(scene){
 
   // load bodies
   for (var i = 0; i < scene.bodies.length; i++){
-    createBody(this.world, scene.bodies[i]);
+    createBody(this.world, scene.bodies[i], true);
   }
 
+  // create joints
+  // for (var i = 0; i < scene.joints.length; i++){
+
+  // }
+
+  this.hasLoaded = true;
 };
 
 /* DRAW */
 GameView.prototype.draw = function(){
   this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  this.context.fillStyle = "#fff";
+  this.context.fillStyle = "#f00";
   this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
   
   this.world.Step(1 / 60, 10, 10);
@@ -138,8 +154,14 @@ function getBodyCB(fixture) {
   return true;
 }
 
-function createBody(world, b){
-  var pB = b.toPhysics();
+function createBody(world, b, isPhysicsBody){
+  var pB;
+  if (isPhysicsBody){
+    pB = b;
+  }
+  else {
+    pB = b.toPhysics();
+  }
 
   var bodyDef = new b2BodyDef;
   bodyDef.type = pB.type;

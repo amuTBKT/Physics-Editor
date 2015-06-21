@@ -89,11 +89,14 @@ function init(){
 			if (gameView){
 				gameView = null;
 				game_canvas.style.zIndex = 1;
+				viewport.getInputHandler().inGameMode = 0;
 			}
 			else {
 				gameView = new GameView(game_canvas);
-				gameView.setup(sceneManager);
+				gameView.setup(sceneManager.exportWorld());
+				// gameView.setup("resources/scene.json", true);
 				game_canvas.style.zIndex = 3;
+				viewport.getInputHandler().inGameMode = 1;
 			}
 		}
 	});
@@ -177,27 +180,28 @@ function render() {
 	viewport.draw();
 
 	if (gameView){
-		gameView.updateGameLogic();
+		if (gameView.hasLoaded)
+			gameView.updateGameLogic();
 	}
 
-	if (pShape){
-		var relPosX = 200, relPosY = 200;
-		context.strokeStyle = "#fff";
-		context.lineWidth = 2;
-		for (var i = 0; i < pShape.length; i++){
-			for (var j = 0; j < pShape[i].vertices.length; j++){
-				if (j == 0){
-					context.moveTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
-				}
-				else {
-					context.lineTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
-				}
-			}
-		}
-		context.closePath();
-		context.stroke();
-		context.lineWidth = 1;
-	}
+	// if (pShape){
+	// 	var relPosX = 200, relPosY = 200;
+	// 	context.strokeStyle = "#fff";
+	// 	context.lineWidth = 2;
+	// 	for (var i = 0; i < pShape.length; i++){
+	// 		for (var j = 0; j < pShape[i].vertices.length; j++){
+	// 			if (j == 0){
+	// 				context.moveTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
+	// 			}
+	// 			else {
+	// 				context.lineTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
+	// 			}
+	// 		}
+	// 	}
+	// 	context.closePath();
+	// 	context.stroke();
+	// 	context.lineWidth = 1;
+	// }
 	
 	setTimeout(render, 1000.0 / 60.0);
 }

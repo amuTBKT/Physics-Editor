@@ -545,6 +545,12 @@ var SceneManager = (function(){
 	*/
 	SceneManager.prototype.transformSelection = function(delta, inputHandler){
 		if (inputHandler.transformTool == 5){					// scale
+			if (Math.abs(delta[0]) >= 3 * Math.abs(delta[1])){
+				delta[1] = 0;
+			}
+			else if (Math.abs(delta[1]) >= 3 * Math.abs(delta[0])){
+				delta[0] = 0;
+			}
 			this.setScaleOfSelectedObjects(1 + delta[0] / 10, 1 - delta[1] / 10, 1, inputHandler);
 		}
 		else if (inputHandler.transformTool == 6){				// rotate
@@ -598,13 +604,18 @@ var SceneManager = (function(){
 
 		if (shapeType == Shape.SHAPE_POLYGON || shapeType == Shape.SHAPE_CHAIN){
 			asCircle = asCircle || 0;
-			var shape = new Shape(shapeType, asCircle);
+			if (asCircle){
+				var shape = new Shape(shapeType, asCircle);
+			}
+			else {
+				var shape = new Shape(shapeType);
+			}
 		}
 		else {
 			var shape = new Shape(shapeType);
 		}
 
-		this.selectedBodies[0].addShape(shape);
+		this.selectedBodies[0].addShape(shape, true);
 	};
 
 	// removes body from the scene
@@ -623,6 +634,19 @@ var SceneManager = (function(){
 				break;
 			}
 		}
+	};
+
+	// export the scene for loading
+	SceneManager.prototype.exportWorld = function(){
+		var world = {
+			bodies : [],
+			joints : []
+		};
+		for (var i = 0; i < this.bodies.length; i++){
+			world.bodies.push(this.bodies[i].toPhysics());
+		}
+
+		return world;
 	};
 
 	var instance;

@@ -305,8 +305,16 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 	this.scaleXY[1] *= sy;
 
 	if (this.shapeType == Shape.SHAPE_BOX){
-		this.width *= sx;
-		this.height *= sy;
+		if (this.rotation == 0){
+			this.width *= sx;// * Math.cos(this.rotation);
+			this.height *= sy;// * Math.sin(this.rotation);
+		}
+		else {
+			this.width *= sx;// * Math.cos(this.rotation);
+			this.height *= sx;// * Math.cos(this.rotation);
+			// return;
+			sy = sx;
+		}
 	}
 	else if (this.shapeType == Shape.SHAPE_CIRCLE){
 		this.radius *= sx;
@@ -508,7 +516,8 @@ Shape.prototype.toPhysics = function(x, y){
 };
 
 function Body(){
-	this.name = "body" + Body.counter++;
+	this.name = "body" + Body.counter++;	// for editor
+	this.userData = "";						// for physics body
 	this.sprite;
 	this.spriteData = [];					// [source-x, source-y, width, height, image-w, image-h]
 	this.shapes = [];
@@ -526,7 +535,7 @@ Body.BODY_TYPE_STATIC = 0;
 Body.BODY_TYPE_KINEMATIC = 1;
 Body.BODY_TYPE_DYNAMIC = 2;
 
-Body.prototype.addSprite = function(file, x, y, w, h){
+Body.prototype.setSprite = function(file, x, y, w, h){
 	if (x != null && y != null && w != null && h != null){	// image is sprite sheet
 		this.sprite = new Image();
 		this.sprite.src = file;
@@ -536,6 +545,7 @@ Body.prototype.addSprite = function(file, x, y, w, h){
 		this.sprite = new Image();
 		this.sprite.src = file;
 	}
+	this.userData = file;
 };
 
 Body.prototype.setSpriteWidth = function(width){
@@ -718,6 +728,7 @@ Body.prototype.toPhysics = function(){
 	pBody.position = this.position;
 	pBody.rotation = rot;
 	pBody.isBulllet = this.isBulllet;
+	pBody.userData = this.userData;
 
 	for (var i = 0; i < this.shapes.length; i++){
 		var shape = this.shapes[i];
@@ -760,6 +771,7 @@ function PhysicsShape(type){
 
 function PhysicsBody(type){
 	this.type = type;
+	this.userData = "";
 	this.fixtures = [];
 	this.position = [0, 0];
 	this.rotation = 0;

@@ -103,6 +103,7 @@ var Viewport = (function(){
 		this.shapeColor = "rgba(228, 177, 177, 0.6)";
 		this.shapeSelectedColor = "rgba(228, 228, 177, 0.6)";
 		this.bodySelectedColor = "rgba(0, 177, 177, 0.6)";
+		this.staticBodyColor = "rgba(177, 228,177, 0.6)";
 		this.vertexColor = "rgba(255, 0, 0, 1)";
 		this.boundsColor = "rgba(228, 177, 177, 1)";
 	}
@@ -171,7 +172,7 @@ var Viewport = (function(){
 
 		// render shapes
 		for (var i = 0; i < body.shapes.length; i++){
-			this.renderShape(body.shapes[i]);
+			this.renderShape(body.shapes[i], body.bodyType == 0 ? this.staticBodyColor : 0);
 		}
 
 		// render aabb 
@@ -187,7 +188,7 @@ var Viewport = (function(){
 		this.context.fillRect(body.position[0] - 5, body.position[1] - 5, 10, 10);
 	};
 
-	Renderer.prototype.renderShape = function(shape){
+	Renderer.prototype.renderShape = function(shape, bodyColor){
 		shape.calculateBounds();
 
 		if (shape.vertices.length > 1){
@@ -210,7 +211,7 @@ var Viewport = (function(){
 			}
 			else {
 				this.context.closePath();
-				this.context.fillStyle = this.shapeColor;
+				this.context.fillStyle = bodyColor || this.shapeColor;
 				if (shape.isSelected){
 					this.context.fillStyle = this.shapeSelectedColor;
 				}
@@ -571,7 +572,7 @@ var Viewport = (function(){
 
 	    var navigator = this.navigator;
 
-	    var zoom = 1 + wheel / 2;
+	    var zoom = 1 + Math.sign(wheel) * Math.min(Math.abs(wheel / 20), 0.1);
 
 	    if (zoom > 1){
 	    	if (navigator.scale > navigator.scaleLimits[1])
@@ -631,8 +632,7 @@ var Viewport = (function(){
 				renderer.getContext().strokeStyle = "#000";
 				this.renderer.setLineDash(0, 0);
 			}
-		}
-		
+		}		
 		// restoring the saved canvas state
 		renderer.getContext().restore();
 	};
