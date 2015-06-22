@@ -461,12 +461,23 @@ Shape.prototype.isConvex = function(){
 
 Shape.prototype.decomposeToConvex = function(){
 	var shapes = [];
-	decomposeToConvex(this.vertices, shapes, this.position);
+	var polygons = decomposeToConvex(this.vertices);
+	for (var i = 0; i < polygons.length; i++){
+		var shape = new PhysicsShape(Shape.SHAPE_POLYGON);
+		for (var j = 0; j < polygons[i].vertices.length; j++){
+			shape.vertices.push([polygons[i].vertices[j].x - this.position[0], polygons[i].vertices[j].y - this.position[1]]);
+		}
+		shapes.push(shape);
+	}
 	return shapes;
 };
 
-function decomposeToConvex(vertices, shapes, relPos){
-	
+function decomposeToConvex(vertices){
+	var polygon = new Polygon();
+	for (var i = 0; i < vertices.length; i++){
+		polygon.addPoint(vertices[i].x, vertices[i].y);
+	}
+	return polygon.decompose();
 }
 
 // returns PhysicsShape for exporting

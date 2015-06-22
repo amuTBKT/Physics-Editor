@@ -67,7 +67,7 @@ function init(){
 	});
 	viewport.canvas.addEventListener("click", function(e){
 		viewport.onClick(e);
-		polygon.addPoint(e.offsetX, e.offsetY);
+		// polygon.addPoint(e.offsetX, e.offsetY);
 		// console.log("mouseclick");
 	});
 	viewport.canvas.addEventListener("dblclick", function(e){
@@ -84,6 +84,8 @@ function init(){
 
 		if (e.which == 13){
 			pShape = sceneManager.bodies[2].shapes[0].toPhysics();
+			polygon.makeCCW();
+			diagonals = polygon.decomp();
 		}
 
 		else if (e.which == 32){
@@ -196,7 +198,8 @@ function render() {
 			gameView.updateGameLogic();
 	}
 
-	if (polygon && polygon.size() > 0){
+	if (polys.length == 0 && polygon && polygon.size() > 0){
+		context.strokeStyle = "#fff";
 		polygon.draw(context);
 	}
 
@@ -207,6 +210,15 @@ function render() {
 			context.lineTo(diagonals[i].second.x, diagonals[i].second.y);
 		}
 		context.stroke();
+	}
+
+	var colors = ["#f00", "#0f0", "#00f"];
+	if (polys.length > 0){
+		for (var i = 0; i < polys.length; i++){
+			if (polys[i].size() > 0){
+				polys[i].draw(context);
+			}
+		}
 	}
 
 	// if (pShape){
