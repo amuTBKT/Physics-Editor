@@ -551,7 +551,7 @@ var SceneManager = (function(){
 			else if (Math.abs(delta[1]) >= 3 * Math.abs(delta[0])){
 				delta[0] = 0;
 			}
-			this.setScaleOfSelectedObjects(1 + delta[0] / 10, 1 - delta[1] / 10, 1, inputHandler);
+			this.setScaleOfSelectedObjects(1 + delta[0] / 80, 1 - delta[1] / 80, 1, inputHandler);
 		}
 		else if (inputHandler.transformTool == 6){				// rotate
 			this.setRotationOfSelectedObjects(delta[0], 1, inputHandler);

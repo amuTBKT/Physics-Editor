@@ -20,6 +20,7 @@ function GameView(canvas) {
   this.world;
 
   this.hasLoaded = false;
+  this.paused = false;
 }
 
 /* SETUP */
@@ -87,11 +88,6 @@ GameView.prototype.init = function(scene){
 
 /* DRAW */
 GameView.prototype.draw = function(){
-  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  this.context.fillStyle = "#f00";
-  this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  
-  this.world.Step(1 / 60, 10, 10);
   this.world.DrawDebugData();
   this.world.ClearForces();
 };
@@ -120,10 +116,14 @@ GameView.prototype.update = function(){
         mouseJoint = null;
      }
   }
+
+  this.world.Step(1 / 60, 10, 10);
 };
 
 GameView.prototype.updateGameLogic = function(){
-  this.update();
+  if (!this.paused){
+    this.update();
+  }
   this.draw();
 }
 

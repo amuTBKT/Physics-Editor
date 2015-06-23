@@ -1,19 +1,14 @@
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 
-var canvas, context, scale = 1, game_canvas;
+var canvas, context, scale = 1;
 var viewport, sceneManager, gameView;
-var pShape, polygon, diagonals;
 
 // initialize canvas and context
 function init(){
 	canvas = document.getElementById("canvas");
 	canvas.width = SCREEN_WIDTH * 0.8;
 	canvas.height = SCREEN_HEIGHT * 0.8;
-
-	game_canvas = document.getElementById("game_viewport");
-	game_canvas.width = SCREEN_WIDTH * 0.8;
-	game_canvas.height = SCREEN_HEIGHT * 0.8;
 
 	sceneManager = SceneManager.getInstance();
 
@@ -24,6 +19,7 @@ function init(){
 		viewport.onMouseWheel(e);
 	});
 	viewport.canvas.addEventListener("mousedown", function(e){
+		e.preventDefault();
 		viewport.onMouseDown(e);
 
 		if (viewport.getInputHandler().selection.length != 1){
@@ -43,6 +39,7 @@ function init(){
 		// console.log("mousedown");
 	});
 	viewport.canvas.addEventListener("mousemove", function(e){
+		e.preventDefault();
 		viewport.onMouseMove(e);
 
 		if (viewport.getInputHandler().selection.length != 1){
@@ -67,7 +64,6 @@ function init(){
 	});
 	viewport.canvas.addEventListener("click", function(e){
 		viewport.onClick(e);
-		// polygon.addPoint(e.offsetX, e.offsetY);
 		// console.log("mouseclick");
 	});
 	viewport.canvas.addEventListener("dblclick", function(e){
@@ -83,22 +79,18 @@ function init(){
 		viewport.onKeyUp(e);
 
 		if (e.which == 13){
-			pShape = sceneManager.bodies[2].shapes[0].toPhysics();
-			polygon.makeCCW();
-			diagonals = polygon.decomp();
+			gameView.paused = !gameView.paused;
 		}
 
 		else if (e.which == 32){
 			if (gameView){
 				gameView = null;
-				game_canvas.style.zIndex = 1;
 				viewport.getInputHandler().inGameMode = 0;
 			}
 			else {
-				gameView = new GameView(game_canvas);
+				gameView = new GameView(canvas);
 				gameView.setup(sceneManager.exportWorld());
 				// gameView.setup("resources/scene.json", true);
-				game_canvas.style.zIndex = 3;
 				viewport.getInputHandler().inGameMode = 1;
 			}
 		}
@@ -165,20 +157,27 @@ function init(){
 		}
 	});
 
+	$("#create_menu").find("a").each(function(index){
+		//var action = $(this).data("event");
+		mixin(this, viewport.getSceneManager(), "createBody");
+		
+		var params = parseInt($(this).data("shape"));
+		
+		this.addEventListener("click", function(e){
+			e.preventDefault();
+			var shapeType = parseInt(params / 10);
+			if (shapeType == 0){
+				e.target["createBody"](shapeType);
+			}
+			else {
+				e.target["createBody"](shapeType, params % 10);	
+			}
+		});
+	});
+
 	sceneManager.createBody(Shape.SHAPE_BOX);
 	sceneManager.createBody(Shape.SHAPE_CIRCLE);
 	sceneManager.createBody(Shape.SHAPE_POLYGON);
-
-	polygon = new Polygon();
-	// polygon.addPoint(100, 100);
-	// polygon.addPoint(150, 100);
-	// polygon.addPoint(150, 150);
-	// polygon.addPoint(200, 100);
-	// polygon.addPoint(200, 0);
-	// polygon.addPoint(300, 200);
-	// polygon.addPoint(200, 300);
-	// polygon.addPoint(100, 300);
-	// polygon.addPoint(100, 100);
 }
 
 function mixin(target, source, methods){
@@ -191,54 +190,7 @@ function mixin(target, source, methods){
 
 // update loop 
 function render() {	
-	viewport.draw();
-
-	if (gameView){
-		if (gameView.hasLoaded)
-			gameView.updateGameLogic();
-	}
-
-	if (polys.length == 0 && polygon && polygon.size() > 0){
-		context.strokeStyle = "#fff";
-		polygon.draw(context);
-	}
-
-	if (diagonals && diagonals.length > 0){
-		context.strokeStyle = "#fff";
-		for (var i = 0; i < diagonals.length; i++){
-			context.moveTo(diagonals[i].first.x, diagonals[i].first.y);
-			context.lineTo(diagonals[i].second.x, diagonals[i].second.y);
-		}
-		context.stroke();
-	}
-
-	var colors = ["#f00", "#0f0", "#00f"];
-	if (polys.length > 0){
-		for (var i = 0; i < polys.length; i++){
-			if (polys[i].size() > 0){
-				polys[i].draw(context);
-			}
-		}
-	}
-
-	// if (pShape){
-	// 	var relPosX = 200, relPosY = 200;
-	// 	context.strokeStyle = "#fff";
-	// 	context.lineWidth = 2;
-	// 	for (var i = 0; i < pShape.length; i++){
-	// 		for (var j = 0; j < pShape[i].vertices.length; j++){
-	// 			if (j == 0){
-	// 				context.moveTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
-	// 			}
-	// 			else {
-	// 				context.lineTo(pShape[i].vertices[j][0] + relPosX, pShape[i].vertices[j][1] + relPosY);
-	// 			}
-	// 		}
-	// 	}
-	// 	context.closePath();
-	// 	context.stroke();
-	// 	context.lineWidth = 1;
-	// }
+	viewport.draw(gameView);
 	
 	setTimeout(render, 1000.0 / 60.0);
 }

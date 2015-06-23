@@ -25,11 +25,11 @@
 		width: 5%;
 		margin: 0 0;
 	}
-	ul{
+	#toolbar ul{
 		margin: 0 0;
 		padding: 0 0;
 	}
-	li{
+	#toolbar li{
 		background: #111;
 		width: 100%;
 		margin: 0 0;
@@ -39,6 +39,33 @@
 	}
 	a{
 		color: #fff;
+	}
+	#create_menu li{
+		width: 100px;
+		height: 50px;
+		background: #111;
+		float:left;
+	}
+	#selection_properties{
+		color: white;
+		background: #111;
+		position: absolute;
+		left: 85%;
+		top:10%;
+		width: 15%;
+		height: 80%;
+	}
+
+	#selection_properties ul{
+		margin: 10% 10%;
+		color: white;
+		width: 100%;
+	}
+
+	#selection_properties li{
+		color: white;
+		width: 100%;
+		height: 20px;
 	}
 </style>
 </head>
@@ -78,12 +105,70 @@
 
 </div>
 
-<div id="setPosition">
+<div id="setPosition" style="position:absolute;top:95%;left:75%;">
 x: <input type="text" id="pos_x" size="4">
 y: <input type="text" id="pos_y" size="4">
 </div>
 
+<div id="create_menu">
+	<ul>
+	<li><a href="#" data-shape="0">Create Box</a></li>
+	<li><a href="#" data-shape="10">Create Circle</a></li>
+	<li><a href="#" data-shape="20">Create Box Polygon</a></li>
+	<li><a href="#" data-shape="21">Create Circle Polygon</a></li>
+	<li><a href="#" data-shape="30">Create Box Chain</a></li>
+	<li><a href="#" data-shape="31">Create Circle Chain</a></li>
+	</ul>
+
+	<!-- <ul>
+	<li><a href="#" data-shape="0">Create Box Shape</a></li>
+	<li><a href="#" data-shape="10">Create Circle Shape</a></li>
+	<li><a href="#" data-shape="20">Create Box Polygon Shape</a></li>
+	<li><a href="#" data-shape="21">Create Circle Polygon Shape</a></li>
+	<li><a href="#" data-shape="30">Create Box Chain Shape</a></li>
+	<li><a href="#" data-shape="31">Create Circle Chain Shape</a></li>
+	</ul> -->
+</div>
+
 <div id="selection_properties">
+<!--shape
+		density
+		restitution
+		friction
+		isSensor
+		edit
+	body
+		type
+		isBullet
+		edit
+		add shape
+	sprite
+		set
+		width
+		height
+ -->
+	<div id="body_properties">
+	 	<ul>
+	 		<li>--------------------</li>
+	 		<li>type:</li>
+	 		<li>isBullet: <input type="checkbox"></li>
+	 		<li>userdata: <input type="text" size="10"></li>
+	 		<li><a href="#">Edit Body</a></li>
+	 		<li>--------------------</li>
+	 	</ul>
+	</div>
+
+	<div id="shape_properties">
+	 	<ul>
+		 	<li>--------------------</li>
+	 		<li>density     :  	<input type="text" size="4"></li>
+	 		<li>friction    :	<input type="text" size="4"></li>
+	 		<li>restitution :	<input type="text" size="4"></li>
+	 		<li>isSensor 		<input type="checkbox"></li>
+	 		<li><a href="#">Edit Shape</a></li>
+	 		<li>--------------------</li>
+	 	</ul>
+	</div>
 
 </div>
 

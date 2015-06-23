@@ -67,7 +67,7 @@ var Viewport = (function(){
 		this.panning = [0, 0];						// canvas translation.[x, y]
 		this.origin = [0, 0];						// canvas origin.[x, y]
 		this.scale = 1;								// canvas scale (scaleX = scaleY)
-		this.scaleLimits = [1, 3];					// [min scale, max scale]
+		this.scaleLimits = [0.5, 3];					// [min scale, max scale]
 		this.grid = [0, 0];							// [range, cell_size]
 	}
 
@@ -297,7 +297,23 @@ var Viewport = (function(){
 		this.context.lineWidth = 0.1 + 0.05 / cell_size;
 		this.context.stroke();
 		this.context.lineWidth = 1;
-		this.context.strokeStyle = "#000";		
+		this.context.strokeStyle = "#000";
+		
+		// draw scale
+		this.context.fillStyle = "#0f0";
+		this.context.font = 10 * (1 + 0.6 / cell_size) + "px Arial";
+		for (var x = -range; x <= range; x += cell_size){
+			if (x != 0 && (x * cell_size) % 100 == 0){			
+				this.context.fillText(x * cell_size, x * cell_size - 10, (-20 / cell_size));
+				this.renderCircle(x * cell_size, 0, 3 * (1 + 0.5 / cell_size), true);
+			}
+		}
+		for (var y = -range; y <= range; y += cell_size){
+			if (y != 0 && (y * cell_size) % 100 == 0){
+				this.context.fillText(y * cell_size, (20 / cell_size), y * cell_size + 5);
+				this.renderCircle(0, y * cell_size, 3 * (1 + 0.5 / cell_size), true);
+			}
+		}
 	};
 
 	Renderer.prototype.renderBox = function(x, y, w, h, fill){
@@ -307,7 +323,7 @@ var Viewport = (function(){
 
 	Renderer.prototype.renderCircle = function(x, y, r, fill){
 		this.context.beginPath();
-    	this.context.arc(x + r / 2, y + r / 2, r, 0, 2 * Math.PI, false);
+    	this.context.arc(x, y, r, 0, 2 * Math.PI, false);
     	if (fill) this.context.fill();
     	this.context.closePath();
     	this.context.stroke();
@@ -348,6 +364,10 @@ var Viewport = (function(){
 	}
 
 	Viewport.prototype.onKeyDown = function(e){
+		// return if in game mode
+		if (this.inputHandler.inGameMode)
+			return;
+
 		if (e.which == 17){
 			this.inputHandler.CTRL_PRESSED = 1;
 		}
@@ -363,6 +383,10 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.onKeyUp = function(e){
+		// return if in game mode
+		if (this.inputHandler.inGameMode)
+			return;
+
 		if (e.which == 17){
 			this.inputHandler.CTRL_PRESSED = 0;
 		}
@@ -408,6 +432,10 @@ var Viewport = (function(){
 		inputHandler.start = [e.offsetX, e.offsetY];
 
 		if (inputHandler.mouseStatus[1] == InputHandler.IS_RIGHT_MOUSE_BUTTON)
+			return;
+
+		// return if in game mode
+		if (this.inputHandler.inGameMode)
 			return;
 
 		// select bodies
@@ -462,6 +490,10 @@ var Viewport = (function(){
 				return;
 			}
 
+			// return if in game mode
+			if (this.inputHandler.inGameMode)
+				return;
+
 			if (inputHandler.selectionArea[4]){
 				return;
 			}
@@ -475,6 +507,10 @@ var Viewport = (function(){
 	Viewport.prototype.onMouseUp = function(e){
 		var inputHandler = this.inputHandler, sceneManager = this.sceneManager;
 		inputHandler.mouseStatus[0] = 0;
+
+		// return if in game mode
+		if (this.inputHandler.inGameMode)
+			return;
 
 		if (inputHandler.selectionArea[4]){
 			var startPoint = this.screenPointToWorld(inputHandler.selectionArea[0], inputHandler.selectionArea[1]),
@@ -539,7 +575,7 @@ var Viewport = (function(){
 				}
 			}
 
-			// selected objects goes to inputHandler.selection[]
+			// selected object goes to inputHandler.selection[]
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
 				inputHandler.selection = sceneManager.selectedBodies;
 			}
@@ -598,7 +634,7 @@ var Viewport = (function(){
 	    navigator.scale *= zoom;
 	};
 
-	Viewport.prototype.draw = function(){
+	Viewport.prototype.draw = function(gameView){
 		var inputHandler = this.inputHandler, navigator = this.navigator, renderer = this.renderer, sceneManager = this.sceneManager;
 		
 		// clear screen
@@ -606,15 +642,16 @@ var Viewport = (function(){
 
 		// saving the current state of the canvas
 		renderer.getContext().save();
+
 		// applying panning to canvas
 		renderer.getContext().translate(navigator.panning[0], navigator.panning[1]);
 		
-		if (!inputHandler.inGameMode){
-			// rendering the grid
-			navigator.range = 1000;
-			navigator.cell_size = 10 / Math.max(1, Math.min(parseInt(navigator.scale), 2));
-			renderer.renderGrid(navigator.range, navigator.cell_size);
+		// rendering the grid
+		navigator.range = 1000;
+		navigator.cell_size = 10 / Math.max(1, Math.min(parseInt(navigator.scale), 2));
+		renderer.renderGrid(navigator.range, navigator.cell_size);
 
+		if (!inputHandler.inGameMode){
 			// rendering the bodies
 			for (var i = 0; i < sceneManager.bodies.length; i++){
 				renderer.renderBody(sceneManager.bodies[i]);
@@ -632,7 +669,13 @@ var Viewport = (function(){
 				renderer.getContext().strokeStyle = "#000";
 				this.renderer.setLineDash(0, 0);
 			}
-		}		
+		}
+		else {
+			if (gameView){
+				gameView.updateGameLogic();
+			}
+		}
+
 		// restoring the saved canvas state
 		renderer.getContext().restore();
 	};

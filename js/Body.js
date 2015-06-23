@@ -314,7 +314,7 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 			this.height *= sx;
 		}
 		else {
-			//sx = Math.max(sx, sy);
+			sx = Math.max(sx, sy);
 			sy = sx;
 			this.width *= sx;
 			this.height *= sx;
@@ -349,6 +349,21 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 
 Shape.prototype.setScale = function(sx, sy, pivotX, pivotY){
 	this.scale(sx / this.scaleXY[0], sy / this.scaleXY[1], pivotX, pivotY);
+};
+
+Shape.prototype.setWidth = function(width){
+	if (this.shapeType == Shape.SHAPE_BOX)
+		this.scale(width / this.width, 1);
+};
+
+Shape.prototype.setRadius = function(radius){
+	if (this.shapeType == Shape.SHAPE_CIRCLE)
+		this.scale(radius / this.radius, 1);
+};
+
+Shape.prototype.setHeight = function(height){
+	if (this.shapeType == Shape.SHAPE_BOX)
+		this.scale(1, height / this.height);
 };
 
 // just for visualization in editor
@@ -533,6 +548,7 @@ Shape.prototype.toPhysics = function(x, y){
 function Body(){
 	this.name = "body" + Body.counter++;	// for editor
 	this.userData = "";						// for physics body
+	this.texture = "";
 	this.sprite;
 	this.spriteData = [];					// [source-x, source-y, width, height, image-w, image-h]
 	this.shapes = [];
@@ -560,7 +576,7 @@ Body.prototype.setSprite = function(file, x, y, w, h){
 		this.sprite = new Image();
 		this.sprite.src = file;
 	}
-	this.userData = file;
+	this.texture = file;
 };
 
 Body.prototype.setSpriteWidth = function(width){
@@ -744,6 +760,7 @@ Body.prototype.toPhysics = function(){
 	pBody.rotation = rot;
 	pBody.isBulllet = this.isBulllet;
 	pBody.userData = this.userData;
+	pBody.texture = this.texture;
 
 	for (var i = 0; i < this.shapes.length; i++){
 		var shape = this.shapes[i];
@@ -787,6 +804,7 @@ function PhysicsShape(type){
 function PhysicsBody(type){
 	this.type = type;
 	this.userData = "";
+	this.texture;
 	this.fixtures = [];
 	this.position = [0, 0];
 	this.rotation = 0;
