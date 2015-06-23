@@ -314,10 +314,37 @@ Shape.prototype.scale = function(sx, sy, pivotX, pivotY){
 			this.height *= sx;
 		}
 		else {
-			sx = Math.max(sx, sy);
-			sy = sx;
+			var rotation = this.rotation;
+			this.rotate(-rotation);
+
 			this.width *= sx;
-			this.height *= sx;
+			this.height *= sy;
+
+			if (pivotX == null || pivotY == null){
+				pivotX = this.position[0];
+				pivotY = this.position[1];
+			}
+
+			// move the shape to new origin
+			this.move(-pivotX, -pivotY);
+			
+			// update position
+			this.position[0] *= sx;
+			this.position[1] *= sy
+			
+			// scale vertices
+			for (var i = 0; i < this.vertices.length; i++){
+				this.vertices[i].x *= sx;
+				this.vertices[i].y *= sy;
+			}
+
+			// revert origin
+			this.move(pivotX, pivotY);	
+
+			// reset rotation
+			this.rotate(rotation);
+
+			return;
 		}
 	}
 	else if (this.shapeType == Shape.SHAPE_CIRCLE){
