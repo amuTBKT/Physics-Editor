@@ -144,8 +144,8 @@ var Viewport = (function(){
 					sourceY = body.spriteData[1],
 					sourceW = body.spriteData[2],
 					sourceH = body.spriteData[3],
-					imageW 	= body.spriteData[4];// * body.scaleXY[0],
-					imageH	= body.spriteData[5];// * body.scaleXY[1];
+					imageW 	= body.spriteData[4];
+					imageH	= body.spriteData[5];
 
 				// handle sprite rotation and translation
 				this.context.translate(body.position[0], body.position[1]);

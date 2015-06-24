@@ -13,11 +13,21 @@ var b2Vec2 =  Box2D.Common.Math.b2Vec2,
     b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef;
 
 var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
+var _navigator, gameObjects = [];
 
-function GameView(canvas) {
+function GameObject () {
+  this.body;
+  this.sprite;
+  this.spriteData = [];
+}
+
+function GameView(canvas, navigator) {
   this.canvas = canvas;
   this.context = canvas.getContext('2d');
+  _navigator = navigator;
   this.world;
+
+  gameObjects = [];
 
   this.hasLoaded = false;
   this.paused = false;
@@ -90,6 +100,29 @@ GameView.prototype.init = function(scene){
 GameView.prototype.draw = function(){
   this.world.DrawDebugData();
   this.world.ClearForces();
+
+  for (var i = 0; i < gameObjects.length; i++){
+    // handle sprite rotation and translation
+    this.context.translate(gameObjects[i].body.GetPosition().x * 30, gameObjects[i].body.GetPosition().y * 30);
+    this.context.rotate(gameObjects[i].body.GetAngle());
+    
+    if (gameObjects[i].spriteData.length > 0){
+      var spriteData  = gameObjects[i].spriteData,
+          sourceX     = spriteData[0],
+          sourceY     = spriteData[1],
+          sourceW     = spriteData[2],
+          sourceH     = spriteData[3],
+          imageW      = spriteData[4],
+          imageH      = spriteData[5];
+      this.context.drawImage(gameObjects[i].sprite, sourceX, sourceY, sourceW, sourceH, -imageW / 2, -imageH / 2, imageW, imageH);
+      
+    }
+    else {
+      var imageW = gameObjects[i].sprite.width, imageH = gameObjects[i].sprite.height;
+      this.context.drawImage(gameObjects[i].sprite, -imageW / 2, -imageH / 2, imageW, imageH);
+    }
+  }
+  
 };
 
 /* UPDATE */
@@ -120,6 +153,10 @@ GameView.prototype.update = function(){
   this.world.Step(1 / 60, 10, 10);
 };
 
+GameView.prototype.dispose = function(){
+
+};
+
 GameView.prototype.updateGameLogic = function(){
   if (!this.paused){
     this.update();
@@ -128,8 +165,8 @@ GameView.prototype.updateGameLogic = function(){
 }
 
 function handleMouseMove(e) {
-  mouseX = (e.offsetX) / 30;
-  mouseY = (e.offsetY) / 30;
+  mouseX = _navigator.screenPointToWorld(e.offsetX, e.offsetY)[0] / 30;
+  mouseY = _navigator.screenPointToWorld(e.offsetX, e.offsetY)[1] / 30;
 }
 
 function getBodyAtMouse(world) {
@@ -154,6 +191,28 @@ function getBodyCB(fixture) {
   return true;
 }
 
+function createGameObject(texture, textureData, body){
+  var gameObject = new GameObject();
+  gameObject.sprite = new Image();
+  gameObject.sprite.src = texture;
+  
+  if (textureData.length == 2){
+    gameObject.sprite.width = textureData[0];
+    gameObject.sprite.height = textureData[1];  
+  }
+  else {
+    gameObject.spriteData[0] = textureData[0];
+    gameObject.spriteData[1] = textureData[1];
+    gameObject.spriteData[2] = textureData[2];
+    gameObject.spriteData[3] = textureData[3];
+    gameObject.spriteData[4] = textureData[4];
+    gameObject.spriteData[5] = textureData[5];
+  }
+
+  gameObject.body = body;
+  gameObjects.push(gameObject);
+}
+
 function createBody(world, b, isPhysicsBody){
   var pB;
   if (isPhysicsBody){
@@ -169,6 +228,9 @@ function createBody(world, b, isPhysicsBody){
   var body = world.CreateBody(bodyDef);
   body.SetAngle(pB.rotation * Math.PI / 180);
   body.SetBullet(pB.isBullet);
+
+  if (pB.texture)
+    createGameObject(pB.texture, pB.textureData, body);
 
   for (var i = 0; i < pB.fixtures.length; i++){
      var f = pB.fixtures[i];

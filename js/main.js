@@ -88,7 +88,7 @@ function init(){
 				viewport.getInputHandler().inGameMode = 0;
 			}
 			else {
-				gameView = new GameView(canvas);
+				gameView = new GameView(canvas, viewport.getNavigator());
 				gameView.setup(sceneManager.exportWorld());
 				// gameView.setup("resources/scene.json", true);
 				viewport.getInputHandler().inGameMode = 1;

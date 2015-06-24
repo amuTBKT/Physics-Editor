@@ -524,7 +524,7 @@ function decomposeToConvex(vertices){
 
 // returns PhysicsShape for exporting
 // use (x, y) as the origin for physics shape
-Shape.prototype.toPhysics = function(x, y){
+Shape.prototype.exportShape = function(x, y){
 	var shapes = []; // an array of physics shape (shapes if the shape is concave)
 	
 	if (this.shapeType == Shape.SHAPE_BOX && this.rotation == 0){
@@ -570,6 +570,20 @@ Shape.prototype.toPhysics = function(x, y){
 		shapes.push(pShape);
 		return shapes;
 	}
+};
+
+Shape.prototype.toPhysics = function(x, y){
+	if (x == null || y == null){
+		x = this.position[0];
+		y = this.position[1];
+	}
+	var fixture = new Fixture();
+	fixture.restitution = this.restitution;
+	fixture.friction = this.friction;
+	fixture.density = this.density;
+	fixture.isSensor = this.isSensor;
+	fixture.shapes = this.exportShape(x, y);
+	return fixture;
 };
 
 function Body(){
@@ -787,18 +801,32 @@ Body.prototype.toPhysics = function(){
 	pBody.rotation = rot;
 	pBody.isBulllet = this.isBulllet;
 	pBody.userData = this.userData;
-	pBody.texture = this.texture;
+	if (this.texture){
+		pBody.texture = this.texture;
+		if (this.spriteData.length > 0){
+			var sourceX = this.spriteData[0],
+				sourceY = this.spriteData[1],
+				sourceW = this.spriteData[2],
+				sourceH = this.spriteData[3],
+				imageW 	= this.spriteData[4];
+				imageH	= this.spriteData[5];
+			pBody.textureData = [sourceX, sourceY, sourceW, sourceH, imageW, imageH];
+		}
+		else {
+			pBody.textureData = [this.sprite.width, this.sprite.height];
+		}
+	}
 
 	for (var i = 0; i < this.shapes.length; i++){
 		var shape = this.shapes[i];
 		
-		var fixture = new Fixture();
-		fixture.restitution = shape.restitution;
-		fixture.friction = shape.friction;
-		fixture.density = shape.density;
-		fixture.isSensor = shape.isSensor;
-		fixture.shapes = this.shapes[i].toPhysics(this.position[0], this.position[1]);
-		pBody.fixtures.push(fixture);
+		// var fixture = new Fixture();
+		// fixture.restitution = shape.restitution;
+		// fixture.friction = shape.friction;
+		// fixture.density = shape.density;
+		// fixture.isSensor = shape.isSensor;
+		// fixture.shapes = this.shapes[i].toPhysics(this.position[0], this.position[1]);
+		pBody.fixtures.push(shape.toPhysics(this.position[0], this.position[1]));
 	}
 
 	this.rotate(rot);
@@ -832,6 +860,7 @@ function PhysicsBody(type){
 	this.type = type;
 	this.userData = "";
 	this.texture;
+	this.textureData;
 	this.fixtures = [];
 	this.position = [0, 0];
 	this.rotation = 0;
