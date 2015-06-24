@@ -652,6 +652,14 @@ var SceneManager = (function(){
 			var joint = new Joint(jointType);
 			joint.bodyA = this.selectedBodies[0];
 			joint.bodyB = this.selectedBodies[1];
+			if (jointType == Joint.JOINT_DISTANCE){
+				joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
+			}
+			else if (jointType == Joint.JOINT_REVOLUTE) {
+				joint.setLocalAnchorA(joint.bodyB.position[0], joint.bodyB.position[1]);
+			}
+			joint.setLocalAnchorB(joint.bodyB.position[0], joint.bodyB.position[1]);
+			joint.position = [(joint.setLocalAnchorA[0] + joint.setLocalAnchorB[0]) / 2, (joint.setLocalAnchorA[1] + joint.setLocalAnchorB[1]) / 2];
 			this.addJoint(joint);
 		}
 		else {

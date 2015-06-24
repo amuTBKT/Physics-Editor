@@ -254,13 +254,13 @@ function createJoint(world, j){
     jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
     jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
     jointDef.collideConnected = j.collideConnected;
-    jointDef.enableLimit  = false;
-    jointDef.enableMotor  = false;
-    jointDef.lowerAngle   = 0;
-    jointDef.maxMotorTorque = 100;
-    jointDef.motorSpeed   = 100;
-    jointDef.referenceAngle = 0;
-    jointDef.upperAngle   = 0;
+    jointDef.enableLimit  = j.enableLimit;
+    jointDef.enableMotor  = j.enableMotor;
+    jointDef.lowerAngle   = j.lowerAngle * Math.PI / 180;
+    jointDef.maxMotorTorque = j.maxMotorTorque;
+    jointDef.motorSpeed   = j.motorSpeed;
+    jointDef.referenceAngle = j.referenceAngle;
+    jointDef.upperAngle   = j.upperAngle * Math.PI / 180;
     joints.push(world.CreateJoint(jointDef));
   }
   // else if (j.jointType == Joint.JOINT_WHEEL){

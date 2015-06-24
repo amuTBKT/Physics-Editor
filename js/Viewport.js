@@ -130,6 +130,52 @@ var Viewport = (function(){
 		this.height = h;
 	};
 
+	Renderer.prototype.renderJoint = function(joint){
+		this.context.fillStyle = "#0f0";
+		this.renderCircle(joint.position[0], joint.position[1], 5, true);
+
+		this.setLineDash(5, 5);
+		this.context.lineWidth = 2;
+		this.context.strokeStyle = "#aaa";
+		if (joint.jointType == Joint.JOINT_DISTANCE){
+			this.context.moveTo(joint.bodyA.position[0], joint.bodyA.position[1]);
+			this.context.lineTo(joint.bodyB.position[0], joint.bodyB.position[1]);
+			this.context.stroke();
+		}
+		else if (joint.jointType == Joint.JOINT_REVOLUTE && joint.enableLimit){
+			// draw lower angle vector line
+			this.context.strokeStyle = "#f00";
+			this.context.beginPath();
+			this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+			var x = joint.localAnchorB[0] + 100 * Math.cos(joint.lowerAngle * Math.PI / 180);
+			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.lowerAngle * Math.PI / 180);
+			this.context.lineTo(x, y);
+			this.context.stroke();
+			this.context.closePath();
+			
+			// draw lower angle arc
+			this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, joint.lowerAngle * Math.PI / 180, 0, false);
+	    	this.context.stroke();
+
+	    	// draw upper angle vector line
+	    	this.context.strokeStyle = "#00f";
+	    	this.context.beginPath();
+	    	this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+			x = joint.localAnchorB[0] + 100 * Math.cos(joint.upperAngle * Math.PI / 180);
+			y = joint.localAnchorB[1] + 100 * Math.sin(joint.upperAngle * Math.PI / 180);
+			this.context.lineTo(x, y);
+			this.context.stroke();
+			this.context.closePath();
+
+			// draw upper angle arc
+			this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, 0, joint.upperAngle * Math.PI / 180, false);
+	    	this.context.stroke();
+		}
+
+		this.context.lineWidth = 1;
+		this.setLineDash(0, 0);
+	};
+
 	Renderer.prototype.renderBody = function(body){
 		// update aabb
 		body.calculateBounds();
@@ -658,6 +704,11 @@ var Viewport = (function(){
 			// rendering the bodies
 			for (var i = 0; i < sceneManager.bodies.length; i++){
 				renderer.renderBody(sceneManager.bodies[i]);
+			}
+
+			// rendering the joints
+			for (var i = 0; i < sceneManager.joints.length; i++){
+				renderer.renderJoint(sceneManager.joints[i]);
 			}
 
 			// draw selection area if active

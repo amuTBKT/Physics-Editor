@@ -947,6 +947,9 @@ function Joint(type){
 	 	this.frequencyHZ 	= 60;
 		this.dampingRatio 	= 1;
 	}
+
+	// editor parameters
+	this.position = [0, 0];
 }
 
 Joint.JOINT_DISTANCE	= 0;
@@ -976,7 +979,11 @@ Joint.prototype.moveAnchorB = function(x, y){
 };
 
 Joint.prototype.move = function(x, y){
+	this.position[0] += x;
+	this.position[1] += y;
 
+	this.moveAnchorA(x, y);
+	this.moveAnchorB(x, y);
 };
 
 // distance joint
@@ -988,6 +995,11 @@ Joint.prototype.setDampingRatio = function(dampingRatio){
 };
 Joint.prototype.setFrequency = function(frequency){
 	this.frequencyHZ = frequency;
+};
+
+// weld joint
+Joint.prototype.setReferenceAngle = function(angle){
+	this.referenceAngle = angle * Math.PI / 180;
 };
 
 // revolute joint
@@ -1014,5 +1026,7 @@ Joint.prototype.toPhysics = function(bodies){
 	var joint = new PhysicsJoint(this);
 	joint.bodyA = bodies.indexOf(this.bodyA);
 	joint.bodyB = bodies.indexOf(this.bodyB);
+	joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
+	joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
 	return joint;
 };
