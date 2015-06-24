@@ -491,8 +491,11 @@ var Viewport = (function(){
 			}
 
 			// return if in game mode
-			if (this.inputHandler.inGameMode)
+			if (this.inputHandler.inGameMode){
+				inputHandler.selectionArea[2] = 0;
+				inputHandler.selectionArea[3] = 0;
 				return;
+			}
 
 			if (inputHandler.selectionArea[4]){
 				return;

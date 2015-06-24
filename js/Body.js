@@ -600,6 +600,7 @@ function Body(){
 	this.isSelected = false;
 	this.bodyType = Body.BODY_TYPE_DYNAMIC;	// default to dynmic body
 	this.isBulllet = 0;
+	this.isFixedRotation = 0;
 }
 
 Body.counter = 0;
@@ -781,13 +782,20 @@ function clone(obj) {
         return copy;
     }
 
-    // Handle Object
     if (obj instanceof Body) {
         copy = new Body();
         for (var attr in obj) {
             if (obj.hasOwnProperty(attr) && attr != "name") copy[attr] = clone(obj[attr]);
         }
         return copy;
+    }
+
+    if (obj instanceof Image){
+    	copy = new Image();
+    	copy.src = obj.src;
+    	copy.width = obj.width;
+    	copy.height = obj.height;
+    	return copy;
     }
 }
 
@@ -800,6 +808,7 @@ Body.prototype.toPhysics = function(){
 	pBody.position = this.position;
 	pBody.rotation = rot;
 	pBody.isBulllet = this.isBulllet;
+	pBody.isFixedRotation = this.isFixedRotation;
 	pBody.userData = this.userData;
 	if (this.texture){
 		pBody.texture = this.texture;
@@ -865,4 +874,145 @@ function PhysicsBody(type){
 	this.position = [0, 0];
 	this.rotation = 0;
 	this.isBulllet = 0;
+	this.isFixedRotation = 0;
 }
+
+function PhysicsJoint(joint){
+	this.bodyA;
+	this.bodyB;
+	this.localAnchorA 		= joint.localAnchorA;
+	this.localAnchorB 		= joint.localAnchorB;
+	this.userData 			= joint.userData;
+	this.collideConnected 	= joint.collideConnected;
+
+	this.jointType = joint.jointType;
+	if (this.jointType == Joint.JOINT_DISTANCE){
+		this.length 		= joint.length;
+		this.frequencyHZ 	= joint.frequencyHZ;
+		this.dampingRatio 	= joint.dampingRatio;
+	}
+	else if (this.jointType == Joint.JOINT_WELD){
+		this.referenceAngle = joint.referenceAngle;
+	}
+	else if (this.jointType == Joint.JOINT_REVOLUTE){
+		this.enableLimit 	= joint.enableLimit;
+	 	this.enableMotor 	= joint.enableMotor;
+	 	this.lowerAngle 	= joint.lowerAngle;
+		this.maxMotorTorque = joint.maxMotorTorque;
+	 	this.motorSpeed 	= joint.motorSpeed;
+	 	this.referenceAngle = joint.referenceAngle;
+	 	this.upperAngle		= joint.upperAngle;
+	}
+	else if (this.jointType == Joint.JOINT_WHEEL){
+		this.localAxisA 	= joint.localAxisA;
+		this.enableMotor 	= joint.enableMotor;
+		this.maxMotorTorque = joint.maxMotorTorque;
+	 	this.motorSpeed 	= joint.motorSpeed;
+	 	this.frequencyHZ 	= joint.frequencyHZ;
+		this.dampingRatio 	= joint.dampingRatio;
+	}
+}
+
+function Joint(type){
+	this.bodyA;
+	this.bodyB;
+	this.localAnchorA = [0, 0];
+	this.localAnchorB = [0, 0];
+	this.userData = "";
+	this.collideConnected = false;
+
+	this.jointType = type;
+	if (type == Joint.JOINT_DISTANCE){
+		this.length 		= 100;
+		this.frequencyHZ 	= 60;
+		this.dampingRatio 	= 1;
+	}
+	else if (type == Joint.JOINT_WELD){
+		this.referenceAngle = 0;
+	}
+	else if (type == Joint.JOINT_REVOLUTE){
+		this.enableLimit 	= false;
+	 	this.enableMotor 	= false;
+	 	this.lowerAngle 	= 0;
+		this.maxMotorTorque = 100;
+	 	this.motorSpeed 	= 100;
+	 	this.referenceAngle = 0;
+	 	this.upperAngle		= 0;
+	}
+	else if (type == Joint.JOINT_WHEEL){
+		this.localAxisA 	= [0, 1];
+		this.enableMotor 	= false;
+		this.maxMotorTorque = 100;
+	 	this.motorSpeed 	= 100;
+	 	this.frequencyHZ 	= 60;
+		this.dampingRatio 	= 1;
+	}
+}
+
+Joint.JOINT_DISTANCE	= 0;
+Joint.JOINT_WELD 		= 1;
+Joint.JOINT_REVOLUTE	= 2;
+Joint.JOINT_WHEEL 		= 3;
+
+Joint.prototype.setUserData = function(data){
+	this.userData = data;
+};
+
+Joint.prototype.setLocalAnchorA = function(x, y){
+	this.localAnchorA = [x, y];
+};
+Joint.prototype.setLocalAnchorB = function(x, y){
+	this.localAnchorB = [x, y];
+};
+
+Joint.prototype.moveAnchorA = function(x, y){
+	this.localAnchorA[0] += x;
+	this.localAnchorA[1] += y;
+};
+
+Joint.prototype.moveAnchorB = function(x, y){
+	this.localAnchorB[0] += x;
+	this.localAnchorB[1] += y;
+};
+
+Joint.prototype.move = function(x, y){
+
+};
+
+// distance joint
+Joint.prototype.setLength = function(length){
+	this.length = length;
+};
+Joint.prototype.setDampingRatio = function(dampingRatio){
+	this.dampingRatio = dampingRatio;
+};
+Joint.prototype.setFrequency = function(frequency){
+	this.frequencyHZ = frequency;
+};
+
+// revolute joint
+Joint.prototype.changeLowerAngle = function(delta){
+	this.lowerAngle += delta;
+};
+Joint.prototype.changeUpperAngle = function(delta){
+	this.upperAngle += delta;
+};
+Joint.prototype.setLowerAngle = function(angle){
+	this.lowerAngle = angle;
+};
+Joint.prototype.setUpperAngle = function(angle){
+	this.upperAngle = angle;
+};
+Joint.prototype.setMotorSpeed = function(speed){
+	this.motorSpeed = speed;
+};
+Joint.prototype.setMaxMotorTorque = function(torque){
+	this.maxMotorTorque = torque;
+};
+
+Joint.prototype.toPhysics = function(bodies){
+	var joint = new PhysicsJoint(this);
+	joint.bodyA = bodies.indexOf(this.bodyA);
+	joint.bodyB = bodies.indexOf(this.bodyB);
+	return joint;
+};

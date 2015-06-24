@@ -6,11 +6,13 @@ var SceneManager = (function(){
 		this.STATE_BODY_EDIT_MODE 	= 2;
 		this.STATE_SHAPE_DRAW_MODE  = 3;
 
-		this.state = this.STATE_DEFAULT_MODE;
-		this.bodies = [];
-		this.selectedBodies = [];
-		this.selectedShapes = [];
-		this.selectedVertices = [];
+		this.state 				= this.STATE_DEFAULT_MODE;
+		this.bodies 			= [];
+		this.joints 			= [];
+		this.selectedBodies 	= [];
+		this.selectedShapes 	= [];
+		this.selectedVertices 	= [];
+		this.selectedJoints 	= [];
 	}
 
 	SceneManager.prototype.enterDefaultMode = function(){
@@ -636,6 +638,27 @@ var SceneManager = (function(){
 		}
 	};
 
+	SceneManager.prototype.addJoint = function(joint){
+		this.joints.push(joint);
+	};
+
+	/**
+	*
+	* params jointType
+	* creates a new joint
+	*/
+	SceneManager.prototype.createJoint = function(jointType){
+		if (this.selectedBodies.length == 2 && this.state == this.STATE_DEFAULT_MODE){
+			var joint = new Joint(jointType);
+			joint.bodyA = this.selectedBodies[0];
+			joint.bodyB = this.selectedBodies[1];
+			this.addJoint(joint);
+		}
+		else {
+			console.log("Select 2 bodies to create a joint");
+		}
+	};
+
 	// export the scene
 	SceneManager.prototype.exportWorld = function(){
 		var world = {
@@ -644,6 +667,14 @@ var SceneManager = (function(){
 		};
 		for (var i = 0; i < this.bodies.length; i++){
 			world.bodies.push(this.bodies[i].toPhysics());
+		}
+		for (var i = 0; i < this.joints.length; i++){
+			if (this.joints[i].jointType == Joint.JOINT_DISTANCE){
+				var lengthVec = [this.joints[i].bodyA.position[0] - this.joints[i].bodyB.position[0], this.joints[i].bodyA.position[1] - this.joints[i].bodyB.position[1]];
+				this.joints[i].setLength(Math.pow(lengthVec[0] * lengthVec[0] + lengthVec[1] * lengthVec[1], 0.5));
+			}
+
+			world.joints.push(this.joints[i].toPhysics(this.bodies));
 		}
 
 		return world;

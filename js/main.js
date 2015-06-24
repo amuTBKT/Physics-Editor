@@ -57,19 +57,19 @@ function init(){
 		$("#pos_x")[0].value = viewport.getInputHandler().selection[0].position[0].toFixed(2);
 		$("#pos_y")[0].value = viewport.getInputHandler().selection[0].position[1].toFixed(2);
 		// console.log("mousemove");
-	});
+	}, false);
 	viewport.canvas.addEventListener("mouseup", function(e){
 		viewport.onMouseUp(e);
 		// console.log("mouseup");
-	});
+	}, false);
 	viewport.canvas.addEventListener("click", function(e){
 		viewport.onClick(e);
 		// console.log("mouseclick");
-	});
+	}, false);
 	viewport.canvas.addEventListener("dblclick", function(e){
 		viewport.onDoubleClick(e);
 		// console.log("mousedblclick");
-	});
+	}, false);
 	window.addEventListener("keydown", function(e){
 		// console.log(e.which);
 		viewport.onKeyDown(e);

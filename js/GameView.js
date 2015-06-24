@@ -11,9 +11,12 @@ var b2Vec2 =  Box2D.Common.Math.b2Vec2,
     b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
     b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
     b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef;
+    b2DistanceJointDef =  Box2D.Dynamics.Joints.b2DistanceJointDef;
+    b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef;
+    b2WeldJointDef =  Box2D.Dynamics.Joints.b2WeldJointDef;
 
 var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
-var _navigator, gameObjects = [];
+var _navigator, gameObjects = [], bodies = [], joints = [];
 
 function GameObject () {
   this.body;
@@ -28,6 +31,7 @@ function GameView(canvas, navigator) {
   this.world;
 
   gameObjects = [];
+  bodies = [];
 
   this.hasLoaded = false;
   this.paused = false;
@@ -89,8 +93,12 @@ GameView.prototype.init = function(scene){
   }
 
   // create joints
-  // for (var i = 0; i < scene.joints.length; i++){
+  for (var i = 0; i < scene.joints.length; i++){
+    createJoint(this.world, scene.joints[i]);
+  }
 
+  // for (var b = this.world.GetBodyList(); b != null; b = b.GetNext()){
+  //  console.log(b);
   // }
 
   this.hasLoaded = true;
@@ -103,6 +111,7 @@ GameView.prototype.draw = function(){
 
   for (var i = 0; i < gameObjects.length; i++){
     // handle sprite rotation and translation
+    this.context.save();
     this.context.translate(gameObjects[i].body.GetPosition().x * 30, gameObjects[i].body.GetPosition().y * 30);
     this.context.rotate(gameObjects[i].body.GetAngle());
     
@@ -121,8 +130,9 @@ GameView.prototype.draw = function(){
       var imageW = gameObjects[i].sprite.width, imageH = gameObjects[i].sprite.height;
       this.context.drawImage(gameObjects[i].sprite, -imageW / 2, -imageH / 2, imageW, imageH);
     }
+    this.context.restore();
   }
-  
+
 };
 
 /* UPDATE */
@@ -213,6 +223,56 @@ function createGameObject(texture, textureData, body){
   gameObjects.push(gameObject);
 }
 
+function createJoint(world, j){
+
+  if (j.jointType == Joint.JOINT_DISTANCE){
+    var jointDef = new b2DistanceJointDef;
+    jointDef.bodyA = bodies[j.bodyA];
+    jointDef.bodyB = bodies[j.bodyB];
+    jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
+    jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
+    jointDef.collideConnected = j.collideConnected;
+    jointDef.length = j.length / 30;
+    jointDef.dampingRatio = j.dampingRatio;
+    jointDef.frequencyHZ = j.frequencyHZ;
+    world.CreateJoint(jointDef);
+  }
+  else if (j.jointType == Joint.JOINT_WELD){
+    var jointDef = new b2WeldJointDef;
+    jointDef.bodyA = bodies[j.bodyA];
+    jointDef.bodyB = bodies[j.bodyB];
+    jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
+    jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
+    jointDef.collideConnected = j.collideConnected;
+    jointDef.referenceAngle = j.referenceAngle;
+    joints.push(world.CreateJoint(jointDef));
+  }
+  else if (j.jointType == Joint.JOINT_REVOLUTE){
+    var jointDef = new b2RevoluteJointDef;
+    jointDef.bodyA = bodies[j.bodyA];
+    jointDef.bodyB = bodies[j.bodyB];
+    jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
+    jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
+    jointDef.collideConnected = j.collideConnected;
+    jointDef.enableLimit  = false;
+    jointDef.enableMotor  = false;
+    jointDef.lowerAngle   = 0;
+    jointDef.maxMotorTorque = 100;
+    jointDef.motorSpeed   = 100;
+    jointDef.referenceAngle = 0;
+    jointDef.upperAngle   = 0;
+    joints.push(world.CreateJoint(jointDef));
+  }
+  // else if (j.jointType == Joint.JOINT_WHEEL){
+  //   this.localAxisA   = [0, 1];
+  //   this.enableMotor  = false;
+  //   this.maxMotorTorque = 100;
+  //   this.motorSpeed   = 100;
+  //   this.frequencyHZ  = 60;
+  //   this.dampingRatio   = 1;
+  // }
+}
+
 function createBody(world, b, isPhysicsBody){
   var pB;
   if (isPhysicsBody){
@@ -228,6 +288,9 @@ function createBody(world, b, isPhysicsBody){
   var body = world.CreateBody(bodyDef);
   body.SetAngle(pB.rotation * Math.PI / 180);
   body.SetBullet(pB.isBullet);
+  body.SetFixedRotation(pB.isFixedRotation);
+
+  bodies.push(body);
 
   if (pB.texture)
     createGameObject(pB.texture, pB.textureData, body);
