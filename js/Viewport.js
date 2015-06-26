@@ -167,7 +167,27 @@ var Viewport = (function(){
 			this.context.lineTo(joint.localAnchorB[0], joint.localAnchorB[1]);
 			this.context.stroke();
 		}
+		if (joint.jointType == Joint.JOINT_WELD){
+			this.context.strokeStyle = "#0f0";
+			this.context.beginPath();
+			this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+			var x = joint.localAnchorB[0] + 100 * Math.cos(joint.referenceAngle * Math.PI / 180);
+			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
+			this.context.lineTo(x, y);
+			this.context.stroke();
+			this.context.closePath();
+		}
 		else if (joint.jointType == Joint.JOINT_REVOLUTE && joint.enableLimit){
+			// draw reference angle vector line
+			this.context.strokeStyle = "#0f0";
+			this.context.beginPath();
+			this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+			var x = joint.localAnchorB[0] + 100 * Math.cos(joint.referenceAngle * Math.PI / 180);
+			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
+			this.context.lineTo(x, y);
+			this.context.stroke();
+			this.context.closePath();
+
 			// draw lower angle vector line
 			this.context.strokeStyle = "#f00";
 			this.context.beginPath();

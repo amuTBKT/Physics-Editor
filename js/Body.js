@@ -1024,6 +1024,10 @@ Joint.prototype.setReferenceAngle = function(angle){
 	this.referenceAngle = angle * Math.PI / 180;
 };
 
+Joint.prototype.changeReferenceAngle = function(angle){
+	this.referenceAngle += angle * Math.PI / 180;
+};
+
 // revolute joint
 Joint.prototype.changeLowerAngle = function(delta){
 	this.lowerAngle += delta;
