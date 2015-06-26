@@ -600,7 +600,7 @@ function Body(){
 	this.isSelected = false;
 	this.bodyType = Body.BODY_TYPE_DYNAMIC;	// default to dynmic body
 	this.isBulllet = 0;
-	this.isFixedRotation = 0;
+	this.isFixedRotation = false;
 }
 
 Body.counter = 0;
@@ -884,6 +884,7 @@ function PhysicsJoint(joint){
 	this.localAnchorB 		= joint.localAnchorB;
 	this.userData 			= joint.userData;
 	this.collideConnected 	= joint.collideConnected;
+	this.userData 			= joint.userData;
 
 	this.jointType = joint.jointType;
 	if (this.jointType == Joint.JOINT_DISTANCE){
@@ -920,6 +921,7 @@ function Joint(type){
 	this.localAnchorB = [0, 0];
 	this.userData = "";
 	this.collideConnected = false;
+	this.userData = "";
 
 	this.jointType = type;
 	if (type == Joint.JOINT_DISTANCE){
@@ -950,8 +952,12 @@ function Joint(type){
 
 	// editor parameters
 	this.position = [0, 0];
+	this.isSelected = false;
+	this.inEditMode = false;
+	this.name = "joint" + Joint.counter++;
 }
 
+Joint.counter = 0;
 Joint.JOINT_DISTANCE	= 0;
 Joint.JOINT_WELD 		= 1;
 Joint.JOINT_REVOLUTE	= 2;
@@ -984,6 +990,22 @@ Joint.prototype.move = function(x, y){
 
 	this.moveAnchorA(x, y);
 	this.moveAnchorB(x, y);
+};
+
+Joint.prototype.setPosition = function(x, y){
+	this.move(x - this.position[0], y - this.position[1]);
+};
+
+Joint.prototype.getBounds = function(){
+	return [this.position[0], this.position[1], 32, 32];
+};
+
+Joint.prototype.getAnchorABounds = function(){
+	return [this.localAnchorA[0], this.localAnchorA[1], 32, 32];
+};
+
+Joint.prototype.getAnchorBBounds = function(){
+	return [this.localAnchorB[0], this.localAnchorB[1], 32, 32];
 };
 
 // distance joint

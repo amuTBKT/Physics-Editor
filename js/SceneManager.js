@@ -13,6 +13,7 @@ var SceneManager = (function(){
 		this.selectedShapes 	= [];
 		this.selectedVertices 	= [];
 		this.selectedJoints 	= [];
+		this.selectedAnchor;
 	}
 
 	SceneManager.prototype.enterDefaultMode = function(){
@@ -25,7 +26,7 @@ var SceneManager = (function(){
 	};
 
 	SceneManager.prototype.enterBodyEditMode = function(){
-		if (this.selectedBodies.length > 1)
+		if (this.selectedBodies.length > 1 || this.selectedBodies.length < 1)
 			return;
 
 		if (this.selectedShapes.length > 0)
@@ -229,8 +230,23 @@ var SceneManager = (function(){
 		}
 
 		if (this.state == this.STATE_DEFAULT_MODE){
+			// editing joints
+			if (this.selectedJoints.length == 1 && this.selectedJoints[0].inEditMode){
+				this.selectedJoints[0].isSelected = true;
+				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, this.selectedJoints[0].getAnchorABounds())){
+					this.selectedAnchor = 0;
+					return true;
+				}
+				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, this.selectedJoints[0].getAnchorBBounds())){
+					this.selectedAnchor = 1;
+					return true;
+				}
+				this.selectedAnchor = -1;
+				return false;
+			}
+
 			// for handling multiple bodies
-			if (this.selectedBodies.length > 1){
+			if (this.selectedBodies.length + this.selectedJoints.length > 1){
 				for (var i = 0; i < this.selectedBodies.length; i++){
 					var body = this.selectedBodies[i];
 					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, body.bounds)){
@@ -242,10 +258,24 @@ var SceneManager = (function(){
 				}	
 			}
 
+			// for handling multiple joints
+			if (this.selectedJoints.length + this.selectedBodies.length > 1){
+				for (var i = 0; i < this.selectedJoints.length; i++){
+					var joint = this.selectedJoints[i];
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getBounds())){
+						if (inputHandler.SHIFT_PRESSED){
+							break;
+						}
+						return true;
+					}
+				}	
+			}
+
 			if (!inputHandler.SHIFT_PRESSED){
 				this.selectedBodies = [];
+				this.selectedJoints = [];
 			}
-			var minDistance = 1000000000, distance, bodyInBounds = false;
+			var minDistance = 1000000000, distance, bodyInBounds = false, jointInBounds = false;
 			for (var i = 0; i < this.bodies.length; i++){
 				var body = this.bodies[i];
 				
@@ -272,7 +302,34 @@ var SceneManager = (function(){
 					bodyInBounds = true;
 				}
 			}
-			return bodyInBounds;
+			minDistance = 100000000000000;
+			for (var i = 0; i < this.joints.length; i++){
+				var joint = this.joints[i];
+				
+				if(!inputHandler.SHIFT_PRESSED){
+					joint.isSelected = false;
+				}
+
+				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getBounds())){
+					var point = navigator.worldPointToScreen(joint.position[0], joint.position[1]);
+					distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+					if (minDistance > distance){
+						if (!inputHandler.SHIFT_PRESSED){
+							this.selectedJoints[0] = joint;
+							joint.isSelected = true;
+						}
+						else {
+							if (this.selectedJoints.indexOf(joint) < 0){
+								this.selectedJoints.push(joint);
+								joint.isSelected = true;
+							}
+						}
+						minDistance = distance;
+					}
+					jointInBounds = true;
+				}
+			}
+			return bodyInBounds || jointInBounds;
 		}
 		return false;
 	};
@@ -286,6 +343,17 @@ var SceneManager = (function(){
 	*/
 	SceneManager.prototype.setPositionOfSelectedObjects = function(x, y, move, inputHandler){
 		if (this.state == this.STATE_DEFAULT_MODE){
+			// move anchor
+			if (this.selectedJoints.length == 1 && this.selectedJoints[0].inEditMode){
+				if (this.selectedAnchor == 0){
+					this.selectedJoints[0].moveAnchorA(x, y);
+				}
+				else if (this.selectedAnchor == 1){
+					this.selectedJoints[0].moveAnchorB(x, y);
+				}
+				return;
+			}
+
 			for (var i = 0; i < this.selectedBodies.length; i++){
 				if (move){
 					this.selectedBodies[i].move(x, y);
@@ -298,6 +366,21 @@ var SceneManager = (function(){
 					var px = x == null ? this.selectedBodies[i].position[0] : x;
 					var py = y == null ? this.selectedBodies[i].position[1] : y;
 					this.selectedBodies[i].setPosition(px, py);
+				}
+			}
+			// joints
+			for (var i = 0; i < this.selectedJoints.length; i++){
+				if (move){
+					this.selectedJoints[i].move(x, y);
+					if (inputHandler.SNAPPING_ENABLED){
+						this.selectedJoints[i].setPosition(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
+								 parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0]);
+					}
+				}
+				else{
+					var px = x == null ? this.selectedJoints[i].position[0] : x;
+					var py = y == null ? this.selectedJoints[i].position[1] : y;
+					this.selectedJoints[i].setPosition(px, py);
 				}
 			}
 		}
@@ -652,18 +735,37 @@ var SceneManager = (function(){
 			var joint = new Joint(jointType);
 			joint.bodyA = this.selectedBodies[0];
 			joint.bodyB = this.selectedBodies[1];
-			if (jointType == Joint.JOINT_DISTANCE){
-				joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
-			}
-			else if (jointType == Joint.JOINT_REVOLUTE) {
+			joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
+			// if (jointType == Joint.JOINT_DISTANCE){
+			// 	joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
+			// }
+			if (jointType == Joint.JOINT_REVOLUTE) {
 				joint.setLocalAnchorA(joint.bodyB.position[0], joint.bodyB.position[1]);
 			}
 			joint.setLocalAnchorB(joint.bodyB.position[0], joint.bodyB.position[1]);
-			joint.position = [(joint.setLocalAnchorA[0] + joint.setLocalAnchorB[0]) / 2, (joint.setLocalAnchorA[1] + joint.setLocalAnchorB[1]) / 2];
+			joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
 			this.addJoint(joint);
 		}
 		else {
 			console.log("Select 2 bodies to create a joint");
+		}
+	};
+
+	// removes joint from the scene
+	SceneManager.prototype.removeJoint = function(joint){
+		for (var i = 0; i < this.joints.length; i++){
+			if (this.joints[i] == joint){
+				if (i == 0){
+					this.joints.shift();
+				}
+				else if (i == this.bodies.length - 1){
+					this.joints.pop();
+				}
+				else {
+					this.joints.splice(i, 1);
+				}
+				break;
+			}
 		}
 	};
 
@@ -678,10 +780,9 @@ var SceneManager = (function(){
 		}
 		for (var i = 0; i < this.joints.length; i++){
 			if (this.joints[i].jointType == Joint.JOINT_DISTANCE){
-				var lengthVec = [this.joints[i].bodyA.position[0] - this.joints[i].bodyB.position[0], this.joints[i].bodyA.position[1] - this.joints[i].bodyB.position[1]];
+				var lengthVec = [this.joints[i].localAnchorA[0] - this.joints[i].localAnchorB[0], this.joints[i].localAnchorA[1] - this.joints[i].localAnchorB[1]];
 				this.joints[i].setLength(Math.pow(lengthVec[0] * lengthVec[0] + lengthVec[1] * lengthVec[1], 0.5));
 			}
-
 			world.joints.push(this.joints[i].toPhysics(this.bodies));
 		}
 

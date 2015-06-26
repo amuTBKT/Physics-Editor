@@ -106,6 +106,14 @@ var Viewport = (function(){
 		this.staticBodyColor = "rgba(177, 228,177, 0.6)";
 		this.vertexColor = "rgba(255, 0, 0, 1)";
 		this.boundsColor = "rgba(228, 177, 177, 1)";
+
+		var jointAnchor = new Image();
+		jointAnchor.src = "resources/ui/crossair_white.png";
+		var jointAnchorA = new Image();
+		jointAnchorA.src = "resources/ui/crossair_blue.png";
+		var jointAnchorB = new Image();
+		jointAnchorB.src = "resources/ui/crossair_red.png";
+		this.jointAnchors = [jointAnchor, jointAnchorA, jointAnchorB];
 	}
 
 	Renderer.prototype.renderVertex = function(v){
@@ -131,15 +139,32 @@ var Viewport = (function(){
 	};
 
 	Renderer.prototype.renderJoint = function(joint){
-		this.context.fillStyle = "#0f0";
-		this.renderCircle(joint.position[0], joint.position[1], 5, true);
+		this.context.save();
+		var width, height;
 
+		width = this.jointAnchors[0].width;
+		height = this.jointAnchors[0].height;
+		
+		this.context.translate(joint.position[0], joint.position[1]);
+		this.context.drawImage(this.jointAnchors[0], -width / 2, -height / 2, width, height);
+		
+		if (joint.isSelected){
+			this.context.translate(joint.localAnchorA[0] - joint.position[0], joint.localAnchorA[1] - joint.position[1]);
+			this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
+			
+			this.context.translate(joint.localAnchorB[0] - joint.localAnchorA[0], joint.localAnchorB[1] - joint.localAnchorA[1]);
+			this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
+		}
+
+		this.context.restore();
+
+		this.context.beginPath();
 		this.setLineDash(5, 5);
 		this.context.lineWidth = 2;
 		this.context.strokeStyle = "#aaa";
 		if (joint.jointType == Joint.JOINT_DISTANCE){
-			this.context.moveTo(joint.bodyA.position[0], joint.bodyA.position[1]);
-			this.context.lineTo(joint.bodyB.position[0], joint.bodyB.position[1]);
+			this.context.moveTo(joint.localAnchorA[0], joint.localAnchorA[1]);
+			this.context.lineTo(joint.localAnchorB[0], joint.localAnchorB[1]);
 			this.context.stroke();
 		}
 		else if (joint.jointType == Joint.JOINT_REVOLUTE && joint.enableLimit){
@@ -171,9 +196,11 @@ var Viewport = (function(){
 			this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, 0, joint.upperAngle * Math.PI / 180, false);
 	    	this.context.stroke();
 		}
-
+		
 		this.context.lineWidth = 1;
 		this.setLineDash(0, 0);
+		
+		this.context.closePath();
 	};
 
 	Renderer.prototype.renderBody = function(body){
@@ -494,7 +521,14 @@ var Viewport = (function(){
 		// selected object goes to inputHandler.selection[]
 		else {
 			if (this.sceneManager.state == this.sceneManager.STATE_DEFAULT_MODE){
-				inputHandler.selection = this.sceneManager.selectedBodies;
+				inputHandler.selection = [];
+				for (var i = 0; i < this.sceneManager.selectedBodies.length; i++){
+					inputHandler.selection.push(this.sceneManager.selectedBodies[i]);
+				}
+				for (var i = 0; i < this.sceneManager.selectedJoints.length; i++){
+					inputHandler.selection.push(this.sceneManager.selectedJoints[i]);
+				}
+
 			}
 			else if (this.sceneManager.state == this.sceneManager.STATE_BODY_EDIT_MODE){
 				inputHandler.selection = this.sceneManager.selectedShapes;
@@ -568,9 +602,17 @@ var Viewport = (function(){
 
 			// edit bodies and shapes
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
+				if (sceneManager.selectedJoints.length == 1){
+					if (sceneManager.selectedJoints[0].inEditMode){
+						inputHandler.selectionArea = [0, 0, 0, 0, 0];
+						return;
+					}
+				}
 				if (!inputHandler.SHIFT_PRESSED){
 					sceneManager.selectedBodies = [];
+					sceneManager.selectedJoints = [];
 				}
+				// bodies
 				for (var i = 0; i < sceneManager.bodies.length; i++){
 					if (lineSegment.checkInBoundsAABB(sceneManager.bodies[i].bounds)){
 						if (sceneManager.selectedBodies.indexOf(sceneManager.bodies[i]) < 0){
@@ -581,6 +623,20 @@ var Viewport = (function(){
 					else {
 						if (!inputHandler.SHIFT_PRESSED){
 							sceneManager.bodies[i].isSelected = false;
+						}
+					}
+				}
+				// joints
+				for (var i = 0; i < sceneManager.joints.length; i++){
+					if (lineSegment.checkInBoundsAABB(sceneManager.joints[i].getBounds())){
+						if (sceneManager.selectedJoints.indexOf(sceneManager.joints[i]) < 0){
+							sceneManager.selectedJoints.push(sceneManager.joints[i]);
+						}
+						sceneManager.joints[i].isSelected = true;
+					}
+					else {
+						if (!inputHandler.SHIFT_PRESSED){
+							sceneManager.joints[i].isSelected = false;
 						}
 					}
 				}
@@ -626,7 +682,13 @@ var Viewport = (function(){
 
 			// selected object goes to inputHandler.selection[]
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
-				inputHandler.selection = sceneManager.selectedBodies;
+				inputHandler.selection = [];
+				for (var i = 0; i < this.sceneManager.selectedBodies.length; i++){
+					inputHandler.selection.push(this.sceneManager.selectedBodies[i]);
+				}
+				for (var i = 0; i < this.sceneManager.selectedJoints.length; i++){
+					inputHandler.selection.push(this.sceneManager.selectedJoints[i]);
+				}
 			}
 			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
 				inputHandler.selection = sceneManager.selectedShapes;
@@ -725,7 +787,7 @@ var Viewport = (function(){
 			}
 		}
 		else {
-			if (gameView){
+			if (gameView && gameView.hasLoaded){
 				gameView.updateGameLogic();
 			}
 		}
