@@ -4,13 +4,91 @@ var SCREEN_HEIGHT = window.innerHeight;
 var canvas, context, scale = 1;
 var viewport, sceneManager, gameView;
 
+function cloneArray(obj){
+	 if (obj instanceof Array) {
+        copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = clone(obj[i]);
+        }
+        return copy;
+    }
+}
+
+function loadVertex(obj){
+	var vertices = [];
+	for (var i = 0; i < obj.length; i++){
+		var vertex = new Vertex();
+		vertex.x = obj[i].x;
+		vertex.y = obj[i].y;
+		vertex.width = obj[i].width;
+		vertex.height = obj[i].height;
+		vertices.push(vertex);
+	}
+	return vertices;
+}
+
+function loadShape(obj){
+	var shapes = [];
+	for (var i = 0; i < obj.length; i++){
+		var shape = new Shape(Shape.SHAPE_NONE);
+		shape.shapeType = obj[i].shapeType;
+		shape.position = cloneArray(obj[i].position);						// position
+		shape.scaleXY = cloneArray(obj[i].scaleXY);						// scale
+		shape.rotation = obj[i].rotation;							// only for editor purpose
+		shape.vertices = loadVertex(obj[i].vertices);
+		shape.bounds = cloneArray(obj[i].bounds);					// AABB for selecting
+		shape.centroid = cloneArray(obj[i].centroid);						// centroid for shape
+
+		// fixture properties
+		shape.friction = obj[i].friction;
+		shape.restitution = obj[i].restitution;
+		shape.density = obj[i].density;
+		shape.isSensor = obj[i].isSensor;
+
+		if (shape.shapeType == Shape.SHAPE_BOX){
+			shape.width = obj[i].width;
+			shape.height = obj[i].height;
+		}
+		else if (shape.shapeType == Shape.SHAPE_CIRCLE){
+			shape.radius = obj[i].radius;
+		}
+
+		shapes.push(shape);
+	}
+	return shapes;
+}
+
+function loadBody(obj){
+	var body = new Body();
+	body.name = obj.name;	// for editor
+	body.userData = obj.userData;						// for physics body
+	body.texture = obj.texture;
+	body.sprite = obj.sprite;
+	body.spriteData = cloneArray(obj.spriteData);					// [source-x, source-y, width, height, image-w, image-h]
+	body.shapes = loadShape(obj.shapes);
+	body.position = cloneArray(obj.position);
+	body.scaleXY = cloneArray(obj.scaleXY);
+	body.rotation = obj.rotation;
+	body.bounds = cloneArray(obj.bounds);
+	
+	body.bodyType = obj.bodyType;	// default to dynmic body
+	body.isBulllet = obj.isBulllet;
+	body.isFixedRotation = obj.isFixedRotation;
+	return body;
+}
+
 // initialize canvas and context
 function init(){
 	canvas = document.getElementById("canvas");
 	canvas.width = SCREEN_WIDTH * 0.8;
 	canvas.height = SCREEN_HEIGHT * 0.8;
 
+	// var object = JSON.parse('{"STATE_DEFAULT_MODE":0,"STATE_SHAPE_EDIT_MODE":1,"STATE_BODY_EDIT_MODE":2,"STATE_SHAPE_DRAW_MODE":3,"state":0,"bodies":[{"name":"body0","userData":"","texture":"","spriteData":[],"shapes":[{"shapeType":0,"position":[-210,75],"scaleXY":[1,1],"rotation":0,"vertices":[{"x":-260,"y":25,"width":10,"height":10,"isSelected":false},{"x":-160,"y":25,"width":10,"height":10,"isSelected":false},{"x":-160,"y":125,"width":10,"height":10,"isSelected":false},{"x":-260,"y":125,"width":10,"height":10,"isSelected":false}],"bounds":[-210,75,100,100],"centroid":[-210,75],"isSelected":false,"inEditMode":false,"friction":1,"restitution":0.25,"density":1,"isSensor":0,"width":100,"height":100}],"position":[-210,75],"scaleXY":[1,1],"rotation":0,"bounds":[-210,75,100,100],"isSelected":false,"bodyType":2,"isBulllet":0,"isFixedRotation":false},{"name":"body1","userData":"","texture":"","spriteData":[],"shapes":[{"shapeType":1,"position":[99,-179],"scaleXY":[1,1],"rotation":0,"vertices":[{"x":149,"y":-179,"width":10,"height":10,"isSelected":false},{"x":139.45084971874738,"y":-149.61073738537635,"width":10,"height":10,"isSelected":false},{"x":114.45084971874738,"y":-131.44717418524232,"width":10,"height":10,"isSelected":false},{"x":83.54915028125264,"y":-131.44717418524232,"width":10,"height":10,"isSelected":false},{"x":58.54915028125263,"y":-149.61073738537635,"width":10,"height":10,"isSelected":false},{"x":49,"y":-179,"width":10,"height":10,"isSelected":false},{"x":58.54915028125263,"y":-208.38926261462365,"width":10,"height":10,"isSelected":false},{"x":83.54915028125262,"y":-226.55282581475768,"width":10,"height":10,"isSelected":false},{"x":114.45084971874736,"y":-226.55282581475768,"width":10,"height":10,"isSelected":false},{"x":139.45084971874735,"y":-208.38926261462368,"width":10,"height":10,"isSelected":false}],"bounds":[99,-179,100,95.10565162951536],"centroid":[99,-179],"isSelected":false,"inEditMode":false,"friction":1,"restitution":0.25,"density":1,"isSensor":0,"radius":50}],"position":[99,-179],"scaleXY":[1,1],"rotation":0,"bounds":[99,-179,100,95.10565162951536],"isSelected":false,"bodyType":2,"isBulllet":0,"isFixedRotation":false},{"name":"body2","userData":"","texture":"","spriteData":[],"shapes":[{"shapeType":2,"position":[91,100],"scaleXY":[1,1],"rotation":0,"vertices":[{"x":41,"y":50,"width":10,"height":10,"isSelected":false},{"x":141,"y":50,"width":10,"height":10,"isSelected":false},{"x":141,"y":150,"width":10,"height":10,"isSelected":false},{"x":41,"y":150,"width":10,"height":10,"isSelected":false}],"bounds":[91,100,100,100],"centroid":[91,100],"isSelected":false,"inEditMode":false,"friction":1,"restitution":0.25,"density":1,"isSensor":0}],"position":[91,100],"scaleXY":[1,1],"rotation":0,"bounds":[91,100,100,100],"isSelected":false,"bodyType":2,"isBulllet":0,"isFixedRotation":false},{"name":"body3","userData":"","texture":"","spriteData":[],"shapes":[{"shapeType":0,"position":[-114,-92],"scaleXY":[1,1],"rotation":0,"vertices":[{"x":-164,"y":-142,"width":10,"height":10,"isSelected":false},{"x":-64,"y":-142,"width":10,"height":10,"isSelected":false},{"x":-64,"y":-42,"width":10,"height":10,"isSelected":false},{"x":-164,"y":-42,"width":10,"height":10,"isSelected":false}],"bounds":[-114,-92,100,100],"centroid":[-114,-92],"isSelected":false,"inEditMode":false,"friction":1,"restitution":0.25,"density":1,"isSensor":0,"width":100,"height":100}],"position":[-114,-92],"scaleXY":[1,1],"rotation":0,"bounds":[-114,-92,100,100],"isSelected":false,"bodyType":2,"isBulllet":0,"isFixedRotation":false}],"joints":[],"selectedBodies":[],"selectedShapes":[],"selectedVertices":[],"selectedJoints":[],"constructor":null}');
+	
 	sceneManager = SceneManager.getInstance();
+	// for (var i = 0; i < object.bodies.length; i++){
+	// 	sceneManager.addBody(loadBody(object.bodies[i]));
+	// }
 
 	viewport = Viewport.getInstance(canvas, sceneManager);
 	context = viewport.getRenderer().context;

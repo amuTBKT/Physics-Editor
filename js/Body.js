@@ -952,6 +952,7 @@ function Joint(type){
 
 	// editor parameters
 	this.position = [0, 0];
+	this.scaleXY = [1, 1];
 	this.isSelected = false;
 	this.inEditMode = false;
 	this.name = "joint" + Joint.counter++;
@@ -994,6 +995,32 @@ Joint.prototype.move = function(x, y){
 
 Joint.prototype.setPosition = function(x, y){
 	this.move(x - this.position[0], y - this.position[1]);
+};
+
+Joint.prototype.scale = function(sx, sy, pivotX, pivotY){
+	if (pivotX == null || pivotY == null){
+		pivotX = this.position[0];
+		pivotY = this.position[1];
+	}
+
+	this.scaleXY[0] *= sx;
+	this.scaleXY[1] *= sy;
+
+	this.move(-pivotX, -pivotY);
+
+	this.position[0] *= sx;
+	this.position[1] *= sy;
+
+	this.localAnchorA[0] *= sx;
+	this.localAnchorA[1] *= sy;
+	this.localAnchorB[0] *= sx;
+	this.localAnchorB[1] *= sy;
+
+	this.move(pivotX, pivotY);
+};
+
+Joint.prototype.setScale = function(sx, sy, pivotX, pivotY){
+	this.scale(sx / this.scaleXY[0], sy / this.scaleXY[1], pivotX, pivotY);
 };
 
 Joint.prototype.getBounds = function(){
