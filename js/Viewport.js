@@ -493,6 +493,37 @@ var Viewport = (function(){
 		else if (e.which == 46){		// delete selected object
 			this.sceneManager.deleteSelectedObjects();
 		}
+
+		else if (e.which == 70){		// f - key pressed => align view to selection
+			if (this.inputHandler.selection[0] instanceof Vertex){
+				var pivot = [0, 0];
+				for (var i = 0; i < this.inputHandler.selection.length; i++){
+					pivot[0] += this.inputHandler.selection[i].x;
+					pivot[1] += this.inputHandler.selection[i].y;
+				}
+				pivot[0] /= Math.max(this.inputHandler.selection.length, 1);
+				pivot[1] /= Math.max(this.inputHandler.selection.length, 1);
+				this.navigator.panning = 
+					[
+						this.canvas.width / (this.navigator.scale * 2) - pivot[0] + this.navigator.origin[0],
+						this.canvas.height / (this.navigator.scale * 2) - pivot[1] + this.navigator.origin[1],
+					];
+			}
+			else {
+				var pivot = [0, 0];
+				for (var i = 0; i < this.inputHandler.selection.length; i++){
+					pivot[0] += this.inputHandler.selection[i].position[0];
+					pivot[1] += this.inputHandler.selection[i].position[1];
+				}
+				pivot[0] /= Math.max(this.inputHandler.selection.length, 1);
+				pivot[1] /= Math.max(this.inputHandler.selection.length, 1);
+				this.navigator.panning = 
+					[
+						this.canvas.width / (this.navigator.scale * 2) - pivot[0] + this.navigator.origin[0],
+						this.canvas.height / (this.navigator.scale * 2) - pivot[1] + this.navigator.origin[1],
+					];
+			}
+		}
 		
 		else if (e.which == 87){		// w - key pressed => enable translation tool
 			this.inputHandler.activateTranslationTool();

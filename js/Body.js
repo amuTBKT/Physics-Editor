@@ -790,6 +790,18 @@ function clone(obj) {
         return copy;
     }
 
+    if (obj instanceof Joint){
+    	copy = new Joint(obj.jointType);
+        for (var attr in obj) {
+        	if (obj[attr] instanceof Body){		// donot clone body
+        		copy[attr] = obj[attr];
+        		continue;
+        	}
+            if (obj.hasOwnProperty(attr) && attr != "name") copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+
     if (obj instanceof Image){
     	copy = new Image();
     	copy.src = obj.src;
@@ -828,13 +840,6 @@ Body.prototype.toPhysics = function(){
 
 	for (var i = 0; i < this.shapes.length; i++){
 		var shape = this.shapes[i];
-		
-		// var fixture = new Fixture();
-		// fixture.restitution = shape.restitution;
-		// fixture.friction = shape.friction;
-		// fixture.density = shape.density;
-		// fixture.isSensor = shape.isSensor;
-		// fixture.shapes = this.shapes[i].toPhysics(this.position[0], this.position[1]);
 		pBody.fixtures.push(shape.toPhysics(this.position[0], this.position[1]));
 	}
 
@@ -963,6 +968,10 @@ Joint.JOINT_DISTANCE	= 0;
 Joint.JOINT_WELD 		= 1;
 Joint.JOINT_REVOLUTE	= 2;
 Joint.JOINT_WHEEL 		= 3;
+
+Joint.prototype.clone = function(){
+	return clone(this);
+}
 
 Joint.prototype.setUserData = function(data){
 	this.userData = data;
