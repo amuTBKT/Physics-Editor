@@ -5,74 +5,39 @@
 <link rel="icon" type="image/png" href="resources/title_icon.png">
 <link rel="stylesheet" type="text/css" href="css/reset.css">
 <link rel="stylesheet" type="text/css" href="css/hint.css">
-<style type="text/css">
-	#canvas, #game_viewport {
-		position: absolute;
-		left: 5%;
-		top: 10%;
-		border: solid 1px #000;
-		/*cursor: none;*/
-	}
-	#canvas{
-		z-index: 2;
-	}
-	#game_viewport{
-		z-index: 1;
-	}
-	#toolbar{
-		position: absolute;
-		top: 10%;
-		width: 5%;
-		margin: 0 0;
-	}
-	#toolbar ul{
-		margin: 0 0;
-		padding: 0 0;
-	}
-	#toolbar li{
-		background: #111;
-		width: 100%;
-		margin: 0 0;
-		padding: 0 0;
-		display: block;
-		list-style: none;
-	}
-	a{
-		color: #fff;
-	}
-	#create_menu li{
-		width: 100px;
-		height: 50px;
-		background: #111;
-		float:left;
-	}
-	#selection_properties{
-		color: white;
-		background: #111;
-		position: absolute;
-		left: 85%;
-		top:10%;
-		width: 15%;
-		height: 80%;
-	}
-
-	#selection_properties ul{
-		margin: 10% 10%;
-		color: white;
-		width: 100%;
-	}
-
-	#selection_properties li{
-		color: white;
-		width: 100%;
-		height: 20px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
 <canvas id="canvas"></canvas>
-<canvas id="game_viewport"></canvas>
+
+<nav id="taskbar">
+	<ul>
+		<li>File</li>
+		<li>
+			Add to Scene
+			<ul id="addToScene">
+			<li><a href="#" data-shape="0">Create Box</a></li>
+			<li><a href="#" data-shape="10">Create Circle</a></li>
+			<li><a href="#" data-shape="20">Create Box Polygon</a></li>
+			<li><a href="#" data-shape="21">Create Circle Polygon</a></li>
+			<li><a href="#" data-shape="30">Create Box Chain</a></li>
+			<li><a href="#" data-shape="31">Create Circle Chain</a></li>
+			</ul>
+		</li>
+		<li>
+			Add to Body
+			<ul id="addToBody">
+			<li><a href="#" data-shape="0">Create Box Shape</a></li>
+			<li><a href="#" data-shape="10">Create Circle Shape</a></li>
+			<li><a href="#" data-shape="20">Create Box Polygon Shape</a></li>
+			<li><a href="#" data-shape="21">Create Circle Polygon Shape</a></li>
+			<li><a href="#" data-shape="30">Create Box Chain Shape</a></li>
+			<li><a href="#" data-shape="31">Create Circle Chain Shape</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
 
 <div id="toolbar">
 <ul id="transformTools">
@@ -105,73 +70,144 @@
 
 </div>
 
-<div id="setPosition" style="position:absolute;top:95%;left:75%;">
-x: <input type="text" id="pos_x" size="4">
-y: <input type="text" id="pos_y" size="4">
-</div>
-
-<div id="create_menu">
-	<ul>
-	<li><a href="#" data-shape="0">Create Box</a></li>
-	<li><a href="#" data-shape="10">Create Circle</a></li>
-	<li><a href="#" data-shape="20">Create Box Polygon</a></li>
-	<li><a href="#" data-shape="21">Create Circle Polygon</a></li>
-	<li><a href="#" data-shape="30">Create Box Chain</a></li>
-	<li><a href="#" data-shape="31">Create Circle Chain</a></li>
-	</ul>
-
-	<!-- <ul>
-	<li><a href="#" data-shape="0">Create Box Shape</a></li>
-	<li><a href="#" data-shape="10">Create Circle Shape</a></li>
-	<li><a href="#" data-shape="20">Create Box Polygon Shape</a></li>
-	<li><a href="#" data-shape="21">Create Circle Polygon Shape</a></li>
-	<li><a href="#" data-shape="30">Create Box Chain Shape</a></li>
-	<li><a href="#" data-shape="31">Create Circle Chain Shape</a></li>
-	</ul> -->
+<div id="xyInput" style="position:absolute;top:95%;left:75%;">
+x: <input type="text" id="input_x" size="4">
+y: <input type="text" id="input_y" size="4">
 </div>
 
 <div id="selection_properties">
-<!--shape
-		density
-		restitution
-		friction
-		isSensor
-		edit
-	body
-		type
-		isBullet
-		edit
-		add shape
-	sprite
-		set
-		width
-		height
- -->
-	<div id="body_properties">
-	 	<ul>
-	 		<li>--------------------</li>
-	 		<li>type:</li>
-	 		<li>isBullet: <input type="checkbox"></li>
-	 		<li>userdata: <input type="text" size="10"></li>
-	 		<li><a href="#">Edit Body</a></li>
-	 		<li>--------------------</li>
-	 	</ul>
-	</div>
+	<table id="shape_properties" style="background:#111; color:#fff;">
+	<tr>
+		<td>
+			<p>Density</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="5" data-property="density"></p>
+		</td>
+	</tr>
 
-	<div id="shape_properties">
-	 	<ul>
-		 	<li>--------------------</li>
-	 		<li>density     :  	<input type="text" size="4"></li>
-	 		<li>friction    :	<input type="text" size="4"></li>
-	 		<li>restitution :	<input type="text" size="4"></li>
-	 		<li>isSensor 		<input type="checkbox"></li>
-	 		<li><a href="#">Edit Shape</a></li>
-	 		<li>--------------------</li>
-	 	</ul>
-	</div>
+	<tr>
+		<td>
+			<p>Friction</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="5" data-property="friction"></p>
+		</td>
+	</tr>
 
+	<tr>
+		<td>
+			<p>Restitution</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="5" data-property="restitution"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>isSensor</p>
+		</td>
+		<td>
+			<p><input type="checkbox" data-property="isSensor"></p>
+		</td>
+	</tr>
+
+	<!-- length == 1 -->
+	<tr>
+		<td>
+			<p>Edit Shape</p>
+		</td>
+		<td>
+			<p><input type="button" value="Edit"></p>
+		</td>
+	</tr>
+
+</table>
+
+<table id="body_properties" style="background:#111; color:#fff;">
+	<!-- length == 1 -->
+	<tr>
+		<td>
+			<p>Name</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="20" data-property="name"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>User Data</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="20" data-property="userData"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Body Type</p>
+		</td>
+		<td>
+			<p>
+				<select id="body_type" data-property="bodyType">
+					<option value="0">Static</option>
+					<option value="1">Kinematic</option>
+					<option value="2">Dynamic</option>
+				</select>
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>isBullet</p>
+		</td>
+		<td>
+			<p><input type="checkbox" data-property="isBullet"></p>
+		</td>
+	</tr>
+
+	<!-- length == 1 -->
+	<tr>
+		<td>
+			<p>Edit Body</p>
+		</td>
+		<td>
+			<p><input type="button" value="Edit"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture File</p>
+		</td>
+		<td>
+			<p><input type="text" data-property="texture"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture Width</p>
+		</td>
+		<td>
+			<p><input type="text"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture Height</p>
+		</td>
+		<td>
+			<p><input type="text"></p>
+		</td>
+	</tr>
+
+</table>
 </div>
-
 
 <!-- js-scripts -->
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -181,6 +217,7 @@ y: <input type="text" id="pos_y" size="4">
 <script type="text/javascript" src="js/Body.js"></script>
 <script type="text/javascript" src="js/SceneManager.js"></script>
 <script type="text/javascript" src="js/Viewport.js"></script>
+<script type="text/javascript" src="js/UIManager.js"></script>
 <script type="text/javascript" src="js/GameView.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 

@@ -292,7 +292,7 @@ var Viewport = (function(){
 				this.renderVertex(shape.vertices[0]);
 			
 			for (var i = 1; i < shape.vertices.length; i++){
-				context.lineTo(shape.vertices[i].x, shape.vertices[i].y);
+				this.context.lineTo(shape.vertices[i].x, shape.vertices[i].y);
 				if (shape.inEditMode){
 					this.renderVertex(shape.vertices[i]);
 				}
@@ -429,7 +429,7 @@ var Viewport = (function(){
 	Renderer.prototype.clear = function(x, y, w, h){
 		this.context.fillStyle = this.clearColor;
 		this.context.clearRect(x, y, w, h);
-		context.fillRect(x, y, w, h);
+		this.context.fillRect(x, y, w, h);
 	};
 
 	Renderer.prototype.getContext = function(){
@@ -750,16 +750,6 @@ var Viewport = (function(){
 		}
 
 		inputHandler.selectionArea = [0, 0, 0, 0, 0];
-	};
-
-	Viewport.prototype.onClick = function(e){
-		// var sceneManager = this.sceneManager,
-		// 	inputHandler = this.inputHandler;
-	};
-
-	Viewport.prototype.onDoubleClick = function(e){
-		// var sceneManager = this.sceneManager,
-		// 	inputHandler = this.inputHandler;
 	};
 
 	// viewport scaling

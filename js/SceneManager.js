@@ -4,7 +4,6 @@ var SceneManager = (function(){
 		this.STATE_DEFAULT_MODE 	= 0;
 		this.STATE_SHAPE_EDIT_MODE 	= 1;
 		this.STATE_BODY_EDIT_MODE 	= 2;
-		this.STATE_SHAPE_DRAW_MODE  = 3;
 
 		this.state 				= this.STATE_DEFAULT_MODE;
 		this.bodies 			= [];

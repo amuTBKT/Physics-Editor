@@ -1,0 +1,58 @@
+#canvas, #game_viewport {
+	position: absolute;
+	left: 5%;
+	top: 10%;
+}
+
+a{
+	text-decoration: none;
+}
+
+#taskbar ul li{
+	position: relative;
+	width: 100%;
+	float: left;
+}
+
+#toolbar{
+	position: absolute;
+	top: 10%;
+	width: 5%;
+	margin: 0 0;
+}
+#toolbar ul{
+	margin: 0 0;
+	padding: 0 0;
+}
+#toolbar li{
+	background: #111;
+	width: 100%;
+	margin: 0 0;
+	padding: 0 0;
+	display: block;
+	list-style: none;
+}
+
+#shape_properties{
+	position: relative;
+}
+
+#selection_properties{
+	color: white;
+	background: #111;
+	position: absolute;
+	left: 85%;
+	top:10%;
+	width: 15%;
+	height: 80%;
+}
+#selection_properties table{
+	margin: 10px 10px;
+}
+#selection_properties td{
+	margin: 10px 10px;
+	padding: 10px 10px;
+}
+#selection_properties input{
+	width: 50%;
+}

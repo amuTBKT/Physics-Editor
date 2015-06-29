@@ -501,11 +501,12 @@ Shape.prototype.isConvex = function(){
 	return Math.abs(sumOfAngles - angleForConvexity) < 0.1;
 };
 
-Shape.prototype.decomposeToConvex = function(){
+Shape.prototype.decomposeToConvex = function(x, y){
 	var shapes = [];
 	var polygons = decomposeToConvex(this.vertices);
 	for (var i = 0; i < polygons.length; i++){
 		var shape = new PhysicsShape(Shape.SHAPE_POLYGON);
+		shape.position = [this.position[0] - x, this.position[1] - y];
 		for (var j = 0; j < polygons[i].vertices.length; j++){
 			shape.vertices.push([polygons[i].vertices[j].x - this.position[0], polygons[i].vertices[j].y - this.position[1]]);
 		}
@@ -559,10 +560,11 @@ Shape.prototype.exportShape = function(x, y){
 		// decompose concave shape to convex shapes
 		else {
 			// decompose shape
-			shapes = this.decomposeToConvex(this.vertices);
+			shapes = this.decomposeToConvex(x, y);
 			return shapes;
 		}
 	}
+	// just add the vertices if the shape is edge
 	else {
 		for (var i = 0; i < this.vertices.length; i++){
 			pShape.vertices.push([this.vertices[i].x - this.position[0], this.vertices[i].y - this.position[1]]);		// vertex position relative to shape
@@ -599,7 +601,7 @@ function Body(){
 	this.bounds = [0, 0, 0, 0];
 	this.isSelected = false;
 	this.bodyType = Body.BODY_TYPE_DYNAMIC;	// default to dynmic body
-	this.isBulllet = 0;
+	this.isBullet = 0;
 	this.isFixedRotation = false;
 }
 
@@ -819,7 +821,7 @@ Body.prototype.toPhysics = function(){
 	var pBody = new PhysicsBody(this.bodyType);
 	pBody.position = this.position;
 	pBody.rotation = rot;
-	pBody.isBulllet = this.isBulllet;
+	pBody.isBullet = this.isBullet;
 	pBody.isFixedRotation = this.isFixedRotation;
 	pBody.userData = this.userData;
 	if (this.texture){
@@ -878,7 +880,7 @@ function PhysicsBody(type){
 	this.fixtures = [];
 	this.position = [0, 0];
 	this.rotation = 0;
-	this.isBulllet = 0;
+	this.isBullet = 0;
 	this.isFixedRotation = 0;
 }
 
@@ -926,7 +928,6 @@ function Joint(type){
 	this.localAnchorB = [0, 0];
 	this.userData = "";
 	this.collideConnected = false;
-	this.userData = "";
 
 	this.jointType = type;
 	if (type == Joint.JOINT_DISTANCE){
