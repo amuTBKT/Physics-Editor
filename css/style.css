@@ -11,18 +11,56 @@ a{
 #taskbar{
 	position: absolute;
 	top: 2%;
+	width: 100%;
+	z-index: 10;
 }
 
 #taskbar_options li{
+	width: 11%;
 	position: relative;
 	float: left;
 }
 
+#taskbar a{
+	color: #fff;
+}
+
+#taskbar li{
+	background: #444;
+	overflow: hidden;
+}
+
+#fileMenu li {
+	padding: 2px 2px;
+	margin: 4px 4px;
+	width: 100%;
+	clear: both;
+}
+
+#addToScene{
+	padding: 2px 2px;
+	margin: 4px 4px;
+	height: 0px;
+}
+
 #addToScene li {
+	padding: 2px 2px;
+	margin: 4px 4px;
+	width: 100%;
 	clear: both;
 }
 
 #addToBody li{
+	padding: 2px 2px;
+	margin: 4px 4px;
+	width: 100%;
+	clear: both;
+}
+
+#createJoint li{
+	padding: 2px 2px;
+	margin: 4px 4px;
+	width: 100%;
 	clear: both;
 }
 

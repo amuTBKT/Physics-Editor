@@ -15,9 +15,16 @@
 	<ul id="taskbar_options">
 		<li>
 			File
+			<ul id="fileMenu">
+				<li><a href="#" data-event="newScene">New Scene</a></li>
+				<li><a href="#" data-event="loadScene">Load Scene</a></li>
+				<li><a href="#" data-event="saveScene">Save</a></li>
+				<li><a href="#" data-event="exportWorld">Export Scene</a></li>
+				<li><a href="#" data-event="exportSelection">Export Selection</a></li>
+			</ul>
 		</li>
 		<li>
-			Add to Scene
+			Add Body to Scene
 			<ul id="addToScene">
 				<li><a href="#" data-shape="0">Create Box</a></li>
 				<li><a href="#" data-shape="10">Create Circle</a></li>
@@ -28,7 +35,7 @@
 			</ul>
 		</li>
 		<li>
-			Add to Body
+			Add Shape to Body
 			<ul id="addToBody">
 				<li><a href="#" data-shape="0">Create Box Shape</a></li>
 				<li><a href="#" data-shape="10">Create Circle Shape</a></li>
@@ -36,6 +43,15 @@
 				<li><a href="#" data-shape="21">Create Circle Polygon Shape</a></li>
 				<li><a href="#" data-shape="30">Create Box Chain Shape</a></li>
 				<li><a href="#" data-shape="31">Create Circle Chain Shape</a></li>
+			</ul>
+		</li>
+		<li>
+			Create Joint
+			<ul id="createJoint">
+				<li><a href="#" data-type="0">Create Distance Joint</a></li>
+				<li><a href="#" data-type="1">Create Weld Joint</a></li>
+				<li><a href="#" data-type="2">Create Revolute Joint</a></li>
+				<li><a href="#" data-type="3">Create Wheel Joint</a></li>
 			</ul>
 		</li>
 	</ul>

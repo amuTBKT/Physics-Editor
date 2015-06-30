@@ -180,7 +180,7 @@ var SceneManager = (function(){
 				}
 			}
 			
-			// don't reset selecteShapes array if shift is pressed (multiple selection)			
+			// don't reset selectedShapes array if shift is pressed (multiple selection)			
 			if (!inputHandler.SHIFT_PRESSED){
 				this.selectedShapes = [];
 			}
@@ -860,6 +860,140 @@ var SceneManager = (function(){
 
 		return world;
 	};
+
+	// exports the seleted object(s)
+	SceneManager.prototype.exportSelection = function(){
+		if (this.state == this.STATE_DEFAULT_MODE){
+			var array = {
+				bodies: []
+			};
+			if (this.selectedBodies.length == 1){
+				var body = this.selectedBodies[0];
+				var position = [body.position[0], body.position[1]];
+				body.setPosition(0, 0);
+				array.bodies.push(body.toPhysics());
+				body.move(position[0], position[1]);
+				return array;
+			}
+			for (var i = 0; i < this.selectedBodies.length; i++){
+				array.bodies.push(this.selectedBodies[i].toPhysics());
+			}
+			return array;
+		}
+		else if (this.state == this.STATE_BODY_EDIT_MODE){
+			var array = {
+				shapes: []
+			};
+			if (this.selectedShapes.length == 1){
+				var shape = this.selectedShapes[0];
+				var position = [shape.position[0], shape.position[1]];
+				shape.setPosition(0, 0);
+				array.shapes.push(shape.toPhysics(0, 0));
+				shape.move(position[0], position[1]);
+				return array;
+			}
+			for (var i = 0; i < this.selectedShapes.length; i++){
+				array.bodies.push(this.selectedShapes[i].toPhysics(0, 0));
+				return array;
+			}
+		}
+		console.log("only body and shapes can be exported");
+	};
+
+	SceneManager.prototype.saveScene = function(){
+		var scene = {
+			bodies: [],
+			joints: []
+		};
+		scene.bodies = this.bodies;
+		scene.joints = this.joints;
+		return scene;
+	};
+
+	SceneManager.prototype.newScene = function(){
+		this.state = this.STATE_DEFAULT_MODE;
+		this.bodies = [];
+		this.joints = [];
+	};
+
+	SceneManager.prototype.loadScene = function(scene){
+		for (var i = 0; i < scene.bodies.length; i++){
+			this.addBody(loadBody(scene.bodies[i]));
+		}
+	};
+
+	function cloneArray(obj){
+		if (obj instanceof Array) {
+	        copy = [];
+	        for (var i = 0, len = obj.length; i < len; i++) {
+	            copy[i] = clone(obj[i]);
+	        }
+	        return copy;
+	    }
+	}
+
+	function loadVertex(obj){
+		var vertices = [];
+		for (var i = 0; i < obj.length; i++){
+			var vertex = new Vertex();
+			vertex.x = obj[i].x;
+			vertex.y = obj[i].y;
+			vertex.width = obj[i].width;
+			vertex.height = obj[i].height;
+			vertices.push(vertex);
+		}
+		return vertices;
+	}
+
+	function loadShape(obj){
+		var shapes = [];
+		for (var i = 0; i < obj.length; i++){
+			var shape = new Shape(Shape.SHAPE_NONE);
+			shape.shapeType = obj[i].shapeType;
+			shape.position = cloneArray(obj[i].position);						// position
+			shape.scaleXY = cloneArray(obj[i].scaleXY);						// scale
+			shape.rotation = obj[i].rotation;							// only for editor purpose
+			shape.vertices = loadVertex(obj[i].vertices);
+			shape.bounds = cloneArray(obj[i].bounds);					// AABB for selecting
+			shape.centroid = cloneArray(obj[i].centroid);						// centroid for shape
+
+			// fixture properties
+			shape.friction = obj[i].friction;
+			shape.restitution = obj[i].restitution;
+			shape.density = obj[i].density;
+			shape.isSensor = obj[i].isSensor;
+
+			if (shape.shapeType == Shape.SHAPE_BOX){
+				shape.width = obj[i].width;
+				shape.height = obj[i].height;
+			}
+			else if (shape.shapeType == Shape.SHAPE_CIRCLE){
+				shape.radius = obj[i].radius;
+			}
+
+			shapes.push(shape);
+		}
+		return shapes;
+	}
+
+	function loadBody(obj){
+		var body = new Body();
+		body.name = obj.name;	// for editor
+		body.userData = obj.userData;						// for physics body
+		body.texture = obj.texture;
+		body.sprite = obj.sprite;
+		body.spriteData = cloneArray(obj.spriteData);					// [source-x, source-y, width, height, image-w, image-h]
+		body.shapes = loadShape(obj.shapes);
+		body.position = cloneArray(obj.position);
+		body.scaleXY = cloneArray(obj.scaleXY);
+		body.rotation = obj.rotation;
+		body.bounds = cloneArray(obj.bounds);
+		
+		body.bodyType = obj.bodyType;	// default to dynmic body
+		body.isBulllet = obj.isBulllet;
+		body.isFixedRotation = obj.isFixedRotation;
+		return body;
+	}
 
 	var instance;
 	return{

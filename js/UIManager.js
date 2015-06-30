@@ -66,6 +66,15 @@ var UIManager = (function(){
 			}
 		});
 
+		$("#fileMenu").find("a").each(function(index){
+			var action = $(this).data("event");
+			mixin(this, sceneManager, action);
+			
+			this.addEventListener("click", function(e){
+				e.preventDefault();
+				console.log(e.target[action]());
+			});
+		});
 		$("#addToScene").find("a").each(function(index){
 			mixin(this, sceneManager, "createBody");
 			
@@ -96,6 +105,16 @@ var UIManager = (function(){
 				else {
 					e.target["createShape"](shapeType, params % 10);	
 				}
+			});
+		});
+		$("#createJoint").find("a").each(function(index){
+			mixin(this, sceneManager, "createJoint");
+			
+			var type = parseInt($(this).data("type"));
+			
+			this.addEventListener("click", function(e){
+				e.preventDefault();
+				e.target["createJoint"](type);
 			});
 		});
 
@@ -238,7 +257,6 @@ var UIManager = (function(){
 				this.value = "Done"
 			}
 		});
-
 
 		this.updateShapePropertyView();
 		this.updateBodyPropertyView();
