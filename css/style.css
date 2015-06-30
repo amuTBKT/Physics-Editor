@@ -8,10 +8,22 @@ a{
 	text-decoration: none;
 }
 
-#taskbar ul li{
+#taskbar{
+	position: absolute;
+	top: 2%;
+}
+
+#taskbar_options li{
 	position: relative;
-	width: 100%;
 	float: left;
+}
+
+#addToScene li {
+	clear: both;
+}
+
+#addToBody li{
+	clear: both;
 }
 
 #toolbar{
@@ -43,8 +55,9 @@ a{
 	position: absolute;
 	left: 85%;
 	top:10%;
-	width: 15%;
+	width: 17.5%;
 	height: 80%;
+	overflow: auto;
 }
 #selection_properties table{
 	margin: 10px 10px;

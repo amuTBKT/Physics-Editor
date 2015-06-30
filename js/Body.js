@@ -636,6 +636,7 @@ Body.prototype.setSpriteWidth = function(width){
 
 	if (this.spriteData.length > 0){
 		this.spriteData[4] = width;
+		this.spriteData[2] = width;
 		return;
 	}
 	this.sprite.width = width;
@@ -648,9 +649,36 @@ Body.prototype.setSpriteHeight = function(height){
 
 	if (this.spriteData.length > 0){
 		this.spriteData[5] = height;
+		this.spriteData[3] = height;
 		return;
 	}
 	this.sprite.height = height;
+};
+
+Body.prototype.setSpriteSourceWidth = function(width){
+	if (this.sprite == null){
+		return;
+	}
+
+	if (this.spriteData.length == 0){
+		this.spriteData = [0, 0, width, this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
+		return;
+	}
+
+	this.spriteData[2] = width;
+};
+
+Body.prototype.setSpriteSourceHeight = function(height){
+	if (this.sprite == null){
+		return;
+	}
+
+	if (this.spriteData.length == 0){
+		this.spriteData = [0, 0, this.intialSpriteData[0], height, this.intialSpriteData[0], this.intialSpriteData[1]];
+		return;
+	}
+
+	this.spriteData[3] = height;
 };
 
 Body.prototype.setOffsetX = function(x){
@@ -695,6 +723,20 @@ Body.prototype.getSpriteHeight = function(){
 		return this.spriteData[5];
 	}
 	return this.sprite.height;
+};
+
+Body.prototype.getSpriteSourceHeight = function(){
+	if (this.spriteData.length > 0){
+		return this.spriteData[3];
+	}
+	return null;
+};
+
+Body.prototype.getSpriteSourceWidth = function(){
+	if (this.spriteData.length > 0){
+		return this.spriteData[2];
+	}
+	return null;
 };
 
 Body.prototype.getSpriteOffsetX = function(){

@@ -12,28 +12,30 @@
 <canvas id="canvas"></canvas>
 
 <nav id="taskbar">
-	<ul>
-		<li>File</li>
+	<ul id="taskbar_options">
+		<li>
+			File
+		</li>
 		<li>
 			Add to Scene
 			<ul id="addToScene">
-			<li><a href="#" data-shape="0">Create Box</a></li>
-			<li><a href="#" data-shape="10">Create Circle</a></li>
-			<li><a href="#" data-shape="20">Create Box Polygon</a></li>
-			<li><a href="#" data-shape="21">Create Circle Polygon</a></li>
-			<li><a href="#" data-shape="30">Create Box Chain</a></li>
-			<li><a href="#" data-shape="31">Create Circle Chain</a></li>
+				<li><a href="#" data-shape="0">Create Box</a></li>
+				<li><a href="#" data-shape="10">Create Circle</a></li>
+				<li><a href="#" data-shape="20">Create Box Polygon</a></li>
+				<li><a href="#" data-shape="21">Create Circle Polygon</a></li>
+				<li><a href="#" data-shape="30">Create Box Chain</a></li>
+				<li><a href="#" data-shape="31">Create Circle Chain</a></li>
 			</ul>
 		</li>
 		<li>
 			Add to Body
 			<ul id="addToBody">
-			<li><a href="#" data-shape="0">Create Box Shape</a></li>
-			<li><a href="#" data-shape="10">Create Circle Shape</a></li>
-			<li><a href="#" data-shape="20">Create Box Polygon Shape</a></li>
-			<li><a href="#" data-shape="21">Create Circle Polygon Shape</a></li>
-			<li><a href="#" data-shape="30">Create Box Chain Shape</a></li>
-			<li><a href="#" data-shape="31">Create Circle Chain Shape</a></li>
+				<li><a href="#" data-shape="0">Create Box Shape</a></li>
+				<li><a href="#" data-shape="10">Create Circle Shape</a></li>
+				<li><a href="#" data-shape="20">Create Box Polygon Shape</a></li>
+				<li><a href="#" data-shape="21">Create Circle Polygon Shape</a></li>
+				<li><a href="#" data-shape="30">Create Box Chain Shape</a></li>
+				<li><a href="#" data-shape="31">Create Circle Chain Shape</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -55,16 +57,6 @@
 	<li class="hint--right" data-hint="Local" ><a href="#" data-event="activateLocalPivotMode" id="pivot_local_select">Local Mode</a></li>
 	<li>--------------------</li>
 	<li class="hint--right" data-hint="Selection"><a href="#" data-event="activateSelectionPivotMode" id="pivot_selection_select">Selection Mode</a></li>
-	<li>--------------------</li>
-</ul>
-
-<ul id="sceneMode">
-	<li>--------------------</li>
-	<li><a href="#" data-event="enterDefaultMode">Exit Edit Mode</a></li>
-	<li>--------------------</li>
-	<li><a href="#" data-event="enterBodyEditMode">Edit Body</a></li>
-	<li>--------------------</li>
-	<li><a href="#" data-event="enterShapeEditMode">Edit Shape</a></li>
 	<li>--------------------</li>
 </ul>
 
@@ -208,6 +200,24 @@ y: <input type="text" id="input_y" size="4">
 
 	<tr>
 		<td>
+			<p>Texture Source Width</p>
+		</td>
+		<td>
+			<p><input type="text" data-action="setSpriteSourceWidth"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture Source Height</p>
+		</td>
+		<td>
+			<p><input type="text" data-action="setSpriteSourceHeight"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
 			<p>Offset X</p>
 		</td>
 		<td>
@@ -226,7 +236,8 @@ y: <input type="text" id="input_y" size="4">
 
 </table>
 
-<!-- <table id="joint_properties" style="background:#111; color:#fff;">
+<table id="joint_properties" style="background:#111; color:#fff;">
+	<caption>---------JOINT---------</caption>
 	<tr>
 		<td>
 			<p>Name</p>
@@ -265,6 +276,85 @@ y: <input type="text" id="input_y" size="4">
 		</td>
 	</tr>
 
+	<!-- distance and wheel joint parameters -->
+	<tr>
+		<td>
+			<p>Frequency Hz</p>
+		</td>
+		<td>
+			<p><input type="text" data-property="frequencyHZ"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Damping Ratio</p>
+		</td>
+		<td>
+			<p><input type="text" data-property="dampingRatio"></p>
+		</td>
+	</tr>
+
+	<!-- revolute and wheel joint parameters -->
+	<tr>
+		<td>
+			<p>Enable Motor</p>
+		</td>
+		<td>
+			<p><input type="checkbox" data-property="enableMotor"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Max Motor Speed</p>
+		</td>
+		<td>
+			<p><input type="text" data-property="motorSpeed"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Max Motor Torque</p>
+		</td>
+		<td>
+			<p><input type="text" data-property="maxMotorTorque"></p>
+		</td>
+	</tr>
+
+	<!-- revolute joint parameters -->
+	<tr>
+		<td>
+			<p>Enable Limit</p>
+		</td>
+		<td>
+			<p><input type="checkbox" data-property="enableLimit"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Lower Angle</p>
+		</td>
+		<td>
+			<p>
+				0
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Upper angle</p>
+		</td>
+		<td>
+			<p>
+				0
+			</p>
+		</td>
+	</tr>
+
 	<tr>
 		<td>
 			<p>Edit Joint</p>
@@ -274,16 +364,7 @@ y: <input type="text" id="input_y" size="4">
 		</td>
 	</tr>
 
-	<tr>
-		<td>
-			<p>Texture File</p>
-		</td>
-		<td>
-			<p><input type="text" data-property="texture"></p>
-		</td>
-	</tr>
-
-</table> -->
+</table>
 </div>
 
 <!-- js-scripts -->

@@ -7,6 +7,7 @@ var UIManager = (function(){
 		this.shapeProperties = [];			// density, friction, restitution, isSensor, edit	
 		this.bodyProperties  = [];			// name, userdata, type, isBullet, edit, tex_file, tex_width, tex_height
 		this.jointProperties = [];			// name, userdata, type, collideConnected, joint_specific_parameters
+		this.jointPropertyRows = [];
 	}
 
 	UIManager.prototype.initialize = function(inputHandler){
@@ -157,7 +158,7 @@ var UIManager = (function(){
 				this.value = "Edit";
 			}
 		});
-		$(this.bodyProperties[9]).change(function(){
+		$(this.bodyProperties[11]).change(function(){
 			for (var i = 0; i < sceneManager.selectedBodies.length; i++){
 				var property = $(this).data('property');
 				sceneManager.selectedBodies[i][property] = this.value;
@@ -173,7 +174,7 @@ var UIManager = (function(){
 				}
 			}
 		});
-		for (var i = 5; i < 9; i++){
+		for (var i = 5; i < 11; i++){
 			this.bodyProperties[i].addEventListener('keypress', function(e){
 				if (e.which == 13){
 					for (var i = 0; i < sceneManager.selectedBodies.length; i++){
@@ -185,11 +186,69 @@ var UIManager = (function(){
 				}
 			});
 		}
+
+		// properties of selected joint(s)
+		this.jointProperties = $("#joint_properties").find("input");
+		this.jointPropertyRows = $("#joint_properties").find("tr");
+		for (var i = 0; i < 8; i++){
+			if (i == 2 || i == 5){
+				continue;
+			}
+			this.jointProperties[i].addEventListener('keypress', function(e){
+				if (e.which == 13){
+					for (var i = 0; i < sceneManager.selectedJoints.length; i++){
+						var property = $(this).data('property');
+						if (i < 2){
+							sceneManager.selectedJoints[i][property] = this.value;
+						}
+						else {
+							if (parseFloat(this.value) != null){
+								sceneManager.selectedJoints[i][property] = parseFloat(this.value)
+							}
+						}
+					}
+				}
+			});
+		}
+		$(this.jointProperties[2]).change(function(){
+			var property = $(this).data('property');
+			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
+				sceneManager.selectedJoints[i][property] = this.value;
+			}
+		});
+		$(this.jointProperties[5]).change(function(){
+			var property = $(this).data('property');
+			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
+				sceneManager.selectedJoints[i][property] = this.value;
+			}
+		});
+		$(this.jointProperties[8]).change(function(){
+			var property = $(this).data('property');
+			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
+				sceneManager.selectedJoints[i][property] = this.value;
+			}
+		});
+		this.jointProperties[9].addEventListener('click', function(){
+			if (sceneManager.selectedJoints[0].inEditMode){
+				sceneManager.selectedJoints[0].inEditMode = false;
+				this.value = "Edit";
+			}
+			else {
+				sceneManager.selectedJoints[0].inEditMode = true;
+				this.value = "Done"
+			}
+		});
+
+
+		this.updateShapePropertyView();
+		this.updateBodyPropertyView();
+		this.updateJointPropertyView();
 	};
 
 	UIManager.prototype.onMouseDown = function(inputHandler){
 		this.updateShapePropertyView();
 		this.updateBodyPropertyView();
+		this.updateJointPropertyView();
 
 		// update input-xy
 		if (inputHandler.selection.length != 1){
@@ -203,6 +262,7 @@ var UIManager = (function(){
 	UIManager.prototype.onMouseMove = function(inputHandler){
 		this.updateShapePropertyView();
 		this.updateBodyPropertyView();
+		this.updateJointPropertyView();
 
 		// update input-xy
 		if (inputHandler.selection.length != 1){
@@ -216,6 +276,7 @@ var UIManager = (function(){
 	UIManager.prototype.onMouseUp = function(inputHandler){
 		this.updateShapePropertyView();
 		this.updateBodyPropertyView();
+		this.updateJointPropertyView();
 
 		if (inputHandler.selection.length != 1){
 			this.xyInput[0].value = "";
@@ -279,19 +340,23 @@ var UIManager = (function(){
 				this.bodyProperties[1].value = sceneManager.selectedBodies[0].userData;
 				this.bodyProperties[2].checked = sceneManager.selectedBodies[0].isBullet;
 				this.bodyProperties[3].disabled = false;
-				this.bodyProperties[9].value = sceneManager.selectedBodies[0].bodyType;
+				this.bodyProperties[11].value = sceneManager.selectedBodies[0].bodyType;
 
 				if (sceneManager.selectedBodies[0].sprite != null){
 					this.bodyProperties[5].value = sceneManager.selectedBodies[0].getSpriteWidth();
 					this.bodyProperties[6].value = sceneManager.selectedBodies[0].getSpriteHeight();
 					this.bodyProperties[7].value = sceneManager.selectedBodies[0].getSpriteOffsetX() != null ? sceneManager.selectedBodies[0].getSpriteOffsetX() : "-";
 					this.bodyProperties[8].value = sceneManager.selectedBodies[0].getSpriteOffsetY() != null ? sceneManager.selectedBodies[0].getSpriteOffsetY() : "-";
+					this.bodyProperties[9].value = sceneManager.selectedBodies[0].getSpriteSourceWidth() != null ? sceneManager.selectedBodies[0].getSpriteSourceWidth() : "-";
+					this.bodyProperties[10].value = sceneManager.selectedBodies[0].getSpriteSourceHeight() != null ? sceneManager.selectedBodies[0].getSpriteSourceHeight() : "-";
 				}
 				else {
 					this.bodyProperties[5].value = "";
 					this.bodyProperties[6].value = "";
 					this.bodyProperties[7].value = "";
 					this.bodyProperties[8].value = "";
+					this.bodyProperties[9].value = "";
+					this.bodyProperties[10].value = "";
 				}
 
 			}
@@ -323,7 +388,7 @@ var UIManager = (function(){
 					}
 				}
 				this.bodyProperties[2].checked = allAreBullet;
-				this.bodyProperties[9].value = allHaveSameBodyType;
+				this.bodyProperties[11].value = allHaveSameBodyType;
 
 				this.bodyProperties[5].value = "";
 				this.bodyProperties[6].value = "";
@@ -334,6 +399,82 @@ var UIManager = (function(){
 		else {
 			// hide this view
 			$("#body_properties").hide();
+		}
+	};
+
+	UIManager.prototype.updateJointPropertyView = function(){
+		var sceneManager = this.sceneManager;
+		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE && 
+			sceneManager.selectedJoints.length > 0){
+			$("#joint_properties").show();
+			var jointNames = ["Distance", "Weld", "Revolute", "Wheel"];
+			if(sceneManager.selectedJoints.length == 1){
+				$(this.jointPropertyRows[2]).find("p")[1].innerHTML = jointNames[sceneManager.selectedJoints[0].jointType]; 
+				$(this.jointPropertyRows[this.jointPropertyRows.length - 1]).show();
+
+				this.jointProperties[0].disabled = false;
+				this.jointProperties[0].value = sceneManager.selectedJoints[0].name;
+				this.jointProperties[1].value = sceneManager.selectedJoints[0].userData;
+				// this.jointProperties[2].value = sceneManager.selectedBodies[0].isBullet;  // type
+				this.jointProperties[2].checked = sceneManager.selectedJoints[0].collideConnected;
+
+				// distance or wheel joint
+				if (sceneManager.selectedJoints[0].jointType == 0 || sceneManager.selectedJoints[0].jointType == 3){
+					$(this.jointPropertyRows[4]).show();
+					$(this.jointPropertyRows[5]).show();
+					this.jointProperties[3].value = sceneManager.selectedJoints[0].frequencyHZ;
+					this.jointProperties[4].value = sceneManager.selectedJoints[0].dampingRatio;
+				}
+				else {
+					$(this.jointPropertyRows[4]).hide();
+					$(this.jointPropertyRows[5]).hide();
+				}
+
+				// revolute or wheel joint
+				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3){
+					$(this.jointPropertyRows[6]).show();
+					$(this.jointPropertyRows[7]).show();
+					$(this.jointPropertyRows[8]).show();
+					this.jointProperties[5].checked = sceneManager.selectedJoints[0].enableMotor;
+					this.jointProperties[6].value = sceneManager.selectedJoints[0].motorSpeed;
+					this.jointProperties[7].value = sceneManager.selectedJoints[0].maxMotorTorque;
+				}
+				else {
+					$(this.jointPropertyRows[6]).hide();
+					$(this.jointPropertyRows[7]).hide();
+					$(this.jointPropertyRows[8]).hide();	
+				}
+
+				// revolute joint
+				if (sceneManager.selectedJoints[0].jointType == 2){
+					$(this.jointPropertyRows[9]).show();
+					$(this.jointPropertyRows[10]).show();
+					$(this.jointPropertyRows[11]).show();
+					this.jointProperties[8].checked = sceneManager.selectedJoints[0].enableLimit;
+					// this.jointProperties[9].value = sceneManager.selectedJoints[0].lowerAngle;
+					// this.jointProperties[10].value = sceneManager.selectedJoints[0].upperAngle;
+					$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle;
+					$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle;
+				}
+				else {
+					$(this.jointPropertyRows[9]).hide();
+					$(this.jointPropertyRows[10]).hide();
+					$(this.jointPropertyRows[11]).hide();	
+				}
+			}
+			else {
+				this.jointProperties[0].disabled = true;
+				this.jointProperties[0].value = "";
+				this.jointProperties[1].value = "";
+				$(this.jointPropertyRows[2]).find("p")[1].innerHTML = ""; 
+				for (var i = 4; i < this.jointPropertyRows.length; i++){
+					$(this.jointPropertyRows[i]).hide();
+				}
+			}
+		}
+		else {
+			// hide this view
+			$("#joint_properties").hide();
 		}
 	};
 

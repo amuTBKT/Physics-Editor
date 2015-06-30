@@ -103,7 +103,8 @@ var Viewport = (function(){
 		this.shapeColor = "rgba(228, 177, 177, 0.6)";
 		this.shapeSelectedColor = "rgba(228, 228, 177, 0.6)";
 		this.bodySelectedColor = "rgba(0, 177, 177, 0.6)";
-		this.staticBodyColor = "rgba(177, 228,177, 0.6)";
+		this.staticBodyColor = "rgba(177, 228, 177, 0.6)";
+		this.kinematicBodyColor = "rgba(177, 177, 228, 0.6)";
 		this.vertexColor = "rgba(255, 0, 0, 1)";
 		this.boundsColor = "rgba(228, 177, 177, 1)";
 
@@ -265,7 +266,15 @@ var Viewport = (function(){
 
 		// render shapes
 		for (var i = 0; i < body.shapes.length; i++){
-			this.renderShape(body.shapes[i], body.bodyType == 0 ? this.staticBodyColor : 0);
+			if (body.bodyType == 0){
+				this.renderShape(body.shapes[i], this.staticBodyColor);
+			}
+			else if (body.bodyType == 1){
+				this.renderShape(body.shapes[i], this.kinematicBodyColor);
+			}
+			else {
+				this.renderShape(body.shapes[i], 0);
+			}
 		}
 
 		// render aabb 
