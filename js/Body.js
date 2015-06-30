@@ -1038,6 +1038,8 @@ function PhysicsJoint(joint){
 function Joint(type){
 	this.bodyA;
 	this.bodyB;
+	this.bodyIndexA = -1;
+	this.bodyIndexB = -1;
 	this.localAnchorA = [0, 0];
 	this.localAnchorB = [0, 0];
 	this.userData = "";

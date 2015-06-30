@@ -901,6 +901,10 @@ var SceneManager = (function(){
 	};
 
 	SceneManager.prototype.saveScene = function(){
+		for (var i = 0; i < this.joints.length; i++){
+			this.joints[i].bodyIndexA = this.bodies.indexOf(this.joints[i].bodyA);
+			this.joints[i].bodyIndexB = this.bodies.indexOf(this.joints[i].bodyB);
+		}
 		var scene = {
 			bodies: [],
 			joints: []
@@ -919,6 +923,9 @@ var SceneManager = (function(){
 	SceneManager.prototype.loadScene = function(scene){
 		for (var i = 0; i < scene.bodies.length; i++){
 			this.addBody(loadBody(scene.bodies[i]));
+		}
+		for (var i = 0; i < scene.joints.length; i++){
+			this.addJoint(loadJoint(scene.joints[i], this.bodies));
 		}
 	};
 
@@ -978,11 +985,11 @@ var SceneManager = (function(){
 
 	function loadBody(obj){
 		var body = new Body();
-		body.name = obj.name;	// for editor
-		body.userData = obj.userData;						// for physics body
+		body.name = obj.name;
+		body.userData = obj.userData;
 		body.texture = obj.texture;
 		body.sprite = obj.sprite;
-		body.spriteData = cloneArray(obj.spriteData);					// [source-x, source-y, width, height, image-w, image-h]
+		body.spriteData = cloneArray(obj.spriteData);
 		body.shapes = loadShape(obj.shapes);
 		body.position = cloneArray(obj.position);
 		body.scaleXY = cloneArray(obj.scaleXY);
@@ -993,6 +1000,48 @@ var SceneManager = (function(){
 		body.isBulllet = obj.isBulllet;
 		body.isFixedRotation = obj.isFixedRotation;
 		return body;
+	}
+
+	function loadJoint(obj, bodies){
+		var joint = new Joint();
+		joint.name = obj.name;
+		joint.userData = obj.userData;
+		joint.position = cloneArray(obj.position);
+		joint.scaleXY = cloneArray(obj.scaleXY);
+		
+		joint.jointType = obj.jointType;	
+		joint.collideConnected = obj.collideConnected;
+		joint.localAnchorA = cloneArray(obj.localAnchorA);
+		joint.localAnchorB = cloneArray(obj.localAnchorB);
+		joint.bodyA = bodies[obj.bodyIndexA];
+		joint.bodyB = bodies[obj.bodyIndexB];
+
+		if (joint.jointType == Joint.JOINT_DISTANCE){
+			joint.length 		= obj.length;
+			joint.frequencyHZ 	= obj.frequencyHZ;
+			joint.dampingRatio 	= obj.dampingRatio;
+		}
+		else if (joint.jointType == Joint.JOINT_WELD){
+			joint.referenceAngle = obj.referenceAngle;
+		}
+		else if (joint.jointType == Joint.JOINT_REVOLUTE){
+			joint.enableLimit 	 = obj.enableLimit;
+		 	joint.enableMotor 	 = obj.enableMotor;
+		 	joint.lowerAngle 	 = obj.lowerAngle;
+			joint.maxMotorTorque = obj.maxMotorTorque;
+		 	joint.motorSpeed 	 = obj.motorSpeed;
+		 	joint.referenceAngle = obj.referenceAngle;
+		 	joint.upperAngle	 = obj.upperAngle;
+		}
+		else if (joint.jointType == Joint.JOINT_WHEEL){
+			joint.localAxisA 	= cloneArray(obj.localAxisA);
+			joint.enableMotor 	= obj.enableMotor;
+			joint.maxMotorTorque = obj.maxMotorTorque;
+		 	joint.motorSpeed 	= obj.motorSpeed;
+		 	joint.frequencyHZ 	= obj.frequencyHZ;
+			joint.dampingRatio 	= obj.dampingRatio;
+		}
+		return joint;
 	}
 
 	var instance;

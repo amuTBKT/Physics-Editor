@@ -68,12 +68,48 @@ var UIManager = (function(){
 
 		$("#fileMenu").find("a").each(function(index){
 			var action = $(this).data("event");
+
 			mixin(this, sceneManager, action);
 			
 			this.addEventListener("click", function(e){
 				e.preventDefault();
-				console.log(e.target[action]());
+				if (action == 'loadScene'){
+					$("#loadScene").trigger('click');
+					return;
+				}
+				else if (action == 'saveScene'){
+					var data = new Blob([JSON.stringify(sceneManager.saveScene(), null, 4)], {type:'text/plain'});
+					var textFile = window.URL.createObjectURL(data);
+					window.open(textFile);
+					return;
+				}
+				else if (action == 'exportWorld'){
+					var data = new Blob([JSON.stringify(sceneManager.exportWorld(), null, 4)], {type:'text/plain'});
+					var textFile = window.URL.createObjectURL(data);
+					window.open(textFile);
+					return;
+				}
+				else if (action == 'exportSelection'){
+					var data = new Blob([JSON.stringify(sceneManager.exportSelection(), null, 4)], {type:'text/plain'});
+					var textFile = window.URL.createObjectURL(data);
+					window.open(textFile);
+					return;
+				}
+				e.target[action]();
 			});
+		});
+		$('#loadScene').change(function(e){
+			if (e.target.files.length < 0){
+				return;
+			}
+			if(e.target.files[0].name){
+				var reader =  new FileReader();
+				reader.readAsText(e.target.files[0]);
+				reader.onload =  function(e){
+					sceneManager.newScene();
+					sceneManager.loadScene(JSON.parse(e.target.result));
+				}
+			}
 		});
 		$("#addToScene").find("a").each(function(index){
 			mixin(this, sceneManager, "createBody");
@@ -184,10 +220,11 @@ var UIManager = (function(){
 			}
 		});
 		$(this.bodyProperties[4]).change(function(e){
+			// console.log(e.target.files[0]);
 			if (e.target.files.length < 0){
 				return;
 			}
-			if(e.target.files[0].name){
+			if(e.target.files[0].name && (e.target.files[0].type == "image/png" ||  e.target.files[0].type == "image/jpeg")){
 				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
 					sceneManager.selectedBodies[i].setSprite("resources/" + e.target.files[0].name);
 				}
