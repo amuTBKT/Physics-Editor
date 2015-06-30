@@ -6,6 +6,7 @@ var UIManager = (function(){
 		this.taskbar         = [];
 		this.shapeProperties = [];			// density, friction, restitution, isSensor, edit	
 		this.bodyProperties  = [];			// name, userdata, type, isBullet, edit, tex_file, tex_width, tex_height
+		this.jointProperties = [];			// name, userdata, type, collideConnected, joint_specific_parameters
 	}
 
 	UIManager.prototype.initialize = function(inputHandler){
@@ -112,7 +113,8 @@ var UIManager = (function(){
 		}
 		$(this.shapeProperties[3]).change(function(){
 			for (var i = 0; i < sceneManager.selectedShapes.length; i++){
-				sceneManager.selectedShapes[i].isSensor = $(this).is(":checked");
+				var property = $(this).data('property');
+				sceneManager.selectedShapes[i][property] = $(this).is(":checked");
 			}
 		});
 		this.shapeProperties[4].addEventListener('click', function(){
@@ -141,7 +143,8 @@ var UIManager = (function(){
 		}
 		$(this.bodyProperties[2]).change(function(){
 			for (var i = 0; i < sceneManager.selectedBodies.length; i++){
-				sceneManager.selectedBodies[i].isBullet = $(this).is(":checked");
+				var property = $(this).data('property');
+				sceneManager.selectedBodies[i][property] = $(this).is(":checked");
 			}
 		});
 		this.bodyProperties[3].addEventListener('click', function(){
@@ -154,9 +157,34 @@ var UIManager = (function(){
 				this.value = "Edit";
 			}
 		});
-		// this.bodyProperties[7].change(function(){
-		// 	console.log("Select");
-		// });
+		$(this.bodyProperties[9]).change(function(){
+			for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+				var property = $(this).data('property');
+				sceneManager.selectedBodies[i][property] = this.value;
+			}
+		});
+		$(this.bodyProperties[4]).change(function(e){
+			if (e.target.files.length < 0){
+				return;
+			}
+			if(e.target.files[0].name){
+				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+					sceneManager.selectedBodies[i].setSprite("resources/" + e.target.files[0].name);
+				}
+			}
+		});
+		for (var i = 5; i < 9; i++){
+			this.bodyProperties[i].addEventListener('keypress', function(e){
+				if (e.which == 13){
+					for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+						if (parseFloat(this.value) != NaN){
+							var action = $(this).data('action');
+							sceneManager.selectedBodies[i][action](parseFloat(this.value));
+						}
+					}
+				}
+			});
+		}
 	};
 
 	UIManager.prototype.onMouseDown = function(inputHandler){
@@ -205,17 +233,31 @@ var UIManager = (function(){
 			$("#shape_properties").show();
 
 			if(sceneManager.selectedShapes.length == 1){
+				this.shapeProperties[0].disabled = false;
 				this.shapeProperties[0].value = sceneManager.selectedShapes[0].density;
 				this.shapeProperties[1].value = sceneManager.selectedShapes[0].friction;
 				this.shapeProperties[2].value = sceneManager.selectedShapes[0].restitution;
-				// this.shapeProperties[3] 
-				$(this.shapeProperties[4]).show(); 
+				this.shapeProperties[3].checked = sceneManager.selectedShapes[0].isSensor;
+				this.shapeProperties[4].disabled = false; 
 			}
 			else {
 				this.shapeProperties[0].value = "";
+				this.shapeProperties[0].disabled = true;
 				this.shapeProperties[1].value = "";
 				this.shapeProperties[2].value = "";
-				$(this.shapeProperties[4]).hide(); 
+				this.shapeProperties[4].disabled = true;
+
+				var allAreSensor = false; 
+				for (var i = 0; i < sceneManager.selectedShapes.length; i++){
+					if (allAreSensor != sceneManager.selectedShapes[i].isSensor && i != 0){
+						allAreSensor = false;
+						break;
+					}
+					else {
+						allAreSensor = sceneManager.selectedShapes[i].isSensor;
+					}
+				}
+				this.shapeProperties[3].checked = allAreSensor;
 			}
 		}
 		else {
@@ -232,15 +274,61 @@ var UIManager = (function(){
 			$("#body_properties").show();
 
 			if(sceneManager.selectedBodies.length == 1){
+				this.bodyProperties[0].disabled = false;
 				this.bodyProperties[0].value = sceneManager.selectedBodies[0].name;
 				this.bodyProperties[1].value = sceneManager.selectedBodies[0].userData;
-				$(this.bodyProperties[3]).show();
-				// this.bodyProperties[3] 
+				this.bodyProperties[2].checked = sceneManager.selectedBodies[0].isBullet;
+				this.bodyProperties[3].disabled = false;
+				this.bodyProperties[9].value = sceneManager.selectedBodies[0].bodyType;
+
+				if (sceneManager.selectedBodies[0].sprite != null){
+					this.bodyProperties[5].value = sceneManager.selectedBodies[0].getSpriteWidth();
+					this.bodyProperties[6].value = sceneManager.selectedBodies[0].getSpriteHeight();
+					this.bodyProperties[7].value = sceneManager.selectedBodies[0].getSpriteOffsetX() != null ? sceneManager.selectedBodies[0].getSpriteOffsetX() : "-";
+					this.bodyProperties[8].value = sceneManager.selectedBodies[0].getSpriteOffsetY() != null ? sceneManager.selectedBodies[0].getSpriteOffsetY() : "-";
+				}
+				else {
+					this.bodyProperties[5].value = "";
+					this.bodyProperties[6].value = "";
+					this.bodyProperties[7].value = "";
+					this.bodyProperties[8].value = "";
+				}
+
 			}
 			else {
+				this.bodyProperties[0].disabled = true;
 				this.bodyProperties[0].value = "";
 				this.bodyProperties[1].value = "";
-				$(this.bodyProperties[3]).hide();
+				this.bodyProperties[3].disabled = true;
+
+				var allAreBullet = false, allHaveSameBodyType = 0; 
+				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+					if (allAreBullet != sceneManager.selectedBodies[i].isBullet && i != 0){
+						allAreBullet = false;
+						allHaveSameBodyType += sceneManager.selectedBodies[i].bodyType;
+						break;
+					}
+					else {
+						allAreBullet = sceneManager.selectedBodies[i].isBullet;
+						allHaveSameBodyType += sceneManager.selectedBodies[i].bodyType;
+					}
+				}
+				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+					if (allHaveSameBodyType != sceneManager.selectedBodies[i].bodyType && i != 0){
+						allHaveSameBodyType = 3;
+						break;
+					}
+					else {
+						allHaveSameBodyType = sceneManager.selectedBodies[i].bodyType;
+					}
+				}
+				this.bodyProperties[2].checked = allAreBullet;
+				this.bodyProperties[9].value = allHaveSameBodyType;
+
+				this.bodyProperties[5].value = "";
+				this.bodyProperties[6].value = "";
+				this.bodyProperties[7].value = "";
+				this.bodyProperties[8].value = "";
 			}
 		}
 		else {
@@ -269,8 +357,10 @@ var UIManager = (function(){
 				}
 			}
 			else {
-				this.xyInput[0].value = inputHandler.selection[0].position[0].toFixed(2);
-				this.xyInput[1].value = inputHandler.selection[0].position[1].toFixed(2);
+				if (inputHandler.selection[0].position){
+					this.xyInput[0].value = inputHandler.selection[0].position[0].toFixed(2);
+					this.xyInput[1].value = inputHandler.selection[0].position[1].toFixed(2);
+				}
 			}
 		}
 		else if (inputHandler.transformTool == 6){

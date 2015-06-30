@@ -594,6 +594,7 @@ function Body(){
 	this.texture = "";
 	this.sprite;
 	this.spriteData = [];					// [source-x, source-y, width, height, image-w, image-h]
+	this.intialSpriteData = [];
 	this.shapes = [];
 	this.position = [0, 0];
 	this.scaleXY = [1, 1];
@@ -615,15 +616,24 @@ Body.prototype.setSprite = function(file, x, y, w, h){
 		this.sprite = new Image();
 		this.sprite.src = file;
 		this.spriteData = [x, y, w, h, w, h];
+		this.intialSpriteData = [w, h];
 	}
 	else {
 		this.sprite = new Image();
 		this.sprite.src = file;
+		var ref = this;
+		this.sprite.onload = function(){
+			ref.intialSpriteData = [this.width, this.height];
+		}
 	}
 	this.texture = file;
 };
 
 Body.prototype.setSpriteWidth = function(width){
+	if (this.sprite == null){
+		return;
+	}
+
 	if (this.spriteData.length > 0){
 		this.spriteData[4] = width;
 		return;
@@ -632,11 +642,73 @@ Body.prototype.setSpriteWidth = function(width){
 };
 
 Body.prototype.setSpriteHeight = function(height){
+	if (this.sprite == null){
+		return;
+	}
+
 	if (this.spriteData.length > 0){
 		this.spriteData[5] = height;
 		return;
 	}
 	this.sprite.height = height;
+};
+
+Body.prototype.setOffsetX = function(x){
+	if (this.sprite == null){
+		return;
+	}
+
+	if (this.spriteData.length == 0){
+		this.spriteData = [x, 0, this.intialSpriteData[0], this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
+	}
+
+	if (this.spriteData.length > 0){
+		this.spriteData[0] = x;
+		return;
+	}
+};
+
+Body.prototype.setOffsetY = function(y){
+	if (this.sprite == null){
+		return;
+	}
+
+	if (this.spriteData.length == 0){
+		this.spriteData = [0, y, this.intialSpriteData[0], this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
+	}
+
+	if (this.spriteData.length > 0){
+		this.spriteData[1] = y;
+		return;
+	}
+};
+
+Body.prototype.getSpriteWidth = function(){
+	if (this.spriteData.length > 0){
+		return this.spriteData[4];
+	}
+	return this.sprite.width;
+};
+
+Body.prototype.getSpriteHeight = function(){
+	if (this.spriteData.length > 0){
+		return this.spriteData[5];
+	}
+	return this.sprite.height;
+};
+
+Body.prototype.getSpriteOffsetX = function(){
+	if (this.spriteData.length > 0){
+		return this.spriteData[0];
+	}
+	return null;
+};
+
+Body.prototype.getSpriteOffsetY = function(){
+	if (this.spriteData.length > 0){
+		return this.spriteData[1];
+	}
+	return null;
 };
 
 Body.prototype.addShape = function(shape, setPos){

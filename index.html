@@ -76,7 +76,8 @@ y: <input type="text" id="input_y" size="4">
 </div>
 
 <div id="selection_properties">
-	<table id="shape_properties" style="background:#111; color:#fff;">
+	<table id="shape_properties" style="background:#111; color:#fff;" title="Shape">
+	<caption>---------SHAPE---------</caption>
 	<tr>
 		<td>
 			<p>Density</p>
@@ -113,7 +114,6 @@ y: <input type="text" id="input_y" size="4">
 		</td>
 	</tr>
 
-	<!-- length == 1 -->
 	<tr>
 		<td>
 			<p>Edit Shape</p>
@@ -126,7 +126,7 @@ y: <input type="text" id="input_y" size="4">
 </table>
 
 <table id="body_properties" style="background:#111; color:#fff;">
-	<!-- length == 1 -->
+	<caption>---------BODY---------</caption>
 	<tr>
 		<td>
 			<p>Name</p>
@@ -152,6 +152,7 @@ y: <input type="text" id="input_y" size="4">
 		<td>
 			<p>
 				<select id="body_type" data-property="bodyType">
+					<option value="3">Select</option>
 					<option value="0">Static</option>
 					<option value="1">Kinematic</option>
 					<option value="2">Dynamic</option>
@@ -169,10 +170,104 @@ y: <input type="text" id="input_y" size="4">
 		</td>
 	</tr>
 
-	<!-- length == 1 -->
 	<tr>
 		<td>
 			<p>Edit Body</p>
+		</td>
+		<td>
+			<p><input type="button" value="Edit"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture File</p>
+		</td>
+		<td>
+			<p><input type="file" data-property="texture"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture Width</p>
+		</td>
+		<td>
+			<p><input type="text" data-action="setSpriteWidth"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Texture Height</p>
+		</td>
+		<td>
+			<p><input type="text" data-action="setSpriteHeight"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Offset X</p>
+		</td>
+		<td>
+			<p><input type="text" data-action="setOffsetX"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Offet Y</p>
+		</td>
+		<td>
+			<p><input type="text" data-action="setOffsetY"></p>
+		</td>
+	</tr>
+
+</table>
+
+<!-- <table id="joint_properties" style="background:#111; color:#fff;">
+	<tr>
+		<td>
+			<p>Name</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="20" data-property="name"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>User Data</p>
+		</td>
+		<td>
+			<p><input type="text" maxlength="20" data-property="userData"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Joint Type</p>
+		</td>
+		<td>
+			<p>
+				type
+			</p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Collide Connected</p>
+		</td>
+		<td>
+			<p><input type="checkbox" data-property="collideConnected"></p>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<p>Edit Joint</p>
 		</td>
 		<td>
 			<p><input type="button" value="Edit"></p>
@@ -188,30 +283,11 @@ y: <input type="text" id="input_y" size="4">
 		</td>
 	</tr>
 
-	<tr>
-		<td>
-			<p>Texture Width</p>
-		</td>
-		<td>
-			<p><input type="text"></p>
-		</td>
-	</tr>
-
-	<tr>
-		<td>
-			<p>Texture Height</p>
-		</td>
-		<td>
-			<p><input type="text"></p>
-		</td>
-	</tr>
-
-</table>
+</table> -->
 </div>
 
 <!-- js-scripts -->
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/handlebars.js"></script>
 <script type="text/javascript" src="js/box2d.js"></script>
 <script type="text/javascript" src="js/PolygonHelper.js"></script>
 <script type="text/javascript" src="js/Body.js"></script>
