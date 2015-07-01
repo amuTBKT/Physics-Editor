@@ -120,7 +120,7 @@ function Shape(type, width, height){
 	this.friction = 1;
 	this.restitution = 0.25;
 	this.density = 1;
-	this.isSensor = 0;
+	this.isSensor = false;
 
 	if (type == Shape.SHAPE_NONE){
 		this.shapeType = Shape.SHAPE_POLYGON;
@@ -602,7 +602,7 @@ function Body(){
 	this.bounds = [0, 0, 0, 0];
 	this.isSelected = false;
 	this.bodyType = Body.BODY_TYPE_DYNAMIC;	// default to dynmic body
-	this.isBullet = 0;
+	this.isBullet = false;
 	this.isFixedRotation = false;
 }
 
@@ -970,7 +970,7 @@ function Fixture(){
 	this.restitution;
 	this.friction;
 	this.density;
-	this.isSensor = 0;
+	this.isSensor = false;
 }
 
 function PhysicsShape(type){
@@ -994,7 +994,7 @@ function PhysicsBody(type){
 	this.fixtures = [];
 	this.position = [0, 0];
 	this.rotation = 0;
-	this.isBullet = 0;
+	this.isBullet = false;
 	this.isFixedRotation = 0;
 }
 

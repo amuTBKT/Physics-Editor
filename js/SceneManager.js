@@ -882,18 +882,18 @@ var SceneManager = (function(){
 		}
 		else if (this.state == this.STATE_BODY_EDIT_MODE){
 			var array = {
-				shapes: []
+				fixtures: []
 			};
 			if (this.selectedShapes.length == 1){
 				var shape = this.selectedShapes[0];
 				var position = [shape.position[0], shape.position[1]];
 				shape.setPosition(0, 0);
-				array.shapes.push(shape.toPhysics(0, 0));
+				array.fixtures.push(shape.toPhysics(0, 0));
 				shape.move(position[0], position[1]);
 				return array;
 			}
 			for (var i = 0; i < this.selectedShapes.length; i++){
-				array.bodies.push(this.selectedShapes[i].toPhysics(0, 0));
+				array.fixtures.push(this.selectedShapes[i].toPhysics(0, 0));
 				return array;
 			}
 		}

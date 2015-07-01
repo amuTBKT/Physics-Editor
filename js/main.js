@@ -19,7 +19,7 @@ function init(){
 	uiManager = UIManager.getInstance(sceneManager);
 	uiManager.initialize(viewport.getInputHandler());
 	uiManager.playBackControls = $("#controls").find("button");
-	// play controls //
+	// play back controls //
 	uiManager.playBackControls[0].addEventListener("click", function(){
 		if (gameView){
 			gameView = null;
