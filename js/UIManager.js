@@ -4,6 +4,7 @@ var UIManager = (function(){
 		this.sceneManager 	 = sceneManager;
 		this.xyInput         = [];
 		this.taskbar         = [];
+		this.playBackControls = [];
 		this.shapeProperties = [];			// density, friction, restitution, isSensor, edit	
 		this.bodyProperties  = [];			// name, userdata, type, isBullet, edit, tex_file, tex_width, tex_height
 		this.jointProperties = [];			// name, userdata, type, collideConnected, joint_specific_parameters
@@ -179,14 +180,19 @@ var UIManager = (function(){
 				sceneManager.selectedShapes[i][property] = $(this).is(":checked");
 			}
 		});
+		var ref = this;
 		this.shapeProperties[4].addEventListener('click', function(){
 			if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
 				sceneManager.enterShapeEditMode();
 				this.value = "Done";
+				ref.updateShapePropertyView();
+				ref.updateBodyPropertyView();
 			}
 			else if (sceneManager.state == sceneManager.STATE_SHAPE_EDIT_MODE){
 				sceneManager.enterBodyEditMode();
 				this.value = "Edit";
+				ref.updateShapePropertyView();
+				ref.updateBodyPropertyView();
 			}
 		});
 
@@ -213,10 +219,16 @@ var UIManager = (function(){
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
 				sceneManager.enterBodyEditMode();
 				this.value = "Done";
+				ref.updateShapePropertyView();
+				ref.updateBodyPropertyView();
+				ref.updateJointPropertyView();
 			}
 			else if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE) {
 				sceneManager.enterDefaultMode();
 				this.value = "Edit";
+				ref.updateShapePropertyView();
+				ref.updateBodyPropertyView();
+				ref.updateJointPropertyView();
 			}
 		});
 		$(this.bodyProperties[11]).change(function(){
@@ -226,8 +238,7 @@ var UIManager = (function(){
 			}
 		});
 		$(this.bodyProperties[4]).change(function(e){
-			// console.log(e.target.files[0]);
-			if (e.target.files.length < 0){
+			if (e.target.files == null && e.target.files.length < 0){
 				return;
 			}
 			if(e.target.files[0].name && (e.target.files[0].type == "image/png" ||  e.target.files[0].type == "image/jpeg")){

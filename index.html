@@ -30,12 +30,12 @@
 	    	Create Body
 	  	</button>
 	    <ul class="dropdown-menu" aria-labelledby="addBodyDropdown" id="addToScene">
-			<li><a href="#" data-shape="0">Create Box</a></li>
-			<li><a href="#" data-shape="10">Create Circle</a></li>
-			<li><a href="#" data-shape="20">Create Box Polygon</a></li>
-			<li><a href="#" data-shape="21">Create Circle Polygon</a></li>
-			<li><a href="#" data-shape="30">Create Box Chain</a></li>
-			<li><a href="#" data-shape="31">Create Circle Chain</a></li>
+			<li><a href="#" data-shape="00">Box Body</a></li>
+			<li><a href="#" data-shape="10">Circle Body</a></li>
+			<li><a href="#" data-shape="20">Box Polygon Body</a></li>
+			<li><a href="#" data-shape="21">Circle Polygon Body</a></li>
+			<li><a href="#" data-shape="30">Box Chain Body</a></li>
+			<li><a href="#" data-shape="31">Circle Chain Body</a></li>
 		</ul>
 	</div>
 	<div class="dropdown">
@@ -75,6 +75,12 @@
 		<button type="button" class="btn btn-default glyphicon glyphicon-move"  id="pivot_local_select" 	data-event="activateLocalPivotMode"></button>
 		<button type="button" class="btn btn-default glyphicon glyphicon-th-large"  id="pivot_selection_select" data-event="activateSelectionPivotMode"></button>
 	</div>
+</div>
+
+<div id="controls">
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-play"  			id="enter_gameview" 	data-event=""></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-pause"  		id="pause_gameview"    data-event=""></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-step-forward"  	id="skip_frame_gameview"    data-event=""></button>
 </div>
 
 <div id="xyInput">

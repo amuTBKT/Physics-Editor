@@ -41,6 +41,12 @@
 	float: left;
 }
 
+#controls{
+	position: absolute;
+	left: 40%;
+	top: 2%;
+}
+
 #selection_properties{
 	background: #111;
 	position: absolute;

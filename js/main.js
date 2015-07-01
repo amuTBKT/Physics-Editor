@@ -18,6 +18,31 @@ function init(){
 
 	uiManager = UIManager.getInstance(sceneManager);
 	uiManager.initialize(viewport.getInputHandler());
+	uiManager.playBackControls = $("#controls").find("button");
+	// play controls //
+	uiManager.playBackControls[0].addEventListener("click", function(){
+		if (gameView){
+			gameView = null;
+			viewport.getInputHandler().inGameMode = 0;
+			$(this).removeClass("glyphicon-stop").addClass("glyphicon-play");
+		}
+		else {
+			gameView = new GameView(canvas, viewport.getNavigator());
+			gameView.setup(sceneManager.exportWorld());
+			// gameView.setup("resources/scene.json", true);
+			viewport.getInputHandler().inGameMode = 1;
+			$(this).removeClass("glyphicon-play").addClass("glyphicon-stop");
+		}
+	});
+	uiManager.playBackControls[1].addEventListener("click", function(){
+		if (gameView != null)
+			gameView.paused = !gameView.paused;
+	});
+	uiManager.playBackControls[2].addEventListener("click", function(){
+		if (gameView != null && gameView.paused)
+			gameView.update();
+	});
+	//////////////////////
 
 	viewport.canvas.addEventListener("mousewheel", function(e){
 		viewport.onMouseWheel(e);
@@ -45,22 +70,22 @@ function init(){
 		// console.log(e.which);
 		viewport.onKeyUp(e);
 
-		if (e.which == 13){
-			gameView.paused = !gameView.paused;
-		}
+		// if (e.which == 13){
+		// 	gameView.paused = !gameView.paused;
+		// }
 
-		else if (e.which == 32){
-			if (gameView){
-				gameView = null;
-				viewport.getInputHandler().inGameMode = 0;
-			}
-			else {
-				gameView = new GameView(canvas, viewport.getNavigator());
-				gameView.setup(sceneManager.exportWorld());
-				// gameView.setup("resources/scene.json", true);
-				viewport.getInputHandler().inGameMode = 1;
-			}
-		}
+		// else if (e.which == 32){
+		// 	if (gameView){
+		// 		gameView = null;
+		// 		viewport.getInputHandler().inGameMode = 0;
+		// 	}
+		// 	else {
+		// 		gameView = new GameView(canvas, viewport.getNavigator());
+		// 		gameView.setup(sceneManager.exportWorld());
+		// 		// gameView.setup("resources/scene.json", true);
+		// 		viewport.getInputHandler().inGameMode = 1;
+		// 	}
+		// }
 	});
 
 	sceneManager.createBody(Shape.SHAPE_BOX);
