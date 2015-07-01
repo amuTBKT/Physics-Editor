@@ -22,6 +22,10 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WheelJointDef;
 
+/* 
+	Json library can be downloaded from : https://github.com/douglascrockford/JSON-java
+*/
+
 public class WorldLoader {
 	/** meter to pixel ratio */
 	public static float RATIO = 30;
