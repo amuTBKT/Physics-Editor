@@ -97,10 +97,6 @@ GameView.prototype.init = function(scene){
     createJoint(this.world, scene.joints[i]);
   }
 
-  // for (var b = this.world.GetBodyList(); b != null; b = b.GetNext()){
-  //  console.log(b);
-  // }
-
   this.hasLoaded = true;
 };
 

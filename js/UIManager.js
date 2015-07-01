@@ -13,8 +13,14 @@ var UIManager = (function(){
 	UIManager.prototype.initialize = function(inputHandler){
 		var sceneManager = this.sceneManager;
 
+		// hide separators
+		var elementsToHide = document.getElementsByClassName("separator");
+		for (var i = 0; i < elementsToHide.length; i++){
+			elementsToHide[i].style.visibility = "hidden";
+		}
+
 		// initialize transform tool buttons
-		$("#transformTools").find("a").each(function(index){
+		$("#transformTools").find("button").each(function(index){
 			var action = $(this).data("event");
 			mixin(this, inputHandler, action);
 			
@@ -25,7 +31,7 @@ var UIManager = (function(){
 		});
 
 		// initialize pivot tool buttons
-		$("#pivotTools").find("a").each(function(index){
+		$("#pivotTools").find("button").each(function(index){
 			var action = $(this).data("event");
 			mixin(this, inputHandler, action);
 			
@@ -65,7 +71,7 @@ var UIManager = (function(){
 				}
 			}
 		});
-
+		$("#loadScene").hide();
 		$("#fileMenu").find("a").each(function(index){
 			var action = $(this).data("event");
 
@@ -269,19 +275,20 @@ var UIManager = (function(){
 		$(this.jointProperties[2]).change(function(){
 			var property = $(this).data('property');
 			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
-				sceneManager.selectedJoints[i][property] = this.value;
+				sceneManager.selectedJoints[i][property] =  $(this).is(":checked");
+				console.log(property + " " + this.value);
 			}
 		});
 		$(this.jointProperties[5]).change(function(){
 			var property = $(this).data('property');
 			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
-				sceneManager.selectedJoints[i][property] = this.value;
+				sceneManager.selectedJoints[i][property] =  $(this).is(":checked");
 			}
 		});
 		$(this.jointProperties[8]).change(function(){
 			var property = $(this).data('property');
 			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
-				sceneManager.selectedJoints[i][property] = this.value;
+				sceneManager.selectedJoints[i][property] =  $(this).is(":checked");
 			}
 		});
 		this.jointProperties[9].addEventListener('click', function(){
@@ -470,7 +477,6 @@ var UIManager = (function(){
 				this.jointProperties[0].disabled = false;
 				this.jointProperties[0].value = sceneManager.selectedJoints[0].name;
 				this.jointProperties[1].value = sceneManager.selectedJoints[0].userData;
-				// this.jointProperties[2].value = sceneManager.selectedBodies[0].isBullet;  // type
 				this.jointProperties[2].checked = sceneManager.selectedJoints[0].collideConnected;
 
 				// distance or wheel joint

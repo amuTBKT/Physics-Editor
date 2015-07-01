@@ -1,67 +1,7 @@
-#canvas, #game_viewport {
+#canvas {
 	position: absolute;
 	left: 5%;
 	top: 10%;
-}
-
-a{
-	text-decoration: none;
-}
-
-#taskbar{
-	position: absolute;
-	top: 2%;
-	width: 100%;
-	z-index: 10;
-}
-
-#taskbar_options li{
-	width: 11%;
-	position: relative;
-	float: left;
-}
-
-#taskbar a{
-	color: #fff;
-}
-
-#taskbar li{
-	background: #444;
-	overflow: hidden;
-}
-
-#fileMenu li {
-	padding: 2px 2px;
-	margin: 4px 4px;
-	width: 100%;
-	clear: both;
-}
-
-#addToScene{
-	padding: 2px 2px;
-	margin: 4px 4px;
-	height: 0px;
-}
-
-#addToScene li {
-	padding: 2px 2px;
-	margin: 4px 4px;
-	width: 100%;
-	clear: both;
-}
-
-#addToBody li{
-	padding: 2px 2px;
-	margin: 4px 4px;
-	width: 100%;
-	clear: both;
-}
-
-#createJoint li{
-	padding: 2px 2px;
-	margin: 4px 4px;
-	width: 100%;
-	clear: both;
 }
 
 #toolbar{
@@ -70,25 +10,38 @@ a{
 	width: 5%;
 	margin: 0 0;
 }
-#toolbar ul{
-	margin: 0 0;
-	padding: 0 0;
-}
-#toolbar li{
-	background: #111;
-	width: 100%;
-	margin: 0 0;
-	padding: 0 0;
-	display: block;
-	list-style: none;
+
+#toolbar button{
+	float: left;
+	width: 75%;
+	height: 60px;
+	margin: 7.5% 7.5%;
 }
 
-#shape_properties{
-	position: relative;
+#taskbar{
+	position: absolute;
+	top: 2%;
+	left: 2%;
+	width: 90%;
+}
+
+#taskbar .dropdown{
+	float: left;
+}
+
+#xyInput{
+	position:absolute;
+	top:95%;
+	left:70%;
+	width: 15%;
+}
+
+#xyInput .input-group{
+	width: 50%;
+	float: left;
 }
 
 #selection_properties{
-	color: white;
 	background: #111;
 	position: absolute;
 	left: 85%;
