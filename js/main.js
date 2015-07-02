@@ -15,7 +15,7 @@ function init(){
 
 	uiManager = UIManager.getInstance(sceneManager);
 	uiManager.initialize(viewport.getInputHandler());
-	uiManager.playBackControls = $("#controls").find("button");
+	uiManager.playBackControls = $("#gameplayControls").find("button");
 	// play back controls //
 	uiManager.playBackControls[0].addEventListener("click", function(){
 		if (gameView){
@@ -40,6 +40,19 @@ function init(){
 			gameView.update();
 	});
 	//////////////////////
+
+	// view controls //
+	uiManager.viewControls = $("#viewControls").find("button");
+	uiManager.viewControls.each(function(index){
+		var action = $(this).data("event");
+		this[action] = viewport[action].bind(viewport);
+			
+		this.addEventListener("click", function(e){
+			e.preventDefault();
+			e.target[action]();
+		});
+	});
+	///////////////////
 
 	document.addEventListener("mousedown", function(e){
 		lastElementSelected = e.target;

@@ -162,17 +162,19 @@ var Viewport = (function(){
 			this.context.font = 10 * (1.06) + "px Arial";
 			this.context.fillText("localAnchorB", 10, -10);
 
-			this.context.translate(joint.groundAnchorA[0] - joint.localAnchorB[0], joint.groundAnchorA[1] - joint.localAnchorB[1]);
-			this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
-			this.context.fillStyle = "#0f0";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("groundAnchorA", 10, -10);
-			
-			this.context.translate(joint.groundAnchorB[0] - joint.groundAnchorA[0], joint.groundAnchorB[1] - joint.groundAnchorA[1]);
-			this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
-			this.context.fillStyle = "#f00";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("groundAnchorB", 10, -10);
+			if (joint.jointType == Joint.JOINT_PULLEY){
+				this.context.translate(joint.groundAnchorA[0] - joint.localAnchorB[0], joint.groundAnchorA[1] - joint.localAnchorB[1]);
+				this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
+				this.context.fillStyle = "#0f0";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("groundAnchorA", 10, -10);
+				
+				this.context.translate(joint.groundAnchorB[0] - joint.groundAnchorA[0], joint.groundAnchorB[1] - joint.groundAnchorA[1]);
+				this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
+				this.context.fillStyle = "#f00";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("groundAnchorB", 10, -10);
+			}
 		}
 
 		this.context.restore();
@@ -797,12 +799,15 @@ var Viewport = (function(){
 		var mouseX = e.offsetX;
 	    var mouseY = e.offsetY;
 	    var wheel = e.wheelDelta / 120;
-
-	    var navigator = this.navigator;
-
 	    var zoom = 1 + Math.sign(wheel) * Math.min(Math.abs(wheel / 20), 0.1);
 
-	    if (zoom > 1){
+		this.zoom(mouseX, mouseY, zoom);	    
+	};
+
+	Viewport.prototype.zoom = function(mouseX, mouseY, zoom){
+		var navigator = this.navigator;
+		
+		if (zoom > 1){
 	    	if (navigator.scale > navigator.scaleLimits[1])
 	    		return;
 	    }
@@ -824,6 +829,23 @@ var Viewport = (function(){
 	    navigator.origin[0] = ( mouseX / navigator.scale + navigator.origin[0] - mouseX / ( navigator.scale * zoom ) );
 	    navigator.origin[1] = ( mouseY / navigator.scale + navigator.origin[1] - mouseY / ( navigator.scale * zoom ) );
 	    navigator.scale *= zoom;
+	};
+
+	Viewport.prototype.zoomIn = function(){
+		this.zoom(this.canvas.width / 2, this.canvas.height / 2, 1.2);
+	};
+
+	Viewport.prototype.zoomOut = function(){
+		this.zoom(this.canvas.width / 2, this.canvas.height / 2, 0.8);
+	};
+
+	Viewport.prototype.resetView = function(){
+		this.zoom(this.canvas.width / 2, this.canvas.height / 2, 1 / this.navigator.scale);	
+		this.navigator.panning = 
+					[
+						this.canvas.width / (this.navigator.scale * 2) + this.navigator.origin[0],
+						this.canvas.height / (this.navigator.scale * 2) + this.navigator.origin[1],
+					];
 	};
 
 	Viewport.prototype.draw = function(gameView){

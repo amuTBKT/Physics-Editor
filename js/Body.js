@@ -1136,6 +1136,11 @@ Joint.prototype.move = function(x, y){
 
 	this.moveAnchorA(x, y);
 	this.moveAnchorB(x, y);
+
+	if (this.jointType == Joint.JOINT_PULLEY){
+		this.moveGroundAnchorA(x, y);
+		this.moveGroundAnchorB(x, y);
+	}
 };
 
 Joint.prototype.setPosition = function(x, y){

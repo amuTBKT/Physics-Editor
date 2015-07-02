@@ -4,6 +4,7 @@ var UIManager = (function(){
 		this.sceneManager 	 = sceneManager;
 		this.xyInput         = [];
 		this.taskbar         = [];
+		this.viewControls    = [];
 		this.playBackControls = [];
 		this.shapeProperties = [];			// density, friction, restitution, isSensor, edit	
 		this.bodyProperties  = [];			// name, userdata, type, isBullet, edit, tex_file, tex_width, tex_height
@@ -520,6 +521,12 @@ var UIManager = (function(){
 					$(this.jointPropertyRows[5]).hide();
 				}
 
+				// // pulley joint
+				// if (sceneManager.selectedJoints[0].jointType == 4){
+				// 	$(this.jointPropertyRows[4]).show();
+				// 	this.jointProperties[3].value = sceneManager.selectedJoints[0].ratio;
+				// }
+
 				// revolute or wheel joint
 				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3){
 					$(this.jointPropertyRows[6]).show();
@@ -541,8 +548,6 @@ var UIManager = (function(){
 					$(this.jointPropertyRows[10]).show();
 					$(this.jointPropertyRows[11]).show();
 					this.jointProperties[8].checked = sceneManager.selectedJoints[0].enableLimit;
-					// this.jointProperties[9].value = sceneManager.selectedJoints[0].lowerAngle;
-					// this.jointProperties[10].value = sceneManager.selectedJoints[0].upperAngle;
 					$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle;
 					$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle;
 				}

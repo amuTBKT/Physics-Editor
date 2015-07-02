@@ -8,13 +8,14 @@
 	position: absolute;
 	top: 10%;
 	width: 5%;
+	height: 80%;
 	margin: 0 0;
 }
 
 #toolbar button{
 	float: left;
 	width: 75%;
-	height: 60px;
+	height: 12.5%;
 	margin: 7.5% 7.5%;
 }
 
@@ -41,7 +42,7 @@
 	float: left;
 }
 
-#controls{
+#gameplayControls{
 	position: absolute;
 	left: 40%;
 	top: 2%;
