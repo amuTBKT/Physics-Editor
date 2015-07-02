@@ -81,6 +81,7 @@ var UIManager = (function(){
 			this.addEventListener("click", function(e){
 				e.preventDefault();
 				if (action == 'loadScene'){
+					$('#loadScene')[0].value = null;
 					$("#loadScene").trigger('click');
 					return;
 				}
@@ -243,6 +244,9 @@ var UIManager = (function(){
 				sceneManager.selectedBodies[i][property] = this.value;
 			}
 		});
+		this.bodyProperties[5].addEventListener("click", function(e){
+			this.value = null;
+		});
 		$(this.bodyProperties[5]).change(function(e){
 			if (e.target.files == null && e.target.files.length < 0){
 				return;
@@ -293,7 +297,6 @@ var UIManager = (function(){
 			var property = $(this).data('property');
 			for (var i = 0; i < sceneManager.selectedJoints.length; i++){
 				sceneManager.selectedJoints[i][property] =  $(this).is(":checked");
-				console.log(property + " " + this.value);
 			}
 		});
 		$(this.jointProperties[5]).change(function(){
@@ -418,7 +421,7 @@ var UIManager = (function(){
 				this.bodyProperties[0].value = sceneManager.selectedBodies[0].name;
 				this.bodyProperties[1].value = sceneManager.selectedBodies[0].userData;
 				this.bodyProperties[2].checked = sceneManager.selectedBodies[0].isBullet;
-				this.bodyProperties[2].checked = sceneManager.selectedBodies[0].isFixedRotation;
+				this.bodyProperties[3].checked = sceneManager.selectedBodies[0].isFixedRotation;
 				this.bodyProperties[4].disabled = false;
 				this.bodyProperties[12].value = sceneManager.selectedBodies[0].bodyType;
 
@@ -457,7 +460,7 @@ var UIManager = (function(){
 					}
 				}
 				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
-					if (allAreBullet != sceneManager.selectedBodies[i].isFixedRotation && i != 0){
+					if (allHaveFixedRotation != sceneManager.selectedBodies[i].isFixedRotation && i != 0){
 						allHaveFixedRotation = false;
 						break;
 					}

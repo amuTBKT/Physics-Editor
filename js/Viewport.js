@@ -152,9 +152,15 @@ var Viewport = (function(){
 		if (joint.isSelected){
 			this.context.translate(joint.localAnchorA[0] - joint.position[0], joint.localAnchorA[1] - joint.position[1]);
 			this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
+			this.context.fillStyle = "#0f0";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("localAnchorA", 10, -10);
 			
 			this.context.translate(joint.localAnchorB[0] - joint.localAnchorA[0], joint.localAnchorB[1] - joint.localAnchorA[1]);
 			this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
+			this.context.fillStyle = "#f00";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("localAnchorB", 10, -10);
 		}
 
 		this.context.restore();
@@ -187,6 +193,9 @@ var Viewport = (function(){
 			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
 			this.context.lineTo(x, y);
 			this.context.stroke();
+			this.context.fillStyle = "#0f0";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("referenceAngle", x + 10, y);
 			this.context.closePath();
 
 			// draw lower angle vector line
@@ -197,6 +206,9 @@ var Viewport = (function(){
 			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.lowerAngle * Math.PI / 180);
 			this.context.lineTo(x, y);
 			this.context.stroke();
+			this.context.fillStyle = "#f00";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("lowerAngle", x + 10, y - 10);
 			this.context.closePath();
 			
 			// draw lower angle arc
@@ -211,6 +223,9 @@ var Viewport = (function(){
 			y = joint.localAnchorB[1] + 100 * Math.sin(joint.upperAngle * Math.PI / 180);
 			this.context.lineTo(x, y);
 			this.context.stroke();
+			this.context.fillStyle = "#00f";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("upperAngle", x + 10, y + 10);
 			this.context.closePath();
 
 			// draw upper angle arc
@@ -231,7 +246,10 @@ var Viewport = (function(){
 		// render sprite
 		if (body.sprite){
 			this.context.save();
-			
+			var alpha = this.context.globalAlpha;
+
+			this.context.globalAlpha = 0.5;
+
 			// if sprite is contained in a spritesheet	
 			if (body.spriteData.length > 0){
 				var sourceX = body.spriteData[0],
@@ -260,7 +278,8 @@ var Viewport = (function(){
 				// draw sprite
 				this.context.drawImage(body.sprite, -imageW / 2, -imageH / 2, imageW, imageH);
 			}
-			
+
+			this.context.globalAlpha = alpha;
 			this.context.restore();
 		}
 

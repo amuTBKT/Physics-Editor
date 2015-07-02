@@ -230,11 +230,11 @@ public class WorldLoader {
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");;
 			    jointDef.enableLimit  	= jsonJoint.getBoolean("enableLimit");
 			    jointDef.enableMotor  	= jsonJoint.getBoolean("enableMotor");
-			    jointDef.lowerAngle   	= (float) (-jsonJoint.getLong("lowerAngle") * Math.PI / 180);
+			    jointDef.lowerAngle   	= (float) (jsonJoint.getLong("lowerAngle") * Math.PI / 180);
 			    jointDef.maxMotorTorque = jsonJoint.getLong("maxMotorTorque");
 			    jointDef.motorSpeed   	= jsonJoint.getLong("motorSpeed");
-			    jointDef.referenceAngle = (float) (-jsonJoint.getLong("referenceAngle") * Math.PI / 180);
-			    jointDef.upperAngle   	= (float) (-jsonJoint.getLong("upperAngle") * Math.PI / 180);;
+			    jointDef.referenceAngle = (float) (jsonJoint.getLong("referenceAngle") * Math.PI / 180);
+			    jointDef.upperAngle   	= (float) (jsonJoint.getLong("upperAngle") * Math.PI / 180);;
 				
 				world.createJoint(jointDef);
 			}

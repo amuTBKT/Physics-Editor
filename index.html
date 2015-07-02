@@ -95,312 +95,316 @@
 </div>
 
 <div id="selection_properties">
-	<table id="shape_properties">
-	<caption>---------SHAPE---------</caption>
-	<tr>
-		<td>
-			<p>Density</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="5" data-property="density"></p>
-		</td>
-	</tr>
+	<div class="panel panel-default">
+		<div class="panel-heading">Shape</div>
+		<table id="shape_properties">
+			<tr>
+				<td>
+					<p>Density</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="5" data-property="density"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Friction</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="5" data-property="friction"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Friction</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="5" data-property="friction"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Restitution</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="5" data-property="restitution"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Restitution</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="5" data-property="restitution"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>isSensor</p>
-		</td>
-		<td>
-			<p><input type="checkbox" data-property="isSensor"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>isSensor</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="isSensor"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Edit Shape</p>
-		</td>
-		<td>
-			<p><input type="button" value="Edit"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Edit Shape</p>
+				</td>
+				<td>
+					<p><input type="button" value="Edit"></p>
+				</td>
+			</tr>
+		</table>
+	</div>
 
-</table>
+	<div class="panel panel-default">
+		<div class="panel-heading">Body</div>
+		<table id="body_properties">
+			<tr>
+				<td>
+					<p>Name</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="name"></p>
+				</td>
+			</tr>
 
-<table id="body_properties">
-	<caption>---------BODY---------</caption>
-	<tr>
-		<td>
-			<p>Name</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="20" data-property="name"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>User Data</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="userData"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>User Data</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="20" data-property="userData"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Body Type</p>
+				</td>
+				<td>
+					<p>
+						<select id="body_type" data-property="bodyType">
+							<option value="3">Select</option>
+							<option value="0">Static</option>
+							<option value="1">Kinematic</option>
+							<option value="2">Dynamic</option>
+						</select>
+					</p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Body Type</p>
-		</td>
-		<td>
-			<p>
-				<select id="body_type" data-property="bodyType">
-					<option value="3">Select</option>
-					<option value="0">Static</option>
-					<option value="1">Kinematic</option>
-					<option value="2">Dynamic</option>
-				</select>
-			</p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>isBullet</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="isBullet"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>isBullet</p>
-		</td>
-		<td>
-			<p><input type="checkbox" data-property="isBullet"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Rotation Fixed</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="isFixedRotation"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Rotation Fixed</p>
-		</td>
-		<td>
-			<p><input type="checkbox" data-property="isFixedRotation"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Edit Body</p>
+				</td>
+				<td>
+					<p><input type="button" value="Edit"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Edit Body</p>
-		</td>
-		<td>
-			<p><input type="button" value="Edit"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Texture File</p>
+				</td>
+				<td>
+					<p><input type="file" data-property="texture"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Texture File</p>
-		</td>
-		<td>
-			<p><input type="file" data-property="texture"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Texture Width</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteWidth"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Texture Width</p>
-		</td>
-		<td>
-			<p><input type="text" data-action="setSpriteWidth"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Texture Height</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteHeight"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Texture Height</p>
-		</td>
-		<td>
-			<p><input type="text" data-action="setSpriteHeight"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Texture Source Width</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteSourceWidth"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Texture Source Width</p>
-		</td>
-		<td>
-			<p><input type="text" data-action="setSpriteSourceWidth"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Texture Source Height</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteSourceHeight"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Texture Source Height</p>
-		</td>
-		<td>
-			<p><input type="text" data-action="setSpriteSourceHeight"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Offset X</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setOffsetX"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Offset X</p>
-		</td>
-		<td>
-			<p><input type="text" data-action="setOffsetX"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Offet Y</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setOffsetY"></p>
+				</td>
+			</tr>
+		</table>
+	</div>
 
-	<tr>
-		<td>
-			<p>Offet Y</p>
-		</td>
-		<td>
-			<p><input type="text" data-action="setOffsetY"></p>
-		</td>
-	</tr>
+	<div class="panel panel-default">
+		<div class="panel-heading">Joint</div>
+		<table id="joint_properties">
+			<tr>
+				<td>
+					<p>Name</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="name"></p>
+				</td>
+			</tr>
 
-</table>
+			<tr>
+				<td>
+					<p>User Data</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="userData"></p>
+				</td>
+			</tr>
 
-<table id="joint_properties">
-	<caption>---------JOINT---------</caption>
-	<tr>
-		<td>
-			<p>Name</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="20" data-property="name"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Joint Type</p>
+				</td>
+				<td>
+					<p>
+						type
+					</p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>User Data</p>
-		</td>
-		<td>
-			<p><input type="text" maxlength="20" data-property="userData"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Collide Connected</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="collideConnected"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Joint Type</p>
-		</td>
-		<td>
-			<p>
-				type
-			</p>
-		</td>
-	</tr>
+			<!-- distance and wheel joint parameters -->
+			<tr>
+				<td>
+					<p>Frequency Hz</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="frequencyHZ"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Collide Connected</p>
-		</td>
-		<td>
-			<p><input type="checkbox" data-property="collideConnected"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Damping Ratio</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="dampingRatio"></p>
+				</td>
+			</tr>
 
-	<!-- distance and wheel joint parameters -->
-	<tr>
-		<td>
-			<p>Frequency Hz</p>
-		</td>
-		<td>
-			<p><input type="text" data-property="frequencyHZ"></p>
-		</td>
-	</tr>
+			<!-- revolute and wheel joint parameters -->
+			<tr>
+				<td>
+					<p>Enable Motor</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="enableMotor"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Damping Ratio</p>
-		</td>
-		<td>
-			<p><input type="text" data-property="dampingRatio"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Max Motor Speed</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="motorSpeed"></p>
+				</td>
+			</tr>
 
-	<!-- revolute and wheel joint parameters -->
-	<tr>
-		<td>
-			<p>Enable Motor</p>
-		</td>
-		<td>
-			<p><input type="checkbox" data-property="enableMotor"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Max Motor Torque</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="maxMotorTorque"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Max Motor Speed</p>
-		</td>
-		<td>
-			<p><input type="text" data-property="motorSpeed"></p>
-		</td>
-	</tr>
+			<!-- revolute joint parameters -->
+			<tr>
+				<td>
+					<p>Enable Limit</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="enableLimit"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Max Motor Torque</p>
-		</td>
-		<td>
-			<p><input type="text" data-property="maxMotorTorque"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Lower Angle</p>
+				</td>
+				<td>
+					<p>
+						0
+					</p>
+				</td>
+			</tr>
 
-	<!-- revolute joint parameters -->
-	<tr>
-		<td>
-			<p>Enable Limit</p>
-		</td>
-		<td>
-			<p><input type="checkbox" data-property="enableLimit"></p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Upper angle</p>
+				</td>
+				<td>
+					<p>
+						0
+					</p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Lower Angle</p>
-		</td>
-		<td>
-			<p>
-				0
-			</p>
-		</td>
-	</tr>
+			<tr>
+				<td>
+					<p>Edit Joint</p>
+				</td>
+				<td>
+					<p><input type="button" value="Edit"></p>
+				</td>
+			</tr>
 
-	<tr>
-		<td>
-			<p>Upper angle</p>
-		</td>
-		<td>
-			<p>
-				0
-			</p>
-		</td>
-	</tr>
-
-	<tr>
-		<td>
-			<p>Edit Joint</p>
-		</td>
-		<td>
-			<p><input type="button" value="Edit"></p>
-		</td>
-	</tr>
-
-</table>
+		</table>
+	</div>
 </div>
 
 <!-- js-scripts -->

@@ -48,11 +48,10 @@
 }
 
 #selection_properties{
-	background: #111;
 	position: absolute;
 	left: 85%;
 	top:10%;
-	width: 17.5%;
+	width: 15%;
 	height: 80%;
 	overflow: auto;
 }
@@ -64,5 +63,5 @@
 	padding: 10px 10px;
 }
 #selection_properties input{
-	width: 50%;
+	width: 68%;
 }

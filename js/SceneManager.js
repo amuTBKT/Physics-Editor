@@ -755,8 +755,9 @@ var SceneManager = (function(){
 	* creates new shape and adds it to the selected body
 	*/
 	SceneManager.prototype.createShape = function(shapeType, asCircle){
-		if (this.state != this.STATE_BODY_EDIT_MODE)
-			return;
+		if (this.state != this.STATE_BODY_EDIT_MODE){
+			return "shapes can be created only when editing body";
+		}
 
 		if (shapeType == Shape.SHAPE_POLYGON || shapeType == Shape.SHAPE_CHAIN){
 			asCircle = asCircle || 0;
@@ -807,9 +808,6 @@ var SceneManager = (function(){
 			joint.bodyA = this.selectedBodies[0];
 			joint.bodyB = this.selectedBodies[1];
 			joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
-			// if (jointType == Joint.JOINT_DISTANCE){
-			// 	joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
-			// }
 			joint.setLocalAnchorB(joint.bodyB.position[0], joint.bodyB.position[1]);
 			joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
 			if (jointType == Joint.JOINT_REVOLUTE) {
@@ -819,7 +817,7 @@ var SceneManager = (function(){
 			this.addJoint(joint);
 		}
 		else {
-			console.log("Select 2 bodies to create a joint");
+			return "select 2 bodies to create a joint";
 		}
 	};
 
