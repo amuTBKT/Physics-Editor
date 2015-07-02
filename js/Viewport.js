@@ -152,9 +152,9 @@ var Viewport = (function(){
 		if (joint.isSelected){
 			this.context.translate(joint.localAnchorA[0] - joint.position[0], joint.localAnchorA[1] - joint.position[1]);
 			this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
-			this.context.fillStyle = "#0f0";
+			this.context.fillStyle = "#fff";
 			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("localAnchorA", 10, -10);
+			this.context.fillText("localAnchorA", 10, 15);
 			
 			this.context.translate(joint.localAnchorB[0] - joint.localAnchorA[0], joint.localAnchorB[1] - joint.localAnchorA[1]);
 			this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
@@ -891,7 +891,7 @@ var Viewport = (function(){
 		}
 		else {
 			if (gameView && gameView.hasLoaded){
-				gameView.updateGameLogic();
+				gameView.updateView();
 			}
 		}
 

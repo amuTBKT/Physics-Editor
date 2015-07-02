@@ -1225,15 +1225,6 @@ Joint.prototype.setMaxMotorTorque = function(torque){
 	this.maxMotorTorque = torque;
 };
 
-Joint.prototype.toPhysics = function(bodies){
-	var joint = new PhysicsJoint(this);
-	joint.bodyA = bodies.indexOf(this.bodyA);
-	joint.bodyB = bodies.indexOf(this.bodyB);
-	joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
-	joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
-	return joint;
-};
-
 // pulley joint
 Joint.prototype.setGroundAnchorA = function(x, y){
 	this.groundAnchorA = [x, y];
@@ -1278,4 +1269,13 @@ Joint.prototype.getGroundAnchorABounds = function(){
 
 Joint.prototype.getGroundAnchorBBounds = function(){
 	return [this.groundAnchorB[0], this.groundAnchorB[1], 32, 32];
+};
+
+Joint.prototype.toPhysics = function(bodies){
+	var joint = new PhysicsJoint(this);
+	joint.bodyA = bodies.indexOf(this.bodyA);
+	joint.bodyB = bodies.indexOf(this.bodyB);
+	joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
+	joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
+	return joint;
 };

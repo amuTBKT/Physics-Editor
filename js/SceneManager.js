@@ -244,21 +244,25 @@ var SceneManager = (function(){
 					this.selectedAnchor = 1;
 					return true;
 				}
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorABounds())){
-					this.selectedAnchor = 2;
-					return true;
+				
+				if (joint.jointType == Joint.JOINT_PULLEY){
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorABounds())){
+						this.selectedAnchor = 2;
+						return true;
+					}
+					else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorBBounds())){
+						this.selectedAnchor = 3;
+						return true;
+					}
 				}
-				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorBBounds())){
-					this.selectedAnchor = 3;
-					return true;
-				}
+				
 				this.selectedAnchor = -1;
 
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyA.bounds)){
+				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyA.bounds) && joint.jointType != Joint.JOINT_PULLEY){
 					this.selectedAnchor = 2;
 					return true;
 				}
-				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyB.bounds)){
+				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyB.bounds)  && joint.jointType != Joint.JOINT_PULLEY){
 					this.selectedAnchor = 3;
 					return true;
 				}
@@ -378,7 +382,7 @@ var SceneManager = (function(){
 				}
 				else if (this.selectedAnchor == 1){
 					if (inputHandler.SNAPPING_ENABLED){
-						this.setLocalAnchorB(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
+						joint.setLocalAnchorB(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
 								 parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0]);
 					}
 					else {
@@ -392,7 +396,13 @@ var SceneManager = (function(){
 						}
 					}
 					else if (joint.jointType == Joint.JOINT_PULLEY){
-						joint.moveGroundAnchorA(x, y);
+						if (inputHandler.SNAPPING_ENABLED){
+							joint.setGroundAnchorA(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
+									 parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0]);
+						}
+						else {
+							joint.moveGroundAnchorA(x, y);
+						}
 					}
 				}
 				else if (this.selectedAnchor == 3){
@@ -407,7 +417,13 @@ var SceneManager = (function(){
 						}
 					}
 					else if (joint.jointType == Joint.JOINT_PULLEY){
-						joint.moveGroundAnchorB(x, y);	
+						if (inputHandler.SNAPPING_ENABLED){
+							joint.setGroundAnchorB(parseInt(inputHandler.pointerWorldPos[2] / inputHandler.snappingData[0]) * inputHandler.snappingData[0],
+									 parseInt(inputHandler.pointerWorldPos[3] / inputHandler.snappingData[0]) * inputHandler.snappingData[0]);
+						}
+						else {
+							joint.moveGroundAnchorB(x, y);
+						}
 					}
 				}
 				return;
