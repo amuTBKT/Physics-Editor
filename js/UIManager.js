@@ -21,6 +21,18 @@ var UIManager = (function(){
 			elementsToHide[i].style.visibility = "hidden";
 		}
 
+		// hide alert dialog box
+		var alertDialog = $("#alert_dialog");
+		alertDialog.hide();
+		var alertButtons = alertDialog.find("button");
+		alertButtons[0].addEventListener("click", function(){
+			alertDialog.hide();
+			sceneManager.newScene();
+		});
+		alertButtons[2].addEventListener("click", function(){
+			alertDialog.hide();
+		});
+
 		// initialize transform tool buttons
 		$("#transformTools").find("button").each(function(index){
 			var action = $(this).data("event");
@@ -77,11 +89,15 @@ var UIManager = (function(){
 		$("#fileMenu").find("a").each(function(index){
 			var action = $(this).data("event");
 
-			mixin(this, sceneManager, action);
+			// mixin(this, sceneManager, action);
 			
 			this.addEventListener("click", function(e){
 				e.preventDefault();
-				if (action == 'loadScene'){
+				if (action == 'newScene'){
+					alertDialog.show();
+					return;
+				}
+				else if (action == 'loadScene'){
 					$('#loadScene')[0].value = null;
 					$("#loadScene").trigger('click');
 					return;
@@ -104,7 +120,6 @@ var UIManager = (function(){
 					window.open(textFile);
 					return;
 				}
-				e.target[action]();
 			});
 		});
 		$('#loadScene').change(function(e){
@@ -254,7 +269,7 @@ var UIManager = (function(){
 			}
 			if(e.target.files[0].name && (e.target.files[0].type == "image/png" ||  e.target.files[0].type == "image/jpeg")){
 				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
-					sceneManager.selectedBodies[i].setSprite("resources/" + e.target.files[0].name);
+					sceneManager.selectedBodies[i].setSprite(Editor.resourceDirectory + e.target.files[0].name);
 				}
 			}
 		});

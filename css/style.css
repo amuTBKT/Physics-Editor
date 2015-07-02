@@ -65,3 +65,15 @@
 #selection_properties input{
 	width: 68%;
 }
+
+#alert_dialog{
+	position: absolute;
+	width: 25%;
+	top: 50%;
+	left: 35%;
+}
+
+#alert_dialog button{
+	width: 30%;
+	margin: 10% 10%;
+}

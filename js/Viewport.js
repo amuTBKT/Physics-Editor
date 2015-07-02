@@ -115,6 +115,9 @@ var Viewport = (function(){
 		var jointAnchorB = new Image();
 		jointAnchorB.src = "resources/ui/crossair_red.png";
 		this.jointAnchors = [jointAnchor, jointAnchorA, jointAnchorB];
+
+		this.pivotImage = new Image();
+		this.pivotImage.src = "resources/ui/pivot.png";
 	}
 
 	Renderer.prototype.renderVertex = function(v){
@@ -319,8 +322,9 @@ var Viewport = (function(){
 		}
 
 		// draw position of body
-		this.context.fillStyle = "#000";
-		this.context.fillRect(body.position[0] - 5, body.position[1] - 5, 10, 10);
+		// this.context.fillStyle = "#000";
+		// this.context.fillRect(body.position[0] - 5, body.position[1] - 5, 10, 10);
+		this.context.drawImage(this.pivotImage, body.position[0] - 24, body.position[1] - 24, 48, 48);
 	};
 
 	Renderer.prototype.renderShape = function(shape, bodyColor){
@@ -365,12 +369,13 @@ var Viewport = (function(){
 		}
 
 		// draw position of shape
-		this.context.fillStyle = "#000";
-		this.context.fillRect(shape.position[0] - 5, shape.position[1] - 5, 10, 10);
+		// this.context.fillStyle = "#000";
+		// this.context.fillRect(shape.position[0] - 5, shape.position[1] - 5, 10, 10);
+		this.context.drawImage(this.pivotImage, shape.position[0] - 16, shape.position[1] - 16, 32, 32);
 
 		// draw centroid of shape
-		this.context.fillStyle = "#ff0";
-		this.context.fillRect(shape.centroid[0] - 5, shape.centroid[1] - 5, 10, 10);
+		// this.context.fillStyle = "#ff0";
+		// this.context.fillRect(shape.centroid[0] - 5, shape.centroid[1] - 5, 10, 10);
 	};
 
 	Renderer.prototype.renderGrid = function(range, cell_size_unused){

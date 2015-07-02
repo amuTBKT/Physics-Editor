@@ -4,6 +4,9 @@ function PhysicsEditor(canvas) {
 	this.uiManager = UIManager.getInstance(this.sceneManager);
 	this.gameView = null;
 
+	// directory containing textures
+	this.resourceDirectory = "resources/";
+
 	this.uiManager.initialize(this.viewport.getInputHandler());
 	this.uiManager.playBackControls = $("#gameplayControls").find("button");
 	
@@ -18,7 +21,6 @@ function PhysicsEditor(canvas) {
 		else {
 			ref.gameView = new GameView(canvas, ref.viewport.getNavigator());
 			ref.gameView.setup(ref.sceneManager.exportWorld());
-			// gameView.setup("resources/scene.json", true);
 			ref.viewport.getInputHandler().inGameMode = 1;
 			$(this).removeClass("glyphicon-play").addClass("glyphicon-stop");
 		}
