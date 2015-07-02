@@ -1,0 +1,81 @@
+/* 
+    // important //
+    all units are in pixels, so make sure to divide them by meter_to_pixel ratio (generally 30)
+    the scene was made in web canvas, and therefore the y-axis is flipped, so y-axis coordinates must be multiplied by -1
+    for loading scenes refer to sample loaders available in /Loaders directory
+*/
+
+/*
+    Structure
+
+    bodies : array of body
+        type: STATIC(0), KINEMATIC(1), DYNAMIC(2)
+        userData: userdata_provided_in_editor, used in collision detection 
+        position: [position_on_x_axis, position_on_y_axis]
+        rotation: body's rotation in degrees
+        isBullet: whether body is bullet or not (bullet bodies are expensive to simulate but there collision detection is better than normal bodies), avoid wherever psossible
+        isFixedRotation: is rotation of body fixed, if true => body won't rotate
+        fixtures: array of fixtures
+
+    fixture : contains shape information and physical properties like density, friction..
+        isSensor: if true => fixture would be used only for collision detection but not collision resolution
+        restitution: elasticity of coillison (if more, body would bounce more)
+        friction
+        density
+        shapes: array of shapes sharing same fixture (concave shape is exported as seprate convex shapes having same physical properties)
+
+    shape : the actual geometry
+        type: BOX(0), CIRCLE(1), POLYGON(2), CHAIN(3)
+        position: position in body's local space (with respect to bodies position)
+        vertices: array of vertices
+
+    vertices : [position_x, position_y] in shape's local space (position relative to shapes position)
+
+*/
+
+{
+    // array of bodies
+    "bodies": [
+        {
+            "type":     integer,
+            "userData": string,
+            // array of fixtures
+            "fixtures": [
+                {
+                    "isSensor": boolean,
+                    "restitution": float,
+                    "friction": float,
+                    "density": float,
+                    // array of shapes
+                    "shapes": [
+                        {
+                            "type": integer,
+                            "position": [
+                                float_pos-x,
+                                float_pos-y
+                            ],
+                            // array of vertices
+                            "vertices": [
+                                [
+                                    float_x,
+                                    float_y
+                                ],
+                                [
+                                    float_x,
+                                    float_y
+                                ]....
+                            ]
+                        }
+                    ]
+                }
+            ]
+            "position": [
+                float_pos-x,
+                float_pos-y
+            ],
+            "rotation": float_rotation-in-deg,
+            "isBullet": boolean,
+            "isFixedRotation": boolean
+        }
+    ]
+}

@@ -925,7 +925,7 @@ var Viewport = (function(){
 
 	var instance;
     return {
-        getInstance: function(){
+        getInstance: function(canvas, sceneManager){
             if (instance == null) {
                 instance = new Viewport(canvas, sceneManager);
                 // Hide the constructor so the returned objected can't be new'd...

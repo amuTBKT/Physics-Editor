@@ -1,15 +1,15 @@
 var UIManager = (function(){
 
 	function UIManager(sceneManager){
-		this.sceneManager 	 = sceneManager;
-		this.xyInput         = [];
-		this.taskbar         = [];
-		this.viewControls    = [];
-		this.playBackControls = [];
-		this.shapeProperties = [];			// density, friction, restitution, isSensor, edit	
-		this.bodyProperties  = [];			// name, userdata, type, isBullet, edit, tex_file, tex_width, tex_height
-		this.jointProperties = [];			// name, userdata, type, collideConnected, joint_specific_parameters
-		this.jointPropertyRows = [];
+		this.sceneManager 	 	= sceneManager;
+		this.xyInput         	= [];
+		this.taskbar         	= [];
+		this.viewControls    	= [];
+		this.playBackControls 	= [];
+		this.shapeProperties 	= [];			// density, friction, restitution, isSensor, edit	
+		this.bodyProperties  	= [];			// name, userdata, type, isBullet, edit, tex_file, tex_width, tex_height
+		this.jointProperties 	= [];			// name, userdata, type, collideConnected, joint_specific_parameters
+		this.jointPropertyRows 	= [];
 	}
 
 	UIManager.prototype.initialize = function(inputHandler){
@@ -520,12 +520,6 @@ var UIManager = (function(){
 					$(this.jointPropertyRows[4]).hide();
 					$(this.jointPropertyRows[5]).hide();
 				}
-
-				// // pulley joint
-				// if (sceneManager.selectedJoints[0].jointType == 4){
-				// 	$(this.jointPropertyRows[4]).show();
-				// 	this.jointProperties[3].value = sceneManager.selectedJoints[0].ratio;
-				// }
 
 				// revolute or wheel joint
 				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3){
