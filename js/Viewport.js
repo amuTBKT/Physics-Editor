@@ -161,6 +161,18 @@ var Viewport = (function(){
 			this.context.fillStyle = "#f00";
 			this.context.font = 10 * (1.06) + "px Arial";
 			this.context.fillText("localAnchorB", 10, -10);
+
+			this.context.translate(joint.groundAnchorA[0] - joint.localAnchorB[0], joint.groundAnchorA[1] - joint.localAnchorB[1]);
+			this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
+			this.context.fillStyle = "#0f0";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("groundAnchorA", 10, -10);
+			
+			this.context.translate(joint.groundAnchorB[0] - joint.groundAnchorA[0], joint.groundAnchorB[1] - joint.groundAnchorA[1]);
+			this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
+			this.context.fillStyle = "#f00";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("groundAnchorB", 10, -10);
 		}
 
 		this.context.restore();

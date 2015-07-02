@@ -10,10 +10,11 @@ var b2Vec2 =  Box2D.Common.Math.b2Vec2,
     b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
     b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
     b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
-    b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef;
-    b2DistanceJointDef =  Box2D.Dynamics.Joints.b2DistanceJointDef;
-    b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef;
-    b2WeldJointDef =  Box2D.Dynamics.Joints.b2WeldJointDef;
+    b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef,
+    b2DistanceJointDef =  Box2D.Dynamics.Joints.b2DistanceJointDef,
+    b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
+    b2WeldJointDef =  Box2D.Dynamics.Joints.b2WeldJointDef,
+    b2PulleyJointDef = Box2D.Dynamics.Joints.b2PulleyJointDef;
 
 var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
 var _navigator, gameObjects = [], bodies = [], joints = [];
@@ -32,6 +33,7 @@ function GameView(canvas, navigator) {
 
   gameObjects = [];
   bodies = [];
+  joints = [];
 
   this.hasLoaded = false;
   this.paused = false;
@@ -257,6 +259,23 @@ function createJoint(world, j){
     jointDef.motorSpeed   = j.motorSpeed;
     jointDef.referenceAngle = j.referenceAngle;
     jointDef.upperAngle   = j.upperAngle * Math.PI / 180;
+    joints.push(world.CreateJoint(jointDef));
+  }
+  else if (j.jointType == Joint.JOINT_PULLEY){
+    var jointDef = new b2PulleyJointDef;
+    jointDef.bodyA = bodies[j.bodyA];
+    jointDef.bodyB = bodies[j.bodyB];
+    jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
+    jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
+    jointDef.collideConnected = j.collideConnected;
+    jointDef.groundAnchorA = new b2Vec2(j.groundAnchorA[0] / 30, j.groundAnchorA[1] / 30);
+    jointDef.groundAnchorB = new b2Vec2(j.groundAnchorB[0] / 30, j.groundAnchorB[1] / 30);
+    jointDef.lengthA = j.lengthA / 30;
+    jointDef.lengthB = j.lengthB / 30;
+    jointDef.maxLengthA = j.maxLengthA / 30;
+    jointDef.maxLengthB = j.maxLengthB / 30;
+    jointDef.ratio = j.ratio;
+
     joints.push(world.CreateJoint(jointDef));
   }
   // else if (j.jointType == Joint.JOINT_WHEEL){

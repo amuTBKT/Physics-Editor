@@ -244,6 +244,14 @@ var SceneManager = (function(){
 					this.selectedAnchor = 1;
 					return true;
 				}
+				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorABounds())){
+					this.selectedAnchor = 2;
+					return true;
+				}
+				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorBBounds())){
+					this.selectedAnchor = 3;
+					return true;
+				}
 				this.selectedAnchor = -1;
 
 				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyA.bounds)){
@@ -383,6 +391,9 @@ var SceneManager = (function(){
 							joint.changeReferenceAngle(x);
 						}
 					}
+					else if (joint.jointType == Joint.JOINT_PULLEY){
+						joint.moveGroundAnchorA(x, y);
+					}
 				}
 				else if (this.selectedAnchor == 3){
 					if (joint.jointType == Joint.JOINT_REVOLUTE){
@@ -394,6 +405,9 @@ var SceneManager = (function(){
 								joint.changeLowerAngle(x);	
 							}
 						}
+					}
+					else if (joint.jointType == Joint.JOINT_PULLEY){
+						joint.moveGroundAnchorB(x, y);	
 					}
 				}
 				return;
@@ -813,6 +827,10 @@ var SceneManager = (function(){
 			if (jointType == Joint.JOINT_REVOLUTE) {
 				joint.setLocalAnchorA(joint.bodyB.position[0], joint.bodyB.position[1]);
 				joint.position = [(joint.bodyA.position[0] + joint.bodyB.position[0]) / 2, (joint.bodyA.position[1] + joint.bodyB.position[1]) / 2];
+			}
+			else if (jointType == Joint.JOINT_PULLEY){
+				joint.setGroundAnchorA(joint.bodyA.position[0], joint.bodyA.position[1] - 100);
+				joint.setGroundAnchorB(joint.bodyB.position[0], joint.bodyB.position[1] - 100);
 			}
 			this.addJoint(joint);
 		}

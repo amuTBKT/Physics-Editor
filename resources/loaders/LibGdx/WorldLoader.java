@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
+import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WheelJointDef;
@@ -45,7 +46,8 @@ public class WorldLoader {
 		JOINT_DISTANCE,
 		JOINT_WELD,
 		JOINT_REVOLUTE,
-		JOINT_WHEEL
+		JOINT_WHEEL,
+		JOINT_PULLEY
 	};
 	
 	/** array list of all the bodies loaded to use when creating joints **/
@@ -255,6 +257,24 @@ public class WorldLoader {
 			    jointDef.frequencyHz      = jsonJoint.getLong("frequencyHZ");
 			    
 				world.createJoint(jointDef);
+			}
+			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_PULLEY.ordinal()){
+				PulleyJointDef jointDef = new PulleyJointDef();
+				jointDef.bodyA = loadedBodies.get(jsonJoint.getInt("bodyA"));
+				jointDef.bodyB = loadedBodies.get(jsonJoint.getInt("bodyB"));
+				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");
+				jointDef.localAnchorA.set(new Vector2(jsonJoint.getJSONArray("localAnchorA").getInt(0) / RATIO,
+													-jsonJoint.getJSONArray("localAnchorA").getInt(1) / RATIO));
+				jointDef.localAnchorB.set(new Vector2(jsonJoint.getJSONArray("localAnchorB").getInt(0) / RATIO,
+						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
+				jointDef.groundAnchorA.set(new Vector2(offsetX / RATIO + jsonJoint.getJSONArray("groundAnchorA").getInt(0) / RATIO,
+						offsetY / RATIO - jsonJoint.getJSONArray("groundAnchorA").getInt(1) / RATIO));
+				jointDef.groundAnchorB.set(new Vector2(offsetX / RATIO + jsonJoint.getJSONArray("groundAnchorB").getInt(0) / RATIO,
+						offsetY / RATIO - jsonJoint.getJSONArray("groundAnchorB").getInt(1) / RATIO));
+				jointDef.lengthA = jsonJoint.getLong("lengthA") / RATIO;
+				jointDef.lengthB = jsonJoint.getLong("lengthB") / RATIO;
+				jointDef.ratio = 1;//jsonJoint.getLong("ratio");
+			    world.createJoint(jointDef);
 			}
 			
 		}

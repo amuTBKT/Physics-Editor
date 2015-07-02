@@ -1033,6 +1033,15 @@ function PhysicsJoint(joint){
 	 	this.frequencyHZ 	= joint.frequencyHZ;
 		this.dampingRatio 	= joint.dampingRatio;
 	}
+	else if (this.jointType == Joint.JOINT_PULLEY){
+		this.groundAnchorA 	= joint.groundAnchorA;
+		this.groundAnchorB 	= joint.groundAnchorB;
+		this.lengthA	   	= joint.lengthA;
+		this.lengthB		= joint.lengthB;
+		this.maxLengthA     = joint.maxLengthA;
+		this.maxLengthB     = joint.maxLengthB;
+		this.ratio 			= joint.ratio;
+	}
 }
 
 function Joint(type){
@@ -1071,6 +1080,15 @@ function Joint(type){
 	 	this.frequencyHZ 	= 60;
 		this.dampingRatio 	= 1;
 	}
+	else if (type == Joint.JOINT_PULLEY){
+		this.groundAnchorA 	= [0, 0];
+		this.groundAnchorB 	= [0, 0];
+		this.lengthA	   	= 100;
+		this.lengthB		= 100;
+		this.maxLengthA     = 100;
+		this.maxLengthB     = 100;
+		this.ratio 			= 1;
+	}
 
 	// editor parameters
 	this.position = [0, 0];
@@ -1085,6 +1103,7 @@ Joint.JOINT_DISTANCE	= 0;
 Joint.JOINT_WELD 		= 1;
 Joint.JOINT_REVOLUTE	= 2;
 Joint.JOINT_WHEEL 		= 3;
+Joint.JOINT_PULLEY		= 4;
 
 Joint.prototype.clone = function(){
 	return clone(this);
@@ -1208,4 +1227,50 @@ Joint.prototype.toPhysics = function(bodies){
 	joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
 	joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
 	return joint;
+};
+
+// pulley joint
+Joint.prototype.setGroundAnchorA = function(x, y){
+	this.groundAnchorA = [x, y];
+};
+Joint.prototype.setGroundAnchorB = function(x, y){
+	this.groundAnchorB = [x, y];
+};
+
+Joint.prototype.moveGroundAnchorA = function(x, y){
+	this.groundAnchorA[0] += x;
+	this.groundAnchorA[1] += y;
+};
+
+Joint.prototype.moveGroundAnchorB = function(x, y){
+	this.groundAnchorB[0] += x;
+	this.groundAnchorB[1] += y;
+};
+
+Joint.prototype.setLengthA = function(length){
+	this.lengthA = length;
+};
+
+Joint.prototype.setLengthB = function(length){
+	this.lengthB = length;
+};
+
+Joint.prototype.setMaxLengthA = function(length){
+	this.maxLengthA = length;
+};
+
+Joint.prototype.setMaxLengthB = function(length){
+	this.maxLengthB = length;
+};
+
+Joint.prototype.setRatio = function(ratio){
+	this.ratio = ratio;
+};
+
+Joint.prototype.getGroundAnchorABounds = function(){
+	return [this.groundAnchorA[0], this.groundAnchorA[1], 32, 32];
+};
+
+Joint.prototype.getGroundAnchorBBounds = function(){
+	return [this.groundAnchorB[0], this.groundAnchorB[1], 32, 32];
 };
