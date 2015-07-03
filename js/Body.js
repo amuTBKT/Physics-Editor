@@ -634,12 +634,13 @@ Body.prototype.setSpriteWidth = function(width){
 		return;
 	}
 
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		this.spriteData[4] = width;
 		this.spriteData[2] = width;
 		return;
 	}
 	this.sprite.width = width;
+	this.spriteData[0] = width;
 };
 
 Body.prototype.setSpriteHeight = function(height){
@@ -647,12 +648,13 @@ Body.prototype.setSpriteHeight = function(height){
 		return;
 	}
 
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		this.spriteData[5] = height;
 		this.spriteData[3] = height;
 		return;
 	}
 	this.sprite.height = height;
+	this.spriteData[1] = height;
 };
 
 Body.prototype.setSpriteSourceWidth = function(width){
@@ -660,7 +662,7 @@ Body.prototype.setSpriteSourceWidth = function(width){
 		return;
 	}
 
-	if (this.spriteData.length == 0){
+	if (this.spriteData.length == 2){
 		this.spriteData = [0, 0, width, this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
 		return;
 	}
@@ -673,7 +675,7 @@ Body.prototype.setSpriteSourceHeight = function(height){
 		return;
 	}
 
-	if (this.spriteData.length == 0){
+	if (this.spriteData.length == 2){
 		this.spriteData = [0, 0, this.intialSpriteData[0], height, this.intialSpriteData[0], this.intialSpriteData[1]];
 		return;
 	}
@@ -686,11 +688,11 @@ Body.prototype.setOffsetX = function(x){
 		return;
 	}
 
-	if (this.spriteData.length == 0){
+	if (this.spriteData.length == 2){
 		this.spriteData = [x, 0, this.intialSpriteData[0], this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
 	}
 
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		this.spriteData[0] = x;
 		return;
 	}
@@ -701,53 +703,53 @@ Body.prototype.setOffsetY = function(y){
 		return;
 	}
 
-	if (this.spriteData.length == 0){
+	if (this.spriteData.length == 2){
 		this.spriteData = [0, y, this.intialSpriteData[0], this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
 	}
 
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		this.spriteData[1] = y;
 		return;
 	}
 };
 
 Body.prototype.getSpriteWidth = function(){
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		return this.spriteData[4];
 	}
 	return this.sprite.width;
 };
 
 Body.prototype.getSpriteHeight = function(){
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		return this.spriteData[5];
 	}
 	return this.sprite.height;
 };
 
 Body.prototype.getSpriteSourceHeight = function(){
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		return this.spriteData[3];
 	}
 	return null;
 };
 
 Body.prototype.getSpriteSourceWidth = function(){
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		return this.spriteData[2];
 	}
 	return null;
 };
 
 Body.prototype.getSpriteOffsetX = function(){
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		return this.spriteData[0];
 	}
 	return null;
 };
 
 Body.prototype.getSpriteOffsetY = function(){
-	if (this.spriteData.length > 0){
+	if (this.spriteData.length > 2){
 		return this.spriteData[1];
 	}
 	return null;

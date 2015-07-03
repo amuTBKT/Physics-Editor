@@ -268,7 +268,7 @@ var Viewport = (function(){
 			this.context.globalAlpha = 0.5;
 
 			// if sprite is contained in a spritesheet	
-			if (body.spriteData.length > 0){
+			if (body.spriteData.length > 2){
 				var sourceX = body.spriteData[0],
 					sourceY = body.spriteData[1],
 					sourceW = body.spriteData[2],

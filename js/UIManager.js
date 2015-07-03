@@ -142,7 +142,7 @@ var UIManager = (function(){
 				}
 			}
 		});
-		$('#editMenu').find("a")[2].addEventListener("click", function(e){
+		$('#editMenu').find("a")[0].addEventListener("click", function(e){
 			sceneManager.deleteSelectedObjects();
 		});
 		$("#addToScene").find("a").each(function(index){
@@ -274,10 +274,11 @@ var UIManager = (function(){
 			this.value = null;
 		});
 		$(this.bodyProperties[5]).change(function(e){
+			// console.log(e.target.files[0].type);
 			if (e.target.files == null && e.target.files.length < 0){
 				return;
 			}
-			if(e.target.files[0].name && (e.target.files[0].type == "image/png" ||  e.target.files[0].type == "image/jpeg")){
+			if(e.target.files[0].name && (e.target.files[0].type == "image/png" ||  e.target.files[0].type == "image/jpeg" || e.target.files[0].type == "image/bmp")){
 				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
 					sceneManager.selectedBodies[i].setSprite(Editor.resourceDirectory + e.target.files[0].name);
 				}

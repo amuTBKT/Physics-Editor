@@ -1020,8 +1020,13 @@ var SceneManager = (function(){
 		body.name = obj.name;
 		body.userData = obj.userData;
 		body.texture = obj.texture;
-		body.sprite = obj.sprite;
 		body.spriteData = cloneArray(obj.spriteData);
+		body.sprite = new Image();
+		body.sprite.src = obj.texture;
+		if (body.spriteData.length == 2){
+			body.sprite.width = body.spriteData[0];
+			body.sprite.height = body.spriteData[1];
+		}
 		body.shapes = loadShape(obj.shapes);
 		body.position = cloneArray(obj.position);
 		body.scaleXY = cloneArray(obj.scaleXY);
