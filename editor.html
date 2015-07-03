@@ -80,27 +80,38 @@
 
 <div id="toolbar">
 	<div id="transformTools">
-		<button type="button" class="btn btn-default glyphicon glyphicon-move"  		id="tool_translation" 	data-event="activateTranslationTool"></button>
-		<button type="button" class="btn btn-default glyphicon glyphicon-fullscreen" 	id="tool_scale" 		data-event="activateScaleTool"></button>
-		<button type="button" class="btn btn-default glyphicon glyphicon-refresh"  		id="tool_rotation" 		data-event="activateRotationTool"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-move"  		id="tool_translation" 	data-event="activateTranslationTool" 
+		data-toggle="tooltip" data-placement="left" title="Translate"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-fullscreen" 	id="tool_scale" 		data-event="activateScaleTool" 
+		data-toggle="tooltip" data-placement="left" title="Scale"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-refresh"  		id="tool_rotation" 		data-event="activateRotationTool"
+		data-toggle="tooltip" data-placement="left" title="Rotate"></button>
 	</div>
 	<button type="button" class="btn btn-default separator"></button>
 	<div id="pivotTools">
-		<button type="button" class="btn btn-default glyphicon glyphicon-screenshot"  	id="pivot_local_select" 	data-event="activateLocalPivotMode"></button>
-		<button type="button" class="btn btn-default glyphicon glyphicon-th-large"  	id="pivot_selection_select" data-event="activateSelectionPivotMode"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-screenshot"  	id="pivot_local_select" 	data-event="activateLocalPivotMode"
+		data-toggle="tooltip" data-placement="left" title="Object Center"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-th-large"  	id="pivot_selection_select" data-event="activateSelectionPivotMode"
+		data-toggle="tooltip" data-placement="left" title="Selection Center"></button>
 	</div>
 	<button type="button" class="btn btn-default separator"></button>
 	<div id="viewControls">
-		<button type="button" class="btn btn-default glyphicon glyphicon-zoom-in"         id="zoom_in" 	  	data-event="zoomIn"></button>
-		<button type="button" class="btn btn-default glyphicon glyphicon-zoom-out"        id="zoom_out"   	data-event="zoomOut"></button>
-		<button type="button" class="btn btn-default glyphicon glyphicon-resize-small"    id="reset_view"   data-event="resetView"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-zoom-in"         id="zoom_in" 	  	data-event="zoomIn"
+		data-toggle="tooltip" data-placement="left" title="Zoom In"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-zoom-out"        id="zoom_out"   	data-event="zoomOut"
+		data-toggle="tooltip" data-placement="left" title="Zoom Out"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-resize-small"    id="reset_view"   data-event="resetView"
+		data-toggle="tooltip" data-placement="left" title="Reset"></button>
 	</div>
 </div>
 
 <div id="gameplayControls">
-	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-play"  			id="enter_gameview" 	data-event=""></button>
-	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-pause"  		id="pause_gameview"    data-event=""></button>
-	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-step-forward"  	id="skip_frame_gameview"    data-event=""></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-play"  			id="enter_gameview"
+	data-toggle="tooltip" data-placement="left" title="Play/Stop"></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-pause"  		id="pause_gameview"
+	data-toggle="tooltip" data-placement="left" title="Pause"></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-step-forward"  	id="skip_frame_gameview"
+	data-toggle="tooltip" data-placement="left" title="Next Frame"></button>
 </div>
 
 <div id="xyInput">
