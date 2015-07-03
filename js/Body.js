@@ -1059,7 +1059,7 @@ function PhysicsJoint(joint){
 		this.lengthB		= joint.lengthB;
 		this.maxLengthA     = joint.maxLengthA;
 		this.maxLengthB     = joint.maxLengthB;
-		this.ratio 			= joint.ratio;
+		this.ratio 			= joint.frequencyHZ;
 	}
 }
 
@@ -1106,7 +1106,7 @@ function Joint(type){
 		this.lengthB		= 100;
 		this.maxLengthA     = 100;
 		this.maxLengthB     = 100;
-		this.ratio 			= 1;
+		this.frequencyHZ    = 1;			// frequecyHZ is equivalent to ratio in this case (makes it easy to use the current ui layout)
 	}
 
 	// editor parameters
@@ -1123,6 +1123,7 @@ Joint.JOINT_WELD 		= 1;
 Joint.JOINT_REVOLUTE	= 2;
 Joint.JOINT_WHEEL 		= 3;
 Joint.JOINT_PULLEY		= 4;
+Joint.JOINT_GEAR		= 5;
 
 Joint.prototype.clone = function(){
 	return clone(this);
@@ -1276,10 +1277,6 @@ Joint.prototype.setMaxLengthA = function(length){
 
 Joint.prototype.setMaxLengthB = function(length){
 	this.maxLengthB = length;
-};
-
-Joint.prototype.setRatio = function(ratio){
-	this.ratio = ratio;
 };
 
 Joint.prototype.getGroundAnchorABounds = function(){

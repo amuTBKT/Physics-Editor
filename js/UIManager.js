@@ -317,14 +317,15 @@ var UIManager = (function(){
 			}
 			this.jointProperties[i].addEventListener('keypress', function(e){
 				if (e.which == 13){
-					for (var i = 0; i < sceneManager.selectedJoints.length; i++){
+					for (var j = 0; j < sceneManager.selectedJoints.length; j++){
 						var property = $(this).data('property');
 						if (i < 2){
-							sceneManager.selectedJoints[i][property] = this.value;
+							sceneManager.selectedJoints[j][property] = this.value;
 						}
 						else {
 							if (parseFloat(this.value) != null){
-								sceneManager.selectedJoints[i][property] = parseFloat(this.value)
+								console.log(parseFloat(this.value));
+								sceneManager.selectedJoints[j][property] = parseFloat(this.value);
 							}
 						}
 					}
@@ -555,6 +556,7 @@ var UIManager = (function(){
 
 				// distance or wheel joint
 				if (sceneManager.selectedJoints[0].jointType == 0 || sceneManager.selectedJoints[0].jointType == 3){
+					$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "Frequency Hz";
 					$(this.jointPropertyRows[4]).show();
 					$(this.jointPropertyRows[5]).show();
 					this.jointProperties[3].value = sceneManager.selectedJoints[0].frequencyHZ;
@@ -564,6 +566,14 @@ var UIManager = (function(){
 					$(this.jointPropertyRows[4]).hide();
 					$(this.jointPropertyRows[5]).hide();
 				}
+
+				// pulley or gear joint
+				if (sceneManager.selectedJoints[0].jointType == 4 || sceneManager.selectedJoints[0].jointType == 5){
+					$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "ratio";
+					this.jointProperties[3].value = sceneManager.selectedJoints[0].frequencyHZ;
+					$(this.jointPropertyRows[4]).show();
+				}
+
 
 				// revolute or wheel joint
 				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3){
