@@ -106,6 +106,8 @@ public class WorldLoader {
 									(float) (-jsonBody.getLong("rotation") * Math.PI / 180)
 								);
 			body.setFixedRotation(jsonBody.getBoolean("isFixedRotation"));
+			body.setLinearDamping(jsonBody.getLong("linearDamping"));
+			body.setAngularDamping(jsonBody.getLong("angularDamping"));
 			
 			// add body to array list to use when creating joints
 			loadedBodies.add(body);

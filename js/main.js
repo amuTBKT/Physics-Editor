@@ -31,6 +31,9 @@ function init(){
 		// canvas.height = window.innerHeight * 0.8;
 		// Editor.viewport.getRenderer().setStageWidthHeight(canvas.width, canvas.height);
 	});
+	window.onbeforeunload = function(){
+    	return "All Unsaved Changes Would Be Lost";
+	}
 }
 
 // update loop 
