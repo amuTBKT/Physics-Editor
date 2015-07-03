@@ -22,6 +22,9 @@
         restitution: elasticity of coillison (if more, body would bounce more)
         friction
         density
+        maskBits
+        categoryBits
+        groupIndex
         shapes: array of shapes sharing same fixture (concave shape is exported as seprate convex shapes having same physical properties)
 
     shape : the actual geometry
@@ -78,6 +81,9 @@
                     "restitution": float,
                     "friction": float,
                     "density": float,
+                    "maskBits": short,
+        			"categoryBits" short:,
+        			"groupIndex": short,
                     // array of shapes
                     "shapes": [
                         {

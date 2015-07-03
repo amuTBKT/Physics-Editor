@@ -17,10 +17,15 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
+import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.badlogic.gdx.physics.box2d.joints.WeldJoint;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
+import com.badlogic.gdx.physics.box2d.joints.WheelJoint;
 import com.badlogic.gdx.physics.box2d.joints.WheelJointDef;
 
 /* 
@@ -94,6 +99,7 @@ public class WorldLoader {
 			bodyDef.type = bodyTypes[jsonBody.getInt("type")];
 			Body body = world.createBody(bodyDef);
 			body.setBullet(jsonBody.getBoolean("isBullet"));
+			body.setUserData(jsonBody.getString("userData"));
 			body.setTransform	(	
 									offsetX / RATIO + jsonBody .getJSONArray("position").getLong(0) / RATIO, 
 									offsetY / RATIO - jsonBody .getJSONArray("position").getLong(1) / RATIO, 
@@ -129,6 +135,9 @@ public class WorldLoader {
 			float 	density = jsonFixture.getLong("density"), 
 					restitution = jsonFixture.getLong("restitution"), 
 					friction = jsonFixture.getLong("friction");
+			short  	maskBits = (short) jsonFixture.getLong("maskBits"),
+					categoryBits = (short) jsonFixture.getLong("categoryBits"),
+					groupIndex = (short) jsonFixture.getLong("groupIndex");
 			boolean isSensor = jsonFixture.getBoolean("isSensor");
 			
 			for (int k = 0; k < jsonFixture.getJSONArray("shapes").length(); k++){
@@ -139,6 +148,9 @@ public class WorldLoader {
 				fixture.friction = friction;
 				fixture.restitution = restitution;
 				fixture.isSensor = isSensor;
+				fixture.filter.maskBits = maskBits;
+				fixture.filter.categoryBits = categoryBits;
+				fixture.filter.groupIndex = groupIndex;
 				
 				Vector2 position = new Vector2(jsonShape.getJSONArray("position").getInt(0) / RATIO,
 						-jsonShape.getJSONArray("position").getInt(1) / RATIO);
@@ -207,7 +219,9 @@ public class WorldLoader {
 			    jointDef.length           = jsonJoint.getLong("length") / 30;
 			    jointDef.dampingRatio 	  = jsonJoint.getLong("dampingRatio");
 			    jointDef.frequencyHz      = jsonJoint.getLong("frequencyHZ");
-			    world.createJoint(jointDef);
+			    
+			    DistanceJoint joint = (DistanceJoint) world.createJoint(jointDef);
+			    joint.setUserData(jsonJoint.getString("userData"));
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_WELD.ordinal()){
 				WeldJointDef jointDef = new WeldJointDef();
@@ -218,7 +232,9 @@ public class WorldLoader {
 				jointDef.localAnchorB.set(new Vector2(jsonJoint.getJSONArray("localAnchorB").getInt(0) / RATIO,
 						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");
-			    world.createJoint(jointDef);
+			    
+				WeldJoint joint = (WeldJoint) world.createJoint(jointDef);
+			    joint.setUserData(jsonJoint.getString("userData"));
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_REVOLUTE.ordinal()){
 				RevoluteJointDef jointDef = new RevoluteJointDef();
@@ -234,11 +250,12 @@ public class WorldLoader {
 			    jointDef.enableMotor  	= jsonJoint.getBoolean("enableMotor");
 			    jointDef.lowerAngle   	= (float) (jsonJoint.getLong("lowerAngle") * Math.PI / 180);
 			    jointDef.maxMotorTorque = jsonJoint.getLong("maxMotorTorque");
-			    jointDef.motorSpeed   	= jsonJoint.getLong("motorSpeed");
+			    jointDef.motorSpeed   	= -jsonJoint.getLong("motorSpeed");
 			    jointDef.referenceAngle = (float) (jsonJoint.getLong("referenceAngle") * Math.PI / 180);
 			    jointDef.upperAngle   	= (float) (jsonJoint.getLong("upperAngle") * Math.PI / 180);;
 				
-				world.createJoint(jointDef);
+				RevoluteJoint joint = (RevoluteJoint) world.createJoint(jointDef);
+				joint.setUserData(jsonJoint.getString("userData"));
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_WHEEL.ordinal()){
 				WheelJointDef jointDef = new WheelJointDef();
@@ -252,11 +269,12 @@ public class WorldLoader {
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");;
 			    jointDef.enableMotor  	  = jsonJoint.getBoolean("enableMotor");
 			    jointDef.maxMotorTorque   = jsonJoint.getLong("maxMotorTorque");
-			    jointDef.motorSpeed   	  = jsonJoint.getLong("motorSpeed");
+			    jointDef.motorSpeed   	  = -jsonJoint.getLong("motorSpeed");
 			    jointDef.dampingRatio     = jsonJoint.getLong("dampingRatio");
 			    jointDef.frequencyHz      = jsonJoint.getLong("frequencyHZ");
 			    
-				world.createJoint(jointDef);
+				WheelJoint joint = (WheelJoint) world.createJoint(jointDef);
+				joint.setUserData(jsonJoint.getString("userData"));
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_PULLEY.ordinal()){
 				PulleyJointDef jointDef = new PulleyJointDef();
@@ -273,8 +291,10 @@ public class WorldLoader {
 						offsetY / RATIO - jsonJoint.getJSONArray("groundAnchorB").getInt(1) / RATIO));
 				jointDef.lengthA = jsonJoint.getLong("lengthA") / RATIO;
 				jointDef.lengthB = jsonJoint.getLong("lengthB") / RATIO;
-				jointDef.ratio = 1;//jsonJoint.getLong("ratio");
-			    world.createJoint(jointDef);
+				jointDef.ratio = jsonJoint.getLong("ratio");
+			    
+				PulleyJoint joint = (PulleyJoint) world.createJoint(jointDef);
+			    joint.setUserData(jsonJoint.getString("userData"));
 			}
 			
 		}

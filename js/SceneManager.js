@@ -1005,6 +1005,9 @@ var SceneManager = (function(){
 			shape.restitution = obj[i].restitution;
 			shape.density = obj[i].density;
 			shape.isSensor = obj[i].isSensor;
+			shape.maskBits = obj[i].maskBits;
+			shape.categoryBits = obj[i].categoryBits;
+			shape.groupIndex = obj[i].groupIndex;
 
 			if (shape.shapeType == Shape.SHAPE_BOX){
 				shape.width = obj[i].width;

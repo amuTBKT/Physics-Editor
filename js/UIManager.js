@@ -190,7 +190,7 @@ var UIManager = (function(){
 
 		// properties of selected shape(s)
 		this.shapeProperties =  $("#shape_properties").find("input");
-		for (var i = 0; i < 3; i++){
+		for (var i = 0; i < 6; i++){
 			this.shapeProperties[i].addEventListener('keypress', function(e){
 				if (e.which == 13){
 					var property = $(this).data('property');
@@ -201,14 +201,14 @@ var UIManager = (function(){
 				}
 			});
 		}
-		$(this.shapeProperties[3]).change(function(){
+		$(this.shapeProperties[6]).change(function(){
 			for (var i = 0; i < sceneManager.selectedShapes.length; i++){
 				var property = $(this).data('property');
 				sceneManager.selectedShapes[i][property] = $(this).is(":checked");
 			}
 		});
 		var ref = this;
-		this.shapeProperties[4].addEventListener('click', function(){
+		this.shapeProperties[7].addEventListener('click', function(){
 			if (sceneManager.state == sceneManager.STATE_BODY_EDIT_MODE){
 				sceneManager.enterShapeEditMode();
 				this.value = "Done";
@@ -407,15 +407,18 @@ var UIManager = (function(){
 				this.shapeProperties[0].value = sceneManager.selectedShapes[0].density;
 				this.shapeProperties[1].value = sceneManager.selectedShapes[0].friction;
 				this.shapeProperties[2].value = sceneManager.selectedShapes[0].restitution;
-				this.shapeProperties[3].checked = sceneManager.selectedShapes[0].isSensor;
-				this.shapeProperties[4].disabled = false; 
+				this.shapeProperties[3].value = sceneManager.selectedShapes[0].maskBits;
+				this.shapeProperties[4].value = sceneManager.selectedShapes[0].categoryBits;
+				this.shapeProperties[5].value = sceneManager.selectedShapes[0].groupIndex;
+				this.shapeProperties[6].checked = sceneManager.selectedShapes[0].isSensor;
+				this.shapeProperties[7].disabled = false; 
 			}
 			else {
 				this.shapeProperties[0].value = "";
 				this.shapeProperties[0].disabled = true;
 				this.shapeProperties[1].value = "";
-				this.shapeProperties[2].value = "";
-				this.shapeProperties[4].disabled = true;
+				this.shapeProperties[6].value = "";
+				this.shapeProperties[7].disabled = true;
 
 				var allAreSensor = false; 
 				for (var i = 0; i < sceneManager.selectedShapes.length; i++){

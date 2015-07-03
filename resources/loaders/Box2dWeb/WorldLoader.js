@@ -87,6 +87,9 @@ var WorldLoader = (function(){
 			fixture.restitution = f.restitution;
 			fixture.friction = f.friction;
 			fixture.isSensor = f.isSensor;
+			fixture.filter.maskBits = f.maskBits;
+			fixture.filter.categoryBits = f.categoryBits;
+			fixture.filter.groupIndex = f.groupIndex;
 
 			for (var j = 0; j < f.shapes.length; j++){
 		    	var s = f.shapes[j];

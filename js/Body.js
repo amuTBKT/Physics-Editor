@@ -121,6 +121,9 @@ function Shape(type, width, height){
 	this.restitution = 0.25;
 	this.density = 1;
 	this.isSensor = false;
+	this.maskBits = 65535;
+	this.categoryBits = 1;
+	this.groupIndex = 0;
 
 	if (type == Shape.SHAPE_NONE){
 		this.shapeType = Shape.SHAPE_POLYGON;
@@ -584,6 +587,9 @@ Shape.prototype.toPhysics = function(x, y){
 	fixture.friction = this.friction;
 	fixture.density = this.density;
 	fixture.isSensor = this.isSensor;
+	fixture.maskBits = this.maskBits;
+	fixture.categoryBits = this.categoryBits;
+	fixture.groupIndex = this.groupIndex;
 	fixture.shapes = this.exportShape(x, y);
 	return fixture;
 };
@@ -973,6 +979,9 @@ function Fixture(){
 	this.friction;
 	this.density;
 	this.isSensor = false;
+	this.maskBits = 65535;
+	this.categoryBits = 1;
+	this.groupIndex = 0;
 }
 
 function PhysicsShape(type){
