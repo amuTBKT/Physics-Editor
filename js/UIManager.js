@@ -426,7 +426,7 @@ var UIManager = (function(){
 			}
 			else {
 				this.shapeProperties[0].value = "";
-				this.shapeProperties[0].disabled = true;
+				// this.shapeProperties[0].disabled = true;
 				this.shapeProperties[1].value = "";
 				this.shapeProperties[6].value = "";
 				this.shapeProperties[7].disabled = true;

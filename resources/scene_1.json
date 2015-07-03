@@ -1,0 +1,3992 @@
+{
+    "bodies": [
+        {
+            "name": "level_reference",
+            "userData": "",
+            "texture": "resources/level.jpg",
+            "spriteData": [
+                960,
+                640
+            ],
+            "initialSpriteData": [
+                960,
+                640
+            ],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        1492.1792459128533,
+                        -323.8244178574454
+                    ],
+                    "scaleXY": [
+                        0.38500003601293303,
+                        0.2827877909420553
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 1472.9292441122075,
+                            "y": -337.963807404548,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 1511.4292477135011,
+                            "y": -337.963807404548,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 1511.4292477135011,
+                            "y": -309.6850283103421,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 1472.9292441122075,
+                            "y": -309.6850283103421,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        1492.1792459128542,
+                        -323.82441785744504,
+                        38.500003601293656,
+                        28.278779094205902
+                    ],
+                    "centroid": [
+                        1492.1792459128542,
+                        -323.82441785744504
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": true,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 38.5000036012933,
+                    "height": 28.278779094205547
+                }
+            ],
+            "position": [
+                1492.1792459128533,
+                -323.8244178574454
+            ],
+            "scaleXY": [
+                0.38500003601293303,
+                0.2827877909420553
+            ],
+            "rotation": 0,
+            "bounds": [
+                1492.1792459128542,
+                -323.82441785744504,
+                38.500003601293656,
+                28.278779094205902
+            ],
+            "isSelected": false,
+            "bodyType": "0",
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body2",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        306.84336893656126,
+                        -226.60936976951382
+                    ],
+                    "scaleXY": [
+                        0.23968767967320675,
+                        0.474784063308114
+                    ],
+                    "rotation": 89.88930872580328,
+                    "vertices": [
+                        {
+                            "x": 330.5593748577131,
+                            "y": -238.6395937717541,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 330.6056807434065,
+                            "y": -214.6708705342469,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 283.1273630154085,
+                            "y": -214.57914576727347,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 283.08105712971553,
+                            "y": -238.5478690047804,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        306.843368936561,
+                        -226.6093697695138,
+                        47.52462361369095,
+                        24.060448004480634
+                    ],
+                    "centroid": [
+                        306.84336893656086,
+                        -226.60936976951373
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 23.9687679673207,
+                    "height": 47.47840633081142
+                }
+            ],
+            "position": [
+                306.84336893656126,
+                -226.60936976951382
+            ],
+            "scaleXY": [
+                0.23968767967320675,
+                0.474784063308114
+            ],
+            "rotation": 89.88930872580328,
+            "bounds": [
+                306.843368936561,
+                -226.6093697695138,
+                47.52462361369095,
+                24.060448004480634
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body3",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        560.2584220067031,
+                        -174.79058083090888
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": -43.773156670983035,
+                    "vertices": [
+                        {
+                            "x": 523.2987233368267,
+                            "y": -204.06139957899393,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 532.5967521519026,
+                            "y": -212.9695302244593,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 597.2181206765791,
+                            "y": -145.51976208282372,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 587.9200918615034,
+                            "y": -136.61163143735803,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        560.2584220067029,
+                        -174.79058083090865,
+                        73.91939733975244,
+                        76.35789878710128
+                    ],
+                    "centroid": [
+                        560.258422006703,
+                        -174.79058083090874
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                560.2584220067031,
+                -174.79058083090888
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": -43.773156670983035,
+            "bounds": [
+                560.2584220067029,
+                -174.79058083090865,
+                73.91939733975244,
+                76.35789878710128
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body4",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        306.23093498152036,
+                        -346.88562149926594
+                    ],
+                    "scaleXY": [
+                        0.47882263200924374,
+                        0.49162166965715354
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 282.2898033810581,
+                            "y": -371.4667049821237,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 330.1720665819826,
+                            "y": -371.4667049821237,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 330.1720665819826,
+                            "y": -322.3045380164082,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 282.2898033810581,
+                            "y": -322.3045380164082,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        306.23093498152036,
+                        -346.88562149926594,
+                        47.88226320092451,
+                        49.16216696571553
+                    ],
+                    "centroid": [
+                        306.23093498152036,
+                        -346.8856214992659
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 47.882263200924406,
+                    "height": 49.16216696571538
+                }
+            ],
+            "position": [
+                306.23093498152036,
+                -346.88562149926594
+            ],
+            "scaleXY": [
+                0.47882263200924374,
+                0.49162166965715354
+            ],
+            "rotation": 0,
+            "bounds": [
+                306.23093498152036,
+                -346.88562149926594,
+                47.88226320092451,
+                49.16216696571553
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body5",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        307.4490875328957,
+                        -316.10222505326846
+                    ],
+                    "scaleXY": [
+                        0.1348521604627525,
+                        0.9947138648392299
+                    ],
+                    "rotation": 89.56090918067159,
+                    "vertices": [
+                        {
+                            "x": 357.1316482681166,
+                            "y": -323.2257848377498,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 357.2349922954384,
+                            "y": -309.74096478604986,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 257.7665267976737,
+                            "y": -308.9786652687867,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 257.6631827703545,
+                            "y": -322.46348532048637,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        307.44908753289644,
+                        -316.1022250532683,
+                        99.57180952508389,
+                        14.247119568963114
+                    ],
+                    "centroid": [
+                        307.44908753289576,
+                        -316.10222505326817
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 13.485216046275266,
+                    "height": 99.47138648392298
+                }
+            ],
+            "position": [
+                307.4490875328957,
+                -316.10222505326846
+            ],
+            "scaleXY": [
+                0.1348521604627525,
+                0.9947138648392299
+            ],
+            "rotation": 89.56090918067159,
+            "bounds": [
+                307.44908753289644,
+                -316.1022250532683,
+                99.57180952508389,
+                14.247119568963114
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body6",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        294.774144601005,
+                        -286.0461139613572
+                    ],
+                    "scaleXY": [
+                        0.23968767967320675,
+                        0.474784063308114
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 282.78976061734454,
+                            "y": -309.785317126763,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 306.75852858466544,
+                            "y": -309.785317126763,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 306.75852858466544,
+                            "y": -262.3069107959514,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 282.78976061734454,
+                            "y": -262.3069107959514,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        294.774144601005,
+                        -286.0461139613572,
+                        23.9687679673209,
+                        47.478406330811595
+                    ],
+                    "centroid": [
+                        294.774144601005,
+                        -286.0461139613572
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 23.9687679673207,
+                    "height": 47.47840633081142
+                }
+            ],
+            "position": [
+                294.774144601005,
+                -286.0461139613572
+            ],
+            "scaleXY": [
+                0.23968767967320675,
+                0.474784063308114
+            ],
+            "rotation": 0,
+            "bounds": [
+                294.774144601005,
+                -286.0461139613572,
+                23.9687679673209,
+                47.478406330811595
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body7",
+            "userData": "stone",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 2,
+                    "position": [
+                        299.2181805988626,
+                        -114.66179226796315
+                    ],
+                    "scaleXY": [
+                        1,
+                        1
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 457.3495740018415,
+                            "y": -57.023319569589404,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 152.1875026700019,
+                            "y": -56.329524852456956,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 196.40628613854392,
+                            "y": -115.90433489524169,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 232.6125537973287,
+                            "y": -150.23871721584328,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 281.1276021625476,
+                            "y": -170.29480244960362,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 340.2039847005481,
+                            "y": -168.2134182982063,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 381.7784179808076,
+                            "y": -146.07594891304853,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 417.2935588360938,
+                            "y": -108.9663877239171,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        304.7685383359217,
+                        -113.31216365103029,
+                        305.1620713318396,
+                        113.96527759714667
+                    ],
+                    "centroid": [
+                        307.36993503596415,
+                        -121.63080673973836
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 10,
+                    "restitution": 0,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0
+                },
+                {
+                    "shapeType": 2,
+                    "position": [
+                        918.8652179466399,
+                        -105.83727682572014
+                    ],
+                    "scaleXY": [
+                        1,
+                        1
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 887.6911905843092,
+                            "y": -142.89442063732224,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 900.038202140403,
+                            "y": -173.52255059665833,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 907.4901496428138,
+                            "y": -189.21086112804937,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 908.2745651693831,
+                            "y": -238.6290393019317,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 924.355083464059,
+                            "y": -285.3017631328189,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 909.451188459238,
+                            "y": -319.8160463018795,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 869.0537888409053,
+                            "y": -337.8576034129793,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 827.0875581694352,
+                            "y": -318.63942301202565,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 818.8511951404538,
+                            "y": -330.79786367385356,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 820.0278184303083,
+                            "y": -375.90175645160286,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 801.5940535559239,
+                            "y": -422.966688045776,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 761.9810694641617,
+                            "y": -437.87058305059713,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 720.7992543192597,
+                            "y": -419.43681817621257,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 714.131722343418,
+                            "y": -439.0472063404515,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 723.5447086622527,
+                            "y": -457.48097121483625,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 723.5447086622526,
+                            "y": -504.15369504572476,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 688.2460099666234,
+                            "y": -539.4523937413549,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 703.9343204980137,
+                            "y": -550.8264188766136,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 691.775879836186,
+                            "y": -570.0445992775676,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 791.7888594738038,
+                            "y": -620.6394007413038,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 819.2434029037379,
+                            "y": -573.9666769104156,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 841.5992454109694,
+                            "y": -555.9251197993151,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 896.1161245075548,
+                            "y": -511.6056425481358,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 890.2330080582828,
+                            "y": -503.7614872824402,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 934.9446930727478,
+                            "y": -442.5770762100148,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 957.3005355799797,
+                            "y": -440.223829630306,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 951.8096268939938,
+                            "y": -386.88357382357685,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 969.6496334732095,
+                            "y": -391.5541425598715,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 968.86521794664,
+                            "y": -55.837276825720025,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 513.8169333293398,
+                            "y": -56.41196454280506,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 513.3984298226446,
+                            "y": -70.18463989242098,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 502.67597284301473,
+                            "y": -82.62449937080609,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 595.7604869382919,
+                            "y": -82.89955579661178,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 613.4895592773469,
+                            "y": -92.40654938005788,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 613.8023465971653,
+                            "y": -107.21747982563558,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 655.6927656139859,
+                            "y": -108.80826965467077,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 662.7525053531122,
+                            "y": -113.51476281408806,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 717.6615922129808,
+                            "y": -111.55372399766428,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 753.7447064351807,
+                            "y": -88.80567372714718,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 808.6537932950494,
+                            "y": -89.19788149043193,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 854.9343093626533,
+                            "y": -110.37710070780996,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        736.1628031581122,
+                        -338.2383387835119,
+                        466.9736606301948,
+                        564.8021239155838
+                    ],
+                    "centroid": [
+                        783.6538101402706,
+                        -308.5567568036464
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 10,
+                    "restitution": 0,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0
+                },
+                {
+                    "shapeType": 0,
+                    "position": [
+                        488.18597800923783,
+                        -29.247193352853202
+                    ],
+                    "scaleXY": [
+                        9.634403356601428,
+                        0.5420233151730673
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 6.465810179166624,
+                            "y": -56.34835911150615,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 969.9061458393056,
+                            "y": -56.34835911150647,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 969.9061458393055,
+                            "y": -2.1460275941998503,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 6.465810179166567,
+                            "y": -2.146027594199893,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        488.1859780092361,
+                        -29.24719335285316,
+                        963.440335660139,
+                        54.20233151730662
+                    ],
+                    "centroid": [
+                        488.18597800923607,
+                        -29.247193352853092
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 10,
+                    "restitution": 0,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 963.4403356601435,
+                    "height": 54.2023315173067
+                }
+            ],
+            "position": [
+                299.218180598863,
+                -113.57992938723612
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "rotation": 0,
+            "bounds": [
+                488.1859780092361,
+                -311.3927141677518,
+                963.440335660139,
+                618.493373147104
+            ],
+            "isSelected": false,
+            "bodyType": "0",
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body8",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        319.53830416059,
+                        -286.0461139613572
+                    ],
+                    "scaleXY": [
+                        0.23968767967320675,
+                        0.474784063308114
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 307.5539201769295,
+                            "y": -309.785317126763,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 331.5226881442504,
+                            "y": -309.785317126763,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 331.5226881442504,
+                            "y": -262.3069107959514,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 307.5539201769295,
+                            "y": -262.3069107959514,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        319.53830416059,
+                        -286.0461139613572,
+                        23.9687679673209,
+                        47.478406330811595
+                    ],
+                    "centroid": [
+                        319.53830416059,
+                        -286.0461139613572
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 23.9687679673207,
+                    "height": 47.47840633081142
+                }
+            ],
+            "position": [
+                319.53830416059,
+                -286.0461139613572
+            ],
+            "scaleXY": [
+                0.23968767967320675,
+                0.474784063308114
+            ],
+            "rotation": 0,
+            "bounds": [
+                319.53830416059,
+                -286.0461139613572,
+                23.9687679673209,
+                47.478406330811595
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body9",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        306.4638888975007,
+                        -250.42231602693437
+                    ],
+                    "scaleXY": [
+                        0.23968767967320675,
+                        0.474784063308114
+                    ],
+                    "rotation": 89.56090918067159,
+                    "vertices": [
+                        {
+                            "x": 330.1105525665272,
+                            "y": -262.58827360207596,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 330.2942373516377,
+                            "y": -238.62020947976958,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 282.817225228474,
+                            "y": -238.25635845179278,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 282.6335404433637,
+                            "y": -262.22442257409887,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        306.46388889750074,
+                        -250.42231602693437,
+                        47.66069690827402,
+                        24.33191515028318
+                    ],
+                    "centroid": [
+                        306.4638888975006,
+                        -250.42231602693428
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 23.9687679673207,
+                    "height": 47.47840633081142
+                }
+            ],
+            "position": [
+                306.4638888975007,
+                -250.42231602693437
+            ],
+            "scaleXY": [
+                0.23968767967320675,
+                0.474784063308114
+            ],
+            "rotation": 89.56090918067159,
+            "bounds": [
+                306.46388889750074,
+                -250.42231602693437,
+                47.66069690827402,
+                24.33191515028318
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body10",
+            "userData": "stone",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        687.3145178389307,
+                        -124.56996659212994
+                    ],
+                    "scaleXY": [
+                        0.485593347283621,
+                        0.2225931886674684
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 663.0348504747495,
+                            "y": -135.69962602550348,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 711.5941852031118,
+                            "y": -135.69962602550348,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 711.5941852031118,
+                            "y": -113.44030715875655,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 663.0348504747495,
+                            "y": -113.44030715875655,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        687.3145178389307,
+                        -124.56996659213002,
+                        48.55933472836227,
+                        22.259318866746924
+                    ],
+                    "centroid": [
+                        687.3145178389307,
+                        -124.56996659213002
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 48.559334728362145,
+                    "height": 22.259318866746842
+                }
+            ],
+            "position": [
+                687.3145178389307,
+                -124.56996659212994
+            ],
+            "scaleXY": [
+                0.485593347283621,
+                0.2225931886674684
+            ],
+            "rotation": 0,
+            "bounds": [
+                687.3145178389307,
+                -124.56996659213002,
+                48.55933472836227,
+                22.259318866746924
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body11",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        410.18481529658965,
+                        -149.37525933741233
+                    ],
+                    "scaleXY": [
+                        0.126632994481605,
+                        0.4682601160337231
+                    ],
+                    "rotation": 23.761992005207922,
+                    "vertices": [
+                        {
+                            "x": 413.8239131934649,
+                            "y": -173.35474213824017,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 425.4137088368171,
+                            "y": -168.25221434712313,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 406.5457173997146,
+                            "y": -125.39577653658469,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 394.9559217563623,
+                            "y": -130.49830432770122,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        410.1848152965897,
+                        -149.37525933741244,
+                        30.457787080454807,
+                        47.95896560165548
+                    ],
+                    "centroid": [
+                        410.1848152965897,
+                        -149.3752593374123
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.663299448160501,
+                    "height": 46.82601160337229
+                }
+            ],
+            "position": [
+                410.18481529658965,
+                -149.37525933741233
+            ],
+            "scaleXY": [
+                0.126632994481605,
+                0.4682601160337231
+            ],
+            "rotation": 23.761992005207922,
+            "bounds": [
+                410.1848152965897,
+                -149.37525933741244,
+                30.457787080454807,
+                47.95896560165548
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body12",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        463.25741354708725,
+                        -224.59311201990576
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": -43.773156670983035,
+                    "vertices": [
+                        {
+                            "x": 426.2977148772111,
+                            "y": -253.86393076799072,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 435.5957436922868,
+                            "y": -262.7720614134566,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 500.21711221696336,
+                            "y": -195.32229327182063,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 490.9190834018877,
+                            "y": -186.41416262635494,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        463.25741354708725,
+                        -224.59311201990576,
+                        73.91939733975227,
+                        76.35789878710165
+                    ],
+                    "centroid": [
+                        463.25741354708725,
+                        -224.59311201990573
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                463.25741354708725,
+                -224.59311201990576
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": -43.773156670983035,
+            "bounds": [
+                463.25741354708725,
+                -224.59311201990576,
+                73.91939733975227,
+                76.35789878710165
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body14",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        766.6534365882467,
+                        -383.25947474795043
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 42.71787573450157,
+                    "vertices": [
+                        {
+                            "x": 793.607269799563,
+                            "y": -421.94139599247774,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 803.0677833905338,
+                            "y": -413.206018837614,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 739.6996033769302,
+                            "y": -344.57755350342387,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 730.2390897859598,
+                            "y": -353.3129306582872,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        766.6534365882468,
+                        -383.2594747479508,
+                        72.82869360457403,
+                        77.36384248905387
+                    ],
+                    "centroid": [
+                        766.6534365882467,
+                        -383.25947474795066
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                766.6534365882467,
+                -383.25947474795043
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 42.71787573450157,
+            "bounds": [
+                766.6534365882468,
+                -383.2594747479508,
+                72.82869360457403,
+                77.36384248905387
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body15",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        475.93717673565783,
+                        -100.51296360450633
+                    ],
+                    "scaleXY": [
+                        0.1293021165245468,
+                        0.8665192027125561
+                    ],
+                    "rotation": 2.604053918378949,
+                    "vertices": [
+                        {
+                            "x": 471.4472044007375,
+                            "y": -144.08791700035042,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 484.36406376926794,
+                            "y": -143.5004500388293,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 480.427149070578,
+                            "y": -56.93801020866227,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 467.5102897020477,
+                            "y": -57.52547717018331,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        475.93717673565783,
+                        -100.51296360450634,
+                        16.85377406722023,
+                        87.14990679168815
+                    ],
+                    "centroid": [
+                        475.9371767356578,
+                        -100.51296360450633
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.930211652454682,
+                    "height": 86.65192027125556
+                }
+            ],
+            "position": [
+                475.93717673565783,
+                -100.51296360450633
+            ],
+            "scaleXY": [
+                0.1293021165245468,
+                0.8665192027125561
+            ],
+            "rotation": 2.604053918378949,
+            "bounds": [
+                475.93717673565783,
+                -100.51296360450634,
+                16.85377406722023,
+                87.14990679168815
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body16",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        439.1549151385556,
+                        -124.96225385260989
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": -9.439695454123692,
+                    "vertices": [
+                        {
+                            "x": 425.1437275738855,
+                            "y": -169.97877058790314,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 437.8460125151428,
+                            "y": -172.09066279958915,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 453.1661027032258,
+                            "y": -79.94573711731678,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 440.46381776196887,
+                            "y": -77.83384490563057,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        439.1549151385557,
+                        -124.96225385260986,
+                        28.022375129340332,
+                        94.25681789395858
+                    ],
+                    "centroid": [
+                        439.15491513855574,
+                        -124.9622538526099
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                439.1549151385556,
+                -124.96225385260989
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": -9.439695454123692,
+            "bounds": [
+                439.1549151385557,
+                -124.96225385260986,
+                28.022375129340332,
+                94.25681789395858
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body17",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        543.9581341346725,
+                        -130.1803129080034
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 537.5198088197582,
+                            "y": -176.88521760858737,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 550.3964594495868,
+                            "y": -176.88521760858737,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 550.3964594495868,
+                            "y": -83.47540820741946,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 537.5198088197582,
+                            "y": -83.47540820741946,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        543.9581341346725,
+                        -130.18031290800343,
+                        12.876650629828646,
+                        93.4098094011679
+                    ],
+                    "centroid": [
+                        543.9581341346725,
+                        -130.18031290800343
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                543.9581341346725,
+                -130.1803129080034
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 0,
+            "bounds": [
+                543.9581341346725,
+                -130.18031290800343,
+                12.876650629828646,
+                93.4098094011679
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body18",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        825.9437427860852,
+                        -148.70851500933068
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": -15.453745440736402,
+                    "vertices": [
+                        {
+                            "x": 807.2931839448958,
+                            "y": -192.00928649047898,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 819.7042905924386,
+                            "y": -195.4404033969669,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 844.5943016272746,
+                            "y": -105.40774352818258,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 832.1831949797319,
+                            "y": -101.97662662169449,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        825.9437427860852,
+                        -148.7085150093307,
+                        37.301117682378845,
+                        93.46377677527241
+                    ],
+                    "centroid": [
+                        825.9437427860852,
+                        -148.7085150093307
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                825.9437427860852,
+                -148.70851500933068
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": -15.453745440736402,
+            "bounds": [
+                825.9437427860852,
+                -148.7085150093307,
+                37.301117682378845,
+                93.46377677527241
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body19",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        677.5315297877224,
+                        -216.57540638044142
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 70.68500129951983,
+                    "vertices": [
+                        {
+                            "x": 719.4780710296769,
+                            "y": -238.0995285179012,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 723.7371706179573,
+                            "y": -225.94764791694953,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 635.584988545768,
+                            "y": -195.0512842429818,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 631.3258889574878,
+                            "y": -207.20316484393337,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        677.5315297877225,
+                        -216.5754063804415,
+                        92.41128166046951,
+                        43.0482442749194
+                    ],
+                    "centroid": [
+                        677.5315297877224,
+                        -216.57540638044145
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                677.5315297877224,
+                -216.57540638044142
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 70.68500129951983,
+            "bounds": [
+                677.5315297877225,
+                -216.5754063804415,
+                92.41128166046951,
+                43.0482442749194
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body20",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        883.8126404422236,
+                        -278.3608217386178
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 25.059261912409305,
+                    "vertices": [
+                        {
+                            "x": 897.7624701526361,
+                            "y": -323.39638998197165,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 909.4270439985102,
+                            "y": -317.9424145111049,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 869.8628107318111,
+                            "y": -233.3252534952642,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 858.1982368859367,
+                            "y": -238.77922896613086,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        883.8126404422235,
+                        -278.3608217386179,
+                        51.22880711257346,
+                        90.07113648670745
+                    ],
+                    "centroid": [
+                        883.8126404422236,
+                        -278.3608217386179
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                883.8126404422236,
+                -278.3608217386178
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 25.059261912409305,
+            "bounds": [
+                883.8126404422235,
+                -278.3608217386179,
+                51.22880711257346,
+                90.07113648670745
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body21",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        785.2981869649263,
+                        -311.6636333015036
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 39.361820666699415,
+                    "vertices": [
+                        {
+                            "x": 809.9413273108748,
+                            "y": -351.8571127458262,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 819.8969916125603,
+                            "y": -343.69054187704614,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 760.6550466189778,
+                            "y": -271.47015385718106,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 750.6993823172922,
+                            "y": -279.63672472596113,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        785.2981869649263,
+                        -311.66363330150364,
+                        69.19760929526808,
+                        80.38695888864515
+                    ],
+                    "centroid": [
+                        785.2981869649263,
+                        -311.66363330150364
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                785.2981869649263,
+                -311.6636333015036
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 39.361820666699415,
+            "bounds": [
+                785.2981869649263,
+                -311.66363330150364,
+                69.19760929526808,
+                80.38695888864515
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body22",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        739.8049960458296,
+                        -338.8849688514545
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 104.43713479481104,
+                    "vertices": [
+                        {
+                            "x": 786.6402305886406,
+                            "y": -333.47562866330554,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 783.4298549922976,
+                            "y": -321.00559979513264,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 692.9697615030191,
+                            "y": -344.2943090396034,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 696.1801370993619,
+                            "y": -356.7643379077767,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        739.8049960458299,
+                        -338.8849688514547,
+                        93.67046908562156,
+                        35.75873811264404
+                    ],
+                    "centroid": [
+                        739.8049960458297,
+                        -338.8849688514546
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                739.8049960458296,
+                -338.8849688514545
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 104.43713479481104,
+            "bounds": [
+                739.8049960458299,
+                -338.8849688514547,
+                93.67046908562156,
+                35.75873811264404
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body23",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        699.1472786482045,
+                        -463.2179929405229
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 198.26374018186343,
+                    "vertices": [
+                        {
+                            "x": 690.6243445806267,
+                            "y": -416.8481778575295,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 678.3963681204484,
+                            "y": -420.88361130785444,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 707.6702127157828,
+                            "y": -509.5878080235155,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 719.8981891759606,
+                            "y": -505.5523745731912,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        699.1472786482045,
+                        -463.2179929405225,
+                        41.50182105551221,
+                        92.739630165986
+                    ],
+                    "centroid": [
+                        699.1472786482045,
+                        -463.21799294052266
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                699.1472786482045,
+                -463.2179929405229
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 198.26374018186343,
+            "bounds": [
+                699.1472786482045,
+                -463.2179929405225,
+                41.50182105551221,
+                92.739630165986
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body24",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        725.6349857595533,
+                        -407.87054524516657
+                    ],
+                    "scaleXY": [
+                        0.12437161553997704,
+                        0.9518617732793334
+                    ],
+                    "rotation": 92.31291173646726,
+                    "vertices": [
+                        {
+                            "x": 773.4402645991203,
+                            "y": -412.1633474217731,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 772.9383385394133,
+                            "y": -399.73631810053865,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 677.8297069199864,
+                            "y": -403.5777430685604,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 678.3316329796933,
+                            "y": -416.0047723897946,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        725.6349857595533,
+                        -407.8705452451666,
+                        95.61055767913388,
+                        16.268454289255942
+                    ],
+                    "centroid": [
+                        725.6349857595533,
+                        -407.8705452451667
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.437161553997708,
+                    "height": 95.18617732793334
+                }
+            ],
+            "position": [
+                725.6349857595533,
+                -407.87054524516657
+            ],
+            "scaleXY": [
+                0.12437161553997704,
+                0.9518617732793334
+            ],
+            "rotation": 92.31291173646726,
+            "bounds": [
+                725.6349857595533,
+                -407.8705452451666,
+                95.61055767913388,
+                16.268454289255942
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body25",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        744.3303134262698,
+                        -143.51280891383726
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": -20.34105797409254,
+                    "vertices": [
+                        {
+                            "x": 718.7093780018105,
+                            "y": -194.60907668104286,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 730.4519367430162,
+                            "y": -198.96234969101516,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 769.9512488507287,
+                            "y": -92.41654114663241,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 758.2086901095236,
+                            "y": -88.06326813665993,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        744.3303134262696,
+                        -143.51280891383755,
+                        51.24187084891821,
+                        110.89908155435523
+                    ],
+                    "centroid": [
+                        744.3303134262696,
+                        -143.5128089138376
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                744.3303134262698,
+                -143.51280891383726
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": -20.34105797409254,
+            "bounds": [
+                744.3303134262696,
+                -143.51280891383755,
+                51.24187084891821,
+                110.89908155435523
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body26",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        735.6455213522639,
+                        -243.33130224292503
+                    ],
+                    "scaleXY": [
+                        0.13002643325300461,
+                        0.4550092620875674
+                    ],
+                    "rotation": 16.4626961212062,
+                    "vertices": [
+                        {
+                            "x": 735.8580019220565,
+                            "y": -266.99151371350115,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 748.3275946946674,
+                            "y": -263.30668135228916,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 735.4330407824715,
+                            "y": -219.671090772349,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 722.9634480098601,
+                            "y": -223.35592313356096,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        735.6455213522638,
+                        -243.33130224292506,
+                        25.364146684807224,
+                        47.320422941152145
+                    ],
+                    "centroid": [
+                        735.6455213522639,
+                        -243.33130224292506
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 13.002643325300461,
+                    "height": 45.50092620875677
+                }
+            ],
+            "position": [
+                735.6455213522639,
+                -243.33130224292503
+            ],
+            "scaleXY": [
+                0.13002643325300461,
+                0.4550092620875674
+            ],
+            "rotation": 16.4626961212062,
+            "bounds": [
+                735.6455213522638,
+                -243.33130224292506,
+                25.364146684807224,
+                47.320422941152145
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body27",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        701.9628556595787,
+                        -380.2001448702167
+                    ],
+                    "scaleXY": [
+                        0.13002643325300461,
+                        0.4550092620875674
+                    ],
+                    "rotation": 2.2541620636532502,
+                    "vertices": [
+                        {
+                            "x": 696.3613951846565,
+                            "y": -403.18871584304594,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 709.3539768266559,
+                            "y": -402.67729065696,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 707.564316134501,
+                            "y": -357.2115738973875,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 694.5717344925016,
+                            "y": -357.72299908347344,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        701.9628556595787,
+                        -380.2001448702167,
+                        14.782242334154262,
+                        45.977141945658445
+                    ],
+                    "centroid": [
+                        701.9628556595787,
+                        -380.2001448702167
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 13.002643325300461,
+                    "height": 45.50092620875677
+                }
+            ],
+            "position": [
+                701.9628556595787,
+                -380.2001448702167
+            ],
+            "scaleXY": [
+                0.13002643325300461,
+                0.4550092620875674
+            ],
+            "rotation": 2.2541620636532502,
+            "bounds": [
+                701.9628556595787,
+                -380.2001448702167,
+                14.782242334154262,
+                45.977141945658445
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body28",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        704.0070753226064,
+                        -180.40459064968448
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 24.073125357822754,
+                    "vertices": [
+                        {
+                            "x": 717.1797551587761,
+                            "y": -225.67357188280974,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 728.9364668855228,
+                            "y": -220.42115712226052,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 690.8343954864367,
+                            "y": -135.13560941655913,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 679.0776837596896,
+                            "y": -140.3880241771085,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        704.0070753226062,
+                        -180.40459064968445,
+                        49.858783125833156,
+                        90.5379624662506
+                    ],
+                    "centroid": [
+                        704.0070753226063,
+                        -180.40459064968445
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                704.0070753226064,
+                -180.40459064968448
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 24.073125357822754,
+            "bounds": [
+                704.0070753226062,
+                -180.40459064968445,
+                49.858783125833156,
+                90.5379624662506
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body29",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        784.5415606138424,
+                        -175.47390787675172
+                    ],
+                    "scaleXY": [
+                        0.12876650629828829,
+                        0.9340980940116789
+                    ],
+                    "rotation": 42.48100771010547,
+                    "vertices": [
+                        {
+                            "x": 811.3352479750806,
+                            "y": -214.26692881531127,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 820.8317937762916,
+                            "y": -205.57073716102005,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 757.7478732526042,
+                            "y": -136.6808869381925,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 748.2513274513931,
+                            "y": -145.37707859248366,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        784.5415606138424,
+                        -175.47390787675187,
+                        72.58046632489857,
+                        77.58604187711879
+                    ],
+                    "centroid": [
+                        784.5415606138424,
+                        -175.47390787675187
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.87665062982883,
+                    "height": 93.40980940116788
+                }
+            ],
+            "position": [
+                784.5415606138424,
+                -175.47390787675172
+            ],
+            "scaleXY": [
+                0.12876650629828829,
+                0.9340980940116789
+            ],
+            "rotation": 42.48100771010547,
+            "bounds": [
+                784.5415606138424,
+                -175.47390787675187,
+                72.58046632489857,
+                77.58604187711879
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body31",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        400.79281487913755,
+                        -197.8931756644147
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": 45.13457585973598,
+                    "vertices": [
+                        {
+                            "x": 436.64468167353414,
+                            "y": -242.41176233469258,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 445.479326873351,
+                            "y": -233.53551786513475,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 364.940948084741,
+                            "y": -153.3745889941369,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 356.1063028849242,
+                            "y": -162.25083346369541,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        400.7928148791376,
+                        -197.89317566441474,
+                        89.37302398842678,
+                        89.03717334055568
+                    ],
+                    "centroid": [
+                        400.79281487913755,
+                        -197.8931756644149
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                400.79281487913755,
+                -197.8931756644147
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": 45.13457585973598,
+            "bounds": [
+                400.7928148791376,
+                -197.89317566441474,
+                89.37302398842678,
+                89.03717334055568
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body32",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        813.6334124465111,
+                        -271.79017969649715
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": -0.01659143450240408,
+                    "vertices": [
+                        {
+                            "x": 807.3551978583135,
+                            "y": -328.604305874295,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 819.8787220643222,
+                            "y": -328.60793237591844,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 819.9116270347087,
+                            "y": -214.97605351869967,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 807.3881028286996,
+                            "y": -214.97242701707657,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        813.6334124465111,
+                        -271.7901796964975,
+                        12.556429176395113,
+                        113.63550535884187
+                    ],
+                    "centroid": [
+                        813.633412446511,
+                        -271.79017969649743
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                813.6334124465111,
+                -271.79017969649715
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": -0.01659143450240408,
+            "bounds": [
+                813.6334124465111,
+                -271.7901796964975,
+                12.556429176395113,
+                113.63550535884187
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body33",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        637.3321351053752,
+                        -187.78659451570977
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": -67.96420230746264,
+                    "vertices": [
+                        {
+                            "x": 582.3172947978787,
+                            "y": -203.29879157811664,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 587.0159436087074,
+                            "y": -214.90746811950197,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 692.346975412871,
+                            "y": -172.27439745330278,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 687.6483266020427,
+                            "y": -160.6657209119179,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        637.3321351053748,
+                        -187.78659451570994,
+                        110.02968061499223,
+                        54.24174720758407
+                    ],
+                    "centroid": [
+                        637.332135105375,
+                        -187.78659451570982
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                637.3321351053752,
+                -187.78659451570977
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": -67.96420230746264,
+            "bounds": [
+                637.3321351053748,
+                -187.78659451570994,
+                110.02968061499223,
+                54.24174720758407
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body34",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        862.9452329032226,
+                        -222.47835923978636
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": -41.66508844185937,
+                    "vertices": [
+                        {
+                            "x": 820.4975906602089,
+                            "y": -260.75966773063334,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 829.8532069412166,
+                            "y": -269.0849974954268,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 905.3928751462357,
+                            "y": -184.19705074893983,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 896.0372588652284,
+                            "y": -175.8717209841463,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        862.9452329032223,
+                        -222.47835923978656,
+                        84.89528448602687,
+                        93.21327651128053
+                    ],
+                    "centroid": [
+                        862.9452329032224,
+                        -222.47835923978658
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                862.9452329032226,
+                -222.47835923978636
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": -41.66508844185937,
+            "bounds": [
+                862.9452329032223,
+                -222.47835923978656,
+                84.89528448602687,
+                93.21327651128053
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body35",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        697.0176208259111,
+                        -284.1181348106747
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": 10.312235823322142,
+                    "vertices": [
+                        {
+                            "x": 701.0277596049286,
+                            "y": -341.1372517692458,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 713.3489897285498,
+                            "y": -338.8953864898904,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 693.0074820468938,
+                            "y": -227.0990178521041,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 680.6862519232725,
+                            "y": -229.34088313145978,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        697.0176208259111,
+                        -284.118134810675,
+                        32.66273780527729,
+                        114.03823391714167
+                    ],
+                    "centroid": [
+                        697.0176208259113,
+                        -284.11813481067503
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                697.0176208259111,
+                -284.1181348106747
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": 10.312235823322142,
+            "bounds": [
+                697.0176208259111,
+                -284.118134810675,
+                32.66273780527729,
+                114.03823391714167
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body36",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        596.9360072818249,
+                        -135.48397808174118
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": 28.293998734252757,
+                    "vertices": [
+                        {
+                            "x": 618.3528846406389,
+                            "y": -188.4799994037208,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 629.3801863710759,
+                            "y": -182.54389898038735,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 575.5191299230113,
+                            "y": -82.487956759762,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 564.4918281925741,
+                            "y": -88.42405718309598,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        596.9360072818249,
+                        -135.48397808174138,
+                        64.88835817850179,
+                        105.9920426439588
+                    ],
+                    "centroid": [
+                        596.9360072818251,
+                        -135.48397808174155
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                596.9360072818249,
+                -135.48397808174118
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": 28.293998734252757,
+            "bounds": [
+                596.9360072818249,
+                -135.48397808174138,
+                64.88835817850179,
+                105.9920426439588
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body37",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        486.6467374796402,
+                        -170.4859619111772
+                    ],
+                    "scaleXY": [
+                        0.12214203883873602,
+                        1.1500001837638671
+                    ],
+                    "rotation": 40.51167233509353,
+                    "vertices": [
+                        {
+                            "x": 519.3558441548447,
+                            "y": -218.16889482518337,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 528.6419814480523,
+                            "y": -210.23451200806886,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 453.9376308044359,
+                            "y": -122.80302899717105,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 444.65149351122807,
+                            "y": -130.73741181428687,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        486.6467374796402,
+                        -170.4859619111772,
+                        83.99048793682425,
+                        95.36586582801232
+                    ],
+                    "centroid": [
+                        486.64673747964025,
+                        -170.48596191117753
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.214203883873603,
+                    "height": 115.00001837638666
+                }
+            ],
+            "position": [
+                486.6467374796402,
+                -170.4859619111772
+            ],
+            "scaleXY": [
+                0.12214203883873602,
+                1.1500001837638671
+            ],
+            "rotation": 40.51167233509353,
+            "bounds": [
+                486.6467374796402,
+                -170.4859619111772,
+                83.99048793682425,
+                95.36586582801232
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body38",
+            "userData": "wooden_log",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        765.3211559179766,
+                        -250.46614922873053
+                    ],
+                    "scaleXY": [
+                        0.12523524731081728,
+                        1.136318836214503
+                    ],
+                    "rotation": -41.66508844185937,
+                    "vertices": [
+                        {
+                            "x": 722.8735136749629,
+                            "y": -288.74745771957737,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 732.2291299559706,
+                            "y": -297.0727874843709,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 807.7687981609897,
+                            "y": -212.184840737884,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 798.4131818799824,
+                            "y": -203.85951097309044,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        765.3211559179763,
+                        -250.46614922873067,
+                        84.89528448602687,
+                        93.21327651128047
+                    ],
+                    "centroid": [
+                        765.3211559179764,
+                        -250.46614922873067
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 12.523524731081729,
+                    "height": 113.63188362145027
+                }
+            ],
+            "position": [
+                765.3211559179766,
+                -250.46614922873053
+            ],
+            "scaleXY": [
+                0.12523524731081728,
+                1.136318836214503
+            ],
+            "rotation": -41.66508844185937,
+            "bounds": [
+                765.3211559179763,
+                -250.46614922873067,
+                84.89528448602687,
+                93.21327651128047
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body39",
+            "userData": "stone",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        306.6259967187795,
+                        -191.62635875642027
+                    ],
+                    "scaleXY": [
+                        0.47882263200924374,
+                        0.49162166965715354
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 282.68486511831725,
+                            "y": -216.20744223927798,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 330.56712831924176,
+                            "y": -216.20744223927798,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 330.56712831924176,
+                            "y": -167.04527527356257,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 282.68486511831725,
+                            "y": -167.04527527356257,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        306.6259967187795,
+                        -191.62635875642027,
+                        47.88226320092451,
+                        49.162166965715414
+                    ],
+                    "centroid": [
+                        306.6259967187795,
+                        -191.62635875642027
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 47.882263200924406,
+                    "height": 49.16216696571538
+                }
+            ],
+            "position": [
+                306.6259967187795,
+                -191.62635875642027
+            ],
+            "scaleXY": [
+                0.47882263200924374,
+                0.49162166965715354
+            ],
+            "rotation": 0,
+            "bounds": [
+                306.6259967187795,
+                -191.62635875642027,
+                47.88226320092451,
+                49.162166965715414
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body41",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        632.4817812561683,
+                        -127.75791639345344
+                    ],
+                    "scaleXY": [
+                        0.39648105006958445,
+                        0.41229307297161905
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 612.6577287526891,
+                            "y": -148.37257004203443,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 652.3058337596476,
+                            "y": -148.37257004203443,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 652.3058337596476,
+                            "y": -107.1432627448726,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 612.6577287526891,
+                            "y": -107.1432627448726,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        632.4817812561683,
+                        -127.75791639345351,
+                        39.64810500695853,
+                        41.229307297161824
+                    ],
+                    "centroid": [
+                        632.4817812561683,
+                        -127.75791639345351
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 39.64810500695847,
+                    "height": 41.22930729716194
+                }
+            ],
+            "position": [
+                632.4817812561683,
+                -127.75791639345344
+            ],
+            "scaleXY": [
+                0.39648105006958445,
+                0.41229307297161905
+            ],
+            "rotation": 0,
+            "bounds": [
+                632.4817812561683,
+                -127.75791639345351,
+                39.64810500695853,
+                41.229307297161824
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        }
+    ],
+    "joints": []
+}
