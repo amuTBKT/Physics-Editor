@@ -236,6 +236,17 @@ var UIManager = (function(){
 				}
 			});
 		}
+		for (var i = 4; i < 6; i++){
+			this.bodyProperties[i].addEventListener('keypress', function(e){
+				if (e.which == 13){
+					var property = $(this).data('property');
+					for (var i = 0; i < sceneManager.selectedBodies.length; i++){
+						if (parseFloat(this.value) != NaN)
+							sceneManager.selectedBodies[i][property] = parseFloat(this.value);
+					}
+				}
+			});
+		}
 		$(this.bodyProperties[2]).change(function(){
 			for (var i = 0; i < sceneManager.selectedBodies.length; i++){
 				var property = $(this).data('property');
@@ -248,7 +259,7 @@ var UIManager = (function(){
 				sceneManager.selectedBodies[i][property] = $(this).is(":checked");
 			}
 		});
-		this.bodyProperties[4].addEventListener('click', function(){
+		this.bodyProperties[6].addEventListener('click', function(){
 			if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE){
 				sceneManager.enterBodyEditMode();
 				this.value = "Done";
@@ -264,16 +275,16 @@ var UIManager = (function(){
 				ref.updateJointPropertyView();
 			}
 		});
-		$(this.bodyProperties[12]).change(function(){
+		$(this.bodyProperties[14]).change(function(){
 			for (var i = 0; i < sceneManager.selectedBodies.length; i++){
 				var property = $(this).data('property');
 				sceneManager.selectedBodies[i][property] = this.value;
 			}
 		});
-		this.bodyProperties[5].addEventListener("click", function(e){
+		this.bodyProperties[7].addEventListener("click", function(e){
 			this.value = null;
 		});
-		$(this.bodyProperties[5]).change(function(e){
+		$(this.bodyProperties[7]).change(function(e){
 			// console.log(e.target.files[0].type);
 			if (e.target.files == null && e.target.files.length < 0){
 				return;
@@ -284,7 +295,7 @@ var UIManager = (function(){
 				}
 			}
 		});
-		for (var i = 6; i < 12; i++){
+		for (var i = 8; i < 14; i++){
 			this.bodyProperties[i].addEventListener('keypress', function(e){
 				if (e.which == 13){
 					for (var i = 0; i < sceneManager.selectedBodies.length; i++){
@@ -452,24 +463,26 @@ var UIManager = (function(){
 				this.bodyProperties[1].value = sceneManager.selectedBodies[0].userData;
 				this.bodyProperties[2].checked = sceneManager.selectedBodies[0].isBullet;
 				this.bodyProperties[3].checked = sceneManager.selectedBodies[0].isFixedRotation;
-				this.bodyProperties[4].disabled = false;
-				this.bodyProperties[12].value = sceneManager.selectedBodies[0].bodyType;
+				this.bodyProperties[4].value = sceneManager.selectedBodies[0].linearDamping;
+				this.bodyProperties[5].value = sceneManager.selectedBodies[0].angularDamping;
+				this.bodyProperties[6].disabled = false;
+				this.bodyProperties[14].value = sceneManager.selectedBodies[0].bodyType;
 
 				if (sceneManager.selectedBodies[0].sprite != null){
-					this.bodyProperties[6].value = sceneManager.selectedBodies[0].getSpriteWidth();
-					this.bodyProperties[7].value = sceneManager.selectedBodies[0].getSpriteHeight();
-					this.bodyProperties[8].value = sceneManager.selectedBodies[0].getSpriteOffsetX() != null ? sceneManager.selectedBodies[0].getSpriteOffsetX() : "-";
-					this.bodyProperties[9].value = sceneManager.selectedBodies[0].getSpriteOffsetY() != null ? sceneManager.selectedBodies[0].getSpriteOffsetY() : "-";
+					this.bodyProperties[8].value = sceneManager.selectedBodies[0].getSpriteWidth();
+					this.bodyProperties[9].value = sceneManager.selectedBodies[0].getSpriteHeight();
 					this.bodyProperties[10].value = sceneManager.selectedBodies[0].getSpriteSourceWidth() != null ? sceneManager.selectedBodies[0].getSpriteSourceWidth() : "-";
 					this.bodyProperties[11].value = sceneManager.selectedBodies[0].getSpriteSourceHeight() != null ? sceneManager.selectedBodies[0].getSpriteSourceHeight() : "-";
+					this.bodyProperties[12].value = sceneManager.selectedBodies[0].getSpriteOffsetX() != null ? sceneManager.selectedBodies[0].getSpriteOffsetX() : "-";
+					this.bodyProperties[13].value = sceneManager.selectedBodies[0].getSpriteOffsetY() != null ? sceneManager.selectedBodies[0].getSpriteOffsetY() : "-";	
 				}
 				else {
-					this.bodyProperties[6].value = "";
-					this.bodyProperties[7].value = "";
 					this.bodyProperties[8].value = "";
 					this.bodyProperties[9].value = "";
 					this.bodyProperties[10].value = "";
 					this.bodyProperties[11].value = "";
+					this.bodyProperties[12].value = "";
+					this.bodyProperties[13].value = "";
 				}
 
 			}
@@ -477,7 +490,9 @@ var UIManager = (function(){
 				this.bodyProperties[0].disabled = true;
 				this.bodyProperties[0].value = "";
 				this.bodyProperties[1].value = "";
-				this.bodyProperties[4].disabled = true;
+				this.bodyProperties[4].value = "";
+				this.bodyProperties[5].value = "";
+				this.bodyProperties[6].disabled = true;
 
 				var allAreBullet = false, allHaveFixedRotation = false, allHaveSameBodyType = 0; 
 				for (var i = 0; i < sceneManager.selectedBodies.length; i++){
@@ -509,12 +524,12 @@ var UIManager = (function(){
 				}
 				this.bodyProperties[2].checked = allAreBullet;
 				this.bodyProperties[3].checked = allHaveFixedRotation;
-				this.bodyProperties[12].value = allHaveSameBodyType;
+				this.bodyProperties[14].value = allHaveSameBodyType;
 
-				this.bodyProperties[6].value = "";
-				this.bodyProperties[7].value = "";
 				this.bodyProperties[8].value = "";
 				this.bodyProperties[9].value = "";
+				this.bodyProperties[10].value = "";
+				this.bodyProperties[11].value = "";
 			}
 		}
 		else {

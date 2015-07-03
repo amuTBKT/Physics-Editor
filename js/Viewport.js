@@ -287,8 +287,8 @@ var Viewport = (function(){
 			}
 			// sprite is a separate image
 			else {
-				var imageW 	= body.sprite.width;// * body.scaleXY[0],
-					imageH	= body.sprite.height;// * body.scaleXY[1];
+				var imageW 	= body.sprite.width;
+					imageH	= body.sprite.height;
 				
 				// handle sprite rotation and translation
 				this.context.translate(body.position[0], body.position[1]);

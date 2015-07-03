@@ -73,6 +73,8 @@ var WorldLoader = (function(){
 		body.SetAngle(pB.rotation * Math.PI / 180);
 		body.SetBullet(pB.isBullet);
 		body.SetFixedRotation(pB.isFixedRotation);
+		body.SetLinearDamping(pB.linearDamping);
+		body.SetAngularDamping(pB.angularDamping);
 
 		this.loadedBodies.push(body);
 

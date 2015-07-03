@@ -600,7 +600,7 @@ function Body(){
 	this.texture = "";
 	this.sprite;
 	this.spriteData = [];					// [source-x, source-y, width, height, image-w, image-h]
-	this.intialSpriteData = [];
+	this.initialSpriteData = [];
 	this.shapes = [];
 	this.position = [0, 0];
 	this.scaleXY = [1, 1];
@@ -610,6 +610,8 @@ function Body(){
 	this.bodyType = Body.BODY_TYPE_DYNAMIC;	// default to dynmic body
 	this.isBullet = false;
 	this.isFixedRotation = false;
+	this.linearDamping = 0;
+	this.angularDamping = 0;
 }
 
 Body.counter = 0;
@@ -622,14 +624,16 @@ Body.prototype.setSprite = function(file, x, y, w, h){
 		this.sprite = new Image();
 		this.sprite.src = file;
 		this.spriteData = [x, y, w, h, w, h];
-		this.intialSpriteData = [w, h];
+		this.initialSpriteData = [w, h];
 	}
 	else {
 		this.sprite = new Image();
 		this.sprite.src = file;
 		var ref = this;
 		this.sprite.onload = function(){
-			ref.intialSpriteData = [this.width, this.height];
+			console.log(this.width);
+			ref.initialSpriteData = [this.width, this.height];
+			ref.spriteData = [this.width, this.height];
 		}
 	}
 	this.texture = file;
@@ -669,7 +673,7 @@ Body.prototype.setSpriteSourceWidth = function(width){
 	}
 
 	if (this.spriteData.length == 2){
-		this.spriteData = [0, 0, width, this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
+		this.spriteData = [0, 0, width, this.initialSpriteData[1], this.initialSpriteData[0], this.initialSpriteData[1]];
 		return;
 	}
 
@@ -682,7 +686,7 @@ Body.prototype.setSpriteSourceHeight = function(height){
 	}
 
 	if (this.spriteData.length == 2){
-		this.spriteData = [0, 0, this.intialSpriteData[0], height, this.intialSpriteData[0], this.intialSpriteData[1]];
+		this.spriteData = [0, 0, this.initialSpriteData[0], height, this.initialSpriteData[0], this.initialSpriteData[1]];
 		return;
 	}
 
@@ -695,7 +699,7 @@ Body.prototype.setOffsetX = function(x){
 	}
 
 	if (this.spriteData.length == 2){
-		this.spriteData = [x, 0, this.intialSpriteData[0], this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
+		this.spriteData = [x, 0, this.initialSpriteData[0], this.initialSpriteData[1], this.initialSpriteData[0], this.initialSpriteData[1]];
 	}
 
 	if (this.spriteData.length > 2){
@@ -710,7 +714,7 @@ Body.prototype.setOffsetY = function(y){
 	}
 
 	if (this.spriteData.length == 2){
-		this.spriteData = [0, y, this.intialSpriteData[0], this.intialSpriteData[1], this.intialSpriteData[0], this.intialSpriteData[1]];
+		this.spriteData = [0, y, this.initialSpriteData[0], this.initialSpriteData[1], this.initialSpriteData[0], this.initialSpriteData[1]];
 	}
 
 	if (this.spriteData.length > 2){
@@ -946,9 +950,11 @@ Body.prototype.toPhysics = function(){
 	pBody.isBullet = this.isBullet;
 	pBody.isFixedRotation = this.isFixedRotation;
 	pBody.userData = this.userData;
+	pBody.linearDamping = this.linearDamping;
+	pBody.angularDamping = this.angularDamping;
 	if (this.texture){
 		pBody.texture = this.texture;
-		if (this.spriteData.length > 0){
+		if (this.spriteData.length > 2){
 			var sourceX = this.spriteData[0],
 				sourceY = this.spriteData[1],
 				sourceW = this.spriteData[2],
@@ -1007,6 +1013,8 @@ function PhysicsBody(type){
 	this.rotation = 0;
 	this.isBullet = false;
 	this.isFixedRotation = 0;
+	this.linearDamping = 0;
+	this.angularDamping = 0;
 }
 
 function PhysicsJoint(joint){

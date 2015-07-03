@@ -1027,6 +1027,7 @@ var SceneManager = (function(){
 		body.name = obj.name;
 		body.userData = obj.userData;
 		body.texture = obj.texture;
+		body.initialSpriteData = cloneArray(obj.initialSpriteData);
 		body.spriteData = cloneArray(obj.spriteData);
 		body.sprite = new Image();
 		body.sprite.src = obj.texture;
@@ -1043,6 +1044,8 @@ var SceneManager = (function(){
 		body.bodyType = obj.bodyType;	// default to dynmic body
 		body.isBulllet = obj.isBulllet;
 		body.isFixedRotation = obj.isFixedRotation;
+		body.linearDamping = obj.linearDamping;
+		body.angularDamping = obj.angularDamping;
 		return body;
 	}
 
