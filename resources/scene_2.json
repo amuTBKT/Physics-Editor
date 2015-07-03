@@ -1,0 +1,3418 @@
+{
+    "bodies": [
+        {
+            "name": "torso",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        2.3314683517128287e-15,
+                        -4.864512454870924
+                    ],
+                    "scaleXY": [
+                        1.3142602683071405,
+                        1.6118925747366788
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -65.71301341535707,
+                            "y": -85.45914119170473,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 65.71301341535711,
+                            "y": -85.45914119170477,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 65.7130134153571,
+                            "y": 75.730116281963,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -65.71301341535704,
+                            "y": 75.730116281963,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        2.1316282072803006e-14,
+                        -4.864512454870884,
+                        131.4260268307142,
+                        161.1892574736678
+                    ],
+                    "centroid": [
+                        2.4868995751603507e-14,
+                        -4.8645124548708765
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 131.42602683071402,
+                    "height": 161.18925747366782
+                }
+            ],
+            "position": [
+                2.3314683517128287e-15,
+                -4.864512454870924
+            ],
+            "scaleXY": [
+                1.3142602683071405,
+                1.6118925747366788
+            ],
+            "rotation": 0,
+            "bounds": [
+                2.1316282072803006e-14,
+                -4.864512454870884,
+                131.4260268307142,
+                161.1892574736678
+            ],
+            "isSelected": false,
+            "bodyType": "2",
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "pelvis",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 2,
+                    "position": [
+                        2.2833125696785057,
+                        98.53917422679854
+                    ],
+                    "scaleXY": [
+                        1.3689697598281318,
+                        0.38050390528872646
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -66.16517542172801,
+                            "y": 79.51397896236223,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 70.73180056108508,
+                            "y": 79.51397896236222,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 14.403324861648104,
+                            "y": 114.09671565956414,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -9.329235977251141,
+                            "y": 114.59209477837422,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        2.283312569678536,
+                        97.05303687036822,
+                        136.8969759828131,
+                        35.078115816012
+                    ],
+                    "centroid": [
+                        2.410178505938508,
+                        96.92919209066571
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0
+                }
+            ],
+            "position": [
+                2.2833125696785057,
+                98.53917422679854
+            ],
+            "scaleXY": [
+                1.3689697598281318,
+                0.38050390528872646
+            ],
+            "rotation": 0,
+            "bounds": [
+                2.283312569678536,
+                97.05303687036822,
+                136.8969759828131,
+                35.078115816012
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "left_calf",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        60.806405685886716,
+                        222.3082191876016
+                    ],
+                    "scaleXY": [
+                        0.4321687489708573,
+                        0.78087072011356
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 39.19796823734366,
+                            "y": 183.26468318192346,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 82.41484313442966,
+                            "y": 183.26468318192346,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 82.41484313442966,
+                            "y": 261.3517551932796,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 39.19796823734366,
+                            "y": 261.3517551932796,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        60.80640568588666,
+                        222.30821918760154,
+                        43.216874897086,
+                        78.08707201135613
+                    ],
+                    "centroid": [
+                        60.80640568588666,
+                        222.30821918760154
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 43.2168748970857,
+                    "height": 78.08707201135603
+                }
+            ],
+            "position": [
+                60.806405685886716,
+                222.3082191876016
+            ],
+            "scaleXY": [
+                0.4321687489708573,
+                0.78087072011356
+            ],
+            "rotation": 0,
+            "bounds": [
+                60.80640568588666,
+                222.30821918760154,
+                43.216874897086,
+                78.08707201135613
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "lower_right_arm",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        -197.49920566775995,
+                        -61.29285693137398
+                    ],
+                    "scaleXY": [
+                        0.8361612020723048,
+                        0.3434606358849639
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -239.3072657713749,
+                            "y": -78.46588872562201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -155.69114556414482,
+                            "y": -78.46588872562201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -155.69114556414482,
+                            "y": -44.11982513712566,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -239.3072657713749,
+                            "y": -44.11982513712566,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        -197.49920566775984,
+                        -61.292856931373834,
+                        83.61612020723007,
+                        34.34606358849635
+                    ],
+                    "centroid": [
+                        -197.49920566775984,
+                        -61.292856931373834
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 83.61612020723048,
+                    "height": 34.3460635884964
+                }
+            ],
+            "position": [
+                -197.49920566775995,
+                -61.29285693137398
+            ],
+            "scaleXY": [
+                0.8361612020723048,
+                0.3434606358849639
+            ],
+            "rotation": 0,
+            "bounds": [
+                -197.49920566775984,
+                -61.292856931373834,
+                83.61612020723007,
+                34.34606358849635
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "left_thigh",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        61.2928569313738,
+                        141.07086119125694
+                    ],
+                    "scaleXY": [
+                        0.4321687489708573,
+                        0.78087072011356
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 39.68441948283079,
+                            "y": 102.0273251855788,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 82.90129437991673,
+                            "y": 102.0273251855788,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 82.90129437991673,
+                            "y": 180.11439719693504,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 39.68441948283079,
+                            "y": 180.11439719693504,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        61.29285693137376,
+                        141.07086119125694,
+                        43.216874897085944,
+                        78.08707201135624
+                    ],
+                    "centroid": [
+                        61.29285693137376,
+                        141.07086119125694
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 43.2168748970857,
+                    "height": 78.08707201135603
+                }
+            ],
+            "position": [
+                61.2928569313738,
+                141.07086119125694
+            ],
+            "scaleXY": [
+                0.4321687489708573,
+                0.78087072011356
+            ],
+            "rotation": 0,
+            "bounds": [
+                61.29285693137376,
+                141.07086119125694,
+                43.216874897085944,
+                78.08707201135624
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "right_thigh",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        -55.94189323101561,
+                        142.53021492771822
+                    ],
+                    "scaleXY": [
+                        0.4321687489708573,
+                        0.78087072011356
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -77.55033067955858,
+                            "y": 103.48667892204008,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -34.3334557824727,
+                            "y": 103.48667892204008,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -34.3334557824727,
+                            "y": 181.57375093339633,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -77.55033067955858,
+                            "y": 181.57375093339633,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        -55.94189323101564,
+                        142.5302149277182,
+                        43.21687489708589,
+                        78.08707201135624
+                    ],
+                    "centroid": [
+                        -55.94189323101564,
+                        142.53021492771822
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 43.2168748970857,
+                    "height": 78.08707201135603
+                }
+            ],
+            "position": [
+                -55.94189323101561,
+                142.53021492771822
+            ],
+            "scaleXY": [
+                0.4321687489708573,
+                0.78087072011356
+            ],
+            "rotation": 0,
+            "bounds": [
+                -55.94189323101564,
+                142.5302149277182,
+                43.21687489708589,
+                78.08707201135624
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "ground",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        12.314969743664667,
+                        327.4509684376564
+                    ],
+                    "scaleXY": [
+                        17.46605439890842,
+                        0.48593092315818165
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -860.9877502017592,
+                            "y": 303.1544222797478,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 885.6176896890858,
+                            "y": 303.15442227974717,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 885.6176896890877,
+                            "y": 351.7475145955655,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -860.9877502017592,
+                            "y": 351.747514595565,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        12.314969743664221,
+                        327.45096843765634,
+                        1746.6054398908468,
+                        48.59309231581835
+                    ],
+                    "centroid": [
+                        12.314969743663738,
+                        327.45096843765634
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 1746.6054398908423,
+                    "height": 48.593092315818204
+                }
+            ],
+            "position": [
+                12.314969743664667,
+                327.4509684376564
+            ],
+            "scaleXY": [
+                17.46605439890842,
+                0.48593092315818165
+            ],
+            "rotation": 0,
+            "bounds": [
+                12.314969743664221,
+                327.45096843765634,
+                1746.6054398908468,
+                48.59309231581835
+            ],
+            "isSelected": false,
+            "bodyType": "0",
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "upper_right_arm",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        -110.42443272557011,
+                        -63.08290219015322
+                    ],
+                    "scaleXY": [
+                        0.8313534130027384,
+                        0.4228937640644018
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -151.99210337570676,
+                            "y": -84.22759039337325,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -68.8567620754333,
+                            "y": -84.22759039337325,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -68.85676207543328,
+                            "y": -41.93821398693305,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -151.9921033757068,
+                            "y": -41.93821398693305,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        -110.42443272557003,
+                        -63.08290219015315,
+                        83.13534130027351,
+                        42.2893764064402
+                    ],
+                    "centroid": [
+                        -110.42443272557003,
+                        -63.08290219015315
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 83.13534130027381,
+                    "height": 42.28937640644018
+                }
+            ],
+            "position": [
+                -110.42443272557011,
+                -63.08290219015322
+            ],
+            "scaleXY": [
+                0.8313534130027384,
+                0.4228937640644018
+            ],
+            "rotation": 0,
+            "bounds": [
+                -110.42443272557003,
+                -63.08290219015315,
+                83.13534130027351,
+                42.2893764064402
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "upper_left_arm",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        111.8837864620314,
+                        -61.77930817686096
+                    ],
+                    "scaleXY": [
+                        0.8313534130027384,
+                        0.4228937640644018
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 70.31611581189478,
+                            "y": -82.92399638008098,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 153.45145711216813,
+                            "y": -82.923996380081,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 153.45145711216813,
+                            "y": -40.634619973640774,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 70.31611581189478,
+                            "y": -40.63461997364077,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        111.88378646203145,
+                        -61.77930817686088,
+                        83.13534130027335,
+                        42.289376406440226
+                    ],
+                    "centroid": [
+                        111.88378646203145,
+                        -61.77930817686088
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 83.13534130027381,
+                    "height": 42.28937640644018
+                }
+            ],
+            "position": [
+                111.8837864620314,
+                -61.77930817686096
+            ],
+            "scaleXY": [
+                0.8313534130027384,
+                0.4228937640644018
+            ],
+            "rotation": 0,
+            "bounds": [
+                111.88378646203145,
+                -61.77930817686088,
+                83.13534130027335,
+                42.289376406440226
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "lower_left_arm",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        198.4721081587339,
+                        -62.752210667835165
+                    ],
+                    "scaleXY": [
+                        0.8361612020723048,
+                        0.3434606358849639
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 156.6640480551189,
+                            "y": -79.92524246208335,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 240.280168262349,
+                            "y": -79.92524246208336,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 240.280168262349,
+                            "y": -45.579178873586855,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 156.6640480551189,
+                            "y": -45.579178873586855,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        198.47210815873396,
+                        -62.75221066783511,
+                        83.6161202072301,
+                        34.346063588496506
+                    ],
+                    "centroid": [
+                        198.47210815873396,
+                        -62.7522106678351
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 83.61612020723048,
+                    "height": 34.3460635884964
+                }
+            ],
+            "position": [
+                198.4721081587339,
+                -62.752210667835165
+            ],
+            "scaleXY": [
+                0.8361612020723048,
+                0.3434606358849639
+            ],
+            "rotation": 0,
+            "bounds": [
+                198.47210815873396,
+                -62.75221066783511,
+                83.6161202072301,
+                34.346063588496506
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "head",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 1,
+                    "position": [
+                        -2.432256227435463,
+                        -147.90780718862243
+                    ],
+                    "scaleXY": [
+                        1.2616174797402149,
+                        0.38973687794119966
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 60.648617759575345,
+                            "y": -147.90780718862243,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 48.60124284808083,
+                            "y": -110.8297997573376,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 17.060805854575396,
+                            "y": -87.91433092968249,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -21.92531830944631,
+                            "y": -87.91433092968245,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -53.46575530295168,
+                            "y": -110.82979975733758,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -65.51313021444624,
+                            "y": -147.90780718862243,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -53.465755302951706,
+                            "y": -184.9858146199074,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -21.925318309446297,
+                            "y": -207.90128344756263,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 17.06080585457541,
+                            "y": -207.90128344756263,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 48.601242848080815,
+                            "y": -184.98581461990744,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        -2.4322562274354453,
+                        -147.90780718862254,
+                        126.16174797402158,
+                        119.98695251788018
+                    ],
+                    "centroid": [
+                        -2.432256227435444,
+                        -147.9078071886225
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "radius": 63.08087398701077
+                }
+            ],
+            "position": [
+                -2.432256227435463,
+                -147.90780718862243
+            ],
+            "scaleXY": [
+                1.2616174797402149,
+                0.38973687794119966
+            ],
+            "rotation": 0,
+            "bounds": [
+                -2.4322562274354453,
+                -147.90780718862254,
+                126.16174797402158,
+                119.98695251788018
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "right_calf",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        -56.42834447650269,
+                        223.76757292406288
+                    ],
+                    "scaleXY": [
+                        0.4321687489708573,
+                        0.78087072011356
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -78.03678192504572,
+                            "y": 184.72403691838474,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -34.81990702795977,
+                            "y": 184.72403691838474,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -34.81990702795977,
+                            "y": 262.8111089297409,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -78.03678192504572,
+                            "y": 262.8111089297409,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        -56.428344476502744,
+                        223.76757292406282,
+                        43.216874897085944,
+                        78.08707201135616
+                    ],
+                    "centroid": [
+                        -56.428344476502744,
+                        223.7675729240628
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 43.2168748970857,
+                    "height": 78.08707201135603
+                }
+            ],
+            "position": [
+                -56.42834447650269,
+                223.76757292406288
+            ],
+            "scaleXY": [
+                0.4321687489708573,
+                0.78087072011356
+            ],
+            "rotation": 0,
+            "bounds": [
+                -56.428344476502744,
+                223.76757292406282,
+                43.216874897085944,
+                78.08707201135616
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        }
+    ],
+    "joints": [
+        {
+            "bodyIndexA": 1,
+            "bodyIndexB": 4,
+            "localAnchorA": [
+                41.34798264026254,
+                100.84869803751566
+            ],
+            "localAnchorB": [
+                60.628027788336766,
+                103.84042918118236
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                30.889654088430447,
+                120.88313450354259
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint0",
+            "bodyA": {
+                "name": "pelvis",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 2,
+                        "position": [
+                            2.2833125696785057,
+                            98.53917422679854
+                        ],
+                        "scaleXY": [
+                            1.3689697598281318,
+                            0.38050390528872646
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -66.16517542172801,
+                                "y": 79.51397896236223,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 70.73180056108508,
+                                "y": 79.51397896236222,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 14.403324861648104,
+                                "y": 114.09671565956414,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -9.329235977251141,
+                                "y": 114.59209477837422,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.283312569678536,
+                            97.05303687036822,
+                            136.8969759828131,
+                            35.078115816012
+                        ],
+                        "centroid": [
+                            2.410178505938508,
+                            96.92919209066571
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0
+                    }
+                ],
+                "position": [
+                    2.2833125696785057,
+                    98.53917422679854
+                ],
+                "scaleXY": [
+                    1.3689697598281318,
+                    0.38050390528872646
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.283312569678536,
+                    97.05303687036822,
+                    136.8969759828131,
+                    35.078115816012
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "left_thigh",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            61.2928569313738,
+                            141.07086119125694
+                        ],
+                        "scaleXY": [
+                            0.4321687489708573,
+                            0.78087072011356
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 39.68441948283079,
+                                "y": 102.0273251855788,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 82.90129437991673,
+                                "y": 102.0273251855788,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 82.90129437991673,
+                                "y": 180.11439719693504,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 39.68441948283079,
+                                "y": 180.11439719693504,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            61.29285693137376,
+                            141.07086119125694,
+                            43.216874897085944,
+                            78.08707201135624
+                        ],
+                        "centroid": [
+                            61.29285693137376,
+                            141.07086119125694
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 43.2168748970857,
+                        "height": 78.08707201135603
+                    }
+                ],
+                "position": [
+                    61.2928569313738,
+                    141.07086119125694
+                ],
+                "scaleXY": [
+                    0.4321687489708573,
+                    0.78087072011356
+                ],
+                "rotation": 0,
+                "bounds": [
+                    61.29285693137376,
+                    141.07086119125694,
+                    43.216874897085944,
+                    78.08707201135624
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -41.32781045640245,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 9.343678885795338
+        },
+        {
+            "bodyIndexA": 1,
+            "bodyIndexB": 5,
+            "localAnchorA": [
+                -39.32116465508954,
+                98.98390605879177
+            ],
+            "localAnchorB": [
+                -55.94189323101563,
+                105.29978291764364
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                -27.727720992764258,
+                121.61281137177323
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint1",
+            "bodyA": {
+                "name": "pelvis",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 2,
+                        "position": [
+                            2.2833125696785057,
+                            98.53917422679854
+                        ],
+                        "scaleXY": [
+                            1.3689697598281318,
+                            0.38050390528872646
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -66.16517542172801,
+                                "y": 79.51397896236223,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 70.73180056108508,
+                                "y": 79.51397896236222,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 14.403324861648104,
+                                "y": 114.09671565956414,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -9.329235977251141,
+                                "y": 114.59209477837422,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.283312569678536,
+                            97.05303687036822,
+                            136.8969759828131,
+                            35.078115816012
+                        ],
+                        "centroid": [
+                            2.410178505938508,
+                            96.92919209066571
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0
+                    }
+                ],
+                "position": [
+                    2.2833125696785057,
+                    98.53917422679854
+                ],
+                "scaleXY": [
+                    1.3689697598281318,
+                    0.38050390528872646
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.283312569678536,
+                    97.05303687036822,
+                    136.8969759828131,
+                    35.078115816012
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "right_thigh",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            -55.94189323101561,
+                            142.53021492771822
+                        ],
+                        "scaleXY": [
+                            0.4321687489708573,
+                            0.78087072011356
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -77.55033067955858,
+                                "y": 103.48667892204008,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -34.3334557824727,
+                                "y": 103.48667892204008,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -34.3334557824727,
+                                "y": 181.57375093339633,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -77.55033067955858,
+                                "y": 181.57375093339633,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -55.94189323101564,
+                            142.5302149277182,
+                            43.21687489708589,
+                            78.08707201135624
+                        ],
+                        "centroid": [
+                            -55.94189323101564,
+                            142.53021492771822
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 43.2168748970857,
+                        "height": 78.08707201135603
+                    }
+                ],
+                "position": [
+                    -55.94189323101561,
+                    142.53021492771822
+                ],
+                "scaleXY": [
+                    0.4321687489708573,
+                    0.78087072011356
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -55.94189323101564,
+                    142.5302149277182,
+                    43.21687489708589,
+                    78.08707201135624
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -38.812204602534464,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 10.062423415471901
+        },
+        {
+            "bodyIndexA": 5,
+            "bodyIndexB": 11,
+            "localAnchorA": [
+                -55.73655764014588,
+                182.62903913572544
+            ],
+            "localAnchorB": [
+                -56.42834447650269,
+                183.21299519880318
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                -56.18511885375915,
+                183.14889392589055
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint2",
+            "bodyA": {
+                "name": "right_thigh",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            -55.94189323101561,
+                            142.53021492771822
+                        ],
+                        "scaleXY": [
+                            0.4321687489708573,
+                            0.78087072011356
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -77.55033067955858,
+                                "y": 103.48667892204008,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -34.3334557824727,
+                                "y": 103.48667892204008,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -34.3334557824727,
+                                "y": 181.57375093339633,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -77.55033067955858,
+                                "y": 181.57375093339633,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -55.94189323101564,
+                            142.5302149277182,
+                            43.21687489708589,
+                            78.08707201135624
+                        ],
+                        "centroid": [
+                            -55.94189323101564,
+                            142.53021492771822
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 43.2168748970857,
+                        "height": 78.08707201135603
+                    }
+                ],
+                "position": [
+                    -55.94189323101561,
+                    142.53021492771822
+                ],
+                "scaleXY": [
+                    0.4321687489708573,
+                    0.78087072011356
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -55.94189323101564,
+                    142.5302149277182,
+                    43.21687489708589,
+                    78.08707201135624
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "right_calf",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            -56.42834447650269,
+                            223.76757292406288
+                        ],
+                        "scaleXY": [
+                            0.4321687489708573,
+                            0.78087072011356
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -78.03678192504572,
+                                "y": 184.72403691838474,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -34.81990702795977,
+                                "y": 184.72403691838474,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -34.81990702795977,
+                                "y": 262.8111089297409,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -78.03678192504572,
+                                "y": 262.8111089297409,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -56.428344476502744,
+                            223.76757292406282,
+                            43.216874897085944,
+                            78.08707201135616
+                        ],
+                        "centroid": [
+                            -56.428344476502744,
+                            223.7675729240628
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 43.2168748970857,
+                        "height": 78.08707201135603
+                    }
+                ],
+                "position": [
+                    -56.42834447650269,
+                    223.76757292406288
+                ],
+                "scaleXY": [
+                    0.4321687489708573,
+                    0.78087072011356
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -56.428344476502744,
+                    223.76757292406282,
+                    43.216874897085944,
+                    78.08707201135616
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -3.953094913221106,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 3.5937226483828226
+        },
+        {
+            "bodyIndexA": 4,
+            "bodyIndexB": 2,
+            "localAnchorA": [
+                58.982586668375546,
+                180.06461091142944
+            ],
+            "localAnchorB": [
+                60.806405685886716,
+                181.75364146234213
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                61.049631308630254,
+                181.68954018942927
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint3",
+            "bodyA": {
+                "name": "left_thigh",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            61.2928569313738,
+                            141.07086119125694
+                        ],
+                        "scaleXY": [
+                            0.4321687489708573,
+                            0.78087072011356
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 39.68441948283079,
+                                "y": 102.0273251855788,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 82.90129437991673,
+                                "y": 102.0273251855788,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 82.90129437991673,
+                                "y": 180.11439719693504,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 39.68441948283079,
+                                "y": 180.11439719693504,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            61.29285693137376,
+                            141.07086119125694,
+                            43.216874897085944,
+                            78.08707201135624
+                        ],
+                        "centroid": [
+                            61.29285693137376,
+                            141.07086119125694
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 43.2168748970857,
+                        "height": 78.08707201135603
+                    }
+                ],
+                "position": [
+                    61.2928569313738,
+                    141.07086119125694
+                ],
+                "scaleXY": [
+                    0.4321687489708573,
+                    0.78087072011356
+                ],
+                "rotation": 0,
+                "bounds": [
+                    61.29285693137376,
+                    141.07086119125694,
+                    43.216874897085944,
+                    78.08707201135624
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "left_calf",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            60.806405685886716,
+                            222.3082191876016
+                        ],
+                        "scaleXY": [
+                            0.4321687489708573,
+                            0.78087072011356
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 39.19796823734366,
+                                "y": 183.26468318192346,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 82.41484313442966,
+                                "y": 183.26468318192346,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 82.41484313442966,
+                                "y": 261.3517551932796,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 39.19796823734366,
+                                "y": 261.3517551932796,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            60.80640568588666,
+                            222.30821918760154,
+                            43.216874897086,
+                            78.08707201135613
+                        ],
+                        "centroid": [
+                            60.80640568588666,
+                            222.30821918760154
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 43.2168748970857,
+                        "height": 78.08707201135603
+                    }
+                ],
+                "position": [
+                    60.806405685886716,
+                    222.3082191876016
+                ],
+                "scaleXY": [
+                    0.4321687489708573,
+                    0.78087072011356
+                ],
+                "rotation": 0,
+                "bounds": [
+                    60.80640568588666,
+                    222.30821918760154,
+                    43.216874897086,
+                    78.08707201135613
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -2.8749781187062577,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 3.23435038354454
+        },
+        {
+            "bodyIndexA": 0,
+            "bodyIndexB": 1,
+            "localAnchorA": [
+                -0.8432070405869965,
+                78.47754691072669
+            ],
+            "localAnchorB": [
+                -0.510792469068476,
+                77.7588023810501
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                0.24322562274354756,
+                47.915447680478664
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint4",
+            "bodyA": {
+                "name": "torso",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            2.3314683517128287e-15,
+                            -4.864512454870924
+                        ],
+                        "scaleXY": [
+                            1.3142602683071405,
+                            1.6118925747366788
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -65.71301341535707,
+                                "y": -85.45914119170473,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.71301341535711,
+                                "y": -85.45914119170477,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.7130134153571,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -65.71301341535704,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.1316282072803006e-14,
+                            -4.864512454870884,
+                            131.4260268307142,
+                            161.1892574736678
+                        ],
+                        "centroid": [
+                            2.4868995751603507e-14,
+                            -4.8645124548708765
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 131.42602683071402,
+                        "height": 161.18925747366782
+                    }
+                ],
+                "position": [
+                    2.3314683517128287e-15,
+                    -4.864512454870924
+                ],
+                "scaleXY": [
+                    1.3142602683071405,
+                    1.6118925747366788
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.1316282072803006e-14,
+                    -4.864512454870884,
+                    131.4260268307142,
+                    161.1892574736678
+                ],
+                "isSelected": false,
+                "bodyType": "2",
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "pelvis",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 2,
+                        "position": [
+                            2.2833125696785057,
+                            98.53917422679854
+                        ],
+                        "scaleXY": [
+                            1.3689697598281318,
+                            0.38050390528872646
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -66.16517542172801,
+                                "y": 79.51397896236223,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 70.73180056108508,
+                                "y": 79.51397896236222,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 14.403324861648104,
+                                "y": 114.09671565956414,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -9.329235977251141,
+                                "y": 114.59209477837422,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.283312569678536,
+                            97.05303687036822,
+                            136.8969759828131,
+                            35.078115816012
+                        ],
+                        "centroid": [
+                            2.410178505938508,
+                            96.92919209066571
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0
+                    }
+                ],
+                "position": [
+                    2.2833125696785057,
+                    98.53917422679854
+                ],
+                "scaleXY": [
+                    1.3689697598281318,
+                    0.38050390528872646
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.283312569678536,
+                    97.05303687036822,
+                    136.8969759828131,
+                    35.078115816012
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -7.54681756160393,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 7.546817561603904
+        },
+        {
+            "bodyIndexA": 0,
+            "bodyIndexB": 8,
+            "localAnchorA": [
+                64.01608816336409,
+                -75.0173073647862
+            ],
+            "localAnchorB": [
+                63.35470511872788,
+                -74.68489279326782
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                55.9418932310157,
+                -33.32191031586594
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint5",
+            "bodyA": {
+                "name": "torso",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            2.3314683517128287e-15,
+                            -4.864512454870924
+                        ],
+                        "scaleXY": [
+                            1.3142602683071405,
+                            1.6118925747366788
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -65.71301341535707,
+                                "y": -85.45914119170473,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.71301341535711,
+                                "y": -85.45914119170477,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.7130134153571,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -65.71301341535704,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.1316282072803006e-14,
+                            -4.864512454870884,
+                            131.4260268307142,
+                            161.1892574736678
+                        ],
+                        "centroid": [
+                            2.4868995751603507e-14,
+                            -4.8645124548708765
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 131.42602683071402,
+                        "height": 161.18925747366782
+                    }
+                ],
+                "position": [
+                    2.3314683517128287e-15,
+                    -4.864512454870924
+                ],
+                "scaleXY": [
+                    1.3142602683071405,
+                    1.6118925747366788
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.1316282072803006e-14,
+                    -4.864512454870884,
+                    131.4260268307142,
+                    161.1892574736678
+                ],
+                "isSelected": false,
+                "bodyType": "2",
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "upper_left_arm",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            111.8837864620314,
+                            -61.77930817686096
+                        ],
+                        "scaleXY": [
+                            0.8313534130027384,
+                            0.4228937640644018
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 70.31611581189478,
+                                "y": -82.92399638008098,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 153.45145711216813,
+                                "y": -82.923996380081,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 153.45145711216813,
+                                "y": -40.634619973640774,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 70.31611581189478,
+                                "y": -40.63461997364077,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            111.88378646203145,
+                            -61.77930817686088,
+                            83.13534130027335,
+                            42.289376406440226
+                        ],
+                        "centroid": [
+                            111.88378646203145,
+                            -61.77930817686088
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 83.13534130027381,
+                        "height": 42.28937640644018
+                    }
+                ],
+                "position": [
+                    111.8837864620314,
+                    -61.77930817686096
+                ],
+                "scaleXY": [
+                    0.8313534130027384,
+                    0.4228937640644018
+                ],
+                "rotation": 0,
+                "bounds": [
+                    111.88378646203145,
+                    -61.77930817686088,
+                    83.13534130027335,
+                    42.289376406440226
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -82.30312538278064,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 70.35589750463511
+        },
+        {
+            "bodyIndexA": 8,
+            "bodyIndexB": 9,
+            "localAnchorA": [
+                153.92855557525198,
+                -62.41979609631665
+            ],
+            "localAnchorB": [
+                154.92579928980743,
+                -62.087381524798104
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                155.17794731038265,
+                -62.26575942234806
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint6",
+            "bodyA": {
+                "name": "upper_left_arm",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            111.8837864620314,
+                            -61.77930817686096
+                        ],
+                        "scaleXY": [
+                            0.8313534130027384,
+                            0.4228937640644018
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 70.31611581189478,
+                                "y": -82.92399638008098,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 153.45145711216813,
+                                "y": -82.923996380081,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 153.45145711216813,
+                                "y": -40.634619973640774,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 70.31611581189478,
+                                "y": -40.63461997364077,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            111.88378646203145,
+                            -61.77930817686088,
+                            83.13534130027335,
+                            42.289376406440226
+                        ],
+                        "centroid": [
+                            111.88378646203145,
+                            -61.77930817686088
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 83.13534130027381,
+                        "height": 42.28937640644018
+                    }
+                ],
+                "position": [
+                    111.8837864620314,
+                    -61.77930817686096
+                ],
+                "scaleXY": [
+                    0.8313534130027384,
+                    0.4228937640644018
+                ],
+                "rotation": 0,
+                "bounds": [
+                    111.88378646203145,
+                    -61.77930817686088,
+                    83.13534130027335,
+                    42.289376406440226
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "lower_left_arm",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            198.4721081587339,
+                            -62.752210667835165
+                        ],
+                        "scaleXY": [
+                            0.8361612020723048,
+                            0.3434606358849639
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 156.6640480551189,
+                                "y": -79.92524246208335,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 240.280168262349,
+                                "y": -79.92524246208336,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 240.280168262349,
+                                "y": -45.579178873586855,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 156.6640480551189,
+                                "y": -45.579178873586855,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            198.47210815873396,
+                            -62.75221066783511,
+                            83.6161202072301,
+                            34.346063588496506
+                        ],
+                        "centroid": [
+                            198.47210815873396,
+                            -62.7522106678351
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 83.61612020723048,
+                        "height": 34.3460635884964
+                    }
+                ],
+                "position": [
+                    198.4721081587339,
+                    -62.752210667835165
+                ],
+                "scaleXY": [
+                    0.8361612020723048,
+                    0.3434606358849639
+                ],
+                "rotation": 0,
+                "bounds": [
+                    198.47210815873396,
+                    -62.75221066783511,
+                    83.6161202072301,
+                    34.346063588496506
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -15.92963717086075,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 14.602167406622355
+        },
+        {
+            "bodyIndexA": 0,
+            "bodyIndexB": 7,
+            "localAnchorA": [
+                -67.86847537439748,
+                -73.99055327904797
+            ],
+            "localAnchorB": [
+                -68.20088994591593,
+                -73.65986175672998
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                -55.212216362785064,
+                -33.80836156135304
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint7",
+            "bodyA": {
+                "name": "torso",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            2.3314683517128287e-15,
+                            -4.864512454870924
+                        ],
+                        "scaleXY": [
+                            1.3142602683071405,
+                            1.6118925747366788
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -65.71301341535707,
+                                "y": -85.45914119170473,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.71301341535711,
+                                "y": -85.45914119170477,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.7130134153571,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -65.71301341535704,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.1316282072803006e-14,
+                            -4.864512454870884,
+                            131.4260268307142,
+                            161.1892574736678
+                        ],
+                        "centroid": [
+                            2.4868995751603507e-14,
+                            -4.8645124548708765
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 131.42602683071402,
+                        "height": 161.18925747366782
+                    }
+                ],
+                "position": [
+                    2.3314683517128287e-15,
+                    -4.864512454870924
+                ],
+                "scaleXY": [
+                    1.3142602683071405,
+                    1.6118925747366788
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.1316282072803006e-14,
+                    -4.864512454870884,
+                    131.4260268307142,
+                    161.1892574736678
+                ],
+                "isSelected": false,
+                "bodyType": "2",
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "upper_right_arm",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            -110.42443272557011,
+                            -63.08290219015322
+                        ],
+                        "scaleXY": [
+                            0.8313534130027384,
+                            0.4228937640644018
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -151.99210337570676,
+                                "y": -84.22759039337325,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -68.8567620754333,
+                                "y": -84.22759039337325,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -68.85676207543328,
+                                "y": -41.93821398693305,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -151.9921033757068,
+                                "y": -41.93821398693305,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -110.42443272557003,
+                            -63.08290219015315,
+                            83.13534130027351,
+                            42.2893764064402
+                        ],
+                        "centroid": [
+                            -110.42443272557003,
+                            -63.08290219015315
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 83.13534130027381,
+                        "height": 42.28937640644018
+                    }
+                ],
+                "position": [
+                    -110.42443272557011,
+                    -63.08290219015322
+                ],
+                "scaleXY": [
+                    0.8313534130027384,
+                    0.4228937640644018
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -110.42443272557003,
+                    -63.08290219015315,
+                    83.13534130027351,
+                    42.2893764064402
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -80.31192073642302,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 72.67896959205227
+        },
+        {
+            "bodyIndexA": 7,
+            "bodyIndexB": 3,
+            "localAnchorA": [
+                -154.95014051338913,
+                -61.6252715028925
+            ],
+            "localAnchorB": [
+                -154.2853113703522,
+                -62.29010064592954
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                -153.96181919666503,
+                -62.02253379960457
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint8",
+            "bodyA": {
+                "name": "upper_right_arm",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            -110.42443272557011,
+                            -63.08290219015322
+                        ],
+                        "scaleXY": [
+                            0.8313534130027384,
+                            0.4228937640644018
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -151.99210337570676,
+                                "y": -84.22759039337325,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -68.8567620754333,
+                                "y": -84.22759039337325,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -68.85676207543328,
+                                "y": -41.93821398693305,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -151.9921033757068,
+                                "y": -41.93821398693305,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -110.42443272557003,
+                            -63.08290219015315,
+                            83.13534130027351,
+                            42.2893764064402
+                        ],
+                        "centroid": [
+                            -110.42443272557003,
+                            -63.08290219015315
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 83.13534130027381,
+                        "height": 42.28937640644018
+                    }
+                ],
+                "position": [
+                    -110.42443272557011,
+                    -63.08290219015322
+                ],
+                "scaleXY": [
+                    0.8313534130027384,
+                    0.4228937640644018
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -110.42443272557003,
+                    -63.08290219015315,
+                    83.13534130027351,
+                    42.2893764064402
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "lower_right_arm",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            -197.49920566775995,
+                            -61.29285693137398
+                        ],
+                        "scaleXY": [
+                            0.8361612020723048,
+                            0.3434606358849639
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -239.3072657713749,
+                                "y": -78.46588872562201,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -155.69114556414482,
+                                "y": -78.46588872562201,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -155.69114556414482,
+                                "y": -44.11982513712566,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -239.3072657713749,
+                                "y": -44.11982513712566,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -197.49920566775984,
+                            -61.292856931373834,
+                            83.61612020723007,
+                            34.34606358849635
+                        ],
+                        "centroid": [
+                            -197.49920566775984,
+                            -61.292856931373834
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 83.61612020723048,
+                        "height": 34.3460635884964
+                    }
+                ],
+                "position": [
+                    -197.49920566775995,
+                    -61.29285693137398
+                ],
+                "scaleXY": [
+                    0.8361612020723048,
+                    0.3434606358849639
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -197.49920566775984,
+                    -61.292856931373834,
+                    83.61612020723007,
+                    34.34606358849635
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -16.92523949403956,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 16.92523949403955
+        },
+        {
+            "bodyIndexA": 0,
+            "bodyIndexB": 10,
+            "localAnchorA": [
+                -1.1328265371893582,
+                -76.93040010521264
+            ],
+            "localAnchorB": [
+                -1.465241108707882,
+                -76.59798553369403
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 2,
+            "position": [
+                -1.2161281137177302,
+                -75.88639429598648
+            ],
+            "scaleXY": [
+                1.0248564238315145,
+                0.7729331435913462
+            ],
+            "isSelected": false,
+            "inEditMode": false,
+            "name": "joint9",
+            "bodyA": {
+                "name": "torso",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 0,
+                        "position": [
+                            2.3314683517128287e-15,
+                            -4.864512454870924
+                        ],
+                        "scaleXY": [
+                            1.3142602683071405,
+                            1.6118925747366788
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": -65.71301341535707,
+                                "y": -85.45914119170473,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.71301341535711,
+                                "y": -85.45914119170477,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 65.7130134153571,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -65.71301341535704,
+                                "y": 75.730116281963,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            2.1316282072803006e-14,
+                            -4.864512454870884,
+                            131.4260268307142,
+                            161.1892574736678
+                        ],
+                        "centroid": [
+                            2.4868995751603507e-14,
+                            -4.8645124548708765
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "width": 131.42602683071402,
+                        "height": 161.18925747366782
+                    }
+                ],
+                "position": [
+                    2.3314683517128287e-15,
+                    -4.864512454870924
+                ],
+                "scaleXY": [
+                    1.3142602683071405,
+                    1.6118925747366788
+                ],
+                "rotation": 0,
+                "bounds": [
+                    2.1316282072803006e-14,
+                    -4.864512454870884,
+                    131.4260268307142,
+                    161.1892574736678
+                ],
+                "isSelected": false,
+                "bodyType": "2",
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "bodyB": {
+                "name": "head",
+                "userData": "",
+                "texture": "",
+                "spriteData": [],
+                "initialSpriteData": [],
+                "shapes": [
+                    {
+                        "shapeType": 1,
+                        "position": [
+                            -2.432256227435463,
+                            -147.90780718862243
+                        ],
+                        "scaleXY": [
+                            1.2616174797402149,
+                            0.38973687794119966
+                        ],
+                        "rotation": 0,
+                        "vertices": [
+                            {
+                                "x": 60.648617759575345,
+                                "y": -147.90780718862243,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 48.60124284808083,
+                                "y": -110.8297997573376,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 17.060805854575396,
+                                "y": -87.91433092968249,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -21.92531830944631,
+                                "y": -87.91433092968245,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -53.46575530295168,
+                                "y": -110.82979975733758,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -65.51313021444624,
+                                "y": -147.90780718862243,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -53.465755302951706,
+                                "y": -184.9858146199074,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": -21.925318309446297,
+                                "y": -207.90128344756263,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 17.06080585457541,
+                                "y": -207.90128344756263,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            },
+                            {
+                                "x": 48.601242848080815,
+                                "y": -184.98581461990744,
+                                "width": 10,
+                                "height": 10,
+                                "isSelected": false
+                            }
+                        ],
+                        "bounds": [
+                            -2.4322562274354453,
+                            -147.90780718862254,
+                            126.16174797402158,
+                            119.98695251788018
+                        ],
+                        "centroid": [
+                            -2.432256227435444,
+                            -147.9078071886225
+                        ],
+                        "isSelected": false,
+                        "inEditMode": false,
+                        "friction": 1,
+                        "restitution": 0.25,
+                        "density": 1,
+                        "isSensor": false,
+                        "maskBits": 65535,
+                        "categoryBits": 1,
+                        "groupIndex": 0,
+                        "radius": 63.08087398701077
+                    }
+                ],
+                "position": [
+                    -2.432256227435463,
+                    -147.90780718862243
+                ],
+                "scaleXY": [
+                    1.2616174797402149,
+                    0.38973687794119966
+                ],
+                "rotation": 0,
+                "bounds": [
+                    -2.4322562274354453,
+                    -147.90780718862254,
+                    126.16174797402158,
+                    119.98695251788018
+                ],
+                "isSelected": false,
+                "bodyType": 2,
+                "isBullet": false,
+                "isFixedRotation": false,
+                "linearDamping": 0,
+                "angularDamping": 0,
+                "sprite": {}
+            },
+            "enableLimit": true,
+            "enableMotor": false,
+            "lowerAngle": -12.440915190307056,
+            "maxMotorTorque": 100,
+            "motorSpeed": 100,
+            "referenceAngle": 0,
+            "upperAngle": 13.246178958343432
+        }
+    ]
+}

@@ -156,7 +156,7 @@ var WorldLoader = (function(){
 		    jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
 		    jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
 		    jointDef.collideConnected = j.collideConnected;
-		    jointDef.referenceAngle = j.referenceAngle;
+		    jointDef.referenceAngle = j.referenceAngle * Math.PI / 180;
 		    this.loadedJoints.push(world.CreateJoint(jointDef));
 	  	}
 		else if (j.jointType == Joint.JOINT_REVOLUTE){
@@ -171,7 +171,7 @@ var WorldLoader = (function(){
 		    jointDef.lowerAngle   = j.lowerAngle * Math.PI / 180;
 		    jointDef.maxMotorTorque = j.maxMotorTorque;
 		    jointDef.motorSpeed   = j.motorSpeed;
-		    jointDef.referenceAngle = j.referenceAngle;
+		    jointDef.referenceAngle = j.referenceAngle * Math.PI / 180;
 		    jointDef.upperAngle   = j.upperAngle * Math.PI / 180;
 		    this.loadedJoints.push(world.CreateJoint(jointDef));
 		}
