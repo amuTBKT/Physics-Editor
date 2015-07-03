@@ -66,10 +66,6 @@ function PhysicsEditor(canvas) {
 		ref.viewport.onMouseUp(e);
 		ref.uiManager.onMouseUp(ref.viewport.getInputHandler());
 	});
-
-	this.sceneManager.createBody(Shape.SHAPE_BOX);
-	this.sceneManager.createBody(Shape.SHAPE_CIRCLE);
-	this.sceneManager.createBody(Shape.SHAPE_POLYGON);
 };
 
 PhysicsEditor.prototype.getSelectedBodies = function(){

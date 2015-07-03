@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
 <title>Physics-Editor</title>
 <link rel="icon" type="image/png" href="resources/title_icon.png">
 <link rel="stylesheet" type="text/css" href="css/reset.css">
@@ -23,6 +26,16 @@
 			<li><a href="#" data-event="saveScene">Save</a></li>
 			<li><a href="#" data-event="exportWorld">Export Scene</a></li>
 			<li><a href="#" data-event="exportSelection">Export Selection</a></li>
+		</ul>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="editMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    	Edit
+	  	</button>
+	    <ul class="dropdown-menu" aria-labelledby="editMenuDropdown" id="editMenu">
+			<li><a href="#" data-event="">Undo</a></li>
+			<li><a href="#" data-event="">Redo</a></li>
+			<li><a href="#" data-event="deleteSelectedObjects">Delete Selection</a></li>
 		</ul>
 	</div>
 	<div class="dropdown">
@@ -415,14 +428,14 @@
 </div>
 
 <div class="panel panel-default" id="alert_dialog">
-  <div class="panel-heading">Ceate new scene</div>
+  <div class="panel-heading"><h3>Ceate new scene</h3></div>
   	<div class="panel-body">
-    	Are you sure?
+    	Would you like to save changes to current scene?
   	</div>
   	<div class="btn-group btn-group-justified" role="group" aria-label="...">
- 		<button type="button" class="btn btn-default ">yes</button>
-	 	<button type="button" class="btn btn-default hidden"></button>
-	 	<button type="button" class="btn btn-default ">no</button>
+ 		<button type="button" class="btn btn-default">Save</button>
+	 	<button type="button" class="btn btn-default">Don't Save</button>
+	 	<button type="button" class="btn btn-default">Cancel</button>
 	</div>
 </div>
 

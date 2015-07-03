@@ -27,6 +27,13 @@ var UIManager = (function(){
 		var alertButtons = alertDialog.find("button");
 		alertButtons[0].addEventListener("click", function(){
 			alertDialog.hide();
+			var data = new Blob([JSON.stringify(sceneManager.saveScene(), null, 4)], {type:'text/plain'});
+			var textFile = window.URL.createObjectURL(data);
+			window.open(textFile);
+			sceneManager.newScene();
+		});
+		alertButtons[1].addEventListener("click", function(){
+			alertDialog.hide();
 			sceneManager.newScene();
 		});
 		alertButtons[2].addEventListener("click", function(){
@@ -134,6 +141,9 @@ var UIManager = (function(){
 					sceneManager.loadScene(JSON.parse(e.target.result));
 				}
 			}
+		});
+		$('#editMenu').find("a")[2].addEventListener("click", function(e){
+			sceneManager.deleteSelectedObjects();
 		});
 		$("#addToScene").find("a").each(function(index){
 			mixin(this, sceneManager, "createBody");

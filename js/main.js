@@ -26,6 +26,11 @@ function init(){
 		if (lastElementSelected == viewport.canvas)
 			viewport.onKeyUp(e)
 	});
+	window.addEventListener("resize", function(e){
+		// canvas.width = window.innerWidth * 0.8;
+		// canvas.height = window.innerHeight * 0.8;
+		// Editor.viewport.getRenderer().setStageWidthHeight(canvas.width, canvas.height);
+	});
 }
 
 // update loop 

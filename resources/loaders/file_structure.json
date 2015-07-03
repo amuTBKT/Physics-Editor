@@ -31,6 +31,38 @@
 
     vertices : [position_x, position_y] in shape's local space (position relative to shapes position)
 
+    joints : array of joints
+        jointType: DISTANCE(0), WELD(1), REVOLUTE(2), WHEEL(3), PULLEY(4)
+        bodyA: index of bodyA (primary anchor)
+        bodyB: index of bodyB (secondary anchor)
+        localAnchorA: [position_x, position_y], offset from bodyA's position (in bodyA's local space)
+        localAnchorB: [position_x, position_y], offset from bodyB's position (in bodyB's local space)
+        userData: userdata_provided_in_editor
+        collideConnected: can bodyA and bodyB collide
+
+        // distance and wheel joint parameters
+        length: length of joint
+        dampingRatio
+        frequencyHZ 
+
+        // weld and revolute joint paramters
+        referenceAngle: angle of bodyB
+
+        // revolute and wheel joint parameters
+        enableMotor: can bodyB rotate on its own like a motor
+        maxMotorTorque: maximum torque that can be applied on bodyB
+        motorSpeed: speed of rotation (multiply by -1 because of y-axis flipping)
+
+        // revolute joint parameters
+        enableLimit: is rotation constrained
+        lowerAngle: lower angle limit in degrees
+        upperAngle: upper angle limit in degrees
+
+        // pulley joint parameters
+        groundAnchorA: anchor for bodyA (this anchor doesnot moves), in world space coordinates
+        groundAnchorB: anchor for bodyB (this anchor doesnot moves), in world space coordinates
+        lengthA
+        lengthB
 */
 
 {
@@ -76,6 +108,24 @@
             "rotation": float_rotation-in-deg,
             "isBullet": boolean,
             "isFixedRotation": boolean
+        }
+    ],
+    "joints": [
+        {
+            "localAnchorA": [
+                0,
+                0
+            ],
+            "localAnchorB": [
+                0,
+                0
+            ],
+            "userData": "",
+            "collideConnected": false,
+            "jointType": 0,
+            "bodyA": 0,
+            "bodyB": 1,
+            // joint specific parameters
         }
     ]
 }
