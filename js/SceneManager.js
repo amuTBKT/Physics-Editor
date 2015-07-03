@@ -301,57 +301,61 @@ var SceneManager = (function(){
 				this.selectedJoints = [];
 			}
 			var minDistance = 1000000000, distance, bodyInBounds = false, jointInBounds = false;
-			for (var i = 0; i < this.bodies.length; i++){
-				var body = this.bodies[i];
-				
-				if(!inputHandler.SHIFT_PRESSED){
-					body.isSelected = false;
-				}
+			if (!inputHandler.J_KEY_PRESSED){
+				for (var i = 0; i < this.bodies.length; i++){
+					var body = this.bodies[i];
+					
+					if(!inputHandler.SHIFT_PRESSED){
+						body.isSelected = false;
+					}
 
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, body.bounds)){
-					var point = navigator.worldPointToScreen(body.position[0], body.position[1]);
-					distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
-					if (minDistance > distance){
-						if (!inputHandler.SHIFT_PRESSED){
-							this.selectedBodies[0] = body;
-							body.isSelected = true;
-						}
-						else {
-							if (this.selectedBodies.indexOf(body) < 0){
-								this.selectedBodies.push(body);
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, body.bounds)){
+						var point = navigator.worldPointToScreen(body.position[0], body.position[1]);
+						distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+						if (minDistance > distance){
+							if (!inputHandler.SHIFT_PRESSED){
+								this.selectedBodies[0] = body;
 								body.isSelected = true;
 							}
+							else {
+								if (this.selectedBodies.indexOf(body) < 0){
+									this.selectedBodies.push(body);
+									body.isSelected = true;
+								}
+							}
+							minDistance = distance;
 						}
-						minDistance = distance;
+						bodyInBounds = true;
 					}
-					bodyInBounds = true;
 				}
 			}
-			minDistance = 100000000000000;
-			for (var i = 0; i < this.joints.length; i++){
-				var joint = this.joints[i];
-				
-				if(!inputHandler.SHIFT_PRESSED){
-					joint.isSelected = false;
-				}
+			if (!inputHandler.B_KEY_PRESSED){
+				minDistance = 100000000000000;
+				for (var i = 0; i < this.joints.length; i++){
+					var joint = this.joints[i];
+					
+					if(!inputHandler.SHIFT_PRESSED){
+						joint.isSelected = false;
+					}
 
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getBounds())){
-					var point = navigator.worldPointToScreen(joint.position[0], joint.position[1]);
-					distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
-					if (minDistance > distance){
-						if (!inputHandler.SHIFT_PRESSED){
-							this.selectedJoints[0] = joint;
-							joint.isSelected = true;
-						}
-						else {
-							if (this.selectedJoints.indexOf(joint) < 0){
-								this.selectedJoints.push(joint);
+					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getBounds())){
+						var point = navigator.worldPointToScreen(joint.position[0], joint.position[1]);
+						distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+						if (minDistance > distance){
+							if (!inputHandler.SHIFT_PRESSED){
+								this.selectedJoints[0] = joint;
 								joint.isSelected = true;
 							}
+							else {
+								if (this.selectedJoints.indexOf(joint) < 0){
+									this.selectedJoints.push(joint);
+									joint.isSelected = true;
+								}
+							}
+							minDistance = distance;
 						}
-						minDistance = distance;
+						jointInBounds = true;
 					}
-					jointInBounds = true;
 				}
 			}
 			return bodyInBounds || jointInBounds;

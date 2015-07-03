@@ -13,6 +13,8 @@ var Viewport = (function(){
 		this.CTRL_PRESSED = 0;
 		this.SHIFT_PRESSED = 0;
 		this.ALT_PRESSED = 0;
+		this.B_KEY_PRESSED = false;
+		this.J_KEY_PRESSED = false;
 		this.SNAPPING_ENABLED = 0;
 		this.snappingData = [0, 0.1, 10];			// [snap_pos, delta_scale, delta_angle]
 		this.transformTool = InputHandler.TRANSFORM_TOOL_TRANSLATION;
@@ -520,6 +522,12 @@ var Viewport = (function(){
 		else if (e.which == 83){
 			this.inputHandler.SNAPPING_ENABLED = !this.inputHandler.SNAPPING_ENABLED;
 		}
+		else if (e.which == 66){		// mask joints
+			this.inputHandler.B_KEY_PRESSED = true;
+		}
+		else if (e.which == 74){		// mask body
+			this.inputHandler.J_KEY_PRESSED = true;
+		}
 	};
 
 	Viewport.prototype.onKeyUp = function(e){
@@ -539,6 +547,13 @@ var Viewport = (function(){
 
 		else if (e.which == 46){		// delete selected object
 			this.sceneManager.deleteSelectedObjects();
+		}
+
+		else if (e.which == 66){		// unmask joints
+			this.inputHandler.B_KEY_PRESSED = false;
+		}
+		else if (e.which == 74){		// unmask body
+			this.inputHandler.J_KEY_PRESSED = false;
 		}
 
 		else if (e.which == 70){		// f - key pressed => align view to selection
