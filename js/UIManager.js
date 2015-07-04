@@ -544,7 +544,7 @@ var UIManager = (function(){
 		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE && 
 			sceneManager.selectedJoints.length > 0){
 			$("#joint_properties").show();
-			var jointNames = ["Distance", "Weld", "Revolute", "Wheel", "Pulley", "Gear"];
+			var jointNames = ["Distance", "Weld", "Revolute", "Wheel", "Pulley", "Gear", "Prismatic"];
 			if(sceneManager.selectedJoints.length == 1){
 				$(this.jointPropertyRows[2]).find("p")[1].innerHTML = jointNames[sceneManager.selectedJoints[0].jointType]; 
 				$(this.jointPropertyRows[this.jointPropertyRows.length - 1]).show();

@@ -32,7 +32,8 @@ var b2Vec2 =  Box2D.Common.Math.b2Vec2,
     b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
     b2WeldJointDef =  Box2D.Dynamics.Joints.b2WeldJointDef,
     b2PulleyJointDef = Box2D.Dynamics.Joints.b2PulleyJointDef;
-    b2GearJointDef = Box2D.Dynamics.Joints.b2GearJointDef;
+    b2GearJointDef = Box2D.Dynamics.Joints.b2GearJointDef,
+    b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef;
 
 var WorldLoader = (function(){
 
@@ -218,6 +219,23 @@ var WorldLoader = (function(){
 		    jointDef.joint2 = this.loadedJoints[j.joint2];
 		    jointDef.collideConnected = j.collideConnected;
 		    jointDef.ratio = j.ratio;
+		    this.loadedJoints.push(world.CreateJoint(jointDef));
+		}
+		else if (j.jointType == Joint.JOINT_PRISMATIC){
+			var jointDef = new b2PrismaticJointDef;
+		    jointDef.bodyA = this.loadedBodies[j.bodyA];
+		    jointDef.bodyB = this.loadedBodies[j.bodyB];
+		    jointDef.localAnchorA = new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
+		    jointDef.localAnchorB = new b2Vec2(j.localAnchorB[0] / 30, j.localAnchorB[1] / 30);
+		    jointDef.localAxisA = new b2Vec2(j.localAxisA[0], j.localAxisA[1]);
+		    jointDef.collideConnected = j.collideConnected;
+		    jointDef.enableLimit  = j.enableLimit;
+		    jointDef.enableMotor  = j.enableMotor;
+		    jointDef.lowerTranslation   = j.lowerTranslation / 30;
+		    jointDef.maxMotorTorque = j.maxMotorTorque;
+		    jointDef.motorSpeed   = j.motorSpeed;
+		    jointDef.referenceAngle = j.referenceAngle * Math.PI / 180;
+		    jointDef.upperTranslation   = j.upperTranslation / 30;
 		    this.loadedJoints.push(world.CreateJoint(jointDef));
 		}
 

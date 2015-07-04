@@ -411,6 +411,16 @@ var SceneManager = (function(){
 							joint.moveGroundAnchorA(x, y);
 						}
 					}
+					else if (joint.jointType == Joint.JOINT_PRISMATIC){
+						if (joint.enableLimit){
+							if (inputHandler.SHIFT_PRESSED){
+								joint.upperTranslation += x;
+							}
+							else {
+								joint.lowerTranslation += x;	
+							}
+						}
+					}
 				}
 				else if (this.selectedAnchor == 3){
 					if (joint.jointType == Joint.JOINT_REVOLUTE){
@@ -422,6 +432,9 @@ var SceneManager = (function(){
 								joint.changeLowerAngle(x);	
 							}
 						}
+					}
+					else if (joint.jointType == Joint.JOINT_WHEEL || joint.jointType == Joint.JOINT_PRISMATIC){
+						joint.changeLowerAngle(x);
 					}
 					else if (joint.jointType == Joint.JOINT_PULLEY){
 						if (inputHandler.SNAPPING_ENABLED){
@@ -862,12 +875,14 @@ var SceneManager = (function(){
 					joint.joint2 = this.selectedJoints[1];
 				}
 				else {
+					console.log("select 2 revolute/prismatic joints to create gear joint");
 					return "select 2 revolute/prismatic joints to create gear joint";		
 				}
 			}
 			this.addJoint(joint);
 		}
 		else {
+			console.log("select 2 bodies to create a joint");
 			return "select 2 bodies to create a joint";
 		}
 	};
@@ -965,10 +980,10 @@ var SceneManager = (function(){
 		};
 		scene.bodies = this.bodies;
 		scene.joints = this.joints;
-		for (var i = 0; i < scene.joints.length; i++){
-			this.joints[i].bodyA = undefined;
-			this.joints[i].bodyB = undefined;
-		}
+		// for (var i = 0; i < scene.joints.length; i++){
+		// 	scene.joints[i].bodyA = undefined;
+		// 	scene.joints[i].bodyB = undefined;
+		// }
 		return scene;
 	};
 
@@ -1099,10 +1114,10 @@ var SceneManager = (function(){
 			joint.enableLimit 	 = obj.enableLimit;
 		 	joint.enableMotor 	 = obj.enableMotor;
 		 	joint.lowerAngle 	 = obj.lowerAngle;
+		 	joint.upperAngle	 = obj.upperAngle;
 			joint.maxMotorTorque = obj.maxMotorTorque;
 		 	joint.motorSpeed 	 = obj.motorSpeed;
 		 	joint.referenceAngle = obj.referenceAngle;
-		 	joint.upperAngle	 = obj.upperAngle;
 		}
 		else if (joint.jointType == Joint.JOINT_WHEEL){
 			joint.localAxisA 	= cloneArray(obj.localAxisA);
@@ -1125,6 +1140,16 @@ var SceneManager = (function(){
 			joint.joint1		= joints[obj.jointIndex1];
 			joint.joint2		= joints[obj.jointIndex2];
 			joint.frequencyHZ = obj.frequencyHZ;
+		}
+		else if (joint.jointType == Joint.JOINT_PRISMATIC){
+			joint.enableLimit 	 = obj.enableLimit;
+		 	joint.enableMotor 	 = obj.enableMotor;
+		 	joint.localAxisA 	= cloneArray(obj.localAxisA);
+		 	joint.lowerTranslation 	 = obj.lowerTranslation;
+		 	joint.upperTranslation	 = obj.upperTranslation;
+			joint.maxMotorTorque = obj.maxMotorTorque;
+		 	joint.motorSpeed 	 = obj.motorSpeed;
+		 	joint.referenceAngle = obj.referenceAngle;
 		}
 		return joint;
 	}

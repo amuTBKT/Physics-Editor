@@ -1054,6 +1054,16 @@ function PhysicsJoint(joint){
 		this.localAnchorA   = undefined;
 		this.localAnchorB   = undefined;
 	}
+	else if (this.jointType == Joint.JOINT_PRISMATIC){
+		this.enableLimit 	= joint.enableLimit;
+	 	this.enableMotor 	= joint.enableMotor;
+	 	this.lowerTranslation 	= joint.lowerTranslation;
+	 	this.upperTranslation 	= joint.upperTranslation;
+	 	this.localAxisA 	= joint.localAxisA;
+		this.maxMotorTorque = joint.maxMotorTorque;
+	 	this.motorSpeed 	= joint.motorSpeed;
+	 	this.referenceAngle = joint.referenceAngle;
+	}
 }
 
 function Joint(type){
@@ -1109,6 +1119,16 @@ function Joint(type){
 		this.jointIndex1    = -1;
 		this.jointIndex2	= -1;
 	}
+	else if (type == Joint.JOINT_PRISMATIC){
+		this.enableLimit 	= false;
+	 	this.enableMotor 	= false;
+	 	this.lowerTranslation 	= 0;
+	 	this.upperTranslation   = 100;
+	 	this.localAxisA 	= [1, 0];
+		this.maxMotorTorque = 100;
+	 	this.motorSpeed 	= 100;
+	 	this.referenceAngle = 0;
+	}
 
 	// editor parameters
 	this.position = [0, 0];
@@ -1125,6 +1145,7 @@ Joint.JOINT_REVOLUTE	= 2;
 Joint.JOINT_WHEEL 		= 3;
 Joint.JOINT_PULLEY		= 4;
 Joint.JOINT_GEAR		= 5;
+Joint.JOINT_PRISMATIC	= 6;
 
 Joint.prototype.clone = function(){
 	return clone(this);
@@ -1222,13 +1243,18 @@ Joint.prototype.setReferenceAngle = function(angle){
 	this.referenceAngle = angle * Math.PI / 180;
 };
 
-Joint.prototype.changeReferenceAngle = function(angle){
-	this.referenceAngle += angle * Math.PI / 180;
+Joint.prototype.changeReferenceAngle = function(delta){
+	this.referenceAngle += delta;
 };
 
 // revolute joint
 Joint.prototype.changeLowerAngle = function(delta){
 	this.lowerAngle += delta;
+	// if joint is wheel or prismatic, then edit localAxis 
+	if (this.jointType == Joint.JOINT_PRISMATIC || this.jointType == Joint.JOINT_WHEEL){
+		var newAngle = -Math.atan2(this.localAxisA[1], this.localAxisA[0]) + delta * Math.PI / 180;
+		this.localAxisA = [Math.cos(newAngle), -Math.sin(newAngle)];
+	}
 };
 Joint.prototype.changeUpperAngle = function(delta){
 	this.upperAngle += delta;

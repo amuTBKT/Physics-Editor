@@ -93,8 +93,10 @@ UI
 * <kbd>j</kbd> while selecting to mask bodies
 * <kbd>b</kbd> while selecting to mask joints
 * <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> to add vertex to a shape while editing
-* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit of revolute joint
+* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit of revolute joint or localAxisA in case if wheel and prismatic joint
 * <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyB while in edit mode to change upper angle limit of revolute joint
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change upper translation limit of prismatic joint
+* <kbd>Left Click</kbd> drag on bodyA while in edit mode to change lower translation limit of prismatic joint
 
 Scripting
 ---------
@@ -118,8 +120,8 @@ for (var i = 0; i < resolution; i++){
 Issues
 ------
 
-* Editor does not support Undo/Redo option at this moment
-* Editor is not stable on firefox 
+* Undo/Redo not available
+* Not stable on firefox 
 
 License
 -------
