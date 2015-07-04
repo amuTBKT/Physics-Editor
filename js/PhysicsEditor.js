@@ -49,7 +49,8 @@ function PhysicsEditor(canvas) {
 	///////////////////
 
 	// add event listeners to canvas
-	canvas.addEventListener("mousewheel", function(e){
+	var mousewheelevt=(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel";
+	canvas.addEventListener(mousewheelevt, function(e){
 		ref.viewport.onMouseWheel(e);
 	});
 	canvas.addEventListener("mousedown", function(e){

@@ -327,6 +327,7 @@ public class WorldLoader {
 				
 				GearJoint joint = (GearJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
+				loadedJoints.add(joint);
 			}
 			
 		}

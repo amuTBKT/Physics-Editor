@@ -273,21 +273,6 @@ Shape.prototype.indexOfVertex = function(v){
 	}
 };
 
-Shape.prototype.sortVertices = function(){
-	for (var i = 0; i < this.vertices.length; i++){
-		var v = this.vertices[i];
-		var vec = [v.x - this.centroid[0], v.y - this.centroid[1]];
-		var len = Math.pow(vec[0] * vec[0] + vec[1] * vec[1], 0.5);
-		vec.x /= len;
-		vec.y /= len;
-		v.angle = Math.atan2(vec[1], vec[0]) + Math.PI;
-	}
-
-	this.vertices.sort(function(a, b){
-		return a.angle - b.angle;
-	});
-};
-
 Shape.prototype.move = function(dx, dy){
 	this.position[0] += dx;
 	this.position[1] += dy;
@@ -765,6 +750,7 @@ Body.prototype.getSpriteOffsetY = function(){
 	return null;
 };
 
+// if (setPos == true) => shape would be moved to bodies center 
 Body.prototype.addShape = function(shape, setPos){
 	if (setPos){
 		shape.setPosition(this.position[0], this.position[1]);

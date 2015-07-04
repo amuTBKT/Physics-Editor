@@ -517,7 +517,7 @@ var Viewport = (function(){
 			this.inputHandler.SHIFT_PRESSED = 1;
 		}
 		else if (e.which == 18){
-			this.inputHandler.ALT_PRESSED = 0;
+			this.inputHandler.ALT_PRESSED = 1;
 		}
 		else if (e.which == 83){
 			this.inputHandler.SNAPPING_ENABLED = !this.inputHandler.SNAPPING_ENABLED;

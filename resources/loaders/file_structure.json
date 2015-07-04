@@ -69,8 +69,8 @@
         ratio
 
         // gear joint parameters
-        joint1: driving joint
-        joint2: driven joint
+        joint1: must be either revolute of prismatic joint
+        joint2: must be either revolute of prismatic joint
         ratio: influence of driving joint
 */
 

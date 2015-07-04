@@ -853,12 +853,13 @@ var SceneManager = (function(){
 				joint.setGroundAnchorB(joint.bodyB.position[0], joint.bodyB.position[1] - 100);
 			}
 			else if (jointType == Joint.JOINT_GEAR){
-				if (this.selectedJoints.length == 2){
+				if (this.selectedJoints.length == 2 && this.selectedJoints[0].jointType == Joint.JOINT_REVOLUTE &&
+				 	this.selectedJoints[1].jointType == Joint.JOINT_REVOLUTE){
 					joint.joint1 = this.selectedJoints[0];
 					joint.joint2 = this.selectedJoints[1];
 				}
 				else {
-					return "select 2 joints to create gear joint";		
+					return "select 2 revolute/prismatic joints to create gear joint";		
 				}
 			}
 			this.addJoint(joint);
