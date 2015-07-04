@@ -85,8 +85,8 @@ UI
 * <kbd>Shift</kbd> + <kbd>D</kbd> to duplicate selection
 * <kbd>Delete</kbd> to delete selection
 * <kbd>w</kbd> to select translate tool
-* <kbd>e</kbd> to select scale tool
-* <kbd>r</kbd> to select rotate tool
+* <kbd>r</kbd> to select scale tool
+* <kbd>e</kbd> to select rotate tool
 * <kbd>s</kbd> to toggle snapping to grid
 * <kbd>j</kbd> while selecting to mask bodies
 * <kbd>b</kbd> while selecting to mask joints
