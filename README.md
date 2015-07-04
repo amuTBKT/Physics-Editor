@@ -68,8 +68,10 @@ Joint.JOINT_GEAR 			// a body can drive another body using either revolute/prism
 ````
 
 #### PolygonHelper
-[Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes
-Concave shape is decomposed to array of convex shapes, as Box2d supports only convex shapes
+[Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes. Concave shape is decomposed to array of convex shapes, as Box2d supports only convex shapes
+
+#### Loading Scene
+You can export scene created in editor as json file (structure for the same is available in /resources/loaders folder), which can then be loaded in game engine. Currently there are loaders available for [LibGdx](http://libgdx.badlogicgames.com/)(Java) and Box2d-Web(Javascript) in /resources/loaders folder
 
 UI
 --
@@ -116,7 +118,8 @@ for (var i = 0; i < resolution; i++){
 Issues
 ------
 
-Editor doesnot support Undo/Redo option at this moment
+* Editor does not support Undo/Redo option at this moment
+* Editor is not stable on firefox 
 
 License
 -------
