@@ -15,10 +15,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
+import com.badlogic.gdx.physics.box2d.joints.GearJoint;
+import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
@@ -52,11 +55,15 @@ public class WorldLoader {
 		JOINT_WELD,
 		JOINT_REVOLUTE,
 		JOINT_WHEEL,
-		JOINT_PULLEY
+		JOINT_PULLEY,
+		JOINT_GEAR
 	};
 	
 	/** array list of all the bodies loaded to use when creating joints **/
 	private ArrayList<Body> loadedBodies;
+	
+	/** array list of all the joints loaded to use when creating gear joints **/
+	private ArrayList<Joint> loadedJoints;
 	
 	/** to offset scene's position (in pixels) **/
 	public float offsetX = 0, offsetY = 0;
@@ -68,6 +75,11 @@ public class WorldLoader {
 			loadedBodies = null;
 		}
 		loadedBodies = new ArrayList<Body>();
+		if (loadedJoints != null){
+			loadedJoints.clear();
+			loadedJoints = null;
+		}
+		loadedJoints = new ArrayList<Joint>();
 	}
 	
 	/**
@@ -224,6 +236,7 @@ public class WorldLoader {
 			    
 			    DistanceJoint joint = (DistanceJoint) world.createJoint(jointDef);
 			    joint.setUserData(jsonJoint.getString("userData"));
+			    loadedJoints.add(joint);
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_WELD.ordinal()){
 				WeldJointDef jointDef = new WeldJointDef();
@@ -237,6 +250,7 @@ public class WorldLoader {
 			    
 				WeldJoint joint = (WeldJoint) world.createJoint(jointDef);
 			    joint.setUserData(jsonJoint.getString("userData"));
+			    loadedJoints.add(joint);
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_REVOLUTE.ordinal()){
 				RevoluteJointDef jointDef = new RevoluteJointDef();
@@ -258,6 +272,7 @@ public class WorldLoader {
 				
 				RevoluteJoint joint = (RevoluteJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
+				loadedJoints.add(joint);
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_WHEEL.ordinal()){
 				WheelJointDef jointDef = new WheelJointDef();
@@ -277,6 +292,7 @@ public class WorldLoader {
 			    
 				WheelJoint joint = (WheelJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
+				loadedJoints.add(joint);
 			}
 			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_PULLEY.ordinal()){
 				PulleyJointDef jointDef = new PulleyJointDef();
@@ -297,6 +313,20 @@ public class WorldLoader {
 			    
 				PulleyJoint joint = (PulleyJoint) world.createJoint(jointDef);
 			    joint.setUserData(jsonJoint.getString("userData"));
+			    loadedJoints.add(joint);
+			}
+			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_GEAR.ordinal()){
+				GearJointDef jointDef = new GearJointDef();
+				jointDef.bodyA = loadedBodies.get(jsonJoint.getInt("bodyA"));
+				jointDef.bodyB = loadedBodies.get(jsonJoint.getInt("bodyB"));
+				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");
+				jointDef.ratio = jsonJoint.getLong("ratio");
+				
+				jointDef.joint1 = loadedJoints.get(jsonJoint.getInt("joint1"));
+				jointDef.joint2 = loadedJoints.get(jsonJoint.getInt("joint2"));
+				
+				GearJoint joint = (GearJoint) world.createJoint(jointDef);
+				joint.setUserData(jsonJoint.getString("userData"));
 			}
 			
 		}

@@ -66,6 +66,12 @@
         groundAnchorB: anchor for bodyB (this anchor doesnot moves), in world space coordinates
         lengthA
         lengthB
+        ratio
+
+        // gear joint parameters
+        joint1: driving joint
+        joint2: driven joint
+        ratio: influence of driving joint
 */
 
 {

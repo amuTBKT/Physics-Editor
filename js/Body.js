@@ -1061,6 +1061,13 @@ function PhysicsJoint(joint){
 		this.maxLengthB     = joint.maxLengthB;
 		this.ratio 			= joint.frequencyHZ;
 	}
+	else if (this.jointType == Joint.JOINT_GEAR){
+		this.ratio 			= joint.frequencyHZ;
+		this.joint1			= -1;
+		this.joint2			= -1;
+		this.localAnchorA   = undefined;
+		this.localAnchorB   = undefined;
+	}
 }
 
 function Joint(type){
@@ -1107,6 +1114,14 @@ function Joint(type){
 		this.maxLengthA     = 100;
 		this.maxLengthB     = 100;
 		this.frequencyHZ    = 1;			// frequecyHZ is equivalent to ratio in this case (makes it easy to use the current ui layout)
+	}
+	else if (type == Joint.JOINT_GEAR){
+		// localAnchors not needed for this joint
+		this.frequencyHZ    = 1;			// frequecyHZ is equivalent to ratio in this case (makes it easy to use the current ui layout)
+		this.joint1;
+		this.joint2;
+		this.jointIndex1    = -1;
+		this.jointIndex2	= -1;
 	}
 
 	// editor parameters
@@ -1287,11 +1302,17 @@ Joint.prototype.getGroundAnchorBBounds = function(){
 	return [this.groundAnchorB[0], this.groundAnchorB[1], 32, 32];
 };
 
-Joint.prototype.toPhysics = function(bodies){
+Joint.prototype.toPhysics = function(bodies, joints){
 	var joint = new PhysicsJoint(this);
 	joint.bodyA = bodies.indexOf(this.bodyA);
 	joint.bodyB = bodies.indexOf(this.bodyB);
-	joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
-	joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
+	if (joint.jointType != Joint.JOINT_GEAR){
+		joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
+		joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
+	}
+	if (joint.jointType == Joint.JOINT_GEAR) {
+		joint.joint1 = joints.indexOf(this.joint1);
+		joint.joint2 = joints.indexOf(this.joint2);
+	}
 	return joint;
 };

@@ -852,6 +852,15 @@ var SceneManager = (function(){
 				joint.setGroundAnchorA(joint.bodyA.position[0], joint.bodyA.position[1] - 100);
 				joint.setGroundAnchorB(joint.bodyB.position[0], joint.bodyB.position[1] - 100);
 			}
+			else if (jointType == Joint.JOINT_GEAR){
+				if (this.selectedJoints.length == 2){
+					joint.joint1 = this.selectedJoints[0];
+					joint.joint2 = this.selectedJoints[1];
+				}
+				else {
+					return "select 2 joints to create gear joint";		
+				}
+			}
 			this.addJoint(joint);
 		}
 		else {
@@ -891,7 +900,7 @@ var SceneManager = (function(){
 				var lengthVec = [this.joints[i].localAnchorA[0] - this.joints[i].localAnchorB[0], this.joints[i].localAnchorA[1] - this.joints[i].localAnchorB[1]];
 				this.joints[i].setLength(Math.pow(lengthVec[0] * lengthVec[0] + lengthVec[1] * lengthVec[1], 0.5));
 			}
-			world.joints.push(this.joints[i].toPhysics(this.bodies));
+			world.joints.push(this.joints[i].toPhysics(this.bodies, this.joints));
 		}
 
 		return world;
@@ -940,6 +949,11 @@ var SceneManager = (function(){
 		for (var i = 0; i < this.joints.length; i++){
 			this.joints[i].bodyIndexA = this.bodies.indexOf(this.joints[i].bodyA);
 			this.joints[i].bodyIndexB = this.bodies.indexOf(this.joints[i].bodyB);
+
+			if (this.joints[i].jointType == Joint.JOINT_GEAR){
+				this.joints[i].jointIndex1 = this.joints.indexOf(this.joints[i].joint1);
+				this.joints[i].jointIndex2 = this.joints.indexOf(this.joints[i].joint2);				
+			}
 		}
 		var scene = {
 			bodies: [],
@@ -947,6 +961,10 @@ var SceneManager = (function(){
 		};
 		scene.bodies = this.bodies;
 		scene.joints = this.joints;
+		for (var i = 0; i < scene.joints.length; i++){
+			this.joints[i].bodyA = undefined;
+			this.joints[i].bodyB = undefined;
+		}
 		return scene;
 	};
 
@@ -961,7 +979,7 @@ var SceneManager = (function(){
 			this.addBody(loadBody(scene.bodies[i]));
 		}
 		for (var i = 0; i < scene.joints.length; i++){
-			this.addJoint(loadJoint(scene.joints[i], this.bodies));
+			this.addJoint(loadJoint(scene.joints[i], this.bodies, this.joints));
 		}
 	};
 
@@ -1027,13 +1045,15 @@ var SceneManager = (function(){
 		body.name = obj.name;
 		body.userData = obj.userData;
 		body.texture = obj.texture;
-		body.initialSpriteData = cloneArray(obj.initialSpriteData);
-		body.spriteData = cloneArray(obj.spriteData);
-		body.sprite = new Image();
-		body.sprite.src = obj.texture;
-		if (body.spriteData.length == 2){
-			body.sprite.width = body.spriteData[0];
-			body.sprite.height = body.spriteData[1];
+		if (obj.texture != ""){
+			body.initialSpriteData = cloneArray(obj.initialSpriteData);
+			body.spriteData = cloneArray(obj.spriteData);
+			body.sprite = new Image();
+			body.sprite.src = obj.texture;
+			if (body.spriteData.length == 2){
+				body.sprite.width = body.spriteData[0];
+				body.sprite.height = body.spriteData[1];
+			}
 		}
 		body.shapes = loadShape(obj.shapes);
 		body.position = cloneArray(obj.position);
@@ -1049,7 +1069,7 @@ var SceneManager = (function(){
 		return body;
 	}
 
-	function loadJoint(obj, bodies){
+	function loadJoint(obj, bodies, joints){
 		var joint = new Joint();
 		joint.name = obj.name;
 		joint.userData = obj.userData;
@@ -1087,6 +1107,20 @@ var SceneManager = (function(){
 		 	joint.motorSpeed 	= obj.motorSpeed;
 		 	joint.frequencyHZ 	= obj.frequencyHZ;
 			joint.dampingRatio 	= obj.dampingRatio;
+		}
+		else if (joint.jointType == Joint.JOINT_PULLEY){
+			joint.groundAnchorA  = cloneArray(obj.groundAnchorA);
+			joint.groundAnchorB = cloneArray(obj.groundAnchorB);
+			joint.lengthA	   	 = obj.lengthA;
+			joint.lengthB		 = obj.lengthB;
+			joint.maxLengthA     = obj.maxLengthA;
+			joint.maxLengthB     = obj.maxLengthB;
+			joint.frequencyHZ    = obj.frequencyHZ;
+		}
+		else if (joint.jointType == Joint.JOINT_GEAR){
+			joint.joint1		= joints[obj.jointIndex1];
+			joint.joint2		= joints[obj.jointIndex2];
+			joint.frequencyHZ = obj.frequencyHZ;
 		}
 		return joint;
 	}

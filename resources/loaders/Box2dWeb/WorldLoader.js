@@ -14,6 +14,7 @@ var b2Vec2 =  Box2D.Common.Math.b2Vec2,
     b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef,
     b2WeldJointDef =  Box2D.Dynamics.Joints.b2WeldJointDef,
     b2PulleyJointDef = Box2D.Dynamics.Joints.b2PulleyJointDef;
+    b2GearJointDef = Box2D.Dynamics.Joints.b2GearJointDef;
 
 var WorldLoader = (function(){
 
@@ -188,6 +189,16 @@ var WorldLoader = (function(){
 		    jointDef.lengthB = j.lengthB / 30;
 		    jointDef.maxLengthA = j.maxLengthA / 30;
 		    jointDef.maxLengthB = j.maxLengthB / 30;
+		    jointDef.ratio = j.ratio;
+		    this.loadedJoints.push(world.CreateJoint(jointDef));
+		}
+		else if (j.jointType == Joint.JOINT_GEAR){
+			var jointDef = new b2GearJointDef;
+		    jointDef.bodyA = this.loadedBodies[j.bodyA];
+		    jointDef.bodyB = this.loadedBodies[j.bodyB];
+		    jointDef.joint1 = this.loadedJoints[j.joint1];
+		    jointDef.joint2 = this.loadedJoints[j.joint2];
+		    jointDef.collideConnected = j.collideConnected;
 		    jointDef.ratio = j.ratio;
 		    this.loadedJoints.push(world.CreateJoint(jointDef));
 		}
