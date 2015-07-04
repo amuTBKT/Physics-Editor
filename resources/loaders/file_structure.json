@@ -35,7 +35,7 @@
     vertices : [position_x, position_y] in shape's local space (position relative to shapes position)
 
     joints : array of joints
-        jointType: DISTANCE(0), WELD(1), REVOLUTE(2), WHEEL(3), PULLEY(4)
+        jointType: DISTANCE(0), WELD(1), REVOLUTE(2), WHEEL(3), PULLEY(4), GEAR(5)
         bodyA: index of bodyA (primary anchor)
         bodyB: index of bodyB (secondary anchor)
         localAnchorA: [position_x, position_y], offset from bodyA's position (in bodyA's local space)

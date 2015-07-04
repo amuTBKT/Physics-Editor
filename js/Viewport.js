@@ -603,11 +603,14 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.onMouseDown = function(e){
+		var eoffsetX = e.offsetX == undefined ? e.layerX : e.offsetX;
+		var eoffsetY = e.offsetY == undefined ? e.layerY : e.offsetY;
+
 		var inputHandler = this.inputHandler;
 		inputHandler.mouseStatus[0] = 1;
 
-		inputHandler.pointerWorldPos[0] = this.navigator.screenPointToWorld(e.offsetX, e.offsetY)[0];
-		inputHandler.pointerWorldPos[1] = this.navigator.screenPointToWorld(e.offsetX, e.offsetY)[1];
+		inputHandler.pointerWorldPos[0] = this.navigator.screenPointToWorld(eoffsetX, eoffsetY)[0];
+		inputHandler.pointerWorldPos[1] = this.navigator.screenPointToWorld(eoffsetX, eoffsetY)[1];
 
 		// check whether right button is pressd or not
 		if (e.which)
@@ -615,7 +618,7 @@ var Viewport = (function(){
     	else if (e.button)
     		inputHandler.mouseStatus[1] = (e.button == 2) + 1;
 
-		inputHandler.start = [e.offsetX, e.offsetY];
+		inputHandler.start = [eoffsetX, eoffsetY];
 
 		if (inputHandler.mouseStatus[1] == InputHandler.IS_RIGHT_MOUSE_BUTTON)
 			return;
@@ -626,8 +629,8 @@ var Viewport = (function(){
 
 		// select bodies
 		if (!this.sceneManager.onMouseDown(e, this.inputHandler, this.navigator)){
-			inputHandler.selectionArea[0] = e.offsetX;
-			inputHandler.selectionArea[1] = e.offsetY;
+			inputHandler.selectionArea[0] = eoffsetX;
+			inputHandler.selectionArea[1] = eoffsetY;
 			inputHandler.selectionArea[4] = 1;
 		}
 
@@ -653,16 +656,18 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.onMouseMove = function(e){
+		var eoffsetX = e.offsetX == undefined ? e.layerX : e.offsetX;
+		var eoffsetY = e.offsetY == undefined ? e.layerY : e.offsetY;
 		var inputHandler = this.inputHandler, navigator = this.navigator, sceneManager = this.sceneManager;
 
-		inputHandler.pointerWorldPos[2] = navigator.screenPointToWorld(e.offsetX, e.offsetY)[0];
-		inputHandler.pointerWorldPos[3] = navigator.screenPointToWorld(e.offsetX, e.offsetY)[1];
+		inputHandler.pointerWorldPos[2] = navigator.screenPointToWorld(eoffsetX, eoffsetY)[0];
+		inputHandler.pointerWorldPos[3] = navigator.screenPointToWorld(eoffsetX, eoffsetY)[1];
 
 		if (inputHandler.mouseStatus[0]){
-			inputHandler.selectionArea[2] = (e.offsetX - inputHandler.selectionArea[0]);
-			inputHandler.selectionArea[3] = (e.offsetY - inputHandler.selectionArea[1]);
+			inputHandler.selectionArea[2] = (eoffsetX - inputHandler.selectionArea[0]);
+			inputHandler.selectionArea[3] = (eoffsetY - inputHandler.selectionArea[1]);
 
-			inputHandler.current = [e.offsetX, e.offsetY];
+			inputHandler.current = [eoffsetX, eoffsetY];
 
 			inputHandler.delta[0] = inputHandler.current[0] - inputHandler.start[0];
 			inputHandler.delta[0] *= inputHandler.mouseSensitivity / navigator.scale;
@@ -701,6 +706,8 @@ var Viewport = (function(){
 	};
 
 	Viewport.prototype.onMouseUp = function(e){
+		var eoffsetX = e.offsetX == undefined ? e.layerX : e.offsetX;
+		var eoffsetY = e.offsetY == undefined ? e.layerY : e.offsetY;
 		var inputHandler = this.inputHandler, sceneManager = this.sceneManager;
 		inputHandler.mouseStatus[0] = 0;
 
@@ -710,7 +717,7 @@ var Viewport = (function(){
 
 		if (inputHandler.selectionArea[4]){
 			var startPoint = this.screenPointToWorld(inputHandler.selectionArea[0], inputHandler.selectionArea[1]),
-				endPoint = this.screenPointToWorld(e.offsetX, e.offsetY);
+				endPoint = this.screenPointToWorld(eoffsetX, eoffsetY);
 			var lineSegment  = new LineSegment(startPoint[0], startPoint[1], endPoint[0], endPoint[1]);
 
 			// edit bodies and shapes
@@ -816,10 +823,13 @@ var Viewport = (function(){
 
 	// viewport scaling
 	Viewport.prototype.onMouseWheel = function(e){
-		var mouseX = e.offsetX;
-	    var mouseY = e.offsetY;
+		var eoffsetX = e.offsetX == undefined ? e.layerX : e.offsetX;
+		var eoffsetY = e.offsetY == undefined ? e.layerY : e.offsetY;
+		
+		var mouseX = eoffsetX;
+	    var mouseY = eoffsetY;
 	    var wheel = e.wheelDelta / 120;
-	    var zoom = 1 + Math.sign(wheel) * Math.min(Math.abs(wheel / 20), 0.1);
+	    var zoom = 1 + (wheel > 0 ? 1 : -1) * Math.min(Math.abs(wheel / 20), 0.1);
 
 		this.zoom(mouseX, mouseY, zoom);	    
 	};

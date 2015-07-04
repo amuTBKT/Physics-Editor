@@ -107,13 +107,16 @@ var SceneManager = (function(){
 
 	// for selecting objects
 	SceneManager.prototype.onMouseDown = function(e, inputHandler, navigator){
+		var eoffsetX = e.offsetX == undefined ? e.layerX : e.offsetX;
+		var eoffsetY = e.offsetY == undefined ? e.layerY : e.offsetY;
+
 		if (this.state == this.STATE_SHAPE_EDIT_MODE){
 			// for rendering vertices
 			this.selectedShapes[0].inEditMode = true;
 			
 			// for adding vertex to the selected shape
 			if (inputHandler.CTRL_PRESSED){
-				var point = navigator.screenPointToWorld(e.offsetX, e.offsetY);
+				var point = navigator.screenPointToWorld(eoffsetX, eoffsetY);
 				this.selectedShapes[0].addVertex(point[0], point[1]);
 				return true;
 			}
@@ -122,7 +125,7 @@ var SceneManager = (function(){
 			if (this.selectedVertices.length > 1) {
 				for (var i = 0; i < this.selectedVertices.length; i++){
 					var vertex = this.selectedVertices[i];
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, [vertex.x, vertex.y, vertex.width, vertex.height])){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, [vertex.x, vertex.y, vertex.width, vertex.height])){
 						if (inputHandler.SHIFT_PRESSED){
 							break;
 						}
@@ -141,7 +144,7 @@ var SceneManager = (function(){
 				if (!inputHandler.SHIFT_PRESSED){
 					vertex.isSelected = false;
 				}
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, [vertex.x, vertex.y, vertex.width, vertex.height])){
+				if (navigator.checkPointInAABB(eoffsetX, eoffsetY, [vertex.x, vertex.y, vertex.width, vertex.height])){
 					if (!inputHandler.SHIFT_PRESSED){
 						this.selectedVertices[0] = vertex;
 						vertex.isSelected = true;
@@ -163,10 +166,10 @@ var SceneManager = (function(){
 			if (this.selectedShapes.length > 1) {
 				for (var i = 0; i < this.selectedShapes.length; i++){
 					var shape = this.selectedShapes[i];
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, shape.bounds)){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, shape.bounds)){
 						// check for chain shapes
 						if (shape.shapeType == Shape.SHAPE_CHAIN){
-							var screenPointToWorld = navigator.screenPointToWorld(e.offsetX, e.offsetY);
+							var screenPointToWorld = navigator.screenPointToWorld(eoffsetX, eoffsetY);
 							if (!this.checkCollisionWithChainShape(screenPointToWorld[0], screenPointToWorld[1], shape)){
 								continue;
 							}
@@ -193,16 +196,16 @@ var SceneManager = (function(){
 				}
 
 				// check if test point is in the shape
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, shape.bounds)){
+				if (navigator.checkPointInAABB(eoffsetX, eoffsetY, shape.bounds)){
 					
 					var point = navigator.worldPointToScreen(shape.position[0], shape.position[1]);
-					distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+					distance = (point[0] - eoffsetX) * (point[0] - eoffsetX) + (point[1] - eoffsetY) * (point[1] - eoffsetY);
 					// check for minimum distance in case the test point is in multiple shapes 
 					if (minDistance > distance){
 
 						// if shape is chain_shape the check for intersection between test point and its edges with some threshold 
 						if (shape.shapeType == Shape.SHAPE_CHAIN){
-							var screenPointToWorld = navigator.screenPointToWorld(e.offsetX, e.offsetY);
+							var screenPointToWorld = navigator.screenPointToWorld(eoffsetX, eoffsetY);
 							if (!this.checkCollisionWithChainShape(screenPointToWorld[0], screenPointToWorld[1], shape)){
 								continue;
 							}
@@ -236,21 +239,21 @@ var SceneManager = (function(){
 			if (this.selectedJoints.length == 1 && this.selectedJoints[0].inEditMode){
 				var joint = this.selectedJoints[0];
 				joint.isSelected = true;
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getAnchorABounds())){
+				if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getAnchorABounds())){
 					this.selectedAnchor = 0;
 					return true;
 				}
-				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getAnchorBBounds())){
+				else if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getAnchorBBounds())){
 					this.selectedAnchor = 1;
 					return true;
 				}
 				
 				if (joint.jointType == Joint.JOINT_PULLEY){
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorABounds())){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getGroundAnchorABounds())){
 						this.selectedAnchor = 2;
 						return true;
 					}
-					else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getGroundAnchorBBounds())){
+					else if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getGroundAnchorBBounds())){
 						this.selectedAnchor = 3;
 						return true;
 					}
@@ -258,11 +261,11 @@ var SceneManager = (function(){
 				
 				this.selectedAnchor = -1;
 
-				if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyA.bounds) && joint.jointType != Joint.JOINT_PULLEY){
+				if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.bodyA.bounds) && joint.jointType != Joint.JOINT_PULLEY){
 					this.selectedAnchor = 2;
 					return true;
 				}
-				else if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.bodyB.bounds)  && joint.jointType != Joint.JOINT_PULLEY){
+				else if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.bodyB.bounds)  && joint.jointType != Joint.JOINT_PULLEY){
 					this.selectedAnchor = 3;
 					return true;
 				}
@@ -274,7 +277,7 @@ var SceneManager = (function(){
 			if (this.selectedBodies.length + this.selectedJoints.length > 1){
 				for (var i = 0; i < this.selectedBodies.length; i++){
 					var body = this.selectedBodies[i];
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, body.bounds)){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, body.bounds)){
 						if (inputHandler.SHIFT_PRESSED){
 							break;
 						}
@@ -287,7 +290,7 @@ var SceneManager = (function(){
 			if (this.selectedJoints.length + this.selectedBodies.length > 1){
 				for (var i = 0; i < this.selectedJoints.length; i++){
 					var joint = this.selectedJoints[i];
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getBounds())){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getBounds())){
 						if (inputHandler.SHIFT_PRESSED){
 							break;
 						}
@@ -309,9 +312,9 @@ var SceneManager = (function(){
 						body.isSelected = false;
 					}
 
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, body.bounds)){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, body.bounds)){
 						var point = navigator.worldPointToScreen(body.position[0], body.position[1]);
-						distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+						distance = (point[0] - eoffsetX) * (point[0] - eoffsetX) + (point[1] - eoffsetY) * (point[1] - eoffsetY);
 						if (minDistance > distance){
 							if (!inputHandler.SHIFT_PRESSED){
 								this.selectedBodies[0] = body;
@@ -338,9 +341,9 @@ var SceneManager = (function(){
 						joint.isSelected = false;
 					}
 
-					if (navigator.checkPointInAABB(e.offsetX, e.offsetY, joint.getBounds())){
+					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getBounds())){
 						var point = navigator.worldPointToScreen(joint.position[0], joint.position[1]);
-						distance = (point[0] - e.offsetX) * (point[0] - e.offsetX) + (point[1] - e.offsetY) * (point[1] - e.offsetY);
+						distance = (point[0] - eoffsetX) * (point[0] - eoffsetX) + (point[1] - eoffsetY) * (point[1] - eoffsetY);
 						if (minDistance > distance){
 							if (!inputHandler.SHIFT_PRESSED){
 								this.selectedJoints[0] = joint;

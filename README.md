@@ -90,7 +90,9 @@ UI
 * <kbd>s</kbd> to toggle snapping to grid
 * <kbd>j</kbd> while selecting to mask bodies
 * <kbd>b</kbd> while selecting to mask joints
-* <kbd>Control</kbd> + <kbd>Left Click</kbd> to add vertex to a shape while editing
+* <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> to add vertex to a shape while editing
+* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit of revolute joint
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyB while in edit mode to change upper angle limit of revolute joint
 
 Scripting
 ---------
