@@ -43,13 +43,29 @@ Equivalent to b2Body from Box2d
 #### Shape
 Equivalent to b2Shape from Box2d
 Shapes can be created only when editing a body
+```javascript
+// shape types
+Shape.SHAPE_BOX      	// rectangle shape, vertices cannot be edited, equivalent to b2PolygonShape.setAsBox
+Shape.SHAPE_CIRCLE 		// cicle shape, vertices cannot be edited, equivalent to b2CircleShape
+Shape.SHAPE_POLYGON 	// vertices can be edited, equivalent to b2PolygonShape.set([vertices])
+Shape.SHAPE_CHAIN 		// vertices can be edited, eqivalent to b2ChainShape
+````
 
 #### Vertex
 Equivalent to b2Vec2 with an exception that it stores data as array [pos_x, pos_y]
 
 #### Joint
 Equivalent to b2Joint
-To create a joint, select 2 bodies 
+To create a joint, select 2 bodies
+```javascript
+// joint types
+Joint.JOINT_DISTANCE      	// fixed distance between boides
+Joint.JOINT_WELD 			// bodies are glued to each other
+Joint.JOINT_REVOLUTE 		// bodies can rotate about localAnchorB
+Joint.JOINT_WHEEL 			// wheel - axle joint
+Joint.JOINT_PULLEY          // bodies suspended from pulley
+Joint.JOINT_GEAR 			// a body can drive another body using either revolute/prismatic joint
+````
 
 #### PolygonHelper
 [Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes
@@ -95,7 +111,7 @@ for (var i = 0; i < resolution; i++){
 }
 ```
 
-ISSUES
+Issues
 ------
 
 Editor doesnot support Undo/Redo option at this moment
