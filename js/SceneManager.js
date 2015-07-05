@@ -73,7 +73,7 @@ var SceneManager = (function(){
 			}
 			for (var i = 0; i < this.selectedJoints.length; i++){
 				this.addJoint(this.selectedJoints[i].clone());
-				this.addBody(this.joints[this.joints.length-1].bodyB);
+				this.addBody(this.joints[this.joints.length - 1].bodyB);
 			}
 		}
 		else if (this.state == this.STATE_BODY_EDIT_MODE){
