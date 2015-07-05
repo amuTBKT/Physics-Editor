@@ -458,23 +458,24 @@ var UIManager = (function(){
 			$("#body_properties").show();
 
 			if(sceneManager.selectedBodies.length == 1){
+				var cachedBody = sceneManager.selectedBodies[0];
 				this.bodyProperties[0].disabled = false;
-				this.bodyProperties[0].value = sceneManager.selectedBodies[0].name;
-				this.bodyProperties[1].value = sceneManager.selectedBodies[0].userData;
-				this.bodyProperties[2].checked = sceneManager.selectedBodies[0].isBullet;
-				this.bodyProperties[3].checked = sceneManager.selectedBodies[0].isFixedRotation;
-				this.bodyProperties[4].value = sceneManager.selectedBodies[0].linearDamping;
-				this.bodyProperties[5].value = sceneManager.selectedBodies[0].angularDamping;
+				this.bodyProperties[0].value = cachedBody.name;
+				this.bodyProperties[1].value = cachedBody.userData;
+				this.bodyProperties[2].checked = cachedBody.isBullet;
+				this.bodyProperties[3].checked = cachedBody.isFixedRotation;
+				this.bodyProperties[4].value = cachedBody.linearDamping;
+				this.bodyProperties[5].value = cachedBody.angularDamping;
 				this.bodyProperties[6].disabled = false;
-				this.bodyProperties[14].value = sceneManager.selectedBodies[0].bodyType;
+				this.bodyProperties[14].value = cachedBody.bodyType;
 
-				if (sceneManager.selectedBodies[0].sprite != null){
-					this.bodyProperties[8].value = sceneManager.selectedBodies[0].getSpriteWidth();
-					this.bodyProperties[9].value = sceneManager.selectedBodies[0].getSpriteHeight();
-					this.bodyProperties[10].value = sceneManager.selectedBodies[0].getSpriteSourceWidth() != null ? sceneManager.selectedBodies[0].getSpriteSourceWidth() : "-";
-					this.bodyProperties[11].value = sceneManager.selectedBodies[0].getSpriteSourceHeight() != null ? sceneManager.selectedBodies[0].getSpriteSourceHeight() : "-";
-					this.bodyProperties[12].value = sceneManager.selectedBodies[0].getSpriteOffsetX() != null ? sceneManager.selectedBodies[0].getSpriteOffsetX() : "-";
-					this.bodyProperties[13].value = sceneManager.selectedBodies[0].getSpriteOffsetY() != null ? sceneManager.selectedBodies[0].getSpriteOffsetY() : "-";	
+				if (cachedBody.sprite != null){
+					this.bodyProperties[8].value = cachedBody.getSpriteWidth();
+					this.bodyProperties[9].value = cachedBody.getSpriteHeight();
+					this.bodyProperties[10].value = cachedBody.getSpriteSourceWidth() != null ? cachedBody.getSpriteSourceWidth() : "-";
+					this.bodyProperties[11].value = cachedBody.getSpriteSourceHeight() != null ? cachedBody.getSpriteSourceHeight() : "-";
+					this.bodyProperties[12].value = cachedBody.getSpriteOffsetX() != null ? cachedBody.getSpriteOffsetX() : "-";
+					this.bodyProperties[13].value = cachedBody.getSpriteOffsetY() != null ? cachedBody.getSpriteOffsetY() : "-";	
 				}
 				else {
 					this.bodyProperties[8].value = "";
@@ -545,21 +546,22 @@ var UIManager = (function(){
 			$("#joint_properties").show();
 			var jointNames = ["Distance", "Weld", "Revolute", "Wheel", "Pulley", "Gear", "Prismatic"];
 			if(sceneManager.selectedJoints.length == 1){
-				$(this.jointPropertyRows[2]).find("p")[1].innerHTML = jointNames[sceneManager.selectedJoints[0].jointType]; 
+				var cachedJoint = sceneManager.selectedJoints[0];
+				$(this.jointPropertyRows[2]).find("p")[1].innerHTML = jointNames[cachedJoint.jointType]; 
 				$(this.jointPropertyRows[this.jointPropertyRows.length - 1]).show();
 
 				this.jointProperties[0].disabled = false;
-				this.jointProperties[0].value = sceneManager.selectedJoints[0].name;
-				this.jointProperties[1].value = sceneManager.selectedJoints[0].userData;
-				this.jointProperties[2].checked = sceneManager.selectedJoints[0].collideConnected;
+				this.jointProperties[0].value = cachedJoint.name;
+				this.jointProperties[1].value = cachedJoint.userData;
+				this.jointProperties[2].checked = cachedJoint.collideConnected;
 
 				// distance or wheel joint
-				if (sceneManager.selectedJoints[0].jointType == 0 || sceneManager.selectedJoints[0].jointType == 3){
+				if (cachedJoint.jointType == 0 || cachedJoint.jointType == 3){
 					$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "Frequency Hz";
 					$(this.jointPropertyRows[4]).show();
 					$(this.jointPropertyRows[5]).show();
-					this.jointProperties[3].value = sceneManager.selectedJoints[0].frequencyHZ;
-					this.jointProperties[4].value = sceneManager.selectedJoints[0].dampingRatio;
+					this.jointProperties[3].value = cachedJoint.frequencyHZ;
+					this.jointProperties[4].value = cachedJoint.dampingRatio;
 				}
 				else {
 					$(this.jointPropertyRows[4]).hide();
@@ -567,27 +569,27 @@ var UIManager = (function(){
 				}
 
 				// pulley or gear joint
-				if (sceneManager.selectedJoints[0].jointType == 4 || sceneManager.selectedJoints[0].jointType == 5){
+				if (cachedJoint.jointType == 4 || cachedJoint.jointType == 5){
 					$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "ratio";
-					this.jointProperties[3].value = sceneManager.selectedJoints[0].frequencyHZ;
+					this.jointProperties[3].value = cachedJoint.frequencyHZ;
 					$(this.jointPropertyRows[4]).show();
 				}
 
 
 				// revolute, wheel joint or prismatic joint
-				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3 || sceneManager.selectedJoints[0].jointType == 6){
+				if (cachedJoint.jointType == 2 || cachedJoint.jointType == 3 || cachedJoint.jointType == 6){
 					$(this.jointPropertyRows[6]).show();
 					$(this.jointPropertyRows[7]).show();
 					$(this.jointPropertyRows[8]).show();
-					if (sceneManager.selectedJoints[0].jointType == 6){
+					if (cachedJoint.jointType == 6){
 						$(this.jointPropertyRows[8]).find("p")[0].innerHTML = "Max Motor Force"
 					}
 					else {
 						$(this.jointPropertyRows[8]).find("p")[0].innerHTML = "Max Motor Torque"	
 					}
-					this.jointProperties[5].checked = sceneManager.selectedJoints[0].enableMotor;
-					this.jointProperties[6].value = sceneManager.selectedJoints[0].motorSpeed;
-					this.jointProperties[7].value = sceneManager.selectedJoints[0].maxMotorTorque;
+					this.jointProperties[5].checked = cachedJoint.enableMotor;
+					this.jointProperties[6].value = cachedJoint.motorSpeed;
+					this.jointProperties[7].value = cachedJoint.maxMotorTorque;
 				}
 				else {
 					$(this.jointPropertyRows[6]).hide();
@@ -596,19 +598,19 @@ var UIManager = (function(){
 				}
 
 				// revolute joint
-				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 6){
-					this.jointProperties[8].checked = sceneManager.selectedJoints[0].enableLimit;
-					if (sceneManager.selectedJoints[0].jointType == 2){
+				if (cachedJoint.jointType == 2 || cachedJoint.jointType == 6){
+					this.jointProperties[8].checked = cachedJoint.enableLimit;
+					if (cachedJoint.jointType == 2){
 						$(this.jointPropertyRows[10]).find("p")[0].innerHTML = "Lower Angle";
 						$(this.jointPropertyRows[11]).find("p")[0].innerHTML = "Upper Angle";
-						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle.toFixed(3);
-						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle.toFixed(3);
+						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = cachedJoint.lowerAngle.toFixed(3);
+						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = cachedJoint.upperAngle.toFixed(3);
 					}
 					else {
 						$(this.jointPropertyRows[10]).find("p")[0].innerHTML = "Lower Translation";
 						$(this.jointPropertyRows[11]).find("p")[0].innerHTML = "Upper Translation";
-						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerTranslation.toFixed(3);
-						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperTranslation.toFixed(3);	
+						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = cachedJoint.lowerTranslation.toFixed(3);
+						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = cachedJoint.upperTranslation.toFixed(3);	
 					}
 					$(this.jointPropertyRows[9]).show();
 					$(this.jointPropertyRows[10]).show();

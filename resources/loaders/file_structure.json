@@ -48,7 +48,7 @@
         dampingRatio
         frequencyHZ 
 
-        // weld and revolute joint paramters
+        // weld, revolute and prismatic joint paramters
         referenceAngle: angle of bodyB
 
         // revolute and wheel joint parameters
@@ -58,20 +58,32 @@
 
         // revolute joint parameters
         enableLimit: is rotation constrained
-        lowerAngle: lower angle limit in degrees
-        upperAngle: upper angle limit in degrees
+        lowerAngle: lower angle limit in degrees (might be -ve of upper angle limit for some engines because of y-axis flipping)
+        upperAngle: upper angle limit in degrees (might be -ve of lower angle limit for some engines because of y-axis flipping)
+
+        // wheel and prismatic joint parameters
+        localAxisA: axis of joint (along which bodyB can translate)
 
         // pulley joint parameters
         groundAnchorA: anchor for bodyA (this anchor doesnot moves), in world space coordinates
         groundAnchorB: anchor for bodyB (this anchor doesnot moves), in world space coordinates
-        lengthA
-        lengthB
+        lengthA = maxLenghtA
+        lengthB = maxLenghtB
         ratio
 
         // gear joint parameters
         joint1: must be either revolute of prismatic joint
         joint2: must be either revolute of prismatic joint
         ratio: influence of driving joint
+
+        // prismatic joint parameters
+        enableLimit: is rotation constrained
+        lowerTranslation: lower limit in pixels
+        upperTranslation: upper limit in pixels
+        enableMotor
+        maxMotorForce: maximum force that can be applied on bodyB
+        motorSpeed: speed of rotation (multiply by -1 because of y-axis flipping)
+
 */
 
 {
