@@ -412,14 +412,15 @@ var SceneManager = (function(){
 						}
 					}
 					else if (joint.jointType == Joint.JOINT_PRISMATIC){
-						if (joint.enableLimit){
-							if (inputHandler.SHIFT_PRESSED){
-								joint.upperTranslation += x;
-							}
-							else {
-								joint.lowerTranslation += x;	
-							}
+						if (inputHandler.SHIFT_PRESSED){
+							joint.changeReferenceAngle(x);
 						}
+						else {
+							joint.changeLowerAngle(x);
+						}
+					}
+					else if (joint.jointType == Joint.JOINT_WHEEL){
+						joint.changeLowerAngle(x);
 					}
 				}
 				else if (this.selectedAnchor == 3){
@@ -433,8 +434,15 @@ var SceneManager = (function(){
 							}
 						}
 					}
-					else if (joint.jointType == Joint.JOINT_WHEEL || joint.jointType == Joint.JOINT_PRISMATIC){
-						joint.changeLowerAngle(x);
+					else if (joint.jointType == Joint.JOINT_PRISMATIC){
+						if (joint.enableLimit){
+							if (inputHandler.SHIFT_PRESSED){
+								joint.upperTranslation += x;
+							}
+							else {
+								joint.lowerTranslation += x;	
+							}
+						}
 					}
 					else if (joint.jointType == Joint.JOINT_PULLEY){
 						if (inputHandler.SNAPPING_ENABLED){

@@ -601,14 +601,14 @@ var UIManager = (function(){
 					if (sceneManager.selectedJoints[0].jointType == 2){
 						$(this.jointPropertyRows[10]).find("p")[0].innerHTML = "Lower Angle";
 						$(this.jointPropertyRows[11]).find("p")[0].innerHTML = "Upper Angle";
-						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle;
-						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle;
+						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle.toFixed(3);
+						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle.toFixed(3);
 					}
 					else {
 						$(this.jointPropertyRows[10]).find("p")[0].innerHTML = "Lower Translation";
 						$(this.jointPropertyRows[11]).find("p")[0].innerHTML = "Upper Translation";
-						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerTranslation;
-						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperTranslation;	
+						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerTranslation.toFixed(3);
+						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperTranslation.toFixed(3);	
 					}
 					$(this.jointPropertyRows[9]).show();
 					$(this.jointPropertyRows[10]).show();

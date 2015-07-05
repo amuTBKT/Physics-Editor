@@ -201,9 +201,12 @@ var Viewport = (function(){
 			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
 			this.context.lineTo(x, y);
 			this.context.stroke();
+			this.context.fillStyle = "#0f0";
+			this.context.font = 10 * (1.06) + "px Arial";
+			this.context.fillText("referenceAngle", x + 10, y);
 			this.context.closePath();
 		}
-		else if (joint.jointType == Joint.JOINT_REVOLUTE && joint.enableLimit){
+		else if (joint.jointType == Joint.JOINT_REVOLUTE){
 			// draw reference angle vector line
 			this.context.strokeStyle = "#0f0";
 			this.context.beginPath();
@@ -217,42 +220,44 @@ var Viewport = (function(){
 			this.context.fillText("referenceAngle", x + 10, y);
 			this.context.closePath();
 
-			// draw lower angle vector line
-			this.context.strokeStyle = "#f00";
-			this.context.beginPath();
-			this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
-			var x = joint.localAnchorB[0] + 100 * Math.cos(joint.lowerAngle * Math.PI / 180);
-			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.lowerAngle * Math.PI / 180);
-			this.context.lineTo(x, y);
-			this.context.stroke();
-			this.context.fillStyle = "#f00";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("lowerAngle", x + 10, y - 10);
-			this.context.closePath();
-			
-			// draw lower angle arc
-			this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, joint.lowerAngle * Math.PI / 180, 0, false);
-	    	this.context.stroke();
+			if (joint.enableLimit){
+				// draw lower angle vector line
+				this.context.strokeStyle = "#f00";
+				this.context.beginPath();
+				this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+				var x = joint.localAnchorB[0] + 100 * Math.cos(joint.lowerAngle * Math.PI / 180);
+				var y = joint.localAnchorB[1] + 100 * Math.sin(joint.lowerAngle * Math.PI / 180);
+				this.context.lineTo(x, y);
+				this.context.stroke();
+				this.context.fillStyle = "#f00";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("lowerAngle", x + 10, y - 10);
+				this.context.closePath();
+				
+				// draw lower angle arc
+				this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, joint.lowerAngle * Math.PI / 180, 0, false);
+		    	this.context.stroke();
 
-	    	// draw upper angle vector line
-	    	this.context.strokeStyle = "#00f";
-	    	this.context.beginPath();
-	    	this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
-			x = joint.localAnchorB[0] + 100 * Math.cos(joint.upperAngle * Math.PI / 180);
-			y = joint.localAnchorB[1] + 100 * Math.sin(joint.upperAngle * Math.PI / 180);
-			this.context.lineTo(x, y);
-			this.context.stroke();
-			this.context.fillStyle = "#00f";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("upperAngle", x + 10, y + 10);
-			this.context.closePath();
+		    	// draw upper angle vector line
+		    	this.context.strokeStyle = "#00f";
+		    	this.context.beginPath();
+		    	this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+				x = joint.localAnchorB[0] + 100 * Math.cos(joint.upperAngle * Math.PI / 180);
+				y = joint.localAnchorB[1] + 100 * Math.sin(joint.upperAngle * Math.PI / 180);
+				this.context.lineTo(x, y);
+				this.context.stroke();
+				this.context.fillStyle = "#00f";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("upperAngle", x + 10, y + 10);
+				this.context.closePath();
 
-			// draw upper angle arc
-			this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, 0, joint.upperAngle * Math.PI / 180, false);
-	    	this.context.stroke();
+				// draw upper angle arc
+				this.context.arc(joint.localAnchorB[0], joint.localAnchorB[1], 30, 0, joint.upperAngle * Math.PI / 180, false);
+		    	this.context.stroke();
+	    	}
 		}
 		else if (joint.jointType == Joint.JOINT_WHEEL || joint.jointType == Joint.JOINT_PRISMATIC){
-			// draw reference angle vector line
+			// draw local axis
 			this.context.strokeStyle = "#0f0";
 			this.context.beginPath();
 			this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
@@ -266,19 +271,34 @@ var Viewport = (function(){
 			this.context.fillText("localAxisA", x + 10, y);
 			this.context.closePath();
 
-			if (joint.jointType == Joint.JOINT_PRISMATIC && joint.enableLimit){
-				// this.context.beginPath();
-				this.context.fillStyle = "#f00";
-				x = joint.localAnchorA[0] + joint.localAxisA[0] * joint.lowerTranslation;
-				y = joint.localAnchorA[1] + joint.localAxisA[1] * joint.lowerTranslation;
-				this.renderCircle(x, y, 10, true);
-				this.context.fillText("lowerTranslation", x + 10, y);
-				this.context.fillStyle = "#00f";
-				x = joint.localAnchorA[0] + joint.localAxisA[0] * joint.upperTranslation;
-				y = joint.localAnchorA[1] + joint.localAxisA[1] * joint.upperTranslation;
-				this.renderCircle(x, y, 10, true);
-				this.context.fillText("upperTranslation", x + 10, y);
-				// this.context.closePath();
+			if (joint.jointType == Joint.JOINT_PRISMATIC){
+				// draw reference angle
+				this.context.strokeStyle = "#0f0";
+				this.context.beginPath();
+				this.context.moveTo(joint.localAnchorB[0], joint.localAnchorB[1]);
+				var x = joint.localAnchorB[0] + 100 * Math.cos(joint.referenceAngle * Math.PI / 180);
+				var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
+				this.context.lineTo(x, y);
+				this.context.stroke();
+				this.context.fillStyle = "#0f0";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("referenceAngle", x + 10, y);
+				this.context.closePath();
+
+				if (joint.enableLimit){
+					// this.context.beginPath();
+					this.context.fillStyle = "#f00";
+					x = joint.localAnchorA[0] + joint.localAxisA[0] * joint.lowerTranslation;
+					y = joint.localAnchorA[1] + joint.localAxisA[1] * joint.lowerTranslation;
+					this.renderCircle(x, y, 10, true);
+					this.context.fillText("lowerTranslation", x + 10, y);
+					this.context.fillStyle = "#00f";
+					x = joint.localAnchorA[0] + joint.localAxisA[0] * joint.upperTranslation;
+					y = joint.localAnchorA[1] + joint.localAxisA[1] * joint.upperTranslation;
+					this.renderCircle(x, y, 10, true);
+					this.context.fillText("upperTranslation", x + 10, y);
+					// this.context.closePath();
+				}
 			}
 		}
 		

@@ -40,6 +40,8 @@ import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import com.badlogic.gdx.physics.box2d.joints.GearJoint;
 import com.badlogic.gdx.physics.box2d.joints.GearJointDef;
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJoint;
+import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
@@ -74,7 +76,8 @@ public class WorldLoader {
 		JOINT_REVOLUTE,
 		JOINT_WHEEL,
 		JOINT_PULLEY,
-		JOINT_GEAR
+		JOINT_GEAR, 
+		JOINT_PRISMATIC
 	};
 	
 	/** array list of all the bodies loaded to use when creating joints **/
@@ -131,13 +134,13 @@ public class WorldLoader {
 			body.setBullet(jsonBody.getBoolean("isBullet"));
 			body.setUserData(jsonBody.getString("userData"));
 			body.setTransform	(	
-									offsetX / RATIO + jsonBody .getJSONArray("position").getLong(0) / RATIO, 
-									offsetY / RATIO - jsonBody .getJSONArray("position").getLong(1) / RATIO, 
-									(float) (-jsonBody.getLong("rotation") * Math.PI / 180)
+									(float) (offsetX / RATIO + jsonBody .getJSONArray("position").getDouble(0) / RATIO), 
+									(float) (offsetY / RATIO - jsonBody .getJSONArray("position").getDouble(1) / RATIO), 
+									(float) (-jsonBody.getDouble("rotation") * Math.PI / 180)
 								);
 			body.setFixedRotation(jsonBody.getBoolean("isFixedRotation"));
-			body.setLinearDamping(jsonBody.getLong("linearDamping"));
-			body.setAngularDamping(jsonBody.getLong("angularDamping"));
+			body.setLinearDamping((float) jsonBody.getDouble("linearDamping"));
+			body.setAngularDamping((float) jsonBody.getDouble("angularDamping"));
 			
 			// add body to array list to use when creating joints
 			loadedBodies.add(body);
@@ -164,12 +167,12 @@ public class WorldLoader {
 		
 		for (int i = 0; i < jsonFixtures.length(); i++){
 			JSONObject jsonFixture = jsonFixtures.getJSONObject(i);
-			float 	density = jsonFixture.getLong("density"), 
-					restitution = jsonFixture.getLong("restitution"), 
-					friction = jsonFixture.getLong("friction");
-			short  	maskBits = (short) jsonFixture.getLong("maskBits"),
-					categoryBits = (short) jsonFixture.getLong("categoryBits"),
-					groupIndex = (short) jsonFixture.getLong("groupIndex");
+			float 	density = (float) jsonFixture.getDouble("density"), 
+					restitution = (float) jsonFixture.getDouble("restitution"), 
+					friction = (float) jsonFixture.getDouble("friction");
+			short  	maskBits = (short) jsonFixture.getDouble("maskBits"),
+					categoryBits = (short) jsonFixture.getDouble("categoryBits"),
+					groupIndex = (short) jsonFixture.getDouble("groupIndex");
 			boolean isSensor = jsonFixture.getBoolean("isSensor");
 			
 			for (int k = 0; k < jsonFixture.getJSONArray("shapes").length(); k++){
@@ -189,12 +192,12 @@ public class WorldLoader {
 
 				if (jsonShape.getInt("type") == ShapeTypes.SHAPE_BOX.ordinal()){
 					PolygonShape shape = new PolygonShape();
-					shape.setAsBox(jsonShape.getLong("width") / (2 * RATIO), jsonShape.getLong("height") / (2 * RATIO), position, 0);
+					shape.setAsBox((float)jsonShape.getDouble("width") / (2 * RATIO), (float)jsonShape.getDouble("height") / (2 * RATIO), position, 0);
 					fixture.shape = shape;
 				}
 				else if (jsonShape.getInt("type") == ShapeTypes.SHAPE_CIRCLE.ordinal()){
 					CircleShape shape = new CircleShape();
-					shape.setRadius(jsonShape.getLong("radius") * 2 / RATIO);
+					shape.setRadius((float) jsonShape.getDouble("radius") * 2 / RATIO);
 					shape.setPosition(position);
 					fixture.shape = shape;
 				}
@@ -248,9 +251,9 @@ public class WorldLoader {
 				jointDef.localAnchorB.set(new Vector2(jsonJoint.getJSONArray("localAnchorB").getInt(0) / RATIO,
 						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
 			    jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");
-			    jointDef.length           = jsonJoint.getLong("length") / 30;
-			    jointDef.dampingRatio 	  = jsonJoint.getLong("dampingRatio");
-			    jointDef.frequencyHz      = jsonJoint.getLong("frequencyHZ");
+			    jointDef.length           = (float)jsonJoint.getDouble("length") / 30;
+			    jointDef.dampingRatio 	  = (float)jsonJoint.getDouble("dampingRatio");
+			    jointDef.frequencyHz      = (float)jsonJoint.getDouble("frequencyHZ");
 			    
 			    DistanceJoint joint = (DistanceJoint) world.createJoint(jointDef);
 			    joint.setUserData(jsonJoint.getString("userData"));
@@ -266,6 +269,8 @@ public class WorldLoader {
 						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");
 			    
+				jointDef.referenceAngle = (float) (-jsonJoint.getDouble("referenceAngle") * Math.PI / 180);
+				
 				WeldJoint joint = (WeldJoint) world.createJoint(jointDef);
 			    joint.setUserData(jsonJoint.getString("userData"));
 			    loadedJoints.add(joint);
@@ -282,11 +287,11 @@ public class WorldLoader {
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");;
 			    jointDef.enableLimit  	= jsonJoint.getBoolean("enableLimit");
 			    jointDef.enableMotor  	= jsonJoint.getBoolean("enableMotor");
-			    jointDef.lowerAngle   	= (float) (jsonJoint.getLong("lowerAngle") * Math.PI / 180);
-			    jointDef.maxMotorTorque = jsonJoint.getLong("maxMotorTorque");
-			    jointDef.motorSpeed   	= -jsonJoint.getLong("motorSpeed");
-			    jointDef.referenceAngle = (float) (jsonJoint.getLong("referenceAngle") * Math.PI / 180);
-			    jointDef.upperAngle   	= (float) (jsonJoint.getLong("upperAngle") * Math.PI / 180);;
+			    jointDef.upperAngle   	= (float) -(jsonJoint.getDouble("lowerAngle") * Math.PI / 180);			// because of y-axis flipping
+			    jointDef.maxMotorTorque = (float)jsonJoint.getDouble("maxMotorTorque");
+			    jointDef.motorSpeed   	= (float)-jsonJoint.getDouble("motorSpeed");
+			    jointDef.referenceAngle = (float) -(jsonJoint.getDouble("referenceAngle") * Math.PI / 180);
+			    jointDef.lowerAngle   	= (float) -(jsonJoint.getDouble("upperAngle") * Math.PI / 180);			// because of y-axis flipping
 				
 				RevoluteJoint joint = (RevoluteJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
@@ -301,12 +306,14 @@ public class WorldLoader {
 				jointDef.localAnchorB.set(new Vector2(jsonJoint.getJSONArray("localAnchorB").getInt(0) / RATIO,
 						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
 			    
+				jointDef.localAxisA.set(new Vector2((float)jsonJoint.getJSONArray("localAxisA").getDouble(0), (float)-jsonJoint.getJSONArray("localAxisA").getDouble(1)));
+				
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");;
 			    jointDef.enableMotor  	  = jsonJoint.getBoolean("enableMotor");
-			    jointDef.maxMotorTorque   = jsonJoint.getLong("maxMotorTorque");
-			    jointDef.motorSpeed   	  = -jsonJoint.getLong("motorSpeed");
-			    jointDef.dampingRatio     = jsonJoint.getLong("dampingRatio");
-			    jointDef.frequencyHz      = jsonJoint.getLong("frequencyHZ");
+			    jointDef.maxMotorTorque   = (float)jsonJoint.getDouble("maxMotorTorque");
+			    jointDef.motorSpeed   	  = (float)-jsonJoint.getDouble("motorSpeed");
+			    jointDef.dampingRatio     = (float)jsonJoint.getDouble("dampingRatio");
+			    jointDef.frequencyHz      = (float)jsonJoint.getDouble("frequencyHZ");
 			    
 				WheelJoint joint = (WheelJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
@@ -325,10 +332,10 @@ public class WorldLoader {
 						offsetY / RATIO - jsonJoint.getJSONArray("groundAnchorA").getInt(1) / RATIO));
 				jointDef.groundAnchorB.set(new Vector2(offsetX / RATIO + jsonJoint.getJSONArray("groundAnchorB").getInt(0) / RATIO,
 						offsetY / RATIO - jsonJoint.getJSONArray("groundAnchorB").getInt(1) / RATIO));
-				jointDef.lengthA = jsonJoint.getLong("lengthA") / RATIO;
-				jointDef.lengthB = jsonJoint.getLong("lengthB") / RATIO;
-				jointDef.ratio = jsonJoint.getLong("ratio");
-			    
+				jointDef.lengthA = (float)jsonJoint.getDouble("maxLengthA") / RATIO;
+				jointDef.lengthB = (float)jsonJoint.getDouble("maxLengthB") / RATIO;
+				jointDef.ratio = (float)jsonJoint.getDouble("ratio");
+				
 				PulleyJoint joint = (PulleyJoint) world.createJoint(jointDef);
 			    joint.setUserData(jsonJoint.getString("userData"));
 			    loadedJoints.add(joint);
@@ -338,12 +345,36 @@ public class WorldLoader {
 				jointDef.bodyA = loadedBodies.get(jsonJoint.getInt("bodyA"));
 				jointDef.bodyB = loadedBodies.get(jsonJoint.getInt("bodyB"));
 				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");
-				jointDef.ratio = jsonJoint.getLong("ratio");
+				jointDef.ratio = (float)jsonJoint.getDouble("ratio");
 				
 				jointDef.joint1 = loadedJoints.get(jsonJoint.getInt("joint1"));
 				jointDef.joint2 = loadedJoints.get(jsonJoint.getInt("joint2"));
 				
 				GearJoint joint = (GearJoint) world.createJoint(jointDef);
+				joint.setUserData(jsonJoint.getString("userData"));
+				loadedJoints.add(joint);
+			}
+			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_PRISMATIC.ordinal()){
+				PrismaticJointDef jointDef = new PrismaticJointDef();
+				jointDef.bodyA = loadedBodies.get(jsonJoint.getInt("bodyA"));
+				jointDef.bodyB = loadedBodies.get(jsonJoint.getInt("bodyB"));
+				jointDef.localAnchorA.set(new Vector2(jsonJoint.getJSONArray("localAnchorA").getInt(0) / RATIO,
+													-jsonJoint.getJSONArray("localAnchorA").getInt(1) / RATIO));
+				jointDef.localAnchorB.set(new Vector2(jsonJoint.getJSONArray("localAnchorB").getInt(0) / RATIO,
+						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
+			    
+				jointDef.localAxisA.set(new Vector2((float)jsonJoint.getJSONArray("localAxisA").getDouble(0), (float)-jsonJoint.getJSONArray("localAxisA").getDouble(1)));
+				
+				jointDef.collideConnected = jsonJoint.getBoolean("collideConnected");;
+			    jointDef.enableLimit  	= jsonJoint.getBoolean("enableLimit");
+			    jointDef.enableMotor  	= jsonJoint.getBoolean("enableMotor");
+			    jointDef.lowerTranslation  = (float) (jsonJoint.getDouble("lowerTranslation") / RATIO);
+			    jointDef.maxMotorForce = (float)jsonJoint.getDouble("maxMotorForce");
+			    jointDef.motorSpeed   	= (float)jsonJoint.getDouble("motorSpeed");
+			    jointDef.referenceAngle = (float) (-jsonJoint.getDouble("referenceAngle") * Math.PI / 180);
+			    jointDef.upperTranslation   	= (float) (jsonJoint.getDouble("upperTranslation") / RATIO);;
+				
+				PrismaticJoint joint = (PrismaticJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
 				loadedJoints.add(joint);
 			}

@@ -67,6 +67,14 @@ Joint.JOINT_PULLEY          // bodies suspended from pulley
 Joint.JOINT_GEAR 			// a body can drive another body using either revolute/prismatic joint
 Joint.JOINT_PRISMATIC 		// a bodies translation can be constrained along an axis (localAxis) 
 ````
+How to create joints:
+* To create distance joint, select two bodies -> create distance joint
+* To create weld joint, select two bodies -> create weld joint
+* To create revolute joint, select two bodies -> create revolute joint
+* To create wheel joint, select two bodies -> create wheel joint
+* To create pulley joint, select two bodies -> create pulley joint
+* To create gear joint, select two bodies and either two revolute or two prismatic joints -> create gear joint
+* To create prismatic joint, select two bodies -> create prismatic joint
 
 #### PolygonHelper
 [Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes. Concave shape is decomposed to array of convex shapes, as Box2d supports only convex shapes
@@ -94,10 +102,25 @@ UI
 * <kbd>j</kbd> while selecting to mask bodies
 * <kbd>b</kbd> while selecting to mask joints
 * <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> to add vertex to a shape while editing
-* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit of revolute joint or localAxisA in case of wheel and prismatic joint
-* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyB while in edit mode to change upper angle limit of revolute joint
-* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change upper translation limit of prismatic joint
-* <kbd>Left Click</kbd> drag on bodyA while in edit mode to change lower translation limit of prismatic joint
+
+##### Editing Joints:
+
+Weld Joint
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change reference angle
+
+Revolute Joint
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change reference angle
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyB while in edit mode to change upper angle limit
+* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit
+
+Wheel Joint
+* <kbd>Left Click</kbd> drag on bodyA while in edit mode to change localAxisA
+
+Prismatic Joint
+* <kbd>Left Click</kbd> drag on bodyA while in edit mode to change localAxisA
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change reference angle
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyB while in edit mode to change upper translation limit
+* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower translation limit 
 
 Scripting
 ---------

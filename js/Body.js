@@ -1318,6 +1318,14 @@ Joint.prototype.toPhysics = function(bodies, joints){
 	var joint = new PhysicsJoint(this);
 	joint.bodyA = bodies.indexOf(this.bodyA);
 	joint.bodyB = bodies.indexOf(this.bodyB);
+	if (joint.jointType == Joint.JOINT_PULLEY){
+		joint.maxLengthA = Math.pow((this.groundAnchorA[0] - this.localAnchorA[0]) * (this.groundAnchorA[0] - this.localAnchorA[0]) + 
+									(this.groundAnchorA[1] - this.localAnchorA[1]) * (this.groundAnchorA[1] - this.localAnchorA[1]), 0.5);
+		joint.maxLengthB = Math.pow((this.groundAnchorB[0] - this.localAnchorB[0]) * (this.groundAnchorB[0] - this.localAnchorB[0]) + 
+									(this.groundAnchorB[1] - this.localAnchorB[1]) * (this.groundAnchorB[1] - this.localAnchorB[1]), 0.5);
+		joint.lengthA = joint.maxLengthA;
+		joint.lengthB = joint.maxLengthB;
+	}
 	if (joint.jointType != Joint.JOINT_GEAR){
 		joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
 		joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
