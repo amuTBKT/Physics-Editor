@@ -69,6 +69,19 @@ function PhysicsEditor(canvas) {
 	});
 };
 
+PhysicsEditor.prototype.cloneBody = function(body){
+	var clone = body.clone();
+	this.sceneManager.addBody(clone);
+	return clone;
+};
+
+PhysicsEditor.prototype.cloneJoint = function(joint){
+	var clone = joint.clone();
+	this.sceneManager.addBody(clone.bodyB);
+	this.sceneManager.addJoint(clone);
+	return clone;
+};
+
 PhysicsEditor.prototype.getSelectedBodies = function(){
 	return this.sceneManager.selectedBodies;
 };
