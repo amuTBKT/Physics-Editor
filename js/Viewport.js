@@ -157,28 +157,33 @@ var Viewport = (function(){
 		if (joint.isSelected){
 			this.context.translate(joint.localAnchorA[0] - joint.position[0], joint.localAnchorA[1] - joint.position[1]);
 			this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
-			this.context.fillStyle = "#fff";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("localAnchorA", 10, 15);
-			
+			if (joint.inEditMode){
+				this.context.fillStyle = "#fff";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("localAnchorA", 10, 15);
+			}
 			this.context.translate(joint.localAnchorB[0] - joint.localAnchorA[0], joint.localAnchorB[1] - joint.localAnchorA[1]);
 			this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
-			this.context.fillStyle = "#f00";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("localAnchorB", 10, -10);
-
+			if (joint.inEditMode){
+				this.context.fillStyle = "#f00";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("localAnchorB", 10, -10);
+			}
 			if (joint.jointType == Joint.JOINT_PULLEY){
 				this.context.translate(joint.groundAnchorA[0] - joint.localAnchorB[0], joint.groundAnchorA[1] - joint.localAnchorB[1]);
 				this.context.drawImage(this.jointAnchors[1], -width / 2, -height / 2, width, height);
-				this.context.fillStyle = "#0f0";
-				this.context.font = 10 * (1.06) + "px Arial";
-				this.context.fillText("groundAnchorA", 10, -10);
-				
+				if (joint.inEditMode){
+					this.context.fillStyle = "#0f0";
+					this.context.font = 10 * (1.06) + "px Arial";
+					this.context.fillText("groundAnchorA", 10, -10);
+				}
 				this.context.translate(joint.groundAnchorB[0] - joint.groundAnchorA[0], joint.groundAnchorB[1] - joint.groundAnchorA[1]);
 				this.context.drawImage(this.jointAnchors[2], -width / 2, -height / 2, width, height);
-				this.context.fillStyle = "#f00";
-				this.context.font = 10 * (1.06) + "px Arial";
-				this.context.fillText("groundAnchorB", 10, -10);
+				if (joint.inEditMode){
+					this.context.fillStyle = "#f00";
+					this.context.font = 10 * (1.06) + "px Arial";
+					this.context.fillText("groundAnchorB", 10, -10);
+				}
 			}
 		}
 
@@ -201,9 +206,11 @@ var Viewport = (function(){
 			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
 			this.context.lineTo(x, y);
 			this.context.stroke();
-			this.context.fillStyle = "#0f0";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("referenceAngle", x + 10, y);
+			if (joint.inEditMode){
+				this.context.fillStyle = "#0f0";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("referenceAngle", x + 10, y);
+			}
 			this.context.closePath();
 		}
 		else if (joint.jointType == Joint.JOINT_REVOLUTE){
@@ -215,9 +222,11 @@ var Viewport = (function(){
 			var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
 			this.context.lineTo(x, y);
 			this.context.stroke();
-			this.context.fillStyle = "#0f0";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("referenceAngle", x + 10, y);
+			if (joint.inEditMode){
+				this.context.fillStyle = "#0f0";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("referenceAngle", x + 10, y);
+			}
 			this.context.closePath();
 
 			if (joint.enableLimit){
@@ -229,9 +238,11 @@ var Viewport = (function(){
 				var y = joint.localAnchorB[1] + 100 * Math.sin(joint.lowerAngle * Math.PI / 180);
 				this.context.lineTo(x, y);
 				this.context.stroke();
-				this.context.fillStyle = "#f00";
-				this.context.font = 10 * (1.06) + "px Arial";
-				this.context.fillText("lowerAngle", x + 10, y - 10);
+				if (joint.inEditMode){
+					this.context.fillStyle = "#f00";
+					this.context.font = 10 * (1.06) + "px Arial";
+					this.context.fillText("lowerAngle", x + 10, y - 10);
+				}	
 				this.context.closePath();
 				
 				// draw lower angle arc
@@ -246,9 +257,11 @@ var Viewport = (function(){
 				y = joint.localAnchorB[1] + 100 * Math.sin(joint.upperAngle * Math.PI / 180);
 				this.context.lineTo(x, y);
 				this.context.stroke();
-				this.context.fillStyle = "#00f";
-				this.context.font = 10 * (1.06) + "px Arial";
-				this.context.fillText("upperAngle", x + 10, y + 10);
+				if (joint.inEditMode){
+					this.context.fillStyle = "#00f";
+					this.context.font = 10 * (1.06) + "px Arial";
+					this.context.fillText("upperAngle", x + 10, y + 10);
+				}
 				this.context.closePath();
 
 				// draw upper angle arc
@@ -266,9 +279,11 @@ var Viewport = (function(){
 			var y = joint.localAnchorB[1] + 100 * Math.sin(angle);
 			this.context.lineTo(x, y);
 			this.context.stroke();
-			this.context.fillStyle = "#0f0";
-			this.context.font = 10 * (1.06) + "px Arial";
-			this.context.fillText("localAxisA", x + 10, y);
+			if (joint.inEditMode){
+				this.context.fillStyle = "#0f0";
+				this.context.font = 10 * (1.06) + "px Arial";
+				this.context.fillText("localAxisA", x + 10, y);
+			}
 			this.context.closePath();
 
 			if (joint.jointType == Joint.JOINT_PRISMATIC){
@@ -280,9 +295,11 @@ var Viewport = (function(){
 				var y = joint.localAnchorB[1] + 100 * Math.sin(joint.referenceAngle * Math.PI / 180);
 				this.context.lineTo(x, y);
 				this.context.stroke();
-				this.context.fillStyle = "#0f0";
-				this.context.font = 10 * (1.06) + "px Arial";
-				this.context.fillText("referenceAngle", x + 10, y);
+				if (joint.inEditMode){
+					this.context.fillStyle = "#0f0";
+					this.context.font = 10 * (1.06) + "px Arial";
+					this.context.fillText("referenceAngle", x + 10, y);
+				}
 				this.context.closePath();
 
 				if (joint.enableLimit){
@@ -296,7 +313,9 @@ var Viewport = (function(){
 					x = joint.localAnchorA[0] + joint.localAxisA[0] * joint.upperTranslation;
 					y = joint.localAnchorA[1] + joint.localAxisA[1] * joint.upperTranslation;
 					this.renderCircle(x, y, 10, true);
+					if (joint.inEditMode){
 					this.context.fillText("upperTranslation", x + 10, y);
+					}
 					// this.context.closePath();
 				}
 			}

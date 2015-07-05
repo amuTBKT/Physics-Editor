@@ -166,7 +166,7 @@ var WorldLoader = (function(){
 		    jointDef.collideConnected = j.collideConnected;
 		    jointDef.length = j.length / 30;
 		    jointDef.dampingRatio = j.dampingRatio;
-		    jointDef.frequencyHZ = j.frequencyHZ;
+		    jointDef.frequencyHz = j.frequencyHZ;
 		    this.loadedJoints.push(world.CreateJoint(jointDef));
 		}
 		else if (j.jointType == Joint.JOINT_WELD){
@@ -248,41 +248,41 @@ var WorldLoader = (function(){
 			// 	f.m_filter.groupIndex = -1;
 			// }
 			// create a new body to use as axle
-			// var shape = new b2CircleShape(10 / 30);
-			// var fixture = new b2FixtureDef;
-			// fixture.density = 0;
-			// fixture.restitution = 0;
-			// fixture.friction = 0;
-			// fixture.shape = shape;
-			// fixture.isSensor = true;
-	 	// 	var bodyDef = new b2BodyDef;
-	 	// 	bodyDef.type = b2Body.b2_dynamicBody;
-	 	// 	bodyDef.position.Set(this.loadedBodies[j.bodyB].GetPosition().x + j.localAnchorB[0] / 30, this.loadedBodies[j.bodyB].GetPosition().y + j.localAnchorB[1] / 30);
-	 	// 	var axle = world.CreateBody(bodyDef);
-	 	// 	axle.CreateFixture(fixture);
+			var shape = new b2CircleShape(10 / 30);
+			var fixture = new b2FixtureDef;
+			fixture.density = 0;
+			fixture.restitution = 0;
+			fixture.friction = 0;
+			fixture.shape = shape;
+			fixture.isSensor = true;
+	 		var bodyDef = new b2BodyDef;
+	 		bodyDef.type = b2Body.b2_dynamicBody;
+	 		bodyDef.position.Set(this.loadedBodies[j.bodyB].GetPosition().x + j.localAnchorB[0] / 30, this.loadedBodies[j.bodyB].GetPosition().y + j.localAnchorB[1] / 30);
+	 		var axle = world.CreateBody(bodyDef);
+	 		axle.CreateFixture(fixture);
 
-		    // var revJointDef = new b2RevoluteJointDef;
-		    // revJointDef.bodyA = this.loadedBodies[j.bodyA];
-		    // revJointDef.bodyB = axle;
-		    // revJointDef.localAnchorA = new b2Vec2(axle.GetPosition().x - this.loadedBodies[j.bodyA].GetPosition().x,
-		    // 									 axle.GetPosition().y - this.loadedBodies[j.bodyA].GetPosition().y);//new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
-		    // revJointDef.localAnchorB = new b2Vec2(0, 0);
-		    // revJointDef.collideConnected = false;
-		    // revJointDef.enableMotor  = j.enableMotor;
-		    // revJointDef.maxMotorTorque = j.maxMotorTorque;
-		    // revJointDef.motorSpeed   = j.motorSpeed;
-		    // this.loadedJoints.push(world.CreateJoint(revJointDef));
+		    var revJointDef = new b2RevoluteJointDef;
+		    revJointDef.bodyA = this.loadedBodies[j.bodyA];
+		    revJointDef.bodyB = axle;
+		    revJointDef.localAnchorA = new b2Vec2(axle.GetPosition().x - this.loadedBodies[j.bodyA].GetPosition().x,
+		    									 axle.GetPosition().y - this.loadedBodies[j.bodyA].GetPosition().y);//new b2Vec2(j.localAnchorA[0] / 30, j.localAnchorA[1] / 30);
+		    revJointDef.localAnchorB = new b2Vec2(0, 0);
+		    revJointDef.collideConnected = false;
+		    revJointDef.enableMotor  = j.enableMotor;
+		    revJointDef.maxMotorTorque = j.maxMotorTorque;
+		    revJointDef.motorSpeed   = j.motorSpeed;
+		    world.CreateJoint(revJointDef);
 
-		    // var distJointDef = new b2DistanceJointDef;
-		    // distJointDef.bodyA = axle;
-		    // distJointDef.bodyB = this.loadedBodies[j.bodyB];
-		    // distJointDef.localAnchorA = new b2Vec2(0, 0);
-		    // distJointDef.localAnchorB = new b2Vec2(0,0);
-		    // distJointDef.collideConnected = false;
-		    // distJointDef.length = 1 / 30;
-		    // distJointDef.dampingRatio = 0.075;//j.dampingRatio;
-		    // distJointDef.frequencyHZ = 4;//j.frequencyHZ;
-		    // this.loadedJoints.push(world.CreateJoint(distJointDef));
+		    var distJointDef = new b2DistanceJointDef;
+		    distJointDef.bodyA = axle;
+		    distJointDef.bodyB = this.loadedBodies[j.bodyB];
+		    distJointDef.localAnchorA = new b2Vec2(0, 0);
+		    distJointDef.localAnchorB = new b2Vec2(0,0);
+		    distJointDef.collideConnected = false;
+		    distJointDef.length = 1 / 30;
+		    distJointDef.dampingRatio = j.dampingRatio;
+		    distJointDef.frequencyHz = j.frequencyHZ;
+		    world.CreateJoint(distJointDef);
 		}
 	};
 

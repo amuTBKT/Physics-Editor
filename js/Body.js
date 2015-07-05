@@ -907,7 +907,7 @@ function clone(obj) {
     if (obj instanceof Joint){
     	copy = new Joint(obj.jointType);
         for (var attr in obj) {
-        	if (obj[attr] instanceof Body){		// donot clone body
+        	if (attr == 'bodyA'){		// donot clone body
         		copy[attr] = obj[attr];
         		continue;
         	}
@@ -1252,8 +1252,7 @@ Joint.prototype.changeLowerAngle = function(delta){
 	this.lowerAngle += delta;
 	// if joint is wheel or prismatic, then edit localAxis 
 	if (this.jointType == Joint.JOINT_PRISMATIC || this.jointType == Joint.JOINT_WHEEL){
-		var newAngle = -Math.atan2(this.localAxisA[1], this.localAxisA[0]) + delta * Math.PI / 180;
-		this.localAxisA = [Math.cos(newAngle), -Math.sin(newAngle)];
+		this.rotateLocalAxis(delta);
 	}
 };
 Joint.prototype.changeUpperAngle = function(delta){
@@ -1270,6 +1269,12 @@ Joint.prototype.setMotorSpeed = function(speed){
 };
 Joint.prototype.setMaxMotorTorque = function(torque){
 	this.maxMotorTorque = torque;
+};
+
+// wheel and prismatic joint
+Joint.prototype.rotateLocalAxis = function(delta){
+	var newAngle = -Math.atan2(this.localAxisA[1], this.localAxisA[0]) + delta * Math.PI / 180;
+	this.localAxisA = [Math.cos(newAngle), -Math.sin(newAngle)];
 };
 
 // pulley joint

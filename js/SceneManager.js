@@ -71,6 +71,10 @@ var SceneManager = (function(){
 			for (var i = 0; i < this.selectedBodies.length; i++){
 				this.addBody(this.selectedBodies[i].clone());
 			}
+			for (var i = 0; i < this.selectedJoints.length; i++){
+				this.addJoint(this.selectedJoints[i].clone());
+				this.addBody(this.joints[this.joints.length-1].bodyB);
+			}
 		}
 		else if (this.state == this.STATE_BODY_EDIT_MODE){
 			for (var i = 0; i < this.selectedShapes.length; i++){
@@ -420,7 +424,9 @@ var SceneManager = (function(){
 						}
 					}
 					else if (joint.jointType == Joint.JOINT_WHEEL){
-						joint.changeLowerAngle(x);
+						if (inputHandler.SHIFT_PRESSED){
+							joint.changeLowerAngle(x);
+						}
 					}
 				}
 				else if (this.selectedAnchor == 3){

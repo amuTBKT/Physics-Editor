@@ -114,7 +114,7 @@ Revolute Joint
 * <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit
 
 Wheel Joint
-* <kbd>Left Click</kbd> drag on bodyA while in edit mode to change localAxisA
+* <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change localAxisA
 
 Prismatic Joint
 * <kbd>Left Click</kbd> drag on bodyA while in edit mode to change localAxisA
