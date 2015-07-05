@@ -324,7 +324,6 @@ var UIManager = (function(){
 						}
 						else {
 							if (parseFloat(this.value) != null){
-								console.log(parseFloat(this.value));
 								sceneManager.selectedJoints[j][property] = parseFloat(this.value);
 							}
 						}
@@ -575,11 +574,17 @@ var UIManager = (function(){
 				}
 
 
-				// revolute or wheel joint
-				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3){
+				// revolute, wheel joint or prismatic joint
+				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 3 || sceneManager.selectedJoints[0].jointType == 6){
 					$(this.jointPropertyRows[6]).show();
 					$(this.jointPropertyRows[7]).show();
 					$(this.jointPropertyRows[8]).show();
+					if (sceneManager.selectedJoints[0].jointType == 6){
+						$(this.jointPropertyRows[8]).find("p")[0].innerHTML = "Max Motor Force"
+					}
+					else {
+						$(this.jointPropertyRows[8]).find("p")[0].innerHTML = "Max Motor Torque"	
+					}
 					this.jointProperties[5].checked = sceneManager.selectedJoints[0].enableMotor;
 					this.jointProperties[6].value = sceneManager.selectedJoints[0].motorSpeed;
 					this.jointProperties[7].value = sceneManager.selectedJoints[0].maxMotorTorque;
@@ -591,19 +596,29 @@ var UIManager = (function(){
 				}
 
 				// revolute joint
-				if (sceneManager.selectedJoints[0].jointType == 2){
+				if (sceneManager.selectedJoints[0].jointType == 2 || sceneManager.selectedJoints[0].jointType == 6){
+					this.jointProperties[8].checked = sceneManager.selectedJoints[0].enableLimit;
+					if (sceneManager.selectedJoints[0].jointType == 2){
+						$(this.jointPropertyRows[10]).find("p")[0].innerHTML = "Lower Angle";
+						$(this.jointPropertyRows[11]).find("p")[0].innerHTML = "Upper Angle";
+						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle;
+						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle;
+					}
+					else {
+						$(this.jointPropertyRows[10]).find("p")[0].innerHTML = "Lower Translation";
+						$(this.jointPropertyRows[11]).find("p")[0].innerHTML = "Upper Translation";
+						$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerTranslation;
+						$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperTranslation;	
+					}
 					$(this.jointPropertyRows[9]).show();
 					$(this.jointPropertyRows[10]).show();
 					$(this.jointPropertyRows[11]).show();
-					this.jointProperties[8].checked = sceneManager.selectedJoints[0].enableLimit;
-					$(this.jointPropertyRows[10]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].lowerAngle;
-					$(this.jointPropertyRows[11]).find("p")[1].innerHTML = sceneManager.selectedJoints[0].upperAngle;
 				}
 				else {
 					$(this.jointPropertyRows[9]).hide();
 					$(this.jointPropertyRows[10]).hide();
 					$(this.jointPropertyRows[11]).hide();	
-				}
+				}				
 			}
 			else {
 				this.jointProperties[0].disabled = true;

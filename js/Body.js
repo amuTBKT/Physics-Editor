@@ -1060,7 +1060,7 @@ function PhysicsJoint(joint){
 	 	this.lowerTranslation 	= joint.lowerTranslation;
 	 	this.upperTranslation 	= joint.upperTranslation;
 	 	this.localAxisA 	= joint.localAxisA;
-		this.maxMotorTorque = joint.maxMotorTorque;
+		this.maxMotorForce = joint.maxMotorTorque;
 	 	this.motorSpeed 	= joint.motorSpeed;
 	 	this.referenceAngle = joint.referenceAngle;
 	}

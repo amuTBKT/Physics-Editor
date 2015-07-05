@@ -65,6 +65,7 @@ Joint.JOINT_REVOLUTE 		// bodies can rotate about localAnchorB
 Joint.JOINT_WHEEL 			// wheel - axle joint
 Joint.JOINT_PULLEY          // bodies suspended from pulley
 Joint.JOINT_GEAR 			// a body can drive another body using either revolute/prismatic joint
+Joint.JOINT_PRISMATIC 		// a bodies translation can be constrained along an axis (localAxis) 
 ````
 
 #### PolygonHelper
@@ -93,7 +94,7 @@ UI
 * <kbd>j</kbd> while selecting to mask bodies
 * <kbd>b</kbd> while selecting to mask joints
 * <kbd>Ctrl</kbd> + <kbd>Left Click</kbd> to add vertex to a shape while editing
-* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit of revolute joint or localAxisA in case if wheel and prismatic joint
+* <kbd>Left Click</kbd> drag on bodyB while in edit mode to change lower angle limit of revolute joint or localAxisA in case of wheel and prismatic joint
 * <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyB while in edit mode to change upper angle limit of revolute joint
 * <kbd>Shift</kbd> + <kbd>Left Click</kbd> drag on bodyA while in edit mode to change upper translation limit of prismatic joint
 * <kbd>Left Click</kbd> drag on bodyA while in edit mode to change lower translation limit of prismatic joint
