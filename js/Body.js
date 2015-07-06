@@ -904,17 +904,17 @@ function clone(obj) {
         return copy;
     }
 
-    if (obj instanceof Joint){
-    	copy = new Joint(obj.jointType);
-        for (var attr in obj) {
-        	if (attr == 'bodyA'){		// donot clone body
-        		copy[attr] = obj[attr];
-        		continue;
-        	}
-            if (obj.hasOwnProperty(attr) && attr != "name") copy[attr] = clone(obj[attr]);
-        }
-        return copy;
-    }
+    // if (obj instanceof Joint){
+    // 	copy = new Joint(obj.jointType);
+    //     for (var attr in obj) {
+    //     	if (attr == 'bodyA'){		// donot clone body
+    //     		copy[attr] = obj[attr];
+    //     		continue;
+    //     	}
+    //         if (obj.hasOwnProperty(attr) && attr != "name") copy[attr] = clone(obj[attr]);
+    //     }
+    //     return copy;
+    // }
 
     if (obj instanceof Image){
     	copy = new Image();
@@ -1147,8 +1147,20 @@ Joint.JOINT_PULLEY		= 4;
 Joint.JOINT_GEAR		= 5;
 Joint.JOINT_PRISMATIC	= 6;
 
-Joint.prototype.clone = function(){
-	return clone(this);
+Joint.prototype.clone = function(cloneBodyA, cloneBodyB){
+	var copy = new Joint(this.jointType);
+        for (var attr in this) {
+        	if (attr == 'bodyA' && !cloneBodyA){		// donot clone body
+        		copy[attr] = this[attr];
+        		continue;
+        	}
+        	if (attr == 'bodyB' && !cloneBodyB){		// donot clone body
+        		copy[attr] = this[attr];
+        		continue;
+        	}
+            if (this.hasOwnProperty(attr) && attr != "name") copy[attr] = clone(this[attr]);
+        }
+	return copy;
 }
 
 Joint.prototype.setUserData = function(data){

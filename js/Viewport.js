@@ -150,6 +150,8 @@ var Viewport = (function(){
 
 		width = this.jointAnchors[0].width;
 		height = this.jointAnchors[0].height;
+
+		joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
 		
 		this.context.translate(joint.position[0], joint.position[1]);
 		this.context.drawImage(this.jointAnchors[0], -width / 2, -height / 2, width, height);

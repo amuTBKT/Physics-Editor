@@ -75,9 +75,14 @@ PhysicsEditor.prototype.cloneBody = function(body){
 	return clone;
 };
 
-PhysicsEditor.prototype.cloneJoint = function(joint){
-	var clone = joint.clone();
-	this.sceneManager.addBody(clone.bodyB);
+PhysicsEditor.prototype.cloneJoint = function(joint, cloneBodyA, cloneBodyB){
+	var clone = joint.clone(cloneBodyA, cloneBodyB);
+	if (cloneBodyA){
+		this.sceneManager.addBody(clone.bodyA);
+	}
+	if (cloneBodyB){
+		this.sceneManager.addBody(clone.bodyB);
+	}
 	this.sceneManager.addJoint(clone);
 	return clone;
 };

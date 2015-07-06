@@ -73,7 +73,7 @@ var SceneManager = (function(){
 			}
 			for (var i = 0; i < this.selectedJoints.length; i++){
 				this.addJoint(this.selectedJoints[i].clone());
-				this.addBody(this.joints[this.joints.length - 1].bodyB);
+				// this.addBody(this.joints[this.joints.length - 1].bodyB);
 			}
 		}
 		else if (this.state == this.STATE_BODY_EDIT_MODE){
@@ -205,7 +205,7 @@ var SceneManager = (function(){
 					var point = navigator.worldPointToScreen(shape.position[0], shape.position[1]);
 					distance = (point[0] - eoffsetX) * (point[0] - eoffsetX) + (point[1] - eoffsetY) * (point[1] - eoffsetY);
 					// check for minimum distance in case the test point is in multiple shapes 
-					if (minDistance > distance){
+					if (minDistance >= distance){
 
 						// if shape is chain_shape the check for intersection between test point and its edges with some threshold 
 						if (shape.shapeType == Shape.SHAPE_CHAIN){
@@ -319,7 +319,7 @@ var SceneManager = (function(){
 					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, body.bounds)){
 						var point = navigator.worldPointToScreen(body.position[0], body.position[1]);
 						distance = (point[0] - eoffsetX) * (point[0] - eoffsetX) + (point[1] - eoffsetY) * (point[1] - eoffsetY);
-						if (minDistance > distance){
+						if (minDistance >= distance){
 							if (!inputHandler.SHIFT_PRESSED){
 								this.selectedBodies[0] = body;
 								body.isSelected = true;
@@ -348,7 +348,7 @@ var SceneManager = (function(){
 					if (navigator.checkPointInAABB(eoffsetX, eoffsetY, joint.getBounds())){
 						var point = navigator.worldPointToScreen(joint.position[0], joint.position[1]);
 						distance = (point[0] - eoffsetX) * (point[0] - eoffsetX) + (point[1] - eoffsetY) * (point[1] - eoffsetY);
-						if (minDistance > distance){
+						if (minDistance >= distance){
 							if (!inputHandler.SHIFT_PRESSED){
 								this.selectedJoints[0] = joint;
 								joint.isSelected = true;
@@ -873,10 +873,9 @@ var SceneManager = (function(){
 			joint.bodyB = this.selectedBodies[1];
 			joint.setLocalAnchorA(joint.bodyA.position[0], joint.bodyA.position[1]);
 			joint.setLocalAnchorB(joint.bodyB.position[0], joint.bodyB.position[1]);
-			joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
 			if (jointType == Joint.JOINT_REVOLUTE) {
 				joint.setLocalAnchorA(joint.bodyB.position[0], joint.bodyB.position[1]);
-				joint.position = [(joint.bodyA.position[0] + joint.bodyB.position[0]) / 2, (joint.bodyA.position[1] + joint.bodyB.position[1]) / 2];
+				//joint.position = [(joint.bodyA.position[0] + joint.bodyB.position[0]) / 2, (joint.bodyA.position[1] + joint.bodyB.position[1]) / 2];
 			}
 			else if (jointType == Joint.JOINT_PULLEY){
 				joint.setGroundAnchorA(joint.bodyA.position[0], joint.bodyA.position[1] - 100);
@@ -894,6 +893,7 @@ var SceneManager = (function(){
 					return "select 2 revolute/prismatic joints to create gear joint";		
 				}
 			}
+			joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
 			this.addJoint(joint);
 		}
 		else {
