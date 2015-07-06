@@ -884,6 +884,8 @@ var SceneManager = (function(){
 			else if (jointType == Joint.JOINT_GEAR){
 				if (this.selectedJoints.length == 2 && ((this.selectedJoints[0].jointType == Joint.JOINT_REVOLUTE &&
 				 	this.selectedJoints[1].jointType == Joint.JOINT_REVOLUTE) || (this.selectedJoints[0].jointType == Joint.JOINT_PRISMATIC &&
+				 	this.selectedJoints[1].jointType == Joint.JOINT_PRISMATIC) || (this.selectedJoints[0].jointType == Joint.JOINT_PRISMATIC &&
+				 	this.selectedJoints[1].jointType == Joint.JOINT_REVOLUTE) || (this.selectedJoints[0].jointType == Joint.JOINT_REVOLUTE &&
 				 	this.selectedJoints[1].jointType == Joint.JOINT_PRISMATIC))){
 					joint.joint1 = this.selectedJoints[0];
 					joint.joint2 = this.selectedJoints[1];
@@ -893,7 +895,12 @@ var SceneManager = (function(){
 					return "select 2 revolute/prismatic joints to create gear joint";		
 				}
 			}
-			joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
+			if (jointType != Joint.JOINT_REVOLUTE){
+				joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
+			}
+			else {
+				joint.position = [(joint.bodyA.position[0] + joint.bodyB.position[0]) / 2, (joint.bodyA.position[1] + joint.bodyB.position[1]) / 2];
+			}
 			this.addJoint(joint);
 		}
 		else {
