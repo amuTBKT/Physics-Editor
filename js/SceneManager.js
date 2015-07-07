@@ -895,6 +895,10 @@ var SceneManager = (function(){
 					return "select 2 revolute/prismatic joints to create gear joint";		
 				}
 			}
+			else if (jointType == Joint.JOINT_ROPE){
+				var lengthVec = [joint.localAnchorA[0] - joint.localAnchorB[0], joint.localAnchorA[1] - joint.localAnchorB[1]];
+				joint.frequencyHZ = (Math.pow(lengthVec[0] * lengthVec[0] + lengthVec[1] * lengthVec[1], 0.5));
+			}
 			if (jointType != Joint.JOINT_REVOLUTE){
 				joint.position = [(joint.localAnchorA[0] + joint.localAnchorB[0]) / 2, (joint.localAnchorA[1] + joint.localAnchorB[1]) / 2];
 			}
@@ -1172,6 +1176,9 @@ var SceneManager = (function(){
 			joint.maxMotorTorque = obj.maxMotorTorque;
 		 	joint.motorSpeed 	 = obj.motorSpeed;
 		 	joint.referenceAngle = obj.referenceAngle;
+		}
+		else if (joint.jointType == Joint.JOINT_ROPE){
+			joint.frequencyHZ = obj.frequencyHZ;
 		}
 		return joint;
 	}

@@ -1064,6 +1064,9 @@ function PhysicsJoint(joint){
 	 	this.motorSpeed 	= joint.motorSpeed;
 	 	this.referenceAngle = joint.referenceAngle;
 	}
+	else if (this.jointType == Joint.JOINT_ROPE){
+		this.maxLength = joint.frequencyHZ;
+	}
 }
 
 function Joint(type){
@@ -1129,6 +1132,9 @@ function Joint(type){
 	 	this.motorSpeed 	= 100;
 	 	this.referenceAngle = 0;
 	}
+	else if (type == Joint.JOINT_ROPE){
+		this.frequencyHZ    = 100;			// frequecyHZ is equivalent to maxLength in this case (makes it easy to use the current ui layout)
+	}
 
 	// editor parameters
 	this.position = [0, 0];
@@ -1146,6 +1152,7 @@ Joint.JOINT_WHEEL 		= 3;
 Joint.JOINT_PULLEY		= 4;
 Joint.JOINT_GEAR		= 5;
 Joint.JOINT_PRISMATIC	= 6;
+Joint.JOINT_ROPE		= 7;
 
 Joint.prototype.clone = function(cloneBodyA, cloneBodyB){
 	var copy = new Joint(this.jointType);

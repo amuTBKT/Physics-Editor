@@ -544,7 +544,7 @@ var UIManager = (function(){
 		if (sceneManager.state == sceneManager.STATE_DEFAULT_MODE && 
 			sceneManager.selectedJoints.length > 0){
 			$("#joint_properties").show();
-			var jointNames = ["Distance", "Weld", "Revolute", "Wheel", "Pulley", "Gear", "Prismatic"];
+			var jointNames = ["Distance", "Weld", "Revolute", "Wheel", "Pulley", "Gear", "Prismatic", "Rope"];
 			if(sceneManager.selectedJoints.length == 1){
 				var cachedJoint = sceneManager.selectedJoints[0];
 				$(this.jointPropertyRows[2]).find("p")[1].innerHTML = jointNames[cachedJoint.jointType]; 
@@ -568,10 +568,15 @@ var UIManager = (function(){
 					$(this.jointPropertyRows[5]).hide();
 				}
 
-				// pulley or gear joint
-				if (cachedJoint.jointType == 4 || cachedJoint.jointType == 5){
-					$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "ratio";
-					this.jointProperties[3].value = cachedJoint.frequencyHZ;
+				// pulley, gear or rope joint
+				if (cachedJoint.jointType == 4 || cachedJoint.jointType == 5 || cachedJoint.jointType == 7){
+					if (cachedJoint.jointType == 7){
+						$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "Max Length";
+					}
+					else{
+						$(this.jointPropertyRows[4]).find("p")[0].innerHTML = "Ratio";
+					}
+					this.jointProperties[3].value = cachedJoint.frequencyHZ.toFixed(3);
 					$(this.jointPropertyRows[4]).show();
 				}
 

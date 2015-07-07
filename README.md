@@ -144,6 +144,7 @@ for (var i = 0; i < resolution; i++){
 Issues
 ------
 
+* Wheel and Rope Joints are not supported in Box2d-Web, but works with the LibGDX loader
 * Undo/Redo not available
 * Not stable on firefox 
 

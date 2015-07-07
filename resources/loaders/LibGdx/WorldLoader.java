@@ -1,22 +1,22 @@
 package physics;
 
 /*
- Author: Amit Kumar Mehar
+Author: Amit Kumar Mehar
 
- This software is provided 'as-is', without any express or implied
- warranty.  In no event will the authors be held liable for any damages
- arising from the use of this software.
- Permission is granted to anyone to use this software for any purpose,
- including commercial applications, and to alter it and redistribute it
- freely, subject to the following restrictions:
- 1. The origin of this software must not be misrepresented; you must not
- claim that you wrote the original software. If you use this software
- in a product, an acknowledgment in the product documentation would be
- appreciated but is not required.
- 2. Altered source versions must be plainly marked as such, and must not be
- misrepresented as being the original software.
- 3. This notice may not be removed or altered from any source distribution.
- */
+This software is provided 'as-is', without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+1. The origin of this software must not be misrepresented; you must not
+claim that you wrote the original software. If you use this software
+in a product, an acknowledgment in the product documentation would be
+appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be
+misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+*/
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,6 +46,8 @@ import com.badlogic.gdx.physics.box2d.joints.PulleyJoint;
 import com.badlogic.gdx.physics.box2d.joints.PulleyJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJoint;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.badlogic.gdx.physics.box2d.joints.RopeJoint;
+import com.badlogic.gdx.physics.box2d.joints.RopeJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJoint;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WheelJoint;
@@ -77,11 +79,12 @@ public class WorldLoader {
 		JOINT_WHEEL,
 		JOINT_PULLEY,
 		JOINT_GEAR, 
-		JOINT_PRISMATIC
+		JOINT_PRISMATIC,
+		JOINT_ROPE
 	};
 	
 	/** array list of all the bodies loaded to use when creating joints **/
-	private ArrayList<Body> loadedBodies;
+	public ArrayList<Body> loadedBodies;
 	
 	/** array list of all the joints loaded to use when creating gear joints **/
 	private ArrayList<Joint> loadedJoints;
@@ -375,6 +378,21 @@ public class WorldLoader {
 			    jointDef.upperTranslation   	= (float) (jsonJoint.getDouble("upperTranslation") / RATIO);;
 				
 				PrismaticJoint joint = (PrismaticJoint) world.createJoint(jointDef);
+				joint.setUserData(jsonJoint.getString("userData"));
+				loadedJoints.add(joint);
+			}
+			else if (jsonJoint.getInt("jointType") == JointTypes.JOINT_ROPE.ordinal()){
+				RopeJointDef jointDef = new RopeJointDef();
+				jointDef.bodyA = loadedBodies.get(jsonJoint.getInt("bodyA"));
+				jointDef.bodyB = loadedBodies.get(jsonJoint.getInt("bodyB"));
+				jointDef.localAnchorA.set(new Vector2(jsonJoint.getJSONArray("localAnchorA").getInt(0) / RATIO,
+													-jsonJoint.getJSONArray("localAnchorA").getInt(1) / RATIO));
+				jointDef.localAnchorB.set(new Vector2(jsonJoint.getJSONArray("localAnchorB").getInt(0) / RATIO,
+						-jsonJoint.getJSONArray("localAnchorB").getInt(1) / RATIO));
+				
+				jointDef.maxLength = (float) (jsonJoint.getDouble("maxLength") / RATIO);
+				
+				RopeJoint joint = (RopeJoint) world.createJoint(jointDef);
 				joint.setUserData(jsonJoint.getString("userData"));
 				loadedJoints.add(joint);
 			}
