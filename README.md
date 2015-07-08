@@ -3,7 +3,7 @@ Physics Editor
 
 Physics Editor is a lightweight, bowser-based Box2d physics world editor and simulator
 
-![editor_screen](resources/screen_small.png)
+![editor_screen](resources/editor_small.png)
 
 Features
 --------
