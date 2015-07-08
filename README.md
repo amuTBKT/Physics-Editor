@@ -3,6 +3,8 @@ Physics Editor
 
 Physics Editor is a lightweight, bowser-based Box2d physics world editor and simulator
 
+![editor_screen](resources/screen_small.png)
+
 Features
 --------
 
@@ -65,7 +67,8 @@ Joint.JOINT_REVOLUTE 		// bodies can rotate about localAnchorB
 Joint.JOINT_WHEEL 			// wheel - axle joint
 Joint.JOINT_PULLEY          // bodies suspended from pulley
 Joint.JOINT_GEAR 			// a body can drive another body using either revolute/prismatic joint
-Joint.JOINT_PRISMATIC 		// a bodies translation can be constrained along an axis (localAxis) 
+Joint.JOINT_PRISMATIC 		// a body's translation can be constrained along an axis (localAxis)
+Joint.JOINT_ROPE 			// distance between two bodies can be constrained
 ````
 How to create joints:
 * To create distance joint, select two bodies -> create distance joint
@@ -73,8 +76,9 @@ How to create joints:
 * To create revolute joint, select two bodies -> create revolute joint
 * To create wheel joint, select two bodies -> create wheel joint
 * To create pulley joint, select two bodies -> create pulley joint
-* To create gear joint, select two bodies and either two revolute or two prismatic joints -> create gear joint
+* To create gear joint, select two bodies and either two revolute or two prismatic joints or one revolute and one prismatic joint -> create gear joint
 * To create prismatic joint, select two bodies -> create prismatic joint
+* To create rope joint, select two bodies -> create rope joint
 
 #### PolygonHelper
 [Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes. Concave shape is decomposed to array of convex shapes, as Box2d supports only convex shapes
