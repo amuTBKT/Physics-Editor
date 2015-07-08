@@ -1351,8 +1351,34 @@ Joint.prototype.toPhysics = function(bodies, joints){
 		joint.lengthB = joint.maxLengthB;
 	}
 	if (joint.jointType != Joint.JOINT_GEAR){
-		joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
-		joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
+		var rotation, dx, dy, length, angle;
+		if (this.bodyA.rotation != 0){
+			rotation = -this.bodyA.rotation;
+			dx = this.localAnchorA[0] - this.bodyA.position[0];
+			dy = this.localAnchorA[1] - this.bodyA.position[1];
+			length = Math.pow(dx * dx + dy * dy, 0.5);
+			angle = Math.atan2(dy, dx);
+			
+			joint.localAnchorA = [	length * Math.cos(angle + rotation * Math.PI / 180), 
+								 	length * Math.sin(angle + rotation * Math.PI / 180)  ];
+		}
+		else {
+			joint.localAnchorA = [this.localAnchorA[0] - this.bodyA.position[0], this.localAnchorA[1] - this.bodyA.position[1]];
+		}
+
+		if (this.bodyB.rotation != 0){
+			rotation = -this.bodyB.rotation;
+			dx = this.localAnchorB[0] - this.bodyB.position[0];
+			dy = this.localAnchorB[1] - this.bodyB.position[1]
+			length = Math.pow(dx * dx + dy * dy, 0.5);
+			angle = Math.atan2(dy, dx);
+
+			joint.localAnchorB = [	length * Math.cos(angle + rotation * Math.PI / 180), 
+								 	length * Math.sin(angle + rotation * Math.PI / 180)  ];
+		}
+		else {
+			joint.localAnchorB = [this.localAnchorB[0] - this.bodyB.position[0], this.localAnchorB[1] - this.bodyB.position[1]];
+		}
 	}
 	if (joint.jointType == Joint.JOINT_GEAR) {
 		joint.joint1 = joints.indexOf(this.joint1);
