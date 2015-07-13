@@ -977,7 +977,7 @@ function Fixture(){
 }
 
 function PhysicsShape(type){
-	this.type = type;
+	this.type = parseInt(type);
 	this.position = [0, 0];				// position relative to body				
 	this.vertices = [];
 	
@@ -990,7 +990,7 @@ function PhysicsShape(type){
 }
 
 function PhysicsBody(type){
-	this.type = type;
+	this.type = parseInt(type);
 	this.userData = "";
 	this.texture;
 	this.textureData;
@@ -1012,7 +1012,7 @@ function PhysicsJoint(joint){
 	this.collideConnected 	= joint.collideConnected;
 	this.userData 			= joint.userData;
 
-	this.jointType = joint.jointType;
+	this.jointType = parseInt(joint.jointType);
 	if (this.jointType == Joint.JOINT_DISTANCE){
 		this.length 		= joint.length;
 		this.frequencyHZ 	= joint.frequencyHZ;

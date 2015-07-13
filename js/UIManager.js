@@ -278,7 +278,7 @@ var UIManager = (function(){
 		$(this.bodyProperties[14]).change(function(){
 			for (var i = 0; i < sceneManager.selectedBodies.length; i++){
 				var property = $(this).data('property');
-				sceneManager.selectedBodies[i][property] = this.value;
+				sceneManager.selectedBodies[i][property] = parseInt(this.value);
 			}
 		});
 		this.bodyProperties[7].addEventListener("click", function(e){
