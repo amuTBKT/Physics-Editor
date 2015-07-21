@@ -84,7 +84,7 @@ How to create joints:
 [Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes. Concave shape is decomposed to array of convex shapes, as Box2d supports only convex shapes
 
 #### Loading Scene
-You can export scene created in editor as json file (structure for the same is available in /resources/loaders folder), which can then be loaded in game engine. Currently there are loaders available for [LibGdx](http://libgdx.badlogicgames.com/)(Java), Box2d-Web(Javascript) and Cocos2d-x (c++) in /resources/loaders folder
+You can export scene created in editor as json file (structure for the same is available in /resources/loaders folder), which can then be loaded in game engine. Currently there are loaders available for [LibGdx](http://libgdx.badlogicgames.com/)(Java), Box2d-Web(Javascript), Cocos2d-x (c++) and Apple's Sprite Kit (objective-c) in /resources/loaders folder
 ##### To use Cocos2d-x loader:
 ```cpp
 	// make sure to add your resources folder (folder containing json file) to cocos2dx search path
