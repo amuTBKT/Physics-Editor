@@ -50,7 +50,7 @@ Shapes can be created only when editing a body
 Shape.SHAPE_BOX      	// rectangle shape, vertices cannot be edited, equivalent to b2PolygonShape.setAsBox
 Shape.SHAPE_CIRCLE 		// cicle shape, vertices cannot be edited, equivalent to b2CircleShape
 Shape.SHAPE_POLYGON 	// vertices can be edited, equivalent to b2PolygonShape.set([vertices])
-Shape.SHAPE_CHAIN 		// vertices can be edited, eqivalent to b2ChainShape
+Shape.SHAPE_CHAIN 		// vertices can be edited, equivalent to b2ChainShape
 ````
 
 #### Vertex
@@ -61,7 +61,7 @@ Equivalent to b2Joint
 To create a joint, select 2 bodies
 ```javascript
 // joint types
-Joint.JOINT_DISTANCE      	// fixed distance between boides
+Joint.JOINT_DISTANCE      	// fixed distance between bodies
 Joint.JOINT_WELD 			// bodies are glued to each other
 Joint.JOINT_REVOLUTE 		// bodies can rotate about localAnchorB
 Joint.JOINT_WHEEL 			// wheel - axle joint
@@ -141,11 +141,11 @@ Prismatic Joint
 Scripting
 ---------
 
-Editor can utilize javascript console to edit scene throuh scripts
+Editor can utilize javascript console to edit scene through scripts
 ```javascript
 // an example to make copies of selected body
 // select a body to clone
-// creating a circluar pattern here
+// creating a circular pattern here
 var radius = 200, resolution = 10;
 for (var i = 0; i < resolution; i++){
 	// clone the selected body
@@ -162,7 +162,7 @@ Issues
 
 * Wheel and Rope Joints are not supported in Box2d-Web, but works with the LibGDX loader
 * Undo/Redo not available
-* Not stable on firefox 
+* Unstable on firefox 
 
 License
 -------
