@@ -32,13 +32,24 @@ void b2DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int vertexCount, cons
 		if (i != 0){
 			DrawPrimitives::drawLine(*prevVert, verts[i]);
 		}
+		
+		if (i == vertexCount - 1){
+			DrawPrimitives::drawLine(verts[i], verts[0]);
+		}
 		prevVert = &verts[i];
 	}
 
 	glLineWidth(2);
 	
-	// render solid shape
+	// enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	// render solid shape with transparency
 	DrawPrimitives::drawSolidPoly(verts, vertexCount, Color4F(color.r, color.g, color.b, 0.5));
+
+	// disalbe blending
+	glDisable(GL_BLEND);
 }
 
 void b2DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color){
@@ -51,8 +62,17 @@ void b2DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color
 }
 
 void b2DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color){
-	DrawPrimitives::setDrawColor4F(color.r, color.g, color.b, 1);
+	// enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	DrawPrimitives::setDrawColor4F(color.r, color.g, color.b, 0.5);
 	DrawPrimitives::drawSolidCircle(Vec2(center.x * RATIO, center.y * RATIO), radius * RATIO, 360, 20);
+
+	// disalbe blending
+	glDisable(GL_BLEND);
+
+	DrawCircle(center, radius, color);
 }
 
 void b2DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color){
