@@ -839,6 +839,39 @@ var SceneManager = (function(){
 		this.selectedBodies[0].addShape(shape, true);
 	};
 
+	/**
+	* params points, array of points ([pos_x, pox_y])
+	* create a new polygon shape with given vertices
+	*/
+	SceneManager.prototype.createShapeFromPoints = function(points){
+		if (this.state != this.STATE_BODY_EDIT_MODE){
+			return "shapes can be created only when editing body";
+		}
+
+		var shape = new Shape(Shape.SHAPE_NONE);
+		for (var i = 0; i < points.length; i++){
+			var vertex = new Vertex(points[i][0], points[i][1], 10, 10);
+			shape.vertices.push(vertex);
+		}
+
+		// remove overlapping vertices
+		for (var i = 1; i < shape.vertices.length; i++){
+			var vertex = shape.vertices[i];
+			for (var j = 0; j < shape.vertices.length; j++){
+				var vertexToCheck = shape.vertices[j];
+				if (vertexToCheck != vertex){
+					var dx = vertex.x - vertexToCheck.x;
+					var dy = vertex.y - vertexToCheck.y;
+					if (dx * dx + dy * dy < 120){
+						shape.removeVertexGivenIndex(j);
+					}
+				}
+			}
+		}
+
+		this.selectedBodies[0].addShape(shape, true);
+	};
+
 	// removes body from the scene
 	SceneManager.prototype.removeBody = function(body){
 		for (var i = 0; i < this.bodies.length; i++){

@@ -1,0 +1,1024 @@
+{
+    "bodies": [
+        {
+            "name": "body0",
+            "userData": "",
+            "texture": "resources/pika.png",
+            "spriteData": [
+                305,
+                280
+            ],
+            "initialSpriteData": [
+                305,
+                280
+            ],
+            "shapes": [
+                {
+                    "shapeType": 2,
+                    "position": [
+                        208.03272910032993,
+                        -137.51984320423006
+                    ],
+                    "scaleXY": [
+                        1,
+                        1
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 350.53272910033,
+                            "y": -137.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 333.53272910033,
+                            "y": -134.51984320423,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 317.53272910033013,
+                            "y": -132.51984320422994,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 304.5327291003301,
+                            "y": -130.51984320422994,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 288.53272910033,
+                            "y": -128.51984320422991,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 275.53272910033013,
+                            "y": -126.51984320422993,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 258.53272910033,
+                            "y": -118.51984320423001,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 273.5327291003301,
+                            "y": -89.5198432042302,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 273.5327291003301,
+                            "y": -86.51984320423023,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 256.5327291003301,
+                            "y": -80.51984320423023,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 254.53272910033,
+                            "y": -80.51984320423021,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 254.53272910033,
+                            "y": -58.5198432042302,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 253.53272910033,
+                            "y": -55.519843204230156,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 237.53272910032996,
+                            "y": -41.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 232.5327291003299,
+                            "y": -23.51984320423,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 220.53272910032996,
+                            "y": -13.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 193.53272910032993,
+                            "y": -5.519843204230057,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 188.53272910033,
+                            "y": -7.5198432042301135,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 175.53272910033004,
+                            "y": -15.519843204229957,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 158.53272910032996,
+                            "y": -16.51984320422997,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 147.53272910032982,
+                            "y": -16.51984320423007,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 120.53272910032965,
+                            "y": -15.519843204229943,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 110.53272910032959,
+                            "y": -28.51984320422993,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 103.53272910032959,
+                            "y": -47.51984320423003,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 101.53272910032963,
+                            "y": -57.51984320423017,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 104.53272910032949,
+                            "y": -72.51984320423033,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 117.5327291003296,
+                            "y": -70.51984320423017,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 124.53272910032969,
+                            "y": -98.51984320423018,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 127.53272910032973,
+                            "y": -109.51984320423028,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 125.5327291003297,
+                            "y": -131.51984320422997,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 117.5327291003296,
+                            "y": -142.51984320423003,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 116.53272910032962,
+                            "y": -153.51984320423009,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 120.5327291003296,
+                            "y": -181.51984320423009,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 120.53272910032965,
+                            "y": -183.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 115.53272910032955,
+                            "y": -203.51984320423,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 101.53272910032972,
+                            "y": -212.51984320423017,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 96.53272910032965,
+                            "y": -217.51984320423017,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 80.53272910032969,
+                            "y": -233.51984320423014,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 71.53272910032968,
+                            "y": -246.51984320423048,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 66.53272910032965,
+                            "y": -256.5198432042306,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 66.53272910032965,
+                            "y": -267.5198432042304,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 77.53272910032965,
+                            "y": -264.51984320423026,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 95.53272910032955,
+                            "y": -257.5198432042305,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 111.53272910032958,
+                            "y": -247.51984320423048,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 122.53272910032976,
+                            "y": -239.51984320423037,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 131.5327291003298,
+                            "y": -231.51984320423014,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 137.53272910032965,
+                            "y": -225.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 165.53272910033007,
+                            "y": -225.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 177.5327291003301,
+                            "y": -225.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 197.53272910032993,
+                            "y": -223.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 217.53272910032993,
+                            "y": -225.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 230.53272910032996,
+                            "y": -237.51984320423023,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 241.53272910033,
+                            "y": -245.5198432042305,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 253.53272910033004,
+                            "y": -252.51984320423048,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 257.5327291003301,
+                            "y": -254.51984320423057,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 270.53272910033013,
+                            "y": -260.51984320423054,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 293.5327291003299,
+                            "y": -265.51984320423026,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 286.53272910032996,
+                            "y": -245.5198432042305,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 282.53272910033,
+                            "y": -240.51984320423028,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 272.5327291003301,
+                            "y": -229.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 264.5327291003302,
+                            "y": -222.51984320423017,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 262.5327291003302,
+                            "y": -220.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 248.53272910033,
+                            "y": -209.51984320423009,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 243.53272910033,
+                            "y": -206.51984320423009,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 240.53272910033002,
+                            "y": -204.51984320423009,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 231.53272910032996,
+                            "y": -177.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 253.53272910033,
+                            "y": -182.5198432042301,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 275.53272910033013,
+                            "y": -191.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 296.53272910033,
+                            "y": -199.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 315.53272910033013,
+                            "y": -205.51984320423009,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 317.53272910033013,
+                            "y": -205.51984320423003,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 327.53272910033013,
+                            "y": -196.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 331.53272910033,
+                            "y": -189.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 337.53272910033013,
+                            "y": -177.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 342.53272910033,
+                            "y": -167.51984320423006,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 349.53272910033,
+                            "y": -150.51984320423003,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        208.53272910032985,
+                        -136.51984320423026,
+                        284.00000000000034,
+                        262.00000000000034
+                    ],
+                    "centroid": [
+                        208.16430804769843,
+                        -159.67773794107242
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0
+                }
+            ],
+            "position": [
+                208.03272910032993,
+                -137.51984320423006
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "rotation": 0,
+            "bounds": [
+                208.53272910032985,
+                -136.51984320423026,
+                284.00000000000034,
+                262.00000000000034
+            ],
+            "isSelected": false,
+            "bodyType": 2,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body1",
+            "userData": "",
+            "texture": "resources/pika.png",
+            "spriteData": [
+                305,
+                280
+            ],
+            "initialSpriteData": [
+                305,
+                280
+            ],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        -189.65247197980125,
+                        -150.4890728476512
+                    ],
+                    "scaleXY": [
+                        0.012885653702373481,
+                        0.08621326400059577
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -190.2967546649201,
+                            "y": -154.79973604768085,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -189.0081892946827,
+                            "y": -154.79973604768085,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -189.0081892946827,
+                            "y": -146.1784096476214,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -190.2967546649201,
+                            "y": -146.1784096476214,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        -189.6524719798014,
+                        -150.48907284765113,
+                        1.288565370237393,
+                        8.621326400059445
+                    ],
+                    "centroid": [
+                        -189.6524719798014,
+                        -150.48907284765113
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 1.2885653702373507,
+                    "height": 8.621326400059564
+                }
+            ],
+            "position": [
+                -189.77824537262995,
+                -149.67659963111683
+            ],
+            "scaleXY": [
+                0.0707161574155103,
+                0.34702122360082105
+            ],
+            "rotation": 0,
+            "bounds": [
+                -189.6524719798014,
+                -150.48907284765113,
+                1.288565370237393,
+                8.621326400059445
+            ],
+            "isSelected": false,
+            "bodyType": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0,
+            "sprite": {}
+        },
+        {
+            "name": "body2",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 2,
+                    "position": [
+                        13.104164635558336,
+                        -119.18549739960201
+                    ],
+                    "scaleXY": [
+                        1,
+                        1
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": 72.10416463555833,
+                            "y": -108.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 60.104164635558334,
+                            "y": -99.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 49.104164635558334,
+                            "y": -91.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 30.104164635558334,
+                            "y": -77.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 19.104164635558345,
+                            "y": -69.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 21.06092837272432,
+                            "y": -92.30553132820758,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 4.423085881280327,
+                            "y": -93.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -18.89583536444166,
+                            "y": -93.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -36.89583536444165,
+                            "y": -93.18549739960199,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -56.895835364441666,
+                            "y": -93.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -58.89583536444174,
+                            "y": -110.18549739960199,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -58.895835364441666,
+                            "y": -129.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -58.89583536444165,
+                            "y": -143.18549739960204,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -47.89583536444166,
+                            "y": -143.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -26.895835364441666,
+                            "y": -143.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -8.895835364441671,
+                            "y": -143.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 4.4230858812803255,
+                            "y": -143.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 20.401467749863322,
+                            "y": -142.6708787653149,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 19.10416463555833,
+                            "y": -167.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 30.104164635558334,
+                            "y": -159.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 45.104164635558334,
+                            "y": -148.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 64.10416463555833,
+                            "y": -134.185497399602,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 85.10416463555833,
+                            "y": -118.18549739960201,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        13.104164635558298,
+                        -118.18549739960201,
+                        144.00000000000006,
+                        98
+                    ],
+                    "centroid": [
+                        6.577725911337243,
+                        -118.90747197761584
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0
+                }
+            ],
+            "position": [
+                13.104164635558336,
+                -119.18549739960201
+            ],
+            "scaleXY": [
+                1,
+                1
+            ],
+            "rotation": 0,
+            "bounds": [
+                13.104164635558298,
+                -118.18549739960201,
+                144.00000000000006,
+                98
+            ],
+            "isSelected": false,
+            "bodyType": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0
+        },
+        {
+            "name": "body3",
+            "userData": "",
+            "texture": "",
+            "spriteData": [],
+            "initialSpriteData": [],
+            "shapes": [
+                {
+                    "shapeType": 0,
+                    "position": [
+                        41.91511914932336,
+                        36.67572925565794
+                    ],
+                    "scaleXY": [
+                        10.882624848019901,
+                        0.5678081904593842
+                    ],
+                    "rotation": 0,
+                    "vertices": [
+                        {
+                            "x": -502.21612325167166,
+                            "y": 8.285319732688595,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 586.0463615503185,
+                            "y": 8.285319732688723,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": 586.0463615503185,
+                            "y": 65.06613877862716,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        },
+                        {
+                            "x": -502.21612325167166,
+                            "y": 65.06613877862729,
+                            "width": 10,
+                            "height": 10,
+                            "isSelected": false
+                        }
+                    ],
+                    "bounds": [
+                        41.9151191493234,
+                        36.67572925565794,
+                        1088.26248480199,
+                        56.7808190459387
+                    ],
+                    "centroid": [
+                        41.9151191493234,
+                        36.67572925565794
+                    ],
+                    "isSelected": false,
+                    "inEditMode": false,
+                    "friction": 1,
+                    "restitution": 0.25,
+                    "density": 1,
+                    "isSensor": false,
+                    "maskBits": 65535,
+                    "categoryBits": 1,
+                    "groupIndex": 0,
+                    "width": 1088.2624848019898,
+                    "height": 56.780819045938436
+                }
+            ],
+            "position": [
+                41.91511914932336,
+                36.67572925565794
+            ],
+            "scaleXY": [
+                10.882624848019901,
+                0.5678081904593842
+            ],
+            "rotation": 0,
+            "bounds": [
+                41.9151191493234,
+                36.67572925565794,
+                1088.26248480199,
+                56.7808190459387
+            ],
+            "isSelected": false,
+            "bodyType": 0,
+            "isBullet": false,
+            "isFixedRotation": false,
+            "linearDamping": 0,
+            "angularDamping": 0
+        }
+    ],
+    "joints": []
+}

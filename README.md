@@ -13,6 +13,7 @@ Features
 * Creating and exporting entire 2d scene, bodies or shapes
 * Graphical user interface to create and edit bodies, shapes and joints
 * Support for concave shapes
+* Auto trace to generate shapes from 24-bit bitmap image
 * Supports javascript console to edit scene using custom scripts
 
 Usage
@@ -30,6 +31,13 @@ Editor.uiManager;		// handles dom events
 Editor.gameView;		// handles physics simulation
 
 Editor.resourceDirectory = "directory containing textures";	// defaults to ./resources
+
+// auto trace image shape generation paramters
+Editor.autoTrace = {
+	xSpace : 1.0,
+	ySpace : 1.0,
+	concavity : 20
+};
 
 Editor.getCurrentSelection();	// returns an array of selected objects
 Editor.getSelectedBodies();		// returns an array of selected bodies
@@ -82,6 +90,11 @@ How to create joints:
 
 #### PolygonHelper
 [Mark Bayazit's Algorithm](http://mpen.ca/406/bayazit) is used to decompose concave shapes. Concave shape is decomposed to array of convex shapes, as Box2d supports only convex shapes
+
+#### Auto Trace
+[Concave Hull generation](https://github.com/AndriiHeonia/hull) to create shapes from bitmap image easily. To use auto trace, select "Shape From Bitmap" from "Create Shape" dropdown. Image should be grayscale with shape blocked in white color and background (area to be clipped) in black. Sample image (pika.bmp) is provided in the /resources folder.
+
+![autotrace_screen](resources/autotrace.png)
 
 #### Loading Scene
 You can export scene created in editor as json file (structure for the same is available in /resources/loaders folder), which can then be loaded in game engine. Currently there are loaders available for [LibGdx](http://libgdx.badlogicgames.com/)(Java), Box2d-Web(Javascript), Cocos2d-x (c++), Apple's Sprite Kit (objective-c) and Unity3D in /resources/loaders folder

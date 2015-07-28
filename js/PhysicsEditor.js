@@ -10,6 +10,13 @@ function PhysicsEditor(canvas) {
 	this.uiManager.initialize(this.viewport.getInputHandler());
 	this.uiManager.playBackControls = $("#gameplayControls").find("button");
 	
+	// auto trace image shape generation paramters
+	this.autoTrace = {
+		xSpace : 1.0,
+		ySpace : 1.0,
+		concavity : 20
+	};
+
 	// play back controls //
 	var ref = this;
 	this.uiManager.playBackControls[0].addEventListener("click", function(){

@@ -40,6 +40,61 @@ var UIManager = (function(){
 			alertDialog.hide();
 		});
 
+		// hide auto shape option view
+		var autoShape = $("#auto_shape");
+		autoShape.hide();
+		var shapeButtons = autoShape.find("button");
+		shapeButtons[0].addEventListener("click", function(){
+			$('#loadBitmap')[0].value = null;
+			$("#loadBitmap").trigger('click');
+			autoShape.hide();
+		});
+		shapeButtons[1].addEventListener("click", function(){
+			autoShape.hide();
+		});
+		$('#loadBitmap').change(function(e){
+			if (e.target.files.length < 0){
+				return;
+			}
+			if(e.target.files[0].name && e.target.files[0].type == "image/bmp"){
+				var reader =  new FileReader();
+				reader.readAsBinaryString(e.target.files[0]);
+				reader.onload =  function(e){
+					var loader = new BMPImageLoader();
+					var image = loader.loadBMP(e.target.result);
+
+					// default settings
+					var xSpace = Editor.autoTrace.xSpace,
+					 	ySpace = Editor.autoTrace.ySpace, 
+					 	dataWidth = parseInt(image.width / xSpace), 
+					 	dataHeight = parseInt(image.height / ySpace), 
+					 	alphaThreshold = 127, 
+					 	concavity = Editor.autoTrace.concavity;
+					var points = [];
+					for (var i = 0; i < dataHeight; i++){
+						for (var j = 0; j < dataWidth; j++){
+							var pixel = image.getPixelAt(j * xSpace, i * ySpace);
+							if ((pixel[0]) >= alphaThreshold){
+								points.push([j * xSpace - image.width / 2 , i * ySpace - image.height / 2]);
+							}
+						}
+					}
+					// create concave hull from points
+					var concaveHull = hull(points, concavity);
+					delete points;
+
+					// create shape
+					sceneManager.createShapeFromPoints(concaveHull);
+
+					delete concaveHull;
+
+					// release image
+					image.dispose();
+					delete image;
+				}
+			}
+		});
+
 		// initialize transform tool buttons
 		$("#transformTools").find("button").each(function(index){
 			var action = $(this).data("event");
@@ -173,7 +228,12 @@ var UIManager = (function(){
 					e.target["createShape"](shapeType);
 				}
 				else {
-					e.target["createShape"](shapeType, params % 10);	
+					if (params % 10 != 2){
+						e.target["createShape"](shapeType, params % 10);
+					}
+					else {
+						autoShape.show();
+					}
 				}
 			});
 		});

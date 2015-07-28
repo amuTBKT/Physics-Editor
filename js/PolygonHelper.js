@@ -170,6 +170,9 @@ function decomposePolygon(poly, polygons){
     var upperIndex = 0, lowerIndex = 0, closestIndex = 0;
     var lowerPoly = new Polygon, upperPoly = new Polygon;
     
+    if (poly.size() < 2){
+        return;
+    }
     for (var i = 0; i < poly.size(); ++i) {
         if (poly.isReflex(i)) {
             upperDist = lowerDist = Number.POSITIVE_INFINITY;

@@ -63,6 +63,7 @@
 			<li><a href="#" data-shape="21">Circle Polygon Shape</a></li>
 			<li><a href="#" data-shape="30">Box Chain Shape</a></li>
 			<li><a href="#" data-shape="31">Circle Chain Shape</a></li>
+			<li><a href="#" data-shape="32">Shape From Bitmap Image</a></li>
 		</ul>
 	</div>
 	<div class="dropdown">
@@ -490,7 +491,7 @@
 </div>
 
 <div class="panel panel-default" id="alert_dialog">
-  <div class="panel-heading"><h3>Ceate new scene</h3></div>
+  <div class="panel-heading"><h3>Create new scene</h3></div>
   	<div class="panel-body">
     	Would you like to save changes to current scene?
   	</div>
@@ -501,11 +502,29 @@
 	</div>
 </div>
 
+<!-- auto trace shape option -->
+<div class="panel panel-default" id="auto_shape">
+  <div class="panel-heading"><h3>Create shape from bitmap file</h3></div>
+  	<div class="panel-body">
+    	Select a 24-bit grayscale bitmap image
+    	<input type="file" id="loadBitmap" class="hidden"></li>
+  	</div>
+  	<div class="btn-group btn-group-justified" role="group" aria-label="...">
+ 		<button type="button" class="btn btn-default">Load Image</button>
+	 	<button type="button" class="btn btn-default">Cancel</button>
+	</div>
+</div>
+
+<!-- auto shape visualizer -->
+
+
 
 <!-- js-scripts -->
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/box2d.js"></script>
+<script type="text/javascript" src="js/BMPImageLoader.js"></script>
+<script type="text/javascript" src="js/hull.js"></script>
 <script type="text/javascript" src="js/PolygonHelper.js"></script>
 <script type="text/javascript" src="js/Body.js"></script>
 <script type="text/javascript" src="js/SceneManager.js"></script>
