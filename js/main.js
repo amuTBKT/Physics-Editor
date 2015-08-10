@@ -34,6 +34,17 @@ function init(){
 	window.onbeforeunload = function(){
     	return "All Unsaved Changes Would Be Lost";
 	}
+
+	// load sample scene
+	Editor.getSceneManager().newScene();
+	$.ajax({
+		url: 'https://raw.githubusercontent.com/amuTBKT/Physics-Editor/gh-pages/resources/scene_1.json',
+		dataType: 'json',
+		success: function (scene) {
+			Editor.getSceneManager().loadScene(scene);
+		},
+		async: false
+	});
 }
 
 // update loop 
