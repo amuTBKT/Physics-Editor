@@ -110,6 +110,10 @@ You can export scene created in editor as json file (structure for the same is a
 	// to debug draw physics world just add an instance of b2DegugLayer to your current scene's layer
 	yourNodeOrLayer->addChild(b2DebugLayer::create(b2world*, pixel_to_meter_ratio), ZOrder);
 ````
+#####Example Projects
+[Unity Sample Project](https://github.com/amuTBKT/Unity-PhysicsWorldLoader)
+
+[SpriteKit Sample Project](https://github.com/amuTBKT/SpriteKit-PhysicsWorldLoader)
 
 UI
 --
