@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+<title>Physics-Editor</title>
+<link rel="icon" type="image/png" href="resources/title_icon.png">
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<nav id="taskbar">
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="fileMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    	File
+	  	</button>
+	    <ul class="dropdown-menu" aria-labelledby="fileMenuDropdown" id="fileMenu">
+			<li><a href="#" data-event="newScene">New Scene</a></li>
+			<li><a href="#" data-event="loadScene">Load Scene</a><input type="file" id="loadScene"></li>
+			<li><a href="#" data-event="saveScene">Save</a></li>
+			<li><a href="#" data-event="exportWorld">Export Scene</a></li>
+			<li><a href="#" data-event="exportSelection">Export Selection</a></li>
+		</ul>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="editMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    	Edit
+	  	</button>
+	    <ul class="dropdown-menu" aria-labelledby="editMenuDropdown" id="editMenu">
+			<!-- <li><a href="#" data-event="">Undo</a></li>
+			<li><a href="#" data-event="">Redo</a></li> -->
+			<li><a href="#" data-event="deleteSelectedObjects">Delete Selection</a></li>
+		</ul>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="addBodyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    	Create Body
+	  	</button>
+	    <ul class="dropdown-menu" aria-labelledby="addBodyDropdown" id="addToScene">
+			<li><a href="#" data-shape="00">Box Body</a></li>
+			<li><a href="#" data-shape="10">Circle Body</a></li>
+			<li><a href="#" data-shape="20">Box Polygon Body</a></li>
+			<li><a href="#" data-shape="21">Circle Polygon Body</a></li>
+			<li><a href="#" data-shape="30">Box Chain Body</a></li>
+			<li><a href="#" data-shape="31">Circle Chain Body</a></li>
+		</ul>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="addShapeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    	Create Shape
+	  	</button>
+	    <ul class="dropdown-menu" aria-labelledby="addShapeDropdown" id="addToBody">
+			<li><a href="#" data-shape="00">Box Shape</a></li>
+			<li><a href="#" data-shape="10">Circle Shape</a></li>
+			<li><a href="#" data-shape="20">Box Polygon Shape</a></li>
+			<li><a href="#" data-shape="21">Circle Polygon Shape</a></li>
+			<li><a href="#" data-shape="30">Box Chain Shape</a></li>
+			<li><a href="#" data-shape="31">Circle Chain Shape</a></li>
+			<li><a href="#" data-shape="32">Shape From Bitmap Image</a></li>
+		</ul>
+	</div>
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="addJointDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    	Create Joint
+	  	</button>
+	    <ul class="dropdown-menu" aria-labelledby="addJointDropdown" id="createJoint">
+			<li><a href="#" data-type="0">Distance Joint</a></li>
+			<li><a href="#" data-type="1">Weld Joint</a></li>
+			<li><a href="#" data-type="2">Revolute Joint</a></li>
+			<li><a href="#" data-type="3">Wheel Joint</a></li>
+			<li><a href="#" data-type="4">Pulley Joint</a></li>
+			<li><a href="#" data-type="5">Gear Joint</a></li>
+			<li><a href="#" data-type="6">Prismatic Joint</a></li>
+			<li><a href="#" data-type="7">Rope Joint</a></li>
+		</ul>
+	</div>
+</nav>
+
+<div id="toolbar">
+	<div id="transformTools">
+		<button type="button" class="btn btn-default glyphicon glyphicon-move"  		id="tool_translation" 	data-event="activateTranslationTool" 
+		data-toggle="tooltip" data-placement="left" title="Translate"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-fullscreen" 	id="tool_scale" 		data-event="activateScaleTool" 
+		data-toggle="tooltip" data-placement="left" title="Scale"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-refresh"  		id="tool_rotation" 		data-event="activateRotationTool"
+		data-toggle="tooltip" data-placement="left" title="Rotate"></button>
+	</div>
+	<button type="button" class="btn btn-default separator"></button>
+	<div id="pivotTools">
+		<button type="button" class="btn btn-default glyphicon glyphicon-screenshot"  	id="pivot_local_select" 	data-event="activateLocalPivotMode"
+		data-toggle="tooltip" data-placement="left" title="Object Center"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-th-large"  	id="pivot_selection_select" data-event="activateSelectionPivotMode"
+		data-toggle="tooltip" data-placement="left" title="Selection Center"></button>
+	</div>
+	<button type="button" class="btn btn-default separator"></button>
+	<div id="viewControls">
+		<button type="button" class="btn btn-default glyphicon glyphicon-zoom-in"         id="zoom_in" 	  	data-event="zoomIn"
+		data-toggle="tooltip" data-placement="left" title="Zoom In"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-zoom-out"        id="zoom_out"   	data-event="zoomOut"
+		data-toggle="tooltip" data-placement="left" title="Zoom Out"></button>
+		<button type="button" class="btn btn-default glyphicon glyphicon-resize-small"    id="reset_view"   data-event="resetView"
+		data-toggle="tooltip" data-placement="left" title="Reset"></button>
+	</div>
+</div>
+
+<div id="gameplayControls">
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-play"  			id="enter_gameview"
+	data-toggle="tooltip" data-placement="left" title="Play/Stop"></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-pause"  		id="pause_gameview"
+	data-toggle="tooltip" data-placement="left" title="Pause"></button>
+	<button type="button" class="btn btn-default btn-lg glyphicon glyphicon-step-forward"  	id="skip_frame_gameview"
+	data-toggle="tooltip" data-placement="left" title="Next Frame"></button>
+</div>
+
+<div id="xyInput">
+	<div class="input-group">
+		<span class="input-group-addon" id="input_x-addon">x</span>
+		<input type="text" class="form-control" id="input_x" size="4" aria-describedby="input_x-addon">	
+	</div>
+	<div class="input-group">
+		<span class="input-group-addon" id="input_y-addon">y</span>
+		<input type="text" class="form-control" id="input_y" size="4" aria-describedby="input_y-addon">
+	</div>
+</div>
+
+<div id="selection_properties">
+	<div class="panel panel-default">
+		<div class="panel-heading">Shape</div>
+		<table id="shape_properties">
+			<tr>
+				<td>
+					<p>Density</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="10" data-property="density"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Friction</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="10" data-property="friction"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Restitution</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="10" data-property="restitution"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Mask Bits</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="16" data-property="maskBits"></p>
+				</td>
+			</tr>
+
+
+			<tr>
+				<td>
+					<p>Category Bits</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="16" data-property="categoryBits"></p>
+				</td>
+			</tr>
+
+
+			<tr>
+				<td>
+					<p>Group Index</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="16" data-property="groupIndex"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>isSensor</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="isSensor"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Edit Shape</p>
+				</td>
+				<td>
+					<p><input type="button" value="Edit"></p>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Body</div>
+		<table id="body_properties">
+			<tr>
+				<td>
+					<p>Name</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="name"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>User Data</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="userData"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Body Type</p>
+				</td>
+				<td>
+					<p>
+						<select id="body_type" data-property="bodyType">
+							<option value="3">Select</option>
+							<option value="0">Static</option>
+							<option value="1">Kinematic</option>
+							<option value="2">Dynamic</option>
+						</select>
+					</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>isBullet</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="isBullet"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Rotation Fixed</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="isFixedRotation"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Linear Damping</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="10" data-property="linearDamping"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Angular Damping</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="10" data-property="angularDamping"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Edit Body</p>
+				</td>
+				<td>
+					<p><input type="button" value="Edit"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Texture File</p>
+				</td>
+				<td>
+					<p><input type="file" data-property="texture"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Texture Width</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteWidth"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Texture Height</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteHeight"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Texture Source Width</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteSourceWidth"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Texture Source Height</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setSpriteSourceHeight"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Offset X</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setOffsetX"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Offet Y</p>
+				</td>
+				<td>
+					<p><input type="text" data-action="setOffsetY"></p>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Joint</div>
+		<table id="joint_properties">
+			<tr>
+				<td>
+					<p>Name</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="name"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>User Data</p>
+				</td>
+				<td>
+					<p><input type="text" maxlength="20" data-property="userData"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Joint Type</p>
+				</td>
+				<td>
+					<p>
+						type
+					</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Collide Connected</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="collideConnected"></p>
+				</td>
+			</tr>
+
+			<!-- distance and wheel joint parameters -->
+			<tr>
+				<td>
+					<p>Frequency Hz</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="frequencyHZ"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Damping Ratio</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="dampingRatio"></p>
+				</td>
+			</tr>
+
+			<!-- revolute and wheel joint parameters -->
+			<tr>
+				<td>
+					<p>Enable Motor</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="enableMotor"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Motor Speed</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="motorSpeed"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Max Motor Torque</p>
+				</td>
+				<td>
+					<p><input type="text" data-property="maxMotorTorque"></p>
+				</td>
+			</tr>
+
+			<!-- revolute joint parameters -->
+			<tr>
+				<td>
+					<p>Enable Limit</p>
+				</td>
+				<td>
+					<p><input type="checkbox" data-property="enableLimit"></p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Lower Angle</p>
+				</td>
+				<td>
+					<p>
+						0
+					</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Upper angle</p>
+				</td>
+				<td>
+					<p>
+						0
+					</p>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<p>Edit Joint</p>
+				</td>
+				<td>
+					<p><input type="button" value="Edit"></p>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-default" id="alert_dialog">
+  <div class="panel-heading"><h3>Create new scene</h3></div>
+  	<div class="panel-body">
+    	Would you like to save changes to current scene?
+  	</div>
+  	<div class="btn-group btn-group-justified" role="group" aria-label="...">
+ 		<button type="button" class="btn btn-default">Save</button>
+	 	<button type="button" class="btn btn-default">Don't Save</button>
+	 	<button type="button" class="btn btn-default">Cancel</button>
+	</div>
+</div>
+
+<!-- auto trace shape option -->
+<div class="panel panel-default" id="auto_shape">
+  <div class="panel-heading"><h3>Create shape from bitmap file</h3></div>
+  	<div class="panel-body">
+    	Select a 24-bit grayscale bitmap image
+    	<input type="file" id="loadBitmap" class="hidden"></li>
+  	</div>
+  	<div class="btn-group btn-group-justified" role="group" aria-label="...">
+ 		<button type="button" class="btn btn-default">Load Image</button>
+	 	<button type="button" class="btn btn-default">Cancel</button>
+	</div>
+</div>
+
+<!-- auto shape visualizer -->
+
+
+
+<!-- js-scripts -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/box2d.js"></script>
+<script type="text/javascript" src="js/BMPImageLoader.js"></script>
+<script type="text/javascript" src="js/hull.js"></script>
+<script type="text/javascript" src="js/PolygonHelper.js"></script>
+<script type="text/javascript" src="js/Body.js"></script>
+<script type="text/javascript" src="js/SceneManager.js"></script>
+<script type="text/javascript" src="js/Viewport.js"></script>
+<script type="text/javascript" src="js/UIManager.js"></script>
+<!-- <script type="text/javascript" src="js/SceneHistory.js"></script> -->
+<script type="text/javascript" src="resources/loaders/Box2dWeb/WorldLoader.js"></script>
+<script type="text/javascript" src="js/GameView.js"></script>
+<script type="text/javascript" src="js/PhysicsEditor.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>
