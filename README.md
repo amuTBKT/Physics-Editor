@@ -16,6 +16,11 @@ Features
 * Auto trace to generate shapes from 24-bit bitmap image
 * Supports javascript console to edit scene using custom scripts
 
+Demo
+-----
+
+[Demo Link](http://amutbkt.github.io/Physics-Editor/editor.html)
+
 Usage
 -----
 
