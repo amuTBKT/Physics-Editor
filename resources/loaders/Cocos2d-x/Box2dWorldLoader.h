@@ -25,6 +25,17 @@ misrepresented as being the original software.
 
 #define PTM_RATIO 30.0			// pixel to meter ratio
 
+struct b2BodyUserData
+{
+	std::string userData;
+	std::string textureData;
+
+	b2BodyUserData(const char *data, const char *texData) : userData(""), textureData(""){
+		userData.append(data);
+		textureData.append(texData);
+	}
+};
+
 class Box2dWorldLoader
 {
 private:

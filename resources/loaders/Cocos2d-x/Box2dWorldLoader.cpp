@@ -47,8 +47,14 @@ void Box2dWorldLoader::loadBodies(rapidjson::Value &jsonBodies, b2World *world){
 		bool isBullet = jsonBody["isBullet"].GetBool(),
 			isFixedRotation = jsonBody["isFixedRotation"].GetBool();
 		int	bodyType = jsonBody["type"].GetInt();
-		std::string userData = jsonBody["userData"].GetString();
-
+		
+		std::string jsonUserData = jsonBody["userData"].GetString();
+		std::string jsonTextureData = "";
+		if (jsonBody["texture"].IsString()){
+			jsonTextureData = jsonBody["texture"].GetString();
+		}
+		b2BodyUserData *userData = new b2BodyUserData(jsonUserData.c_str(), jsonTextureData.c_str());
+		
 		b2BodyDef *bodyDef = new b2BodyDef();
 		if (bodyType == 0){
 			bodyDef->type = b2_staticBody;
@@ -61,7 +67,7 @@ void Box2dWorldLoader::loadBodies(rapidjson::Value &jsonBodies, b2World *world){
 		}
 
 		b2Body *body = world->CreateBody(bodyDef);
-		body->SetUserData(&userData);
+		body->SetUserData(userData);
 		body->SetTransform(position, rotation);
 		body->SetBullet(isBullet);
 		body->SetFixedRotation(isFixedRotation);
@@ -177,8 +183,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->frequencyHz = jsonJoint["frequencyHZ"].GetDouble();
 
 			b2DistanceJoint *joint = (b2DistanceJoint*) world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_WELD){
@@ -193,8 +202,12 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->referenceAngle = -jsonJoint["referenceAngle"].GetDouble() * M_PI / 180;
 
 			b2WeldJoint *joint = (b2WeldJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+			
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_REVOLUTE){
@@ -215,8 +228,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->maxMotorTorque = jsonJoint["maxMotorTorque"].GetDouble();
 
 			b2RevoluteJoint *joint = (b2RevoluteJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+			
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_WHEEL){
@@ -237,8 +253,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->frequencyHz = jsonJoint["frequencyHZ"].GetDouble();
 
 			b2WheelJoint *joint = (b2WheelJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+			
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_PULLEY){
@@ -261,8 +280,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->ratio = jsonJoint["ratio"].GetDouble() / PTM_RATIO;
 			
 			b2PulleyJoint *joint = (b2PulleyJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_GEAR){
@@ -275,8 +297,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->ratio = jsonJoint["ratio"].GetDouble() / PTM_RATIO;
 
 			b2GearJoint *joint = (b2GearJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+			
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_PRISMATIC){
@@ -298,8 +323,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->motorSpeed = -jsonJoint["motorSpeed"].GetDouble();
 
 			b2PrismaticJoint *joint = (b2PrismaticJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+			
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 		else if (jointType == JOINT_ROPE){
@@ -314,8 +342,11 @@ void Box2dWorldLoader::loadJoints(rapidjson::Value &jsonJoints, b2World *world){
 			jointDef->maxLength = jsonJoint["maxLength"].GetDouble() / PTM_RATIO;
 
 			b2RopeJoint *joint = (b2RopeJoint*)world->CreateJoint(jointDef);
-			std::string userData = jsonJoint["userData"].GetString();
-			joint->SetUserData(&userData);
+			
+			std::string jsonUserData = jsonJoint["userData"].GetString();
+			char *userData = new char[strlen(jsonUserData.c_str()) + 1];
+			strcpy(userData, jsonUserData.c_str());
+			joint->SetUserData(userData);
 			loadedJoints.push_back(joint);
 		}
 	}
